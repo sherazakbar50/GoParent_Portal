@@ -1,0 +1,144 @@
+<div>
+  <div class="boxContainer" nz-col [nzSpan]="24">
+    <div class="text-dark font-size-24 mb-4">
+      <strong>GoParent Registration</strong>
+    </div>
+    <div class="mb-4">
+      <p>
+        Complete your registration and start spending more time on your CoParenting activities and less time managing your
+        infrastructure.
+      </p>
+    </div>
+    
+    <nz-steps [nzCurrent]="current">
+      <nz-step nzTitle="Parent Account" nzDescription="Create your parent account"></nz-step>
+      <nz-step nzTitle="Co Parent & Child(ren)" nzDescription="Add your co-parent and children"></nz-step>
+      <!-- <nz-step nzTitle="Done" nzDescription="Complete your subscription"></nz-step> -->
+    </nz-steps>
+
+    <div class="steps-content">
+      <div *ngIf="currentRegStep == registrationStepsEnums.Parent">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="parentForm()" role="form">
+          <nz-form-item>
+            <nz-form-control>
+              <input type="text" nz-input nzSize="large" formControlName="firstName" placeholder="First Name" />
+              <div class="text-danger"> 
+                <ng-container *ngIf="parentSubmission && firstName.hasError('required')">Please enter your First Name!</ng-container>
+                <!-- <ng-container *ngIf="parentSubmission && firstName.hasError('minlength') && !firstName.hasError('required')">Minimum 3 characters are required!</ng-container> -->
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <input type="text" nz-input nzSize="large" formControlName="lastName" placeholder="Last Name" />
+              <div class="text-danger">
+                <ng-container *ngIf="parentSubmission && lastName.hasError('required')">Please enter your Last Name!</ng-container>
+                <!-- <ng-container *ngIf="parentSubmission && lastName.hasError('minlength') && !lastName.hasError('required')">Minimum 3 characters are required!</ng-container> -->
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <input type="email" nz-input nzSize="large" formControlName="email" placeholder="Email Address" />
+              <div class="text-danger">
+                <ng-container *ngIf="parentSubmission && email.hasError('required')">Please enter your Email!</ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('pattern') && !email.hasError('required')">Please enter a valid email e.g abc@xyz.com</ng-container>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password" />
+              <div class="text-danger">
+                <ng-container *ngIf="parentSubmission && password.hasError('required')">Please enter your Password!</ng-container>
+                <!-- <ng-container *ngIf="parentSubmission && password.hasError('minlength') && !password.hasError('required')">Minimum 3 characters are required!</ng-container> -->
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100">
+                <strong>Continue</strong>
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+      <div *ngIf="currentRegStep == registrationStepsEnums.CoParentChildren">
+        <nz-divider nzText="Co Parent"></nz-divider>
+         <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="CoParentChildForm()" role="form">
+          <nz-form-item>
+            <nz-form-control>
+              <input type="email" nz-input nzSize="large" formControlName="coParentEmail" placeholder="Email Address (Optional)" />
+              <div class="text-danger">
+                <ng-container *ngIf="parentSubmission && coParentEmail.hasError('pattern')">Please enter a valid email e.g abc@xyz.com</ng-container>
+              </div>
+            </nz-form-control>
+          </nz-form-item>
+          
+          <div formArrayName="childsArray">
+            <div *ngFor="let item of childs.controls; index as i">
+              <nz-divider nzText="{{i > 0 ? 'Child ' + (i+1) : 'Child'}}"></nz-divider>
+              <div class="text-align-right">
+                <i *ngIf="childs.length !== (i+1)" nz-icon nzType="delete" nzDanger (click)="removeChildFormGroup(i)" nz-tooltip nzTooltipTitle="Delete Child" nzTheme="fill" class="text-danger pointer "></i>
+              </div>
+              <ng-container [formGroupName]="i">
+               <nz-form-item>
+               <nz-form-control>
+                <input type="text" nz-input nzSize="large" formControlName="childFirstName" placeholder="First Name (Optional)" />
+              </nz-form-control>
+               </nz-form-item>
+               <nz-form-item>
+                <nz-form-control>
+                   <input type="text" nz-input nzSize="large" formControlName="childLastName" placeholder="Last Name (Optional)" />
+                  </nz-form-control>
+               </nz-form-item>
+              </ng-container>
+              </div>
+            <ng-container>
+              <button type="button" class="text-center" [nzBlock] = "true" nz-button [nzSize]="small" nzType="link" (click)="addChild()"> + Add Child </button>
+            </ng-container>
+          </div>
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100 mg-top-20">
+                <strong>Complete Registration</strong>
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </form>
+      </div>
+      </div>
+    <div class="steps-action">
+      <button nz-button nzType="link" (click)="backToPreviousStep()" *ngIf="current > 0">
+        <span><i nz-icon nzType="left" nzTheme="outline"></i> Previous</span>
+      </button>
+      <!-- <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
+        <span>Next</span>
+      </button> -->
+      <!-- <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" (click)="next()" *ngIf="current < 2" class="text-center w-100">
+        <strong>Continue</strong>
+      </button> 
+      <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
+        <span>Done</span>
+      </button>-->
+    </div>
+
+    <!-- <div>
+      By signing up, you agree to the
+      <a href="javascript: void(0);" class="kit__utils__link">
+        Terms of Service
+      </a>
+      and
+      <a href="javascript: void(0);" class="kit__utils__link">
+        Privacy Policy
+      </a>
+    </div> -->
+  </div>
+  <div class="text-center pt-2 mb-auto">
+    <span class="mr-2">Already have an account?</span>
+    <a routerLink="/auth/login" class="kit__utils__link font-size-16">
+      Sign in
+    </a>
+  </div>
+</div>  
