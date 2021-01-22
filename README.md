@@ -1,8 +1,5 @@
-### Clean UI Pro Angular Admin Template Preview ###
-https://angular.cleanui.cloud
-
-### Documentation ###
-Please read documentation here https://docs.sellpixels.com
+### GoParent Portal ###
+https://github.com/sherazakbar50
 
 ### Quick Start ###
 * Install latest node.js: https://nodejs.org​
@@ -13,4 +10,5 @@ Please read documentation here https://docs.sellpixels.com
 * Or build production app `yarn build` or `ng build`
 
 ### Support ###
-Use GitHub Issues for tracking bugs and creating new feature requests or write to [support@sellpixels.com](mailto:support@sellpixels.com).
+Use GitHub Issues for tracking bugs and creating new feature requests or write to 
+https://github.com/sherazakbar50
