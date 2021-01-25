@@ -13,7 +13,7 @@ import { LayoutMainComponent } from 'src/app/layouts/Main/main.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard/alpha',
+    redirectTo: 'dashboard/index',
     pathMatch: 'full',
   },
   {
@@ -99,10 +99,10 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot(routes, {
-    useHash: true,
-    preloadingStrategy: AppPreloader,
-    relativeLinkResolution: 'legacy'
-}),
+      useHash: true,
+      preloadingStrategy: AppPreloader,
+      relativeLinkResolution: 'legacy',
+    }),
     LayoutsModule,
   ],
   providers: [AppPreloader],

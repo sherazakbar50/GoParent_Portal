@@ -10,24 +10,9 @@ import { DashboardGammaComponent } from 'src/app/pages/dashboard/gamma/gamma.com
 
 const routes: Routes = [
   {
-    path: 'alpha',
+    path: 'index',
     component: DashboardAlphaComponent,
-    data: { title: 'Dashboard Alpha' },
-  },
-  {
-    path: 'beta',
-    component: DashboardBetaComponent,
-    data: { title: 'Dashboard Beta' },
-  },
-  {
-    path: 'crypto',
-    component: DashboardCryptoComponent,
-    data: { title: 'Dashboard Crypto' },
-  },
-  {
-    path: 'gamma',
-    component: DashboardGammaComponent,
-    data: { title: 'Dashboard Gamma' },
+    data: { title: 'Dashboard' },
   },
 ]
 
