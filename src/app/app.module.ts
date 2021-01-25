@@ -18,7 +18,6 @@ import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreRouterConnectingModule } from '@ngrx/router-store'
 import { reducers, metaReducers } from './store/reducers'
-import { UserEffects } from './store/user/effects'
 import { firebaseConfig, firebaseAuthService } from './services/firebase'
 import { jwtAuthService } from './services/jwt'
 import { MockHttpCallInterceptor } from './services/fakeApi'
@@ -47,7 +46,7 @@ registerLocaleData(localeEn, 'en')
 
     // ngrx
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([UserEffects]),
+
     StoreRouterConnectingModule.forRoot(),
 
     // nprogress

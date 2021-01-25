@@ -1,33 +1,32 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { select, Store } from '@ngrx/store'
-import * as Reducers from 'src/app/store/reducers'
-import * as UserActions from 'src/app/store/user/actions'
-import * as SettingsActions from 'src/app/store/settings/actions'
+import { ActivatedRoute, Router } from '@angular/router'
+import { jwtAuthService } from 'src/app/services/jwt'
 
 @Component({
   selector: 'cui-system-login',
   templateUrl: './login.component.html',
   styleUrls: ['../style.component.scss'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   form: FormGroup
   logo: String
-  authProvider: string = 'firebase'
   loading: boolean = false
-
-  constructor(private fb: FormBuilder, private store: Store<any>) {
+  invalidCredentails = false
+  returnUrl: string = ''
+  constructor(
+    private fb: FormBuilder,
+    private authService: jwtAuthService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {
     this.form = fb.group({
-      email: ['demo@sellpixels.com', [Validators.required, Validators.minLength(4)]],
-      password: ['demo123', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
     })
-    this.store.pipe(select(Reducers.getSettings)).subscribe(state => {
-      this.logo = state.logo
-      this.authProvider = state.authProvider
-    })
-    this.store.pipe(select(Reducers.getUser)).subscribe(state => {
-      this.loading = state.loading
-    })
+  }
+  ngOnInit(): void {
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/'
   }
 
   get email() {
@@ -45,18 +44,13 @@ export class LoginComponent {
     if (this.email.invalid || this.password.invalid) {
       return
     }
-    const payload = {
-      email: this.email.value,
-      password: this.password.value,
-    }
-    this.store.dispatch(new UserActions.Login(payload))
-  }
-
-  setProvider(authProvider) {
-    this.store.dispatch(
-      new SettingsActions.SetStateAction({
-        authProvider,
-      }),
-    )
+    this.authService.login(this.email.value, this.password.value).then(res => {
+      if (res) {
+        this.invalidCredentails = false
+        this.router.navigate([this.returnUrl])
+      } else {
+        this.invalidCredentails = true
+      }
+    })
   }
 }

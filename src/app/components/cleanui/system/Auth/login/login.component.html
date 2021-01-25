@@ -29,7 +29,7 @@
     </div>
     <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="submitForm()" role="form">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please input your email!">
+        <nz-form-control nzErrorTip="Please enter a valid email address!">
           <input type="text" nz-input formControlName="email" nzSize="large" placeholder="Email Address" />
         </nz-form-control>
       </nz-form-item>
@@ -38,6 +38,7 @@
           <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password" />
         </nz-form-control>
       </nz-form-item>
+      <p class="text-danger" *ngIf='invalidCredentails'>Username or password is incorrect!</p>
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100">
