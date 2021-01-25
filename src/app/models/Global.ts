@@ -19,4 +19,5 @@ export const API_ENDPOINTS = {
   LookUp: 'api/Lookup',
   Form: 'api/Form',
   CheckEmail: 'api/auth/CheckEmail',
+  IsOtherCoparentExists: 'api/Family/IsOtherCoparentExists',
 }

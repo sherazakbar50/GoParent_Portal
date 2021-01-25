@@ -75,6 +75,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/pages/ui-kits/ui-kits.module').then(m => m.UIKitsModule),
       },
+      {
+        path: 'setting',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/settings/settings.module').then(x => x.SettingsModule),
+      },
     ],
   },
   {

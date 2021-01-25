@@ -30,4 +30,16 @@ export const getMenuData: any[] = [
     icon: 'fe fe-bookmark',
     url: '/ui-kits/antd',
   },
+  {
+    title: 'Setting',
+    key: 'userSetting',
+    icon: 'fe fe-home',
+    children: [
+      {
+        title: 'Connection',
+        key: 'userSettingConnection',
+        url: '/setting/connection',
+      },
+    ],
+  },
 ]

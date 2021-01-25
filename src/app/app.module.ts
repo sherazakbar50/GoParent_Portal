@@ -26,6 +26,7 @@ import { MockHttpCallInterceptor } from './services/fakeApi'
 import { registerLocaleData } from '@angular/common'
 import { default as localeEn } from '@angular/common/locales/en'
 import { NZ_I18N, en_US as localeZorro } from 'ng-zorro-antd/i18n'
+import { AuthorizeInterceptor } from './components/cleanui/system/Interceptor/authorize.interceptor'
 const LOCALE_PROVIDERS = [
   { provide: LOCALE_ID, useValue: 'en' },
   { provide: NZ_I18N, useValue: localeZorro },
@@ -71,7 +72,7 @@ registerLocaleData(localeEn, 'en')
     // fake http interceptors
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: MockHttpCallInterceptor,
+      useClass: AuthorizeInterceptor,
       multi: true,
     },
 
