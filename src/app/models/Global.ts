@@ -25,4 +25,5 @@ export const API_ENDPOINTS = {
   DeleteFamilyMember: 'api/FamilyMember/DeleteMember',
   SaveBasicInfo: 'api/FamilyMember/SaveBasicInfo',
   GetChildProfile: 'api/FamilyMember/ChildProfile',
+  SaveMedicalInfo: 'api/FamilyMember/SaveMedicalInfo',
 }

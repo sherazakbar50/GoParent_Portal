@@ -17,26 +17,42 @@ export class ChildProfileComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
   ) {}
   informationForm: FormGroup
+  MedicalForm: FormGroup
   memberId: number
 
   ngOnInit(): void {
+    // Information form
     this.informationForm = this.fb.group({
       DOB: [''],
       IDNumber: [''],
       SocialSecurity: [''],
       Weight: ['', Validators.min(1)],
       Height: ['', Validators.min(1)],
+      TShirt: ['', Validators.min(1)],
+      Dress: ['', Validators.min(1)],
+      Trousers: ['', Validators.min(1)],
+      ShoeSize: ['', Validators.min(1)],
+    })
+
+    // Medical Form
+    this.MedicalForm = this.fb.group({
+      BloodType: [''],
+      Allergies: [''],
+      Diseases: [''],
+      ChronicProblems: [''],
     })
 
     this.activatedRouter.queryParams.subscribe(params => {
       this.memberId = Number(params['id'])
       if (this.memberId > 0) {
         this._FamilyMemberService.GetChildProfileData(this.memberId).then(childData => {
-          debugger
           if (childData && childData.BasicInfo) {
             childData.BasicInfo.DOB =
               childData.BasicInfo.DOB && childData.BasicInfo.DOB.split('T')[0]
             this.informationForm.patchValue(childData.BasicInfo)
+          }
+          if (childData && childData.MedicalInfo) {
+            this.MedicalForm.patchValue(childData.MedicalInfo)
           }
         })
       }
@@ -50,6 +66,16 @@ export class ChildProfileComponent implements OnInit {
       let result = await this._FamilyMemberService.SaveBasicInfo({ ...data, Id: this.memberId })
       if (result) {
         this.notification.success('', 'Basic information has been saved successfully!')
+      }
+    }
+  }
+  async SaveMedicalInfo() {
+    debugger
+    if (this.MedicalForm.valid && this.memberId > 0) {
+      let data = this.MedicalForm.value
+      let result = await this._FamilyMemberService.SaveMedicalInfo({ ...data, Id: this.memberId })
+      if (result) {
+        this.notification.success('', 'Medical information has been saved successfully!')
       }
     }
   }
