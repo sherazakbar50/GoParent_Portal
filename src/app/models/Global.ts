@@ -26,4 +26,5 @@ export const API_ENDPOINTS = {
   SaveBasicInfo: 'api/FamilyMember/SaveBasicInfo',
   GetChildProfile: 'api/FamilyMember/ChildProfile',
   SaveMedicalInfo: 'api/FamilyMember/SaveMedicalInfo',
+  SaveBankInfo: 'api/FamilyMember/SaveBankInfo',
 }

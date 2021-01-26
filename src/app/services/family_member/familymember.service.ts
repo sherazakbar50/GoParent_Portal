@@ -34,7 +34,11 @@ export class FamilyMemberService extends ApiHandler {
       .pipe(map(x => x.ResponseData))
       .toPromise<boolean>()
   }
-
+  SaveBankForm(data: any) {
+    return this.Post(undefined, API_URL + API_ENDPOINTS.SaveBankInfo, data)
+      .pipe(map(x => x.ResponseData))
+      .toPromise<boolean>()
+  }
   GetChildProfileData(id) {
     return this.Get(id, API_URL + API_ENDPOINTS.GetChildProfile)
       .pipe(map(x => x.ResponseData))

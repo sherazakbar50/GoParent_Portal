@@ -138,6 +138,43 @@
                   
                   </form>
             </nz-tab>
+            <nz-tab nzTitle="Bank">
+                <form nz-form [formGroup]='BankForm' (ngSubmit)='SaveBankInfo()' >
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Account Name</nz-form-label>
+                        <nz-form-control [nzSm]="12" [nzXs]="24" >
+                            <input nz-input  formControlName='AccountName' placeholder="Account Name" type="text" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Account Number</nz-form-label>
+                        <nz-form-control [nzSm]="12" [nzXs]="24" >
+                            <input nz-input  formControlName='AccountNumber' placeholder="Account Number" type="text" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Bank</nz-form-label>
+                        <nz-form-control [nzSm]="12" [nzXs]="24" >
+                            <input nz-input  formControlName='Bank' placeholder="Bank" type="text" />
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Notes</nz-form-label>
+                        <nz-form-control [nzSm]="12" [nzXs]="24" >
+                            <textarea nz-input formControlName='BankNotes'   placeholder="Notes ..."  ></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                     <nz-form-item>
+                        
+                        <nz-form-control [nzSm]="12" [nzXs]="24" >
+                            <button type="submit" [disabled]='!BankForm.valid'  class="btn btn-primary">
+                                Save
+                              </button>
+                        </nz-form-control>
+                    </nz-form-item>
+                  
+                  </form>
+            </nz-tab>
             <nz-tab nzTitle="Vaccines">
                 Content of Tab Pane 3
               </nz-tab>

@@ -18,6 +18,7 @@ export class ChildProfileComponent implements OnInit {
   ) {}
   informationForm: FormGroup
   MedicalForm: FormGroup
+  BankForm: FormGroup
   memberId: number
 
   ngOnInit(): void {
@@ -41,24 +42,38 @@ export class ChildProfileComponent implements OnInit {
       Diseases: [''],
       ChronicProblems: [''],
     })
+    // Bank Form
+    this.BankForm = this.fb.group({
+      AccountName: [''],
+      AccountNumber: [''],
+      Bank: [''],
+      BankNotes: [''],
+    })
 
     this.activatedRouter.queryParams.subscribe(params => {
       this.memberId = Number(params['id'])
       if (this.memberId > 0) {
         this._FamilyMemberService.GetChildProfileData(this.memberId).then(childData => {
-          if (childData && childData.BasicInfo) {
-            childData.BasicInfo.DOB =
-              childData.BasicInfo.DOB && childData.BasicInfo.DOB.split('T')[0]
-            this.informationForm.patchValue(childData.BasicInfo)
-          }
-          if (childData && childData.MedicalInfo) {
-            this.MedicalForm.patchValue(childData.MedicalInfo)
-          }
+          this.SetProfileData(childData)
         })
       }
     })
   }
-
+  SetProfileData(childData) {
+    // set basic info form data
+    if (childData && childData.BasicInfo) {
+      childData.BasicInfo.DOB = childData.BasicInfo.DOB && childData.BasicInfo.DOB.split('T')[0]
+      this.informationForm.patchValue(childData.BasicInfo)
+    }
+    // set medical form data
+    if (childData && childData.MedicalInfo) {
+      this.MedicalForm.patchValue(childData.MedicalInfo)
+    }
+    // set bank form data
+    if (childData && childData.BankInfo) {
+      this.BankForm.patchValue(childData.BankInfo)
+    }
+  }
   async SaveChildInformation() {
     debugger
     if (this.informationForm.valid && this.memberId > 0) {
@@ -76,6 +91,17 @@ export class ChildProfileComponent implements OnInit {
       let result = await this._FamilyMemberService.SaveMedicalInfo({ ...data, Id: this.memberId })
       if (result) {
         this.notification.success('', 'Medical information has been saved successfully!')
+      }
+    }
+  }
+
+  async SaveBankInfo() {
+    debugger
+    if (this.BankForm.valid && this.memberId > 0) {
+      let data = this.BankForm.value
+      let result = await this._FamilyMemberService.SaveBankForm({ ...data, Id: this.memberId })
+      if (result) {
+        this.notification.success('', 'Bank information has been saved successfully!')
       }
     }
   }
