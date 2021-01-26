@@ -9,7 +9,7 @@ export interface IApiBaseActions {
   GetAll(url: string): Observable<BaseResponse>
   Post(id: any, url: string, data: any): Observable<BaseResponse>
   Delete(url: string, id: any): Observable<BaseResponse>
-  Put(id: any,url: string, data: any)
+  Put(id: any, url: string, data: any)
 }
 
 @Injectable()
@@ -32,8 +32,9 @@ export class ApiHandler implements IApiBaseActions {
   }
 
   Post(id: any, url: string, data: any) {
-    url = `${url}?id=${id}`
-    console.log(url)
+    if (id != undefined) {
+      url = `${url}?id=${id}`
+    }
     return this.myHttpClient.post<BaseResponse>(url, data).pipe(tap(x => this.HandleResponse(x)))
   }
 

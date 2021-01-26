@@ -21,4 +21,8 @@ export const API_ENDPOINTS = {
   Form: 'api/Form',
   CheckEmail: 'api/auth/CheckEmail',
   IsOtherCoparentExists: 'api/Family/IsOtherCoparentExists',
+  GetFamilyChildsList: 'api/FamilyMember/getfamilychilds',
+  DeleteFamilyMember: 'api/FamilyMember/DeleteMember',
+  SaveBasicInfo: 'api/FamilyMember/SaveBasicInfo',
+  GetChildProfile: 'api/FamilyMember/ChildProfile',
 }

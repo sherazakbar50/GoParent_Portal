@@ -86,7 +86,12 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () =>
           import('src/app/pages/contacts/contacts.module').then(x => x.ContactsModule),
-      }
+      },
+      {
+        path: 'childs',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/childs/childs.module').then(x => x.ChildsModule),
+      },
     ],
   },
   {

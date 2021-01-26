@@ -1,0 +1,88 @@
+<div>
+   
+    <div class="card">
+      <div class="card-body">
+        <h5 class="mb-4">
+          <strong>Child Profile</strong>
+        </h5>
+       
+        <nz-tabset class="kit-tabs" [nzSelectedIndex]="0">
+            
+            <nz-tab nzTitle="Information">
+               
+                <form nz-form [formGroup]='informationForm' (ngSubmit)='SaveChildInformation()' [nzLayout]="'vertical'">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <nz-form-item>
+                          <nz-form-label >Birth Date</nz-form-label>
+                          <nz-form-control>
+                            <input nz-input  formControlName='DOB' type="date" />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div class="col-md-6">
+                        <nz-form-item>
+                          <nz-form-label nzFor="password3">ID Number</nz-form-label>
+                          <nz-form-control>
+                            <input nz-input formControlName='IDNumber' type="text" placeholder="ID Number"  />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div class="col-md-6">
+                        <nz-form-item>
+                          <nz-form-label >Social Security</nz-form-label>
+                          <nz-form-control>
+                            <input nz-input  formControlName='SocialSecurity' type="text" placeholder="Social Security" />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div class="col-md-6">
+                        <nz-form-item>
+                          <nz-form-label >Weight</nz-form-label>
+                          <nz-form-control>
+                            <input nz-input formControlName='Weight' placeholder="Weight" type="number" />
+                          </nz-form-control>
+                        </nz-form-item>
+                      </div>
+                      <div class="col-md-6">
+                        <nz-form-item>
+                            <nz-form-label >Height</nz-form-label>
+                            <nz-form-control>
+                              <input nz-input formControlName='Height' placeholder="Height" type="number" />
+                            </nz-form-control>
+                          </nz-form-item> 
+                      </div>
+                     
+                      <div class="col-12">
+                         <div class="col-md-6" style="padding: 0px;">
+                            <button type="submit" [disabled]='!informationForm.valid'  class="btn btn-primary">
+                                Save
+                              </button>
+                         </div>
+                      
+                      </div>
+                    </div>
+                  </form>
+
+
+
+            </nz-tab>
+            <nz-tab nzTitle="Medical Information">
+              Content of Tab Pane 3
+            </nz-tab>
+            <nz-tab nzTitle="Vaccines">
+                Content of Tab Pane 3
+              </nz-tab>
+              <nz-tab nzTitle="Nutritional">
+                Content of Tab Pane 3
+              </nz-tab>
+              <nz-tab nzTitle="Educational">
+                Content of Tab Pane 3
+              </nz-tab>
+          </nz-tabset>
+
+
+      </div>
+    </div>
+  </div>
+

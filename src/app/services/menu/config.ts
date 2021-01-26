@@ -10,16 +10,16 @@ export const getMenuData: any[] = [
     url: '/dashboard/index',
   },
   {
-    title: 'Child(s)',
+    title: 'Family Child(s)',
     key: 'childProfiles',
     icon: 'fa fa-child',
     // roles: ['admin'], // set user roles with access to this route
     // count: 4,
     children: [
       {
-        title: 'Information',
-        key: 'childProfilesInformation',
-        url: '/dashboard/alpha',
+        title: 'View Children',
+        key: 'viewChildInformation',
+        url: '/childs/list',
       },
     ],
   },

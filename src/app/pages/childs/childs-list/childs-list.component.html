@@ -1,0 +1,35 @@
+<div>
+   
+    <div class="card">
+      <div class="card-body">
+        <h5 class="mb-4">
+          <strong>Family Children</strong>
+        </h5>
+       
+        <nz-table #basicTable [nzData]="childsList" class="kit__utils__table mb-4">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Profile Pic</th>
+                  <th>Name</th>
+                  <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data; let i=index">
+                <td>{{ i+1 }}</td>
+                <td><img  src='{{data.ProfileImage||"/assets/images/avatars/avatar-2.png"}}' /></td>
+                <td>{{ data.Name }}</td>
+                <td>
+                  <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="EditChildProfile(data.Id)">Edit Profile</a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <a class="btn btn-danger btn-sm" href="javascript:void(0)" (click)="DeleteChild(data.Id)">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+
+
+      </div>
+    </div>
+  </div>
