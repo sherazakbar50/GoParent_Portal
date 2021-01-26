@@ -15,20 +15,24 @@ export class jwtAuthService extends ApiHandler {
     super(http)
   }
 
-  async login(email: string, password: string) {
-    let res = await this.Post(0, API_URL + API_ENDPOINTS.GetToken, {
-      Email: email,
-      Password: password,
-    })
-      .pipe(map(x => x.ResponseData))
-      .toPromise()
-    if (res && res.AccessToken) {
-      localStorage.setItem('accessToken', res.AccessToken)
-      localStorage.setItem('refreshToken', res.RefreshToken)
-      return true
-    } else {
-      return false
-    }
+  login(email: string, password: string) {
+    debugger
+    return this.Post(0, API_URL + API_ENDPOINTS.GetToken, { Email: email, Password: password });
+
+    // let res = await this.Post(0, API_URL + API_ENDPOINTS.GetToken, {
+    //   Email: email,
+    //   Password: password,
+    // })
+    //   .pipe(map(x => x.ResponseData))
+    //   .toPromise()
+    //   debugger
+    // if (res && res.AccessToken) {
+    //   localStorage.setItem('accessToken', res.AccessToken)
+    //   localStorage.setItem('refreshToken', res.RefreshToken)
+    //   return true
+    // } else {
+    //   return false
+    // }
   }
 
   register(userObj: UserDTO): Observable<any> {

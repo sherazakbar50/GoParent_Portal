@@ -12,7 +12,7 @@ export const getMenuData: any[] = [
   {
     title: 'Child(s)',
     key: 'childProfiles',
-    icon: 'fe fe-home',
+    icon: 'fa fa-child',
     // roles: ['admin'], // set user roles with access to this route
     // count: 4,
     children: [
@@ -27,8 +27,8 @@ export const getMenuData: any[] = [
   {
     title: 'Family Contact(s)',
     key: 'familyContacts',
-    icon: 'fe fe-bookmark',
-    url: '/ui-kits/antd',
+    icon: 'fe fe-users',
+    url: '/contacts',
   },
   {
     title: 'Setting',

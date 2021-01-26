@@ -34,13 +34,13 @@ export class RegisterComponent {
     this.form = fb.group({
       
       //Parent
-      email: [, [Validators.required,Validators.pattern(Regex.Email)]],
-      password: [, [Validators.required]],
+      email: [, [Validators.required,Validators.pattern(Regex.Email),Validators.maxLength(255)]],
+      password: [, [Validators.required,Validators.minLength(4)]],
       firstName: [, [Validators.required]],
       lastName:[, [Validators.required]],
 
       //Co Parent
-      coParentEmail:['',[Validators.pattern(Regex.Email)]],
+      coParentEmail:['',[Validators.pattern(Regex.Email),Validators.maxLength(255)]],
       
       //Children
       childsArray: fb.array([this.createChildsFormGroup()]),
@@ -128,8 +128,6 @@ export class RegisterComponent {
   }
 
   CoParentChildForm():void{
-    debugger
-
     this.CoParentChildSubmission = true;
     this.coParentEmail.markAsDirty()
     this.coParentEmail.updateValueAndValidity()
@@ -148,7 +146,6 @@ export class RegisterComponent {
     this.loading = true;
     this.authService.register(this.createRegistrationDataPayload()).subscribe(
       data => {
-        debugger
         this.notification.success(
           'Successful!',
           'Your account has been created successfully.'
@@ -159,7 +156,6 @@ export class RegisterComponent {
         this.loading = false;
       },
       error => {
-        debugger
         this.notification.error('Unsuccessful!', error.error.Error || "Something went wrong" );
         this.loading = false;
       }

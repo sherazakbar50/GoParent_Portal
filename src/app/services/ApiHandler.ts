@@ -4,12 +4,12 @@ import { Observable } from 'rxjs'
 import { tap } from 'rxjs/operators'
 import { BaseResponse } from '../models/IApiResponse'
 
-interface IApiBaseActions {
+export interface IApiBaseActions {
   Get(id: any, url: string)
   GetAll(url: string): Observable<BaseResponse>
   Post(id: any, url: string, data: any): Observable<BaseResponse>
   Delete(url: string, id: any): Observable<BaseResponse>
-  Put(id: any, data: any)
+  Put(id: any,url: string, data: any)
 }
 
 @Injectable()

@@ -5,6 +5,7 @@ export const API_URL: string = environment.api_url
 export const API_ENDPOINTS = {
   UserRegistration: 'api/auth/register',
   GetToken: 'api/auth/token',
+  Contacts: 'api/Contacts',
   DummyList: 'api/dummy/list',
   DummyAdd: 'api/dummy/add',
   DummyDelete: 'api/dummy/delete',

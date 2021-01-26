@@ -43,6 +43,7 @@
               <div class="text-danger">
                 <ng-container *ngIf="parentSubmission && email.hasError('required')">Please enter your Email!</ng-container>
                 <ng-container *ngIf="parentSubmission && email.hasError('pattern') && !email.hasError('required')">Please enter a valid email e.g abc@xyz.com</ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !lastName.hasError('required') && !email.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -51,7 +52,7 @@
               <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password" />
               <div class="text-danger">
                 <ng-container *ngIf="parentSubmission && password.hasError('required')">Please enter your Password!</ng-container>
-                <!-- <ng-container *ngIf="parentSubmission && password.hasError('minlength') && !password.hasError('required')">Minimum 3 characters are required!</ng-container> -->
+                <ng-container *ngIf="parentSubmission && password.hasError('minlength') && !password.hasError('required')">Minimum 4 characters are required!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -72,6 +73,7 @@
               <input type="email" nz-input nzSize="large" formControlName="coParentEmail" placeholder="Email Address (Optional)" />
               <div class="text-danger">
                 <ng-container *ngIf="parentSubmission && coParentEmail.hasError('pattern')">Please enter a valid email e.g abc@xyz.com</ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !lastName.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -102,7 +104,7 @@
           <nz-form-item>
             <nz-form-control>
               <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100 mg-top-20">
-                <strong>Complete Registration</strong>
+                <strong> Complete Registration</strong>
               </button>
             </nz-form-control>
           </nz-form-item>
