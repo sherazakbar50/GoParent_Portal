@@ -5,7 +5,9 @@
         <h5 class="mb-4">
           <strong>Family Children</strong>
         </h5>
-       
+        <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
+          <button nz-button nzType="primary" (click)="AddChild()">Add Child</button>
+        </div>
         <nz-table #basicTable [nzData]="childsList" class="kit__utils__table mb-4">
             <thead>
               <tr>
@@ -33,3 +35,15 @@
       </div>
     </div>
   </div>
+
+
+  
+<div>
+  <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleChildModalCancel()"
+  nzMaskClosable="false">
+  <ng-container *nzModalContent>
+  <app-add-child (childCreated)='AddChildSuccess($event)'></app-add-child>
+  </ng-container>
+  </nz-modal>
+  </div>
+  

@@ -1,0 +1,49 @@
+<div>
+   
+    <div class="card">
+      <div class="card-body">
+       
+        <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
+          <button nz-button nzType="primary" (click)="AddVaccine()">Add Vaccine</button>
+        </div>
+        <nz-table #VaccinesDataTable [nzData]="VaccinesData" class="kit__utils__table mb-4">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Name</th>
+                  <th>Date</th>
+                  <th>Notes</th>
+                  <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of VaccinesDataTable.data; let i=index">
+                <td>{{ i+1 }}</td>
+                <td>{{ data.Name }}</td>
+                <td>{{ data.Date | date }}</td>
+                <td>{{data.Notes}}</td>
+                <td>
+                  <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="EditVaccine(data.Id)">Edit</a>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <a class="btn btn-danger btn-sm" href="javascript:void(0)" (click)="DeleteVaccine(data.Id)">Delete</a>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+
+
+      </div>
+    </div>
+  </div>
+
+
+   
+<div>
+  <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleModalCancel()"
+  nzMaskClosable="false">
+  <ng-container *nzModalContent>
+     <app-add-child-vaccine [familyMemberId]='familyMemberId' [VaccineId]='VaccineId' (vaccineCreated)='AddVaccineSuccess()'></app-add-child-vaccine>
+  </ng-container>
+  </nz-modal>
+  </div>
+   

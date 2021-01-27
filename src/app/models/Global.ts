@@ -27,4 +27,9 @@ export const API_ENDPOINTS = {
   GetChildProfile: 'api/FamilyMember/ChildProfile',
   SaveMedicalInfo: 'api/FamilyMember/SaveMedicalInfo',
   SaveBankInfo: 'api/FamilyMember/SaveBankInfo',
+  CreateFamilyChild: 'api/FamilyMember/createchlid',
+  GetMemberVaccines: 'api/Vaccines/GetVaccines',
+  GetMemberVaccine: 'api/Vaccines/GetVaccine',
+  DeleteVaccine: 'api/Vaccines/DeleteVaccine',
+  AddUpdateVaccine: 'api/Vaccines/AddUpdateVaccine',
 }

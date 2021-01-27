@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core'
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { FamilyMemberDto } from 'src/app/models/Family/FamilyMemberDto'
 import { FamilyMemberService } from 'src/app/services/family_member/familymember.service'
 import { jwtAuthService } from 'src/app/services/jwt'
+import { AddChildComponent } from '../add-child/add-child.component'
 declare var require
 const Swal = require('sweetalert2')
 @Component({
@@ -18,7 +19,11 @@ export class ChildsListComponent implements OnInit {
     private router: Router,
     private notification: NzNotificationService,
   ) {}
+
   childsList: FamilyMemberDto[]
+  isVisible: boolean = false
+  modalTitle: string = 'Add Child'
+
   ngOnInit(): void {
     this.getFamilyChilds()
   }
@@ -52,5 +57,18 @@ export class ChildsListComponent implements OnInit {
 
   async EditChildProfile(id) {
     this.router.navigate(['childs', 'childprofile'], { queryParams: { id: id } })
+  }
+
+  handleChildModalCancel() {
+    this.isVisible = false
+  }
+
+  AddChild() {
+    this.isVisible = true
+  }
+  async AddChildSuccess($event) {
+    debugger
+    this.isVisible = false
+    await this.getFamilyChilds()
   }
 }

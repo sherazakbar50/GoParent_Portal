@@ -3,3 +3,11 @@ export class FamilyMemberDto {
   Name: string
   ProfileImage: string
 }
+
+export class VaccineDto {
+  Id: number
+  Date: Date
+  Name: string
+  Notes: string
+  FamilyMemberId: number
+}
