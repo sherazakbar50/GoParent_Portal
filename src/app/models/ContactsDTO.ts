@@ -1,11 +1,9 @@
 export class ContactDTO {
     constructor() {
-        this.id = 0;
+        this.Id = 0;
     }
-    id: number;
+    Id: number;
     index: number;
-    fullName: string;
-    email: string;
-    phoneNo:string
-    familyId: number;
+    Name: string;
+    Email: string;
 }

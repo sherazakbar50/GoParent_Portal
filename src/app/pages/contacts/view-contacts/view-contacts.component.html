@@ -1,27 +1,11 @@
-<div class="breadcrumbs mb-3">
+<!-- <div class="breadcrumbs mb-3">
     <strong>Contacts</strong>
     <span class="text-muted"> | {{this.listData.length}} contacts in total</span>
-  </div>
+  </div> -->
   <div>
-    <div class="row mb-4">
-      <div class="align-items-center col-xl-10 d-flex">
-        <div class="w-25">
-          <nz-input-group nzSize="large" [nzPrefix]="suffixIconSearch">
-            <!-- <input type="text" nz-input [(ngModel)]="search" (ngModelChange)="filter()"
-              placeholder="Search for Contacts" /> -->
-          </nz-input-group>
-          <ng-template #suffixIconSearch>
-            <i nz-icon nzType="search"></i>
-          </ng-template>
-        </div>
-        <span *ngIf="filterMessage">
-          <strong class="ml-4 mr-2">{{filterCountMessage}}</strong> {{filterMessage}} <a class="text-blue ml-2"
-            (click)="resetFilters()">Clear
-            All</a>
-        </span>
-      </div>
-      <div class="col-xl-2 ">
-        <button nz-button class="float-right" nzType="primary" (click)="showModal()">Add Contact</button>
+    <div class="row mb-2">
+      <div class="col-xl-12">
+        <button nz-button class="float-right" nzType="primary" (click)="AddContact()">Add Contact</button>
       </div>
     </div>
     <div class="row">
@@ -32,28 +16,25 @@
             <tr>
               <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
                 [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
-                [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn" (nzFilterChange)="filterChanged($event)">
+                [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
                 {{ column.name }}
               </th>
             </tr>
           </thead>
   
           <tbody>
-            <tr *ngFor="let data of filterTable.data; let i = index;" (click)="showSingleContacts(data)" nz-tooltip
-              nzTooltipTitle="Click to View Contact" style="cursor: pointer;">
-              <!-- <td></td> -->
+            <tr *ngFor="let data of filterTable.data; let i = index;">
               <td>{{ data.index }}</td>
               <td>
-                <nz-avatar nzIcon="user" [nzSrc]="data.blobURI"></nz-avatar>
-                {{ data.fullName }}
+                {{ data.Name }}
               </td>
-              <td>{{ data.email }}</td>
+              <td>{{ data.Email }}</td>
               <td>
                 <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Contact"
                   (click)="$event.stopPropagation(EditContacts(data))" nzTheme="fill" class="text-success"></i>
                 <nz-divider nzType="vertical"></nz-divider>
                 <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Contact"
-                  (click)="$event.stopPropagation(DeleteContacts(data))" nzTheme="fill" class="text-danger"></i>
+                  (click)="$event.stopPropagation(DeleteContacts(data.Id))" nzTheme="fill" class="text-danger"></i>
               </td>
             </tr>
           </tbody>
@@ -63,13 +44,11 @@
   </div>
   <!-- Add Modal -->
   <div>
-    <!-- <nz-modal nzFooter="null" nzWidth="700" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
       nzMaskClosable="false">
-      <app-add-contacts [contactDataSub]="contactObserverSubject"></app-add-contacts>
-    </nz-modal> -->
+      <ng-container *nzModalContent>
+        <app-add-contacts [contactDataSub]="contactObserverSubject"></app-add-contacts> 
+      </ng-container>
+    </nz-modal>
   </div>
   
- <!-- View Modal -->
-  <div>
-
-  </div>

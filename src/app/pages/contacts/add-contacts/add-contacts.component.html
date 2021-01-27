@@ -1,0 +1,27 @@
+<div class="row">
+    <div class="col-xl-12">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="handleSubmit()" role="form">
+          <nz-form-item>
+                <nz-form-control>
+                  <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Full Name" />
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <input type="email" nz-input nzSize="large" formControlName="Email" placeholder="Email Address" />
+                  <div class="text-danger">
+                    <ng-container *ngIf="IsSubmitted && Email.hasError('required')">Email is required!</ng-container>
+                    <ng-container *ngIf="IsSubmitted && Email.hasError('pattern') && !Email.hasError('required')">Please enter valid email address e.g abc@xyz.com</ng-container>
+                  </div>
+                </nz-form-control>
+              </nz-form-item>
+              <nz-form-item>
+                <nz-form-control>
+                  <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100">
+                    <strong> Save</strong>
+                  </button>
+                </nz-form-control>
+              </nz-form-item>
+        </form>
+    </div>
+</div>

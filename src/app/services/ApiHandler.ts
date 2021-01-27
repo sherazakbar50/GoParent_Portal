@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
-import { tap } from 'rxjs/operators'
+import { tap,catchError } from 'rxjs/operators'
 import { BaseResponse } from '../models/IApiResponse'
 
 export interface IApiBaseActions {
@@ -32,10 +32,10 @@ export class ApiHandler implements IApiBaseActions {
   }
 
   Post(id: any, url: string, data: any) {
-    if (id != undefined) {
+    if (id) {
       url = `${url}?id=${id}`
     }
-    return this.myHttpClient.post<BaseResponse>(url, data).pipe(tap(x => this.HandleResponse(x)))
+    return this.myHttpClient.post<BaseResponse>(url, data).pipe(tap(x => this.HandleResponse(x)));
   }
 
   Delete(url: string, id: any) {
