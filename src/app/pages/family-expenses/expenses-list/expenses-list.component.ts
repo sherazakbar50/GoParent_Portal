@@ -14,8 +14,11 @@ export class ExpensesListComponent implements OnInit {
     private notification: NzNotificationService,
   ) {}
   expensesData: any[]
+  expenseData: any
   isVisible: boolean = false
+  ExpenseViewModelVisible: boolean = false
   modalTitle: string = 'Add Expense'
+
   ngOnInit(): void {
     this.getExpensesData()
   }
@@ -31,11 +34,22 @@ export class ExpensesListComponent implements OnInit {
   }
 
   AddExpense() {
+    this.expenseData = undefined
     this.isVisible = true
   }
-  EditExpense() {}
+  EditExpense(rowData) {
+    this.expenseData = rowData
+    this.isVisible = true
+  }
+  ViewExpense(expense) {
+    this.expenseData = expense
+    this.ExpenseViewModelVisible = true
+  }
   handleExpenseModalCancel() {
     this.isVisible = false
+  }
+  handleExpenseViewModalCancel() {
+    this.ExpenseViewModelVisible = false
   }
   async DeleteExpense(id) {
     Swal.fire({
@@ -57,5 +71,10 @@ export class ExpensesListComponent implements OnInit {
         }
       }
     })
+  }
+
+  expenseSavedCallBack() {
+    this.isVisible = false
+    this.getExpensesData()
   }
 }

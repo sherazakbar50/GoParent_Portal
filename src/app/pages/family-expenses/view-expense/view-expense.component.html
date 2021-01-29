@@ -1,0 +1,47 @@
+<div class="card">
+    <div class="card-body">
+        <div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              
+              <div class="mb-2">
+                <div class="text-dark font-size-18 font-weight-bold text-nowrap">
+                    {{ExpenseData.Title}}
+                  
+                </div>
+                <div class="text-uppercase">Expense added by {{ExpenseData.ExpenseOwnerName}}</div>
+              </div>
+            </div>
+            
+            <div class="table-responsive">
+              <table class="table table-borderless">
+                <tbody>
+                  <tr>
+                    <td class="text-gray-6 pl-0">Expense Type</td>
+                    <td class="pr-0 text-right text-dark">{{ExpenseData.ExpenseType}}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-6 pl-0">Cost</td>
+                    <td class="pr-0 text-right text-dark">${{ExpenseData.Cost}}</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-6 pl-0">{{ExpenseData.ExpenseOwnerName}}'s Share</td>
+                    <td class="pr-0 text-right text-dark">{{ExpenseData.SharePercentage}}% ( ${{((ExpenseData.SharePercentage*ExpenseData.Cost)/100).toFixed(2)}} )</td>
+                  </tr>
+                  <tr>
+                    <td class="text-gray-6 pl-0">Co-Parent Share</td>
+                    <td class="pr-0 text-right text-dark">{{100-ExpenseData.SharePercentage}}% ( ${{(((100-ExpenseData.SharePercentage)*ExpenseData.Cost)/100).toFixed(2)}} )</td>
+                  </tr>
+                 
+                  <tr>
+                    <td class="text-gray-6 pl-0" colspan="2">
+                      <p><strong>Notes:</strong></p>
+                      {{ExpenseData.Notes}}
+                    </td>
+                     
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>    
+    </div>
+  </div>

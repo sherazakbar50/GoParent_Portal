@@ -2,24 +2,55 @@
 <div class="row">
     <div class="col-xl-12">
     <form nz-form [nzLayout]="'vertical'" [formGroup]="expenseForm" (ngSubmit)="submitHandler()" role="form">
+      <input type="hidden" formControlName='Id' />    
     <nz-form-item>
     <nz-form-control>
     <input type="text" nz-input nzSize="large" formControlName="Title" placeholder="Title" />
-     <!-- <div class="text-danger">
-    <ng-container *ngIf="IsSubmitted && VaccineName.hasError('required')">Name is required!</ng-container>
+     <div class="text-danger">
+    <ng-container *ngIf="IsSubmitted && FormControls.Title.hasError('required')">Title is required!</ng-container>
      
-    </div>  -->
+    </div> 
     </nz-form-control>
     </nz-form-item>
     <nz-form-item>
     <nz-form-control>
         <input type="number" nz-input nzSize="large" formControlName="Cost" placeholder="Cost" />
-    <!-- <div class="text-danger">
-        <ng-container *ngIf="IsSubmitted && VaccineDate.hasError('required')">Date is required!</ng-container>
-         
-        </div> -->
+    <div class="text-danger">
+        <ng-container *ngIf="IsSubmitted && FormControls.Cost.hasError('required')">Cost is required!</ng-container>
+    </div>
+    <div class="text-danger">
+        <ng-container *ngIf="IsSubmitted && FormControls.Cost.hasError('min')">Amount should be greater than 0!</ng-container>
+    </div>
     </nz-form-control>
     </nz-form-item>
+    <nz-form-item>
+        <nz-form-control>
+            <input type="number" nz-input nzSize="large" formControlName="SharePercentage" placeholder="My Percentage" />
+        <div class="text-danger">
+            <ng-container *ngIf="IsSubmitted && FormControls.SharePercentage.hasError('required')">Share Percentage is required!</ng-container>
+             
+            </div>
+            <div class="text-danger">
+                <ng-container *ngIf="IsSubmitted && (FormControls.SharePercentage.hasError('min')||FormControls.SharePercentage.hasError('max'))">Percentage can be from 0 to 100!</ng-container>
+             </div>
+        </nz-form-control>
+        </nz-form-item>
+        
+    <nz-form-item>
+        <nz-form-control>
+            <nz-select  formControlName='ExpenseTypeId'>
+                <nz-option nzValue="" nzLabel="Select Expense Type"></nz-option>
+                <ng-container *ngFor='let _type of ExpenseTypesList'>
+                    <nz-option nzValue="{{_type.Id}}" nzLabel="{{_type.Name}}"  ></nz-option>
+                </ng-container>
+                
+              </nz-select>
+        <div class="text-danger">
+            <ng-container *ngIf="IsSubmitted && FormControls.ExpenseTypeId.hasError('required')">Expense Type is required!</ng-container>
+             
+            </div>
+        </nz-form-control>
+        </nz-form-item>
     <nz-form-item>
         <nz-form-control>
             <textarea nz-input formControlName='Notes' placeholder="Notes ..."></textarea>
