@@ -92,6 +92,14 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('src/app/pages/childs/childs.module').then(x => x.ChildsModule),
       },
+      {
+        path: 'expenses',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/family-expenses/family-expenses.module').then(
+            x => x.FamilyExpensesModule,
+          ),
+      },
     ],
   },
   {

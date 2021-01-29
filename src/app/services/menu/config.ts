@@ -31,6 +31,12 @@ export const getMenuData: any[] = [
     url: '/contacts',
   },
   {
+    title: 'Expense(s)',
+    key: 'familyExpenses',
+    icon: 'fa fa-dollar',
+    url: '/expenses',
+  },
+  {
     title: 'Setting',
     key: 'userSetting',
     icon: 'fe fe-home',

@@ -1,23 +1,23 @@
 
 <div class="row">
     <div class="col-xl-12">
-    <form nz-form [nzLayout]="'vertical'" [formGroup]="vaccineForm" (ngSubmit)="submitHandler()" role="form">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="expenseForm" (ngSubmit)="submitHandler()" role="form">
     <nz-form-item>
     <nz-form-control>
-    <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Name" />
-     <div class="text-danger">
+    <input type="text" nz-input nzSize="large" formControlName="Title" placeholder="Title" />
+     <!-- <div class="text-danger">
     <ng-container *ngIf="IsSubmitted && VaccineName.hasError('required')">Name is required!</ng-container>
      
-    </div> 
+    </div>  -->
     </nz-form-control>
     </nz-form-item>
     <nz-form-item>
     <nz-form-control>
-    <input type="date" nz-input nzSize="large" formControlName="Date"  />
-    <div class="text-danger">
+        <input type="number" nz-input nzSize="large" formControlName="Cost" placeholder="Cost" />
+    <!-- <div class="text-danger">
         <ng-container *ngIf="IsSubmitted && VaccineDate.hasError('required')">Date is required!</ng-container>
          
-        </div>
+        </div> -->
     </nz-form-control>
     </nz-form-item>
     <nz-form-item>

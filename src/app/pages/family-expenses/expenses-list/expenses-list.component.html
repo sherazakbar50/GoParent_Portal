@@ -1,0 +1,55 @@
+<div>
+   
+    <div class="card">
+      <div class="card-body">
+        <h5 class="mb-4">
+          <strong>Expenses</strong>
+        </h5>
+        <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
+          <button nz-button nzType="primary" (click)="AddExpense()">Add Expense</button>
+        </div>
+        <nz-table #basicTable [nzData]="expensesData" class="kit__utils__table mb-4">
+            <thead>
+              <tr>
+                  <th>#</th>
+                  <th>Title</th>
+                  <th>Expense Type</th>
+                  <th>Cost</th>
+                  <th>Status</th>
+                  <th>Added By</th>
+                  <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let data of basicTable.data; let i=index">
+                <td>{{ i+1 }}</td>
+                <td>{{data.Title}}</td>
+                <td>{{ data.ExpenseType }}</td>
+                <td>${{ data.Cost }}</td>
+                <td [innerHTML]='data.FormattedStatus'></td>
+                <td>{{ data.ExpenseOwnerName }}</td>
+                <td>
+                    <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Expense"
+                    (click)="$event.stopPropagation(EditExpense(data))" nzTheme="fill" class="text-success"></i>
+                  <nz-divider nzType="vertical"></nz-divider>
+                  <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Expense"
+                    (click)="$event.stopPropagation(DeleteExpense(data.Id))" nzTheme="fill" class="text-danger"></i>
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+
+
+      </div>
+    </div>
+  </div>
+<!--  
+<div>
+  <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleExpenseModalCancel()"
+  nzMaskClosable="false">
+  <ng-container *nzModalContent>
+     <app-add-expense></app-add-expense>
+  </ng-container>
+  </nz-modal>
+  </div>
+     -->

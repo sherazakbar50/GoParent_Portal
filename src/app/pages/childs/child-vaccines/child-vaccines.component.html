@@ -23,9 +23,16 @@
                 <td>{{ data.Date | date }}</td>
                 <td>{{data.Notes}}</td>
                 <td>
-                  <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="EditVaccine(data.Id)">Edit</a>
+                  <!-- <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="EditVaccine(data.Id)">Edit</a>
                   <nz-divider nzType="vertical"></nz-divider>
-                  <a class="btn btn-danger btn-sm" href="javascript:void(0)" (click)="DeleteVaccine(data.Id)">Delete</a>
+                  <a class="btn btn-danger btn-sm" href="javascript:void(0)" (click)="DeleteVaccine(data.Id)">Delete</a> -->
+
+                  <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Vaccine"
+                  (click)="$event.stopPropagation(EditVaccine(data.Id))" nzTheme="fill" class="text-success"></i>
+                <nz-divider nzType="vertical"></nz-divider>
+                <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Vaccine"
+                  (click)="$event.stopPropagation(DeleteVaccine(data.Id))" nzTheme="fill" class="text-danger"></i>
+
                 </td>
               </tr>
             </tbody>
