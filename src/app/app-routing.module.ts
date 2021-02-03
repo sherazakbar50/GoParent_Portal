@@ -76,12 +76,6 @@ const routes: Routes = [
           import('src/app/pages/ui-kits/ui-kits.module').then(m => m.UIKitsModule),
       },
       {
-        path: 'setting',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('src/app/pages/settings/settings.module').then(x => x.SettingsModule),
-      },
-      {
         path: 'contacts',
         canActivate: [AuthGuard],
         loadChildren: () =>
@@ -103,6 +97,11 @@ const routes: Routes = [
         path: 'Profile',
         canActivate: [AuthGuard],
         loadChildren: () => import('src/app/pages/user-profile/profile.module').then(x => x.ProfileModule)
+      },
+      {
+        path: 'connection',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/connection/connection.module').then(x => x.ConnectionModule)
       }
     ],
   },

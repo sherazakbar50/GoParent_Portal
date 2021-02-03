@@ -42,5 +42,7 @@ export const API_ENDPOINTS = {
   UpdateExpenseStatus: 'api/FamilyExpenses/SetExpenseStatus',
   UpdateUserInfo:'api/FamilyMember/updateUserInfo',
   ForgotPassword:'api/auth/ForgotPassword',
-  ResetPassword:'api/auth/ResetPassword'
+  ResetPassword:'api/auth/ResetPassword',
+  CreatePortalAccess:'api/FamilyMember/CreatePortalAccess',
+  GetOtherCoParentIfExits:'api/FamilyMember/GetOtherCoParentIfExits'
 }

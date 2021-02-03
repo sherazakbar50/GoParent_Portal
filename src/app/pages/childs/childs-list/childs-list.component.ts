@@ -67,7 +67,6 @@ export class ChildsListComponent implements OnInit {
     this.isVisible = true
   }
   async AddChildSuccess($event) {
-    debugger
     this.isVisible = false
     await this.getFamilyChilds()
   }

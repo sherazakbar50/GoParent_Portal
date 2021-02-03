@@ -75,7 +75,6 @@ export class ChildProfileComponent implements OnInit {
     }
   }
   async SaveChildInformation() {
-    debugger
     if (this.informationForm.valid && this.memberId > 0) {
       let data = this.informationForm.value
       let result = await this._FamilyMemberService.SaveBasicInfo({ ...data, Id: this.memberId })
@@ -85,7 +84,6 @@ export class ChildProfileComponent implements OnInit {
     }
   }
   async SaveMedicalInfo() {
-    debugger
     if (this.MedicalForm.valid && this.memberId > 0) {
       let data = this.MedicalForm.value
       let result = await this._FamilyMemberService.SaveMedicalInfo({ ...data, Id: this.memberId })
@@ -96,7 +94,6 @@ export class ChildProfileComponent implements OnInit {
   }
 
   async SaveBankInfo() {
-    debugger
     if (this.BankForm.valid && this.memberId > 0) {
       let data = this.BankForm.value
       let result = await this._FamilyMemberService.SaveBankForm({ ...data, Id: this.memberId })

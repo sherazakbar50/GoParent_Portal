@@ -24,13 +24,14 @@ export class AuthorizeInterceptor implements HttpInterceptor {
     return this.processRequestWithToken(accessToken, req, next).pipe(
       finalize(() => {}),
       catchError((error: HttpErrorResponse) => {
+
         let errorMsg = '', notifier = AppInjector.get(NzNotificationService);
 
         if (error.error instanceof ErrorEvent) {
              console.log('CLIENT Side Error')
              errorMsg = `Error: ${error.error.message}`
         } else {
-          errorMsg = `Error Code: ${error.status},  Message: ${error.message}, Possible Reason: ${error.error["Error"] || "Unknown"}`
+          errorMsg = `Error Code: ${error.status},  Message: ${error.message}, Possible Reason: ${error.error && error.error["Error"] || "Unknown"}`
          
           if (error.status === 401) {
             this.authorize.logoutUnAuthorizedUser()

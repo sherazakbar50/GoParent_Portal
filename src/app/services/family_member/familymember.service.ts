@@ -19,7 +19,6 @@ export class FamilyMemberService extends ApiHandler {
       .toPromise<FamilyMemberDto[]>()
   }
   DeleteFamilyMember(id: number) {
-    debugger
     return this.Post(id, API_URL + API_ENDPOINTS.DeleteFamilyMember, undefined)
       .pipe(map(x => x.ResponseData))
       .toPromise<boolean>()

@@ -43,7 +43,7 @@
               <div class="text-danger">
                 <ng-container *ngIf="parentSubmission && email.hasError('required')">Please enter your Email!</ng-container>
                 <ng-container *ngIf="parentSubmission && email.hasError('pattern') && !email.hasError('required')">Please enter a valid email e.g abc@xyz.com</ng-container>
-                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !lastName.hasError('required') && !email.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !email.hasError('required') && !email.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>

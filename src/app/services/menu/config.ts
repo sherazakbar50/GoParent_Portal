@@ -23,7 +23,6 @@ export const getMenuData: any[] = [
       },
     ],
   },
-
   {
     title: 'Family Contact(s)',
     key: 'familyContacts',
@@ -37,15 +36,21 @@ export const getMenuData: any[] = [
     url: '/expenses',
   },
   {
-    title: 'Setting',
-    key: 'userSetting',
-    icon: 'fe fe-home',
-    children: [
-      {
-        title: 'Connection',
-        key: 'userSettingConnection',
-        url: '/setting/connection',
-      },
-    ],
+    title: 'Connection',
+    key: 'connection',
+    icon: 'fe fe-link',
+    url: '/connection',
   },
+  // {
+  //   title: 'Setting',
+  //   key: 'userSetting',
+  //   icon: 'fe fe-home',
+  //   children: [
+  //     {
+  //       title: 'Connection',
+  //       key: 'userSettingConnection',
+  //       url: '/setting/connection',
+  //     },
+  //   ],
+  // },
 ]

@@ -19,7 +19,6 @@ export class ProfileComponent implements OnInit {
   constructor(private fb:FormBuilder,private authService: jwtAuthService,private familyMemberService : FamilyMemberService,private notify:NzNotificationService) {
   }
   async ngOnInit() {
-    debugger
      this.userData = await this.authService.getUserModel();
      this.personalInfoForm  = this.fb.group({
       firstName:[this.userData.FirstName,[Validators.required]],
@@ -40,7 +39,6 @@ export class ProfileComponent implements OnInit {
   get relationship() { return this.personalInfoForm.controls.relationship };
 
   async personalInfoFormSubmission(){
-    debugger
     this.personalInfoSubmissionHolder = true;
     this.firstName.markAsDirty()
     this.firstName.updateValueAndValidity()
@@ -54,9 +52,6 @@ export class ProfileComponent implements OnInit {
    if(updateInfo){
          this.notify.success('','Information updated successfully');
          this.authService.logoutUnAuthorizedUser();
-   }
-   else{
-    this.notify.error('','Something went wrong');
    }
    this.loading = false;
    this.personalInfoSubmissionHolder = false;
