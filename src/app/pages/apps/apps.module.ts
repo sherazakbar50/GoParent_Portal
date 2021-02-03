@@ -11,7 +11,6 @@ import { WidgetsComponentsModule } from 'src/app/components/kit/widgets/widgets-
 // Apps
 import { AppsMessagingComponent } from 'src/app/pages/apps/messaging/messaging.component'
 import { AppsCalendarComponent } from 'src/app/pages/apps/calendar/calendar.component'
-import { AppsProfileComponent } from 'src/app/pages/apps/profile/profile.component'
 import { AppsGalleryComponent } from 'src/app/pages/apps/gallery/gallery.component'
 import { AppsMailComponent } from 'src/app/pages/apps/mail/mail.component'
 import { GithubExploreComponent } from 'src/app/pages/apps/github-explore/github-explore.component'
@@ -30,7 +29,6 @@ import { WordpressAddComponent } from 'src/app/pages/apps/wordpress-add/wordpres
 const COMPONENTS = [
   AppsMessagingComponent,
   AppsCalendarComponent,
-  AppsProfileComponent,
   AppsGalleryComponent,
   AppsMailComponent,
   GithubExploreComponent,

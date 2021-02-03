@@ -7,4 +7,5 @@ export class UserSessionModel {
   LastName: string
   Email: string
   FamilyMemberId: number
+  Relationship:string
 }

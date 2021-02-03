@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core'
 import { Observable } from 'rxjs'
 import { tap,catchError } from 'rxjs/operators'
 import { BaseResponse } from '../models/IApiResponse'
+import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
+import {AppInjector} from './app-injector';
 
 export interface IApiBaseActions {
   Get(id: any, url: string)
@@ -25,10 +27,13 @@ export class ApiHandler implements IApiBaseActions {
   }
 
   HandleResponse(response) {
-    if (response.Status === 500) {
-      alert('There is an error while getting the data. please try again later')
-      console.log(response)
-    }
+    let notifier:NzNotificationService = AppInjector.get(NzNotificationService);
+    if(!response)
+       notifier.error('','Something went wrong. Please try again later');
+    
+    if(!response.IsSuccessful ||  response.Status === 500 || response.Status === 400)
+       notifier.error('',response.Error || 'Something went wrong. Please try again later');
+
   }
 
   Post(id: any, url: string, data: any) {

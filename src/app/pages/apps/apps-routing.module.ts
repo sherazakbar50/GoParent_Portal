@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router'
 // Apps
 import { AppsMessagingComponent } from 'src/app/pages/apps/messaging/messaging.component'
 import { AppsCalendarComponent } from 'src/app/pages/apps/calendar/calendar.component'
-import { AppsProfileComponent } from 'src/app/pages/apps/profile/profile.component'
 import { AppsGalleryComponent } from 'src/app/pages/apps/gallery/gallery.component'
 import { AppsMailComponent } from 'src/app/pages/apps/mail/mail.component'
 import { GithubExploreComponent } from 'src/app/pages/apps/github-explore/github-explore.component'
@@ -30,11 +29,6 @@ const routes: Routes = [
     path: 'calendar',
     component: AppsCalendarComponent,
     data: { title: 'Calendar App' },
-  },
-  {
-    path: 'profile',
-    component: AppsProfileComponent,
-    data: { title: 'Profile App' },
   },
   {
     path: 'gallery',

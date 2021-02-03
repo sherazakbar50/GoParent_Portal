@@ -11,12 +11,14 @@ import { LockscreenPage } from './lockscreen/lockscreen.component'
 import { ForgotPasswordPage } from './forgot-password/forgot-password.component'
 import { Error500Page } from './500/500.component'
 import { Error404Page } from './404/404.component'
+import { ResetPasswordPage } from './reset-password/reset-password.component'
 
 const COMPONENTS = [
   LoginPage,
   RegisterPage,
   LockscreenPage,
   ForgotPasswordPage,
+  ResetPasswordPage,
   Error500Page,
   Error404Page,
 ]

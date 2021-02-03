@@ -72,4 +72,9 @@ export class FamilyMemberService extends ApiHandler {
       .pipe(map(x => x.ResponseData))
       .toPromise<boolean>()
   }
+
+  UpdateUserInfo(firstName:string,lastName:string,relationship:string) {
+    return this.Post(0,API_URL + API_ENDPOINTS.UpdateUserInfo, {FirstName:firstName,LastName:lastName,Relationship:relationship}).pipe(map(x => x.ResponseData))
+    .toPromise();
+  }
 }

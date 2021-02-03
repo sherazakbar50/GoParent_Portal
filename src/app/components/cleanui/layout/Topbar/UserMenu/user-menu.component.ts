@@ -25,6 +25,5 @@ export class TopbarUserMenuComponent {
 
   logout() {
     this.authService.logoutUnAuthorizedUser()
-    this.router.navigate(['auth', 'login'])
   }
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { NgModule, LOCALE_ID } from '@angular/core'
+import { NgModule, LOCALE_ID,Injector } from '@angular/core'
 import { TranslateModule } from '@ngx-translate/core'
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
@@ -27,6 +27,9 @@ import { registerLocaleData } from '@angular/common'
 import { default as localeEn } from '@angular/common/locales/en'
 import { NZ_I18N, en_US as localeZorro } from 'ng-zorro-antd/i18n'
 import { AuthorizeInterceptor } from './components/cleanui/system/Interceptor/authorize.interceptor'
+
+import {setAppInjector} from 'src/app/services/app-injector';
+
 const LOCALE_PROVIDERS = [
   { provide: LOCALE_ID, useValue: 'en' },
   { provide: NZ_I18N, useValue: localeZorro },
@@ -84,4 +87,8 @@ registerLocaleData(localeEn, 'en')
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(injector: Injector) {
+    setAppInjector(injector);
+ }
+}

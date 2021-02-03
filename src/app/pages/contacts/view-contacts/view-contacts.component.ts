@@ -96,14 +96,13 @@ export class ViewContactsComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-      }).then(result => {
+      }).then(async result => {
       if (result && result.isConfirmed) {
-          this._contactService.deleteContact(id).subscribe(res =>{
+        let response = await this._contactService.deleteContact(id);
+        if(response){
           this._notifiy.success('','Contact deleted successfully')
           this._contactService.getContacts();
-         },error => {
-           this._notifiy.error('','Something went wrong while deleting the contact')
-         })
+        }
        }
     })
   }

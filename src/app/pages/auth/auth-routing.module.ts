@@ -9,6 +9,7 @@ import { LockscreenPage } from 'src/app/pages/auth/lockscreen/lockscreen.compone
 import { ForgotPasswordPage } from 'src/app/pages/auth/forgot-password/forgot-password.component'
 import { Error500Page } from 'src/app/pages/auth/500/500.component'
 import { Error404Page } from 'src/app/pages/auth/404/404.component'
+import { ResetPasswordPage } from 'src/app/pages/auth/reset-password/reset-password.component'
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
     path: 'forgot-password',
     component: ForgotPasswordPage,
     data: { title: 'Forgot Password' },
+  },
+  {
+    path: 'reset-password',
+    component: ResetPasswordPage,
+    data: { title: 'Reset Password' },
   },
   {
     path: '404',

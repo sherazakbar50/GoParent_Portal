@@ -96,10 +96,14 @@ const routes: Routes = [
         path: 'expenses',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('src/app/pages/family-expenses/family-expenses.module').then(
-            x => x.FamilyExpensesModule,
-          ),
+          import('src/app/pages/family-expenses/family-expenses.module').then( x => x.FamilyExpensesModule),
+        
       },
+      {
+        path: 'Profile',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/user-profile/profile.module').then(x => x.ProfileModule)
+      }
     ],
   },
   {

@@ -127,7 +127,7 @@ export class RegisterComponent {
     //this.store.dispatch(new UserActions.Register(payload,this.authService))
   }
 
-  CoParentChildForm():void{
+  async CoParentChildForm(){
     this.CoParentChildSubmission = true;
     this.coParentEmail.markAsDirty()
     this.coParentEmail.updateValueAndValidity()
@@ -144,22 +144,20 @@ export class RegisterComponent {
     };
     
     this.loading = true;
-    this.authService.register(this.createRegistrationDataPayload()).subscribe(
-      data => {
-        this.notification.success(
-          'Successful!',
-          'Your account has been created successfully.'
-        );
-        this.router.navigate(["auth/login"]);
-        this.CoParentChildSubmission = false
-        this.parentSubmission = false
-        this.loading = false;
-      },
-      error => {
-        this.notification.error('Unsuccessful!', error.error.Error || "Something went wrong" );
-        this.loading = false;
-      }
-     );
+    let response = await this.authService.register(this.createRegistrationDataPayload());
+    if(response){
+      this.notification.success(
+        '',
+        'Your account has been created successfully.'
+      );
+      this.router.navigate(["auth/login"]);
+      this.CoParentChildSubmission = false
+      this.parentSubmission = false
+      this.loading = false;
+    }
+    else{
+      this.loading = false; 
+    }
   }
 
   createRegistrationDataPayload():UserDTO.UserDTO {

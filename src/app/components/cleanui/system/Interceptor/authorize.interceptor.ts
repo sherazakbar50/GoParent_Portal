@@ -10,6 +10,8 @@ import { Observable, throwError } from 'rxjs'
 import { jwtAuthService } from 'src/app/services/jwt/index'
 import { catchError, finalize, mergeMap } from 'rxjs/operators'
 import { Router } from '@angular/router'
+import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
+import {AppInjector} from 'src/app/services/app-injector';
 
 @Injectable({
   providedIn: 'root',
@@ -22,20 +24,21 @@ export class AuthorizeInterceptor implements HttpInterceptor {
     return this.processRequestWithToken(accessToken, req, next).pipe(
       finalize(() => {}),
       catchError((error: HttpErrorResponse) => {
-        let errorMsg = ''
+        let errorMsg = '', notifier = AppInjector.get(NzNotificationService);
+
         if (error.error instanceof ErrorEvent) {
-          console.log('CLIENT Side Error')
-          errorMsg = `Error: ${error.error.message}`
-          // this.alert.error(errorMsg)
+             console.log('CLIENT Side Error')
+             errorMsg = `Error: ${error.error.message}`
         } else {
-          errorMsg = `Error Code: ${error.status},  Message: ${error.message}`
-          // this.alert.error(errorMsg)
+          errorMsg = `Error Code: ${error.status},  Message: ${error.message}, Possible Reason: ${error.error["Error"] || "Unknown"}`
+         
           if (error.status === 401) {
             this.authorize.logoutUnAuthorizedUser()
             this.router.navigate(['/auth/login'])
           }
         }
-        console.log(errorMsg)
+
+        notifier.error('',"Something went wrong while processing the request")
         return throwError(errorMsg)
       }),
     )

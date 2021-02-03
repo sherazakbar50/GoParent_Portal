@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable,throwError } from 'rxjs';
 import { BaseResponse } from 'src/app/models/IApiResponse';
 import { HttpClient } from '@angular/common/http';
 import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
+import { tap,catchError,map } from 'rxjs/operators'
 @Injectable({
   providedIn: 'root'
 })
@@ -22,26 +23,22 @@ export class ContactsService extends ApiHandler {
   public get recentcontacts() { return this.recentcontactSubject$.value; }
 
 
-  constructor(private httpClient: HttpClient,private notify:NzNotificationService) {
+  constructor(private httpClient: HttpClient,private notifier:NzNotificationService) {
     super(httpClient);
     this.contactObserver$ = this.contactSubject$.asObservable();
     this.recentcontactObserver$ = this.recentcontactSubject$.asObservable();
   }
 
-  getContacts() {
-    this.GetAll(API_URL + API_ENDPOINTS.GetAllContacts).subscribe(res => {
-      this.contactSubject$.next(res.ResponseData);
-    },
-    error =>{
-      debugger
-     this.notify.error('','Something went wrong while getting contacts data')
-    }
-    );
+ async getContacts() {
+   let response = await this.GetAll(API_URL + API_ENDPOINTS.GetAllContacts).pipe(map(x=>x.ResponseData)).toPromise();
+   if(response){
+    this.contactSubject$.next(response);
+   }
   }
-  saveContacts(data: ContactDTO): Observable<BaseResponse> {
-    return this.Post(0,API_URL + API_ENDPOINTS.addUpdateContact, data);
+  saveContacts(data: ContactDTO) {
+    return this.Post(0,API_URL + API_ENDPOINTS.addUpdateContact, data).pipe(map(x=>x.ResponseData)).toPromise();
   }
-    deleteContact(id: number): Observable<BaseResponse> {
-    return this.Delete(API_URL + API_ENDPOINTS.DeleteContact,id);
+    deleteContact(id: number) {
+    return this.Delete(API_URL + API_ENDPOINTS.DeleteContact,id).pipe(map(x=>x.ResponseData)).toPromise();
   }
 }  

@@ -40,4 +40,7 @@ export const API_ENDPOINTS = {
   DeleteExpense: 'api/FamilyExpenses/DeleteExpense',
   AddUpdateExpense: 'api/FamilyExpenses/AddUpdateExpense',
   UpdateExpenseStatus: 'api/FamilyExpenses/SetExpenseStatus',
+  UpdateUserInfo:'api/FamilyMember/updateUserInfo',
+  ForgotPassword:'api/auth/ForgotPassword',
+  ResetPassword:'api/auth/ResetPassword'
 }

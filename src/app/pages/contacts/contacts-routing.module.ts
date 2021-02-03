@@ -4,7 +4,7 @@ import { AddContactsComponent } from './add-contacts/add-contacts.component';
 import { ViewContactsComponent } from './view-contacts/view-contacts.component';
 
 const routes: Routes = [
-  { path: '', component: ViewContactsComponent },
+  { path: '', component: ViewContactsComponent,data:{title:"Family Contacts"} },
   { path: 'add', component: AddContactsComponent },
 ];
 

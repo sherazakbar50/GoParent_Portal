@@ -62,25 +62,17 @@ export class AddContactsComponent implements OnInit {
     this.saveContacts(this.form.value);
   }
 
-  saveContacts(data: ContactDTO) {
+  async saveContacts(data: ContactDTO) {
     data.Id = this.contactId;
-    this._contactService.saveContacts(data).subscribe(res => {
-      if (res.IsSuccessful) {
-         this._contactService.getContacts();
-         this.notify.success('',`Contact ${(this.contactId > 0 ? "Updated" : "Added")} Successfully!`)
-      }
-      else{
-        this.HandleError(res.Error);
-      }
-    },
-    error => {
-      this.HandleError();
-    });
-  }
-
-  HandleError(error?:any){
-    this.loading = false;
-    this.IsSubmitted = false;
-    this.notify.error('', error || "Something went wrong while saving contact")
+    let response = await this._contactService.saveContacts(data);
+    if(response){
+      this._contactService.getContacts();
+      this.notify.success('',`Contact ${(this.contactId > 0 ? "Updated" : "Added")} Successfully!`)
+    }
+    else{
+      this.loading = false;
+      this.IsSubmitted = false;
+    }
+    
   }
 }

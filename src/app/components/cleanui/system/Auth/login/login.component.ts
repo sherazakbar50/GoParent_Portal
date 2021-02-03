@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
     return this.form.controls.password
   }
 
-  submitForm(): void {
+  async submitForm(){
     this.email.markAsDirty()
     this.email.updateValueAndValidity()
     this.password.markAsDirty()
@@ -48,28 +48,17 @@ export class LoginComponent implements OnInit {
       return
     }
     this.loading = true;
-    this.authService.login(this.email.value, this.password.value).subscribe(
-      data => {
-        if(data.IsSuccessful && data.ResponseData){
-           localStorage.setItem('accessToken', data.ResponseData.AccessToken)
-           localStorage.setItem('refreshToken', data.ResponseData.RefreshToken)
-           this.loading = false;
-           this.invalidCredentails = false
-           this.router.navigate([this.returnUrl])
-        }
-        else{
-          this.HandleErrorResponse(data.Error || "Invalid email or password");
-        }
-      },
-      error => {
-        this.HandleErrorResponse(error.Error);
-      }
-    );
-  }
-
-  HandleErrorResponse(errorMsg:any){
-        this.loading = false;
-        this.invalidCredentails = true
-        this.notification.error('Unsuccessful!', errorMsg || "Something went wrong" );
+    let response = await this.authService.login(this.email.value, this.password.value);
+    if(response){
+      localStorage.setItem('accessToken', response.AccessToken)
+      localStorage.setItem('refreshToken', response.RefreshToken)
+      this.loading = false;
+      this.invalidCredentails = false
+      this.router.navigate([this.returnUrl])
+   }
+   else{
+    this.loading = false;
+    this.invalidCredentails = true
+   }
   }
 }
