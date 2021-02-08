@@ -11,11 +11,29 @@
         <div class="card-header card-header-flex flex-column">
           <nz-tabset class="kit-tabs kit-tabs-bold" (nzSelectedIndexChange)="changeKey($event)">
             <nz-tab nzTitle="Personal Info"></nz-tab>
-            <!-- <nz-tab nzTitle="Change Password"></nz-tab> -->
           </nz-tabset>
         </div>
         <div class="card-body">
           <div id="persona-info-div" *ngIf="activeKey === 0">
+            <div class="clearfix">
+              <div class="col-xl-12 m-3 text-center" id='siku'>
+                <nz-upload
+                [nzShape] ="'circle'"
+                class="avatar-uploader d-flex justify-content-center"
+                nzShowButton="true"
+                nzName="avatar"
+                nzListType="picture-card"
+                [nzShowUploadList]="false"
+                [nzBeforeUpload]="beforeUpload">
+                <ng-container *ngIf="!ProfilePicUrl">
+                  <i class="upload-icon" nz-icon [nzType]="ProfilePictureUploader ? 'loading' : 'plus'"></i>
+                  <div class="ant-upload-text">Upload</div>
+                </ng-container>
+                <img *ngIf="ProfilePicUrl" [src]="ProfilePicUrl" style="width: 100%" />
+              </nz-upload>
+              <a (click)="RemoveProfilePicture(event)" class="fe fe-trash profile-pic-delete-icon position-absolute" *ngIf="ProfilePicUrl"></a>
+              </div>
+            </div>
             <form nz-form [nzLayout]="'vertical'" [formGroup]="personalInfoForm" (ngSubmit)="personalInfoFormSubmission()" role="form" *ngIf="personalInfoForm">
               <div class="row">
                 <div class="col-lg-6">
@@ -65,57 +83,6 @@
                 <button nz-button nzType="primary" [nzSize]="'medium'" style="float: right;" [nzLoading]="loading" class="text-center">
                   <strong> Update</strong>
                 </button>
-              </div>
-            </form>
-          </div>
-          <div id="password-div" *ngIf="activeKey === 1">
-            <form nz-form [nzLayout]="'vertical'">
-              <h5 class="text-black mt-2 mb-3">
-                <strong>New Password</strong>
-              </h5>
-              <div class="row">
-                <div class="col-lg-6">
-                  <nz-form-item>
-                    <nz-form-label nzFor="password">Password:</nz-form-label>
-                    <nz-form-control>
-                      <input nz-input placeholder="Password" id="password">
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div class="col-lg-6">
-                  <nz-form-item>
-                    <nz-form-label nzFor="confPassword">Confirm Password:</nz-form-label>
-                    <nz-form-control>
-                      <input nz-input placeholder="Confirm password" id="confPassword">
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-lg-6">
-                  <h5 class="text-black mt-2 mb-3">
-                    <strong>Profile Avatar</strong>
-                  </h5>
-                  <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/">
-                    <button nz-button>
-                      <i nz-icon type="upload"></i><span>Click to Upload</span>
-                    </button>
-                  </nz-upload>
-                </div>
-                <div class="col-lg-6">
-                  <h5 class="text-black mt-2 mb-3">
-                    <strong>Profile Background</strong>
-                  </h5>
-                  <nz-upload nzAction="https://jsonplaceholder.typicode.com/posts/">
-                    <button nz-button>
-                      <i nz-icon type="upload"></i><span>Click to Upload</span>
-                    </button>
-                  </nz-upload>
-                </div>
-              </div>
-              <div class="form-actions">
-                <button nz-button style="width: 150px;" [nzType]="'primary'" class="mr-3">Submit</button>
-                <button nz-button>Cancel</button>
               </div>
             </form>
           </div>

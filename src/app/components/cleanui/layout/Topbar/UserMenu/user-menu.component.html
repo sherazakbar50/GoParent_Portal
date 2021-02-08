@@ -1,6 +1,6 @@
 <div>
   <div nz-dropdown nzTrigger="click" class="dropdown" [nzDropdownMenu]="menu" (nzVisibleChange)="badgeCountIncrease()">
-    <nz-avatar nzIcon="user" [nzShape]="'square'" [nzSize]="'large'" class="avatar"></nz-avatar>
+    <nz-avatar [nzSrc]='ProfilePic' nzIcon="user" [nzShape]="'circle'" [nzSize]="'large'" class="avatar"></nz-avatar>
   </div>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>

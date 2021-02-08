@@ -23,3 +23,48 @@
 .hidden{
   display: none;
 }
+
+// popup add Profile image
+.ant-upload.ant-upload-select-picture-card {
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  -ms-border-radius: 50% !important;
+  -o-border-radius: 50% !important;
+  position: relative;
+}
+.ant-upload.ant-upload-select-picture-card {
+  width: 120px !important;
+  height: 120px !important;
+  border-radius: 50% !important;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  -ms-border-radius: 50% !important;
+  -o-border-radius: 50% !important;
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.ant-upload.ant-upload-select-picture-card>.ant-upload {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #fafafa;
+  border: 1px dashed #e4e9f0;
+  border-radius: 50% !important;
+  padding: 0 !important;
+
+  & img {
+    border-radius: 50% !important;
+    max-height: 120px !important;
+    min-height: 117px !important;
+    object-fit: fill !important;
+    -webkit-border-radius: 50% !important;
+    -moz-border-radius: 50% !important;
+    -ms-border-radius: 50% !important;
+    -o-border-radius: 50% !important;
+    padding: 0 !important;
+  }
+}

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { NzUploadFile } from 'ng-zorro-antd/upload'
 import { map } from 'rxjs/operators'
 import { FamilyMemberDto, VaccineDto } from 'src/app/models/Family/FamilyMemberDto'
 import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
@@ -72,8 +73,15 @@ export class FamilyMemberService extends ApiHandler {
       .toPromise<boolean>()
   }
 
-  UpdateUserInfo(firstName:string,lastName:string,relationship:string) {
-    return this.Post(0,API_URL + API_ENDPOINTS.UpdateUserInfo, {FirstName:firstName,LastName:lastName,Relationship:relationship}).pipe(map(x => x.ResponseData))
+  UpdateUserInfo(firstName:string,lastName:string,relationship:string,profilePicture:any,isDeleteProfilePic:any) {
+    const formData = new FormData();
+    formData.append('ProfilePicture', profilePicture)
+    formData.append('FirstName', firstName)
+    formData.append('LastName', lastName)
+    formData.append('Relationship', relationship)
+    formData.append('IsDeleteProfilePic', isDeleteProfilePic)
+
+    return this.Post(0,API_URL + API_ENDPOINTS.UpdateUserInfo, formData).pipe(map(x => x.ResponseData))
     .toPromise();
   }
 }

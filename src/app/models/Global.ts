@@ -44,5 +44,5 @@ export const API_ENDPOINTS = {
   ForgotPassword:'api/auth/ForgotPassword',
   ResetPassword:'api/auth/ResetPassword',
   CreatePortalAccess:'api/FamilyMember/CreatePortalAccess',
-  GetOtherCoParentIfExits:'api/FamilyMember/GetOtherCoParentIfExits'
+  GetOtherCoParentIfExits:'api/FamilyMember/GetOtherCoParentIfExits',
 }

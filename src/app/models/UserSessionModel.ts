@@ -8,4 +8,5 @@ export class UserSessionModel {
   Email: string
   FamilyMemberId: number
   Relationship:string
+  ProfilePicUrl:string
 }
