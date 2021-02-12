@@ -8,8 +8,16 @@ import { ACLComponent } from 'src/app/components/cleanui/system/ACL/acl.componen
 
 // antd components module
 import { AntdModule } from 'src/app/antd.module'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
-const MODULES = [CommonModule, RouterModule, AntdModule, TranslateModule]
+const MODULES = [
+  CommonModule,
+  RouterModule,
+  AntdModule,
+  TranslateModule,
+  FormsModule,
+  ReactiveFormsModule,
+]
 
 @NgModule({
   imports: [...MODULES],

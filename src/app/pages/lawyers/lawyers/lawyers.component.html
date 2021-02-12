@@ -1,0 +1,75 @@
+<nz-card nzTitle="Lawyers Account">
+    <div>
+        <form nz-form [formGroup]="form" (ngSubmit)="createLawyerAccount()">
+            <div nz-row>
+                <div nz-col nzSpan="20">
+                    <nz-form-item>
+                        <nz-form-control nzHasFeedback [nzErrorTip]="emailTpl">
+                            <nz-input-group nzPrefixIcon="user">
+                                <input type="email" [nzSize]="'large'" formControlName="lawyerEmail" nz-input id="email"
+                                    autocomplete="off" placeholder="Lawyer Email Address" />
+
+                            </nz-input-group>
+
+                            <ng-template #emailTpl let-control>
+                                <ng-container *ngIf="control.hasError('required')">
+                                    Email Address is required
+                                </ng-container>
+
+                                <ng-container *ngIf="control.hasError('pattern')">
+                                    Please enter a valid email e.g abc@xyz.com
+                                </ng-container>
+
+                                <ng-container *ngIf="control.hasError('maxlength')">
+                                    Maximum 50 characters are allowed!
+                                </ng-container>
+
+                            </ng-template>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+                <div nz-col nzSpan="1"></div>
+                <div nz-col nzSpan="3">
+                    <nz-form-item>
+                        <nz-form-control>
+                            <button nz-button nzType="primary" [nzLoading]="isLoading">Send Portal Access</button>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="mt-4">
+        <nz-table #basicTable [nzData]="lawyersList | async" class="kit__utils__table mb-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Email Address</th>
+                    <th>Cases Counts</th>
+                    <th>Assigned Cases</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ data.Email }}</td>
+                    <td>{{ data.CaseCounts }}</td>
+                    <td>
+                        <ng-container *ngIf="data.Cases && data.Cases.length > 0; else noCasesTpl">
+                            <ng-container *ngFor="let item of data.Cases">
+                                {{item.Name}}
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #noCasesTpl>
+                            No Cases Assigned
+                        </ng-template>
+                    </td>
+                    <td style="width: 150px;">
+                        <button nz-button nzType="primary">Assign Case</button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</nz-card>

@@ -14,7 +14,7 @@ export const initialState: object = {
   // default settings, if not exist in localStorage
   ...STORED_SETTINGS({
     authProvider: 'jwt', // firebase, jwt
-    ProjectName:'GoParent',
+    ProjectName: 'GoParent',
     logo: 'GoParent',
     locale: 'en-US',
     isSidebarOpen: false,
@@ -30,7 +30,7 @@ export const initialState: object = {
     primaryColor: '#4b7cf3',
     leftMenuWidth: 256,
     isMenuUnfixed: false,
-    isMenuShadow: false,
+    isMenuShadow: true,
     isTopbarFixed: false,
     isGrayTopbar: false,
     isContentMaxWidth: false,

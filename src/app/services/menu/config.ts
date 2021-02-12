@@ -41,6 +41,12 @@ export const getMenuData: any[] = [
     icon: 'fe fe-link',
     url: '/connection',
   },
+  {
+    title: 'Lawyers',
+    key: 'lawyers',
+    icon: 'fe fe-user',
+    url: '/lawyers',
+  },
   // {
   //   title: 'Setting',
   //   key: 'userSetting',

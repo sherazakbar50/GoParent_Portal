@@ -27,55 +27,6 @@ const routes: Routes = [
           import('src/app/pages/dashboard/dashboard.module').then(m => m.DashboardModule),
       },
       {
-        path: 'ecommerce',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('src/app/pages/ecommerce/ecommerce.module').then(m => m.EcommerceModule),
-      },
-      {
-        path: 'apps',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/apps/apps.module').then(m => m.AppsModule),
-      },
-      {
-        path: 'icons',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/icons/icons.module').then(m => m.IconsModule),
-      },
-      {
-        path: 'charts',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/charts/charts.module').then(m => m.ChartsModule),
-      },
-      {
-        path: 'cards',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/cards/cards.module').then(m => m.CardsModule),
-      },
-      {
-        path: 'advanced',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('src/app/pages/advanced/advanced.module').then(m => m.AdvancedModule),
-      },
-      {
-        path: 'widgets',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('src/app/pages/widgets/widgets.module').then(m => m.WidgetsModule),
-      },
-      {
-        path: 'tables',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/tables/tables.module').then(m => m.TablesModule),
-      },
-      {
-        path: 'ui-kits',
-        canActivate: [AuthGuard],
-        loadChildren: () =>
-          import('src/app/pages/ui-kits/ui-kits.module').then(m => m.UIKitsModule),
-      },
-      {
         path: 'contacts',
         canActivate: [AuthGuard],
         loadChildren: () =>
@@ -90,19 +41,28 @@ const routes: Routes = [
         path: 'expenses',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('src/app/pages/family-expenses/family-expenses.module').then( x => x.FamilyExpensesModule),
-        
+          import('src/app/pages/family-expenses/family-expenses.module').then(
+            x => x.FamilyExpensesModule,
+          ),
       },
       {
-        path: 'Profile',
+        path: 'profile',
         canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/user-profile/profile.module').then(x => x.ProfileModule)
+        loadChildren: () =>
+          import('src/app/pages/user-profile/profile.module').then(x => x.ProfileModule),
       },
       {
         path: 'connection',
         canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/connection/connection.module').then(x => x.ConnectionModule)
-      }
+        loadChildren: () =>
+          import('src/app/pages/connection/connection.module').then(x => x.ConnectionModule),
+      },
+      {
+        path: 'lawyers',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/lawyers/lawyers.module').then(x => x.LawyersModule),
+      },
     ],
   },
   {
