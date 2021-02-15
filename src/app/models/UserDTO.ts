@@ -8,6 +8,7 @@ export class UserDTO{
 }
 
 export class ChildDTO{
+    childId:number
     childFirstName:string
     childLastName:string
 }

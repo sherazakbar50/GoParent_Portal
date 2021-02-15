@@ -1,0 +1,81 @@
+<div class="calendarView">
+    <div>
+      <div class="row mb-4">
+        <div class="col-xl-12">
+          <a nz-button class="float-right" nzType="primary" (click)="SaveEventModal()">Add Event</a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="card bg-white d-flex flex-row">
+          <div class="p-5 col-xl-4 ">
+            <h5>
+              {{ selectedDate.toLocaleString('default', { month: 'long' }) }} {{selectedDate.getFullYear()}}
+            </h5>
+            <div [ngStyle]="{ border: '1px solid #e3e3e3', borderRadius: '1px', marginTop: '33px'}">
+              <nz-calendar #calendar id="smart-calendar" [nzFullscreen]="false" (nzPanelChange)="LoadDataOnChange($event)" (nzSelectChange)="changeDate($event)" [(ngModel)]="selectedDate">
+              </nz-calendar>
+            </div>
+            <!-- <nz-date-picker nzBorderless nzOpen style="visibility: hidden;" [(ngModel)]="selectedDate"></nz-date-picker> -->
+          </div>
+          <div class="col-xl-8 pr-5 mt-3">
+            <nz-calendar [(ngModel)]="selectedDate" [nzDateCell]="dateCellRender" [nzMonthCell]="monthCellRender" (nzPanelChange)="LoadDataOnChange($event)" (nzSelectChange)="changeDate($event)"></nz-calendar>
+            <ng-template #dateCellRender let-date>
+              <div class="customDateBlock" [ngClass]="{eventSelected: ((dateList.includes(date.getTime())) && (date.getMonth() == selectedDate.getMonth()) )}">
+                <ng-container *ngIf="date.getMonth() == selectedDate.getMonth()">
+                  {{ date.getDate() }}
+                </ng-container>
+              </div>
+              <div>
+                <ul class="events" *ngIf="date.getMonth() == selectedDate.getMonth()">
+                  <ng-container *ngFor="let event of events; trackBy:getEvents">
+                    <li nz-popover [style.background]="event.EventBgColor"
+                      *ngIf="IsRenderEventsOnCell(date,event.EventStartDate,event.EventEndDate)"
+                      nzPopoverContent="{{event.EventNotes}}"
+                      (click)="showEventDetails(event, date)">
+                      <nz-badge [nzStatus]="event.type" [nzText]="event.EventSubject"></nz-badge>
+                    </li>
+                  </ng-container>
+                </ul>
+              </div>
+            </ng-template>
+            <ng-template #monthCellRender let-month>
+              <div>
+                {{ month.toLocaleString('default', { month: 'long' }) }}
+              </div>
+              <div>
+                <ul class="events">
+                  <ng-container *ngFor="let event of getMonthEvents(month)">
+                    <li [style.background]="event.EventBgColor" nz-popover nzPopoverContent="{{event.EventNotes}}" (click)="showEventDetails(event, event.EventStartDate)">
+                      <nz-badge [nzStatus]="event.type" [nzText]="event.EventSubject"></nz-badge>
+                    </li>
+                  </ng-container>
+                </ul> 
+              </div>
+            </ng-template>
+          </div>
+          
+          <!-- <ng-container *ngTemplateOutlet="noData" class="m-5"></ng-container> -->
+        </div>
+      </div>
+     
+    </div>
+  
+    <!-- Add Modal -->
+    <div>
+      <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
+      nzMaskClosable="false">
+      <ng-container *nzModalContent>
+        <app-add-event [eventSub]="editEventObserverSubject" [modalCloseSub]="closeModalObserverSubject"></app-add-event>
+      </ng-container>
+        (nzOnCancel)="handleCancel()" nzMaskClosable="false">
+      </nz-modal>
+    </div>
+    <div>
+      <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent" (nzOnCancel)="closeViewEvent()" nzMaskClosable="false">
+        <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
+        </app-view-event>
+      </nz-modal>
+    </div>
+  </div>
+  <!-- calendarView  -->
+  

@@ -47,6 +47,12 @@ export const getMenuData: any[] = [
     icon: 'fe fe-user',
     url: '/lawyers',
   },
+  {
+    title: 'Calendar',
+    key: 'connection',
+    icon: 'fe fe-calendar',
+    url: '/calendar',
+  }
   // {
   //   title: 'Setting',
   //   key: 'userSetting',

@@ -20,6 +20,9 @@
     margin-top: 20px;
 }
 
+.p-15{
+  padding: 15px;
+}
 .hidden{
   display: none;
 }
@@ -67,4 +70,78 @@
     -o-border-radius: 50% !important;
     padding: 0 !important;
   }
+}
+
+
+.text-align-end{
+  text-align: end;
+}
+
+// for calendar page 
+.calendarView {
+  .ant-badge-status-dot {
+    display: none;
+  }
+
+  .ant-picker-calendar-date-content {
+    ul {
+      li {
+        //border: 1px solid var(--kit-color-primary);
+        border-radius: 4px;
+        height: 20px;
+        margin-bottom: 4px;
+
+        .ant-badge-status-text {
+          font-size: 10px;
+          margin-left: 4px;
+          color: white;//var(--kit-color-primary);
+          font-weight: 500;
+
+        }
+        // ant-badge-status-text
+      }
+      // li 
+    }
+    // ul 
+  }
+
+  // ant-picker-calendar-date-content ends 
+}
+
+.appointment-tag{
+  .appointment-tag-loop{
+    background: #c4c4c4;
+    border-radius: 4px;
+    padding: 2px 6px;
+    font-size: 11px;
+    color: #fff;
+    margin-right: 4px;
+  }
+}
+
+.ant-picker-calendar-date-content > .ng-star-inserted:not(.customDateBlock ) {
+  position: static;
+  width: auto;
+  height: 90px;
+}
+.ant-picker-calendar-date-content.ng-star-inserted {
+  height: auto !important;
+  overflow: visible !important;
+  position: initial !important;
+}
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-value {
+  display: none;
+}
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date {
+  padding: 4px 2px 0 !important;
+  border: 1px solid #e4e9f0 !important;
+  margin: 0 !important;
+}
+// calendarView ends 
+
+.w-70{
+  width: 70%;
+}
+.w-30{
+  width: 30%;
 }

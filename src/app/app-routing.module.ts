@@ -63,6 +63,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/pages/lawyers/lawyers.module').then(x => x.LawyersModule),
       },
+      {
+        path: 'calendar',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/calendar/calendar.module').then(x => x.CalendarModule)
+      }
     ],
   },
   {

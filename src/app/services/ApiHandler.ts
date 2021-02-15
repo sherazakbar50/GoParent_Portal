@@ -22,7 +22,9 @@ export class ApiHandler implements IApiBaseActions {
     url = `${url}?id=${id}`
     return this.myHttpClient.get<BaseResponse>(url).pipe(tap(x => this.HandleResponse(x)))
   }
-  GetAll(url: string) {
+  GetAll(url: string,content?:any) {
+    if(content)
+      url=`${url}?${content}`
     return this.myHttpClient.get<BaseResponse>(url).pipe(tap(x => this.HandleResponse(x)))
   }
 
