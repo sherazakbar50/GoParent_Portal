@@ -12,14 +12,18 @@ import { FormsService } from 'src/app/services/shared/forms.service'
 })
 export class LawyersComponent implements OnInit {
   form: FormGroup
+  listOfSelectedCases: any[] = []
+  caseList: Observable<any[]>
+  selectedLawyer: any
   isLoading: boolean = false
-  // isSubmitted: boolean = false
-  lawyersList: Observable<any>
+  isVisible: boolean = false
+  lawyersList: Observable<any[]>
+  assignLoading: boolean = false;
   constructor(
     private _formService: FormsService,
     private _lawyerService: LawyerService,
     private _notify: NzNotificationService,
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.form = new FormGroup(
@@ -34,9 +38,11 @@ export class LawyersComponent implements OnInit {
       },
       { updateOn: 'submit' },
     )
-
+    // Get Lawyers
     this._lawyerService.getLawyersList()
     this.lawyersList = this._lawyerService.laywersListObservable$()
+
+
   }
 
   get control() {
@@ -54,8 +60,37 @@ export class LawyersComponent implements OnInit {
     this.isLoading = false
     this.form.reset()
     if (res) {
-      this._notify.success('Success', "Laywer's Account is Created Succcessfully!")
+      this._notify.success('', "Laywer's Account is Created Successfully!")
       this._lawyerService.getLawyersList()
     }
+  }
+
+  async assignCaseToLawyer() {
+    this.assignLoading = true
+    let data = {
+      LawyerID: this.selectedLawyer.LawyerID,
+      FamilyIDs: this.listOfSelectedCases,
+    }
+    let result = await this._lawyerService.assignCase(data);
+    this.assignLoading = false
+    if (result) {
+      this.handleCancel()
+      this._lawyerService.getLawyersList()
+      this._notify.success('', `Case(s) updated successfully against: ${this.selectedLawyer.Email}`)
+    }
+  }
+
+
+  showModal(data) {
+    this.isVisible = true
+    this.selectedLawyer = data
+    this.listOfSelectedCases = data.Cases.map(x => x.Id)
+    // Get Families/Cases
+    this._lawyerService.getCasesFamilies(this.selectedLawyer.LawyerID)
+    this.caseList = this._lawyerService.caseListObservable$()
+  }
+
+  handleCancel() {
+    this.isVisible = false
   }
 }

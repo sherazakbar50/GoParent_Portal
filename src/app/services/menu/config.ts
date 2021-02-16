@@ -8,11 +8,13 @@ export const getMenuData: any[] = [
     key: 'mainDashboard',
     icon: 'fe fe-bookmark',
     url: '/dashboard/index',
+    roles: ["Admin", "Parent", "Lawyer"],
   },
   {
     title: 'Family Child(s)',
     key: 'childProfiles',
     icon: 'fa fa-child',
+    roles: [ "Parent"],
     // roles: ['admin'], // set user roles with access to this route
     // count: 4,
     children: [
@@ -28,30 +30,35 @@ export const getMenuData: any[] = [
     key: 'familyContacts',
     icon: 'fe fe-users',
     url: '/contacts',
+    roles: ["Parent", "Lawyer"],
   },
   {
     title: 'Expense(s)',
     key: 'familyExpenses',
     icon: 'fa fa-dollar',
     url: '/expenses',
+    roles: [ "Parent", "Lawyer"],
   },
   {
     title: 'Connection',
     key: 'connection',
     icon: 'fe fe-link',
     url: '/connection',
+    roles: ["Parent"],
   },
   {
     title: 'Lawyers',
     key: 'lawyers',
     icon: 'fe fe-user',
     url: '/lawyers',
+    roles: ["Admin"],
   },
   {
     title: 'Calendar',
     key: 'connection',
     icon: 'fe fe-calendar',
     url: '/calendar',
+    roles: ["Parent", "Lawyer"],
   }
   // {
   //   title: 'Setting',

@@ -12,7 +12,7 @@ import { Router } from '@angular/router'
 
 @Injectable()
 export class jwtAuthService extends ApiHandler {
-  constructor(http: HttpClient,private router: Router) {
+  constructor(http: HttpClient, private router: Router) {
     super(http)
   }
 
@@ -21,16 +21,16 @@ export class jwtAuthService extends ApiHandler {
   }
 
   register(userObj: UserDTO) {
-    return this.Post(0, API_URL + API_ENDPOINTS.UserRegistration, userObj).pipe(map(x=>x.ResponseData)).toPromise();
+    return this.Post(0, API_URL + API_ENDPOINTS.UserRegistration, userObj).pipe(map(x => x.ResponseData)).toPromise();
   }
-  
- forgotPassword(email:string){
-    return this.Post(0,API_URL + API_ENDPOINTS.ForgotPassword, {Email:email}).pipe(map(x=>x.ResponseData)).toPromise();
- }
 
- resetPassword(token:string,email:string, passwrod: string) {
-  return this.Post(0,API_URL + API_ENDPOINTS.ResetPassword, {Email:email,Token:token,Password:passwrod}).pipe(map(x=>x.ResponseData)).toPromise();
-}
+  forgotPassword(email: string) {
+    return this.Post(0, API_URL + API_ENDPOINTS.ForgotPassword, { Email: email }).pipe(map(x => x.ResponseData)).toPromise();
+  }
+
+  resetPassword(token: string, email: string, passwrod: string) {
+    return this.Post(0, API_URL + API_ENDPOINTS.ResetPassword, { Email: email, Token: token, Password: passwrod }).pipe(map(x => x.ResponseData)).toPromise();
+  }
 
   logoutUnAuthorizedUser() {
     localStorage.removeItem('accessToken')

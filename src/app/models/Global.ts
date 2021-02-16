@@ -2,9 +2,9 @@ import { environment } from 'src/environments/environment'
 
 export const API_URL: string = environment.api_url
 
-export const DATA_FORMATS={
-  Date:"MMMM d, y",
-  DATETIME:"MMMM d, y h:mm a",
+export const DATA_FORMATS = {
+  Date: "MMMM d, y",
+  DATETIME: "MMMM d, y h:mm a",
 }
 
 export const API_ENDPOINTS = {
@@ -45,16 +45,20 @@ export const API_ENDPOINTS = {
   DeleteExpense: 'api/FamilyExpenses/DeleteExpense',
   AddUpdateExpense: 'api/FamilyExpenses/AddUpdateExpense',
   UpdateExpenseStatus: 'api/FamilyExpenses/SetExpenseStatus',
-  UpdateUserInfo:'api/FamilyMember/updateUserInfo',
-  ForgotPassword:'api/auth/ForgotPassword',
-  ResetPassword:'api/auth/ResetPassword',
-  CreatePortalAccess:'api/FamilyMember/CreatePortalAccess',
-  GetOtherCoParentIfExits:'api/FamilyMember/GetOtherCoParentIfExits',
+  UpdateUserInfo: 'api/FamilyMember/updateUserInfo',
+  ForgotPassword: 'api/auth/ForgotPassword',
+  ResetPassword: 'api/auth/ResetPassword',
+  CreatePortalAccess: 'api/FamilyMember/CreatePortalAccess',
+  GetOtherCoParentIfExits: 'api/FamilyMember/GetOtherCoParentIfExits',
+  
   CreateLawyerAccount: 'api/Lawyers/CreateLawyerAccount',
   LawyersList: 'api/Lawyers/GetList',
-  SaveFamilyEvent:'api/FamilyMember/SaveFamilyEvent',
-  GetAllFamilyEvents:'api/FamilyMember/GetAllFamilyEvents',
-  GetMonthWiseFamilyEvents:'api/FamilyMember/GetMonthWiseFamilyEvents',
-  GetFamilyChilds:'api/Family/GetFamilyChilds',
-  DeleteEvent:'api/FamilyMember/DeleteEvent',
+  GetFamilies: 'api/Lawyers/GetFamilies',
+  AssignCaseToLawyer: 'api/Lawyers/AssignCaseToLawyer',
+  
+  SaveFamilyEvent: 'api/FamilyMember/SaveFamilyEvent',
+  GetAllFamilyEvents: 'api/FamilyMember/GetAllFamilyEvents',
+  GetMonthWiseFamilyEvents: 'api/FamilyMember/GetMonthWiseFamilyEvents',
+  GetFamilyChilds: 'api/Family/GetFamilyChilds',
+  DeleteEvent: 'api/FamilyMember/DeleteEvent',
 }

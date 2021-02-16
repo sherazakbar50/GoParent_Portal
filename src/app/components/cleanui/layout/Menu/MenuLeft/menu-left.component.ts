@@ -6,6 +6,7 @@ import { select, Store } from '@ngrx/store'
 import { MenuService } from 'src/app/services/menu'
 import * as SettingsActions from 'src/app/store/settings/actions'
 import * as Reducers from 'src/app/store/reducers'
+import { jwtAuthService } from 'src/app/services/jwt'
 
 @Component({
   selector: 'cui-menu-left',
@@ -25,10 +26,13 @@ export class MenuLeftComponent implements OnInit {
   menuDataActivated: any[]
   role: String
 
-  constructor(private menuService: MenuService, private store: Store<any>, private router: Router) {
-    this.store.pipe(select(Reducers.getUser)).subscribe(state => {
-      this.role = state.role
+  constructor(private menuService: MenuService, private store: Store<any>, private router: Router, private auth: jwtAuthService) {
+    this.auth.getUserModel().then(x => {
+      this.role = x.UserRole
     })
+    // this.store.pipe(select(Reducers.getUser)).subscribe(state => {
+    //   this.role = state.role
+    // })
     this.menuService.getMenuData().subscribe(menuData => (this.menuData = menuData))
     this.store.pipe(select(Reducers.getSettings)).subscribe(state => {
       this.menuColor = state.menuColor

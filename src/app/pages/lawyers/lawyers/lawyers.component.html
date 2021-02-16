@@ -58,7 +58,9 @@
                     <td>
                         <ng-container *ngIf="data.Cases && data.Cases.length > 0; else noCasesTpl">
                             <ng-container *ngFor="let item of data.Cases">
-                                {{item.Name}}
+                                <span class="mr-2 p-2 badge badge-light badge-pill">
+                                    {{item.Name}}
+                                </span>
                             </ng-container>
                         </ng-container>
                         <ng-template #noCasesTpl>
@@ -66,10 +68,28 @@
                         </ng-template>
                     </td>
                     <td style="width: 150px;">
-                        <button nz-button nzType="primary">Assign Case</button>
+                        <button nz-button nzType="primary" (click)="showModal(data)">Assign Case</button>
                     </td>
                 </tr>
             </tbody>
         </nz-table>
     </div>
 </nz-card>
+
+<div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="Assign Case to Lawyer" (nzOnCancel)="handleCancel()"
+        nzMaskClosable="false">
+        <ng-container *nzModalContent>
+            <h5>Lawyer: {{selectedLawyer.Email}}</h5>
+            <div class="my-4">
+                <nz-select  class="w-100" nzMode="multiple" nzPlaceHolder="Select/Search Cases to Assign"
+                    [(ngModel)]="listOfSelectedCases">
+                    <nz-option *ngFor="let item of caseList | async" [nzLabel]="item.Name" [nzValue]="item.Id"></nz-option>
+                </nz-select>
+            </div>
+            <div class="mb-3 mt-5 text-right">
+                <button class="w-100" nz-button nzType="primary" [nzLoading]="assignLoading" (click)="assignCaseToLawyer()">Assign</button>
+            </div>
+        </ng-container>
+    </nz-modal>
+</div>
