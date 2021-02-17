@@ -8,6 +8,7 @@ import { ChildProfileComponent } from './child-profile/child-profile.component'
 import { AddChildComponent } from './add-child/add-child.component'
 import { ChildVaccinesComponent } from './child-vaccines/child-vaccines.component'
 import { AddChildVaccineComponent } from './add-child-vaccine/add-child-vaccine.component'
+import { CreatePortalAccessComponent } from './create-portal-access/create-portal-access.component'
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AddChildVaccineComponent } from './add-child-vaccine/add-child-vaccine.
     AddChildComponent,
     ChildVaccinesComponent,
     AddChildVaccineComponent,
+    CreatePortalAccessComponent,
   ],
   imports: [CommonModule, SharedModule, ChildsRoutingModule, FormsModule, ReactiveFormsModule],
 })

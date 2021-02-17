@@ -73,15 +73,28 @@ export class FamilyMemberService extends ApiHandler {
       .toPromise<boolean>()
   }
 
-  UpdateUserInfo(firstName:string,lastName:string,relationship:string,profilePicture:any,isDeleteProfilePic:any) {
-    const formData = new FormData();
+  UpdateUserInfo(
+    firstName: string,
+    lastName: string,
+    relationship: string,
+    profilePicture: any,
+    isDeleteProfilePic: any,
+  ) {
+    const formData = new FormData()
     formData.append('ProfilePicture', profilePicture)
     formData.append('FirstName', firstName)
     formData.append('LastName', lastName)
     formData.append('Relationship', relationship)
     formData.append('IsDeleteProfilePic', isDeleteProfilePic)
 
-    return this.Post(0,API_URL + API_ENDPOINTS.UpdateUserInfo, formData).pipe(map(x => x.ResponseData))
-    .toPromise();
+    return this.Post(0, API_URL + API_ENDPOINTS.UpdateUserInfo, formData)
+      .pipe(map(x => x.ResponseData))
+      .toPromise()
+  }
+
+  GetAllFamilyMembers() {
+    return this.GetAll(API_URL + API_ENDPOINTS.AllFamilyMembers)
+      .pipe(map(x => x.ResponseData))
+      .toPromise()
   }
 }

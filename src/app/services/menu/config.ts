@@ -8,7 +8,7 @@ export const getMenuData: any[] = [
     key: 'mainDashboard',
     icon: 'fe fe-bookmark',
     url: '/dashboard/index',
-    roles: ["Admin", "Parent", "Lawyer"],
+    roles: ['Admin', 'Parent', 'Lawyer'],
   },
 
   {
@@ -21,7 +21,7 @@ export const getMenuData: any[] = [
     title: 'Family Child(s)',
     key: 'childProfiles',
     icon: 'fa fa-child',
-    roles: [ "Parent"],
+    roles: ['Parent'],
     // roles: ['admin'], // set user roles with access to this route
     // count: 4,
     children: [
@@ -37,14 +37,14 @@ export const getMenuData: any[] = [
     key: 'familyContacts',
     icon: 'fe fe-users',
     url: '/contacts',
-    roles: ["Parent", "Lawyer"],
+    roles: ['Parent', 'Lawyer'],
   },
   {
     title: 'Expense(s)',
     key: 'familyExpenses',
     icon: 'fa fa-dollar',
     url: '/expenses',
-    roles: [ "Parent", "Lawyer"],
+    roles: ['Parent', 'Lawyer'],
   },
   {
     title: 'Family Documents',
@@ -57,22 +57,36 @@ export const getMenuData: any[] = [
     key: 'connection',
     icon: 'fe fe-link',
     url: '/connection',
-    roles: ["Parent"],
+    roles: ['Parent'],
   },
   {
     title: 'Lawyers',
     key: 'lawyers',
     icon: 'fe fe-user',
     url: '/lawyers',
-    roles: ["Admin"],
+    roles: ['Admin'],
   },
   {
     title: 'Calendar',
     key: 'connection',
     icon: 'fe fe-calendar',
     url: '/calendar',
-    roles: ["Parent", "Lawyer"],
-  }
+    roles: ['Parent', 'Lawyer'],
+  },
+  {
+    title: 'Journal',
+    key: 'familyJournal',
+    icon: 'fa fa-comments',
+    url: '/journal',
+    roles: ['Parent'],
+  },
+  {
+    title: 'Messages',
+    key: 'messagesTab',
+    icon: 'fa fa-comments',
+    url: '/journal/groupchat',
+    roles: ['Parent', 'Child'],
+  },
   // {
   //   title: 'Setting',
   //   key: 'userSetting',

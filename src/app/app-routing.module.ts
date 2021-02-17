@@ -78,11 +78,16 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         loadChildren: () => import('src/app/pages/documents/documents.module').then(x => x.DocumentsModule)
       },
-
       {
         path: 'cases',
         canActivate: [AuthGuard],
         loadChildren: () => import('src/app/pages/cases/cases.module').then(x => x.CasesModule)
+      },
+      {
+        path: 'journal',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/journal/journal.module').then(x => x.JournalModule),
       },
     ],
   },

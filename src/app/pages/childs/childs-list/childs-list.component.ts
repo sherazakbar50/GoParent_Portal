@@ -23,7 +23,8 @@ export class ChildsListComponent implements OnInit {
   childsList: FamilyMemberDto[]
   isVisible: boolean = false
   modalTitle: string = 'Add Child'
-
+  PortalAccessModalVisible: boolean = false
+  ChildId: number = 0
   ngOnInit(): void {
     this.getFamilyChilds()
   }
@@ -61,6 +62,20 @@ export class ChildsListComponent implements OnInit {
 
   handleChildModalCancel() {
     this.isVisible = false
+  }
+
+  handlePortalAccessModalCancel() {
+    this.PortalAccessModalVisible = false
+  }
+
+  SendPortalAccess(id) {
+    this.ChildId = id
+    this.PortalAccessModalVisible = true
+  }
+  async PortalAccessSentCallback() {
+    this.ChildId = 0
+    this.PortalAccessModalVisible = false
+    await this.getFamilyChilds()
   }
 
   AddChild() {
