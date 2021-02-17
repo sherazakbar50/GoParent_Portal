@@ -11,7 +11,7 @@ import { NgProgressHttpModule } from '@ngx-progressbar/http'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore'
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { StoreModule } from '@ngrx/store'
@@ -21,7 +21,6 @@ import { reducers, metaReducers } from './store/reducers'
 import { firebaseConfig, firebaseAuthService } from './services/firebase'
 import { jwtAuthService } from './services/jwt'
 import { MockHttpCallInterceptor } from './services/fakeApi'
-
 // locale resistration
 import { registerLocaleData } from '@angular/common'
 import { default as localeEn } from '@angular/common/locales/en'
@@ -44,6 +43,8 @@ registerLocaleData(localeEn, 'en')
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
+    CommonModule,
+    
 
     // translate
     TranslateModule.forRoot(),

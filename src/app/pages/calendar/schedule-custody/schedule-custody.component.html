@@ -1,0 +1,100 @@
+<div class="row">
+    <div class="col-lg-12">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="SaveCustody()" role="form" *ngIf="form">
+            <nz-form-item>
+                <nz-form-control>
+                  <input type="text" nz-input formControlName="Title" placeholder="Title" />
+                  <div class="text-danger">
+                    <ng-container *ngIf="IsSubmitted && fc.Title.hasError('required')">Custody title is required</ng-container>
+                  </div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-control>
+                <nz-date-picker (ngModelChange)="OnCustodyDateChange($event)"  class="w-100" formControlName="StartDate" [nzPlaceHolder]="'Begins on'"></nz-date-picker>
+                 <div class="text-danger">
+                  <ng-container *ngIf="IsSubmitted && fc.StartDate.hasError('required')">Begins on date is required</ng-container>
+                </div>
+              </nz-form-control>
+          </nz-form-item>
+          <nz-form-item>
+            <nz-form-control>
+              <nz-date-picker (ngModelChange)="OnCustodyDateChange($event)" class="w-100" formControlName="EndDate" [nzPlaceHolder]="'Repeats until'"></nz-date-picker>
+               <div class="text-danger">
+                <ng-container *ngIf="IsSubmitted && fc.EndDate.hasError('required')">Repeats until date is required</ng-container>
+              </div>
+            </nz-form-control>
+        </nz-form-item> 
+        
+        <nz-form-item>
+          <nz-form-control>
+            <nz-select *ngIf="FamilyChilds" formControlName="Children" nzMode="multiple" nzPlaceHolder="Select Child(ren)">
+              <nz-option *ngFor="let option of FamilyChilds" nzLabel="{{option.ChildFirstName + ' ' + option.ChildLastName}}" [nzValue]="option.ChildId"></nz-option>
+            </nz-select>
+            <div class="text-danger">
+              <ng-container *ngIf="IsSubmitted && fc.Children.hasError('required')">Please select at least one child</ng-container>
+            </div>
+          </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <app-color-picker [color]="firstCoParentColor" [label]="'Your custody color'"
+                  (event)="setColor(1,$event)"></app-color-picker>
+        </nz-form-control>
+    </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <app-color-picker [color]="secondCoParentColor" [label]="'Co-Parent\'s custody color'"
+                  (event)="setColor(2,$event)"></app-color-picker>
+        </nz-form-control>
+    </nz-form-item>
+    <div *ngIf="custodyStartDate.value && custodyEndDate.value">
+      <nz-divider nzText="Define Custody Plan"></nz-divider>
+ 
+      <div formArrayName="custodySequences">
+       <nz-form-item class="custody-sequence-div" *ngFor="let control of custodySequencesElmArray.controls; let i = index">
+         <ng-container [formGroupName]="i">
+           <nz-form-control>
+             <nz-range-picker [nzDisabledDate]="disabledDate" style="width: 45%;" formControlName="dateRange" [nzFormat]="'yyyy/MM/dd'" [nzPlaceHolder]="['From', 'To']">
+             </nz-range-picker>
+            <nz-select style="width: 45%;" class="custody-sequence-coparent-ddl" *ngIf="CoParentsInfo" formControlName="custodyBy" nzPlaceHolder="Select Co-Parent">
+             <nz-option *ngFor="let option of CoParentsInfo" nzLabel="{{option.DisplayName}}" [nzValue]="option.Id"></nz-option>
+           </nz-select>
+           <i style="width: 5%;" nz-icon nzType="minus-circle-o" *ngIf="((custodySequencesElmArray.length-1) == i) && i != 0" class="dynamic-delete-button" (click)="removeCustodySequenceElm(i)"></i>
+         </nz-form-control>
+         </ng-container>
+       </nz-form-item>
+       <nz-form-item>
+         <nz-form-control>
+           <button nz-button nzType="dashed" class="add-button w-100" (click)="addCustodyRow($event)">
+             <i nz-icon nzType="plus"></i>
+             Add Custody Plan
+           </button>
+         </nz-form-control>
+       </nz-form-item>
+      </div>
+    </div>
+    
+
+
+
+
+    <!-- Sequence start -->
+   
+    <!-- Sequence End -->
+           
+            <nz-form-item>
+              <nz-form-control>
+                <textarea rows="3" nz-input formControlName="Notes" placeholder="Any notes (Optional)"></textarea>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <button nz-button nzType="primary" class="text-center w-100">
+                        <strong> Save</strong>
+                      </button>
+                </nz-form-control>
+              </nz-form-item>
+        </form>
+    </div>
+</div>

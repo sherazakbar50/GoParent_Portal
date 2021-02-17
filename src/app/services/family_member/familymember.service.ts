@@ -97,4 +97,9 @@ export class FamilyMemberService extends ApiHandler {
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }
+  GetCoParentsInfo(){
+    return this.Get(0, `${API_URL + API_ENDPOINTS.GetCoParentsInfo}`)
+      .pipe(map(x => x.ResponseData))
+      .toPromise();
+  }
 }

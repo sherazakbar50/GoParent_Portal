@@ -30,6 +30,8 @@ export class ViewCalendarComponent implements OnInit {
   viewEventObserverSubject: Subject<EventsDTO> = new Subject();
   closeModalObserverSubject: Subject<boolean> = new Subject();
   dateWiseEvents:Date[]=[]
+  custodyModalTitle = "Schedule Custody"
+  custodyModalIsVisible = false
 
   constructor(private _eventsService: EventsService,private notifier:NzNotificationService,private appDateFormatPipe:AppDateFormatPipe,private datePipe: DatePipe) { }
 
@@ -94,7 +96,6 @@ export class ViewCalendarComponent implements OnInit {
       }
       let storeDate = new Date(currentDate);
       storeDate.setHours(0,0,0,0);
-      debugger
       if(!this.dateWiseEvents.some(x=>x.getDate() == storeDate.getDate()))
          this.dateWiseEvents.push(storeDate);
       
@@ -118,10 +119,19 @@ export class ViewCalendarComponent implements OnInit {
     this.editEventObserverSubject.next(null);
   }
 
+  ScheduleCustodyModal(): void {
+    this.custodyModalIsVisible = true;
+    //this.editEventObserverSubject.next(null);
+  }
+
   handleCancel(): void {
     this.isVisible = false;
     this.editEventObserverSubject.next(null);
     this.closeModalObserverSubject.next(true);
+  }
+
+  handleCustodyFormCancel(){
+    this.custodyModalIsVisible = false;
   }
 
   
