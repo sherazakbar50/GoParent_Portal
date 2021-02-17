@@ -4,7 +4,6 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { takeUntil } from 'rxjs/operators';
 import { FamilyDocumentsDto } from 'src/app/models/document-dto';
 import { FamilyDocumentsService } from 'src/app/services/family_documents/family-documents.service';
-import { saveAs } from 'file-saver';
 declare var require
 const Swal = require('sweetalert2')
 @Component({
