@@ -32,6 +32,11 @@ export class JournalService extends ApiHandler {
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }
+  GetUserRoomIds() {
+    return this.GetAll(API_URL + API_ENDPOINTS.UserAllRoomIds)
+      .pipe(map(x => x.ResponseData))
+      .toPromise()
+  }
   GetJournalGroupId() {
     return this.GetAll(API_URL + API_ENDPOINTS.JournalGroupId)
       .pipe(map(x => x.ResponseData))

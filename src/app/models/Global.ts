@@ -71,6 +71,7 @@ export const API_ENDPOINTS = {
   GetGroupChat: 'api/Messaging/getgroupchat',
   JournalGroupId: 'api/Messaging/journalgroupid',
   AllFamilyMembers: 'api/FamilyMember/getfamilymembers',
-  GetCoParentsInfo:'api/FamilyMember/GetCoParentsInfo',
-  SaveCustody:'api/FamilyCustodies/SaveCustody'
+  GetCoParentsInfo: 'api/FamilyMember/GetCoParentsInfo',
+  SaveCustody: 'api/FamilyCustodies/SaveCustody',
+  UserAllRoomIds: 'api/Messaging/allroomids',
 }

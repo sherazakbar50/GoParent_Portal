@@ -14,6 +14,7 @@ import french from './locales/fr-FR'
 import russian from './locales/ru-RU'
 import chinese from './locales/zh-CN'
 import { WebsocketService } from './services/chat-services/WebsocketService'
+import { ChatService } from './services/chat-services/ChatService'
 
 const locales = {
   'en-US': english,
@@ -40,6 +41,7 @@ export class AppComponent implements OnInit {
     private store: Store<any>,
     translate: TranslateService,
     private _WebSocketService: WebsocketService,
+    private _ChatService: ChatService,
   ) {
     Object.keys(locales).forEach(locale => {
       translate.setTranslation(locale, locales[locale])
@@ -62,6 +64,10 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // set page title from router data variable
     this._WebSocketService.connect()
+    this._ChatService.userConnectedObserver$.subscribe(x => {
+      // user is connected to the node server please subscribe him into his rooms
+      this._ChatService.AddUserToHisAllRooms()
+    })
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),
