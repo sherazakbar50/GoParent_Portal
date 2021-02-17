@@ -23,6 +23,11 @@
             <td><img src='{{data.ProfileImage||"/assets/images/avatars/avatar-2.png"}}' /></td>
             <td>{{ data.Name }}</td>
             <td>
+              <ng-container *ngIf='!data.PortalAccessCreated'>
+                <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="SendPortalAccess(data.Id)">Send Portal Access</a>
+                <nz-divider nzType="vertical"></nz-divider>
+              </ng-container>
+            
               <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Profile"
                 (click)="$event.stopPropagation(EditChildProfile(data.Id))" nzTheme="fill" class="text-success"></i>
               <nz-divider nzType="vertical"></nz-divider>
@@ -49,6 +54,16 @@
     nzMaskClosable="false">
     <ng-container *nzModalContent>
       <app-add-child (childCreated)='AddChildSuccess($event)'></app-add-child>
+    </ng-container>
+  </nz-modal>
+</div>
+
+
+<div>
+  <nz-modal [nzFooter]="null" [(nzVisible)]="PortalAccessModalVisible" [nzTitle]="'Create Portal Access'" (nzOnCancel)="handlePortalAccessModalCancel()"
+    nzMaskClosable="false">
+    <ng-container *nzModalContent>
+      <app-create-portal-access [FamilyMemberId]='ChildId' (PortalAccessSent)='PortalAccessSentCallback()'></app-create-portal-access>
     </ng-container>
   </nz-modal>
 </div>

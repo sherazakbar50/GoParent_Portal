@@ -66,8 +66,15 @@ const routes: Routes = [
       {
         path: 'calendar',
         canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/calendar/calendar.module').then(x => x.CalendarModule)
-      }
+        loadChildren: () =>
+          import('src/app/pages/calendar/calendar.module').then(x => x.CalendarModule),
+      },
+      {
+        path: 'journal',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/journal/journal.module').then(x => x.JournalModule),
+      },
     ],
   },
   {

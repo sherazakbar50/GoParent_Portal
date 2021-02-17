@@ -2,5 +2,6 @@ export const environment = {
   production: true,
   authenticated: false,
   hmr: false,
-  api_url: "http://casolvebackend.calimaticlms.com/", 
+  api_url: 'http://casolvebackend.calimaticlms.com/',
+  ws_url: 'http://localhost:3001',
 }

@@ -6,7 +6,8 @@ export const environment = {
   production: false,
   authenticated: false,
   hmr: false,
-  api_url: "https://localhost:44371/",
+  api_url: 'https://localhost:44371/',
+  ws_url: 'http://localhost:3001',
 }
 
 /*

@@ -1,0 +1,111 @@
+<div>
+    <div class="row">
+      <div class="col-12 col-md-3">
+        <div class="mb-4">
+          <button nz-button nzType="primary" class="btn-block" (click)="GoToJournal()">Journal</button> 
+          <button nz-button nzType="primary" class="btn-block" (click)="AddChatGroup()">Add Group</button> 
+          </div>
+        <div class="dialogs">
+          <perfect-scrollbar style="height: 100%">
+            <a *ngFor="let item of ChatRooms; let i = index;" [ngClass]="['item', item.Id === activeChatGroupId ? 'current' : '']"
+              class="d-flex flex-nowrap align-items-center" (click)="changeChatGroup(item)">
+              <div class="kit__utils__avatar kit__utils__avatar--size46 mr-3 flex-shrink-0">
+                <span class="badge badge-warning" style="margin-top: 15px;">{{item.Name.length?item.Name.substr(0,1):''}}</span>
+              </div>
+              <div class="flex-grow-1 info">
+                <!-- <div class="text-uppercase font-size-12 text-truncate text-gray-6">
+                  {{item.position}}
+                </div> -->
+                <div class="text-dark font-size-18 font-weight-bold text-truncate">
+                  {{item.Name}}
+                </div>
+              </div>
+              <!-- <div *ngIf="item.unread" class="flex-shrink-0 align-self-start unread">
+                <div class="badge badge-success">{{item.unread}}</div>
+              </div> -->
+            </a>
+          </perfect-scrollbar>
+        </div>
+      </div>
+      <div class="col-12 col-md-9">
+        <div class="card">
+          <ng-container *ngIf='activeChatGroupId>0'>
+            <div class="card-header card-header-flex align-items-center">
+              <div class="d-flex flex-column justify-content-center mr-auto">
+                <h5 class="mb-0 mr-2 font-size-18">
+                  {{activeChatGroupName}}
+                   <!-- <span class="font-size-14 text-gray-6">({{position}})</span> -->
+                </h5>
+              </div>
+              <!-- <div>
+                <a href="javascript: void(0);" class="btn btn-sm btn-light mr-2" nz-tooltip nzTooltipTitle="Unlock Account"
+                  nzTooltipPlacement="top">
+                  <i class="fe fe-unlock"></i>
+                </a>
+                <a href="javascript: void(0);" class="btn btn-sm btn-light mr-2" nz-tooltip
+                  nzTooltipTitle="Mark as important" nzTooltipPlacement="top">
+                  <i class="fe fe-star"></i>
+                </a>
+                <a href="javascript: void(0);" class="btn btn-sm btn-light mr-2" nz-tooltip nzTooltipTitle="Delete user"
+                  nzTooltipPlacement="top">
+                  <i class="fe fe-trash"></i>
+                </a>
+              </div> -->
+            </div>
+          </ng-container>
+       
+          <div class="card-body">
+            <div class="height-500">
+              <div *ngIf='activeChatGroupId==0'>
+                <h4 class="text-center" style="padding-top: 30%;">Create a chat group to start your conversation :)</h4>
+              </div>
+              <perfect-scrollbar>
+                <div class="d-flex flex-column justify-content-end pr-2 height-100p">
+                  <div *ngFor="let message of ChatMessages;"
+                    [ngClass]="['message', message.FromId != sessionUserData.FamilyMemberId ? 'answer' : '']">
+                    <div class="messageContent">
+                      <div class="text-gray-4 font-size-12 text-uppercase">
+                        {{message.From&&message.From.trim().length>0 ?message.From:'Co-Parent'}}, {{message.Date}}
+                      </div>
+                      <div>{{message.Message}}</div>
+                    </div>
+                    <div class="kit__utils__avatar messageAvatar">
+                      <img [src]="message.FromAvatar?message.FromAvatar : 'assets/images/avatars/avatar-2.png'" alt="Avatar">
+                    </div>
+                  </div>
+                
+                </div>
+              </perfect-scrollbar>
+  
+            </div>
+            <div class="pt-2 pb-2">
+                <!-- Salman is typing... -->
+            </div>
+            <div class="input-group mb-3">
+              <ng-container *ngIf='activeChatGroupId>0'>
+                <input type="text" class="form-control" [(ngModel)]='messageText' placeholder="Send message..." />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" (click)='SendMessage()' type="button">
+                    <i class="fe fe-send align-middle"></i>
+                  </button>
+                </div>
+              </ng-container>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="addGroupModelVisible" [nzTitle]="'Create Group Chat'" (nzOnCancel)="addGrouChatModelCloseEvent()"
+    nzMaskClosable="false">
+    <ng-container *nzModalContent>
+       <app-add-chat-group (GroupCreated)='GroupCreatedCallback()'></app-add-chat-group>
+    </ng-container>
+    </nz-modal>
+    </div>
+   

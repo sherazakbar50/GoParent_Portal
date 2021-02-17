@@ -3,8 +3,8 @@ import { environment } from 'src/environments/environment'
 export const API_URL: string = environment.api_url
 
 export const DATA_FORMATS = {
-  Date: "MMMM d, y",
-  DATETIME: "MMMM d, y h:mm a",
+  Date: 'MMMM d, y',
+  DATETIME: 'MMMM d, y h:mm a',
 }
 
 export const API_ENDPOINTS = {
@@ -50,15 +50,20 @@ export const API_ENDPOINTS = {
   ResetPassword: 'api/auth/ResetPassword',
   CreatePortalAccess: 'api/FamilyMember/CreatePortalAccess',
   GetOtherCoParentIfExits: 'api/FamilyMember/GetOtherCoParentIfExits',
-  
+
   CreateLawyerAccount: 'api/Lawyers/CreateLawyerAccount',
   LawyersList: 'api/Lawyers/GetList',
   GetFamilies: 'api/Lawyers/GetFamilies',
   AssignCaseToLawyer: 'api/Lawyers/AssignCaseToLawyer',
-  
+
   SaveFamilyEvent: 'api/FamilyMember/SaveFamilyEvent',
   GetAllFamilyEvents: 'api/FamilyMember/GetAllFamilyEvents',
   GetMonthWiseFamilyEvents: 'api/FamilyMember/GetMonthWiseFamilyEvents',
   GetFamilyChilds: 'api/Family/GetFamilyChilds',
   DeleteEvent: 'api/FamilyMember/DeleteEvent',
+  ChatGoupsList: 'api/Messaging/chatgroups',
+  AddUpdateChatGroup: 'api/Messaging/addupdatechatgroup',
+  GetGroupChat: 'api/Messaging/getgroupchat',
+  JournalGroupId: 'api/Messaging/journalgroupid',
+  AllFamilyMembers: 'api/FamilyMember/getfamilymembers',
 }

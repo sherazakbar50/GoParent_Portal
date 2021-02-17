@@ -1,0 +1,62 @@
+<div>
+    <div class="row">
+      
+      <div class="col-12 col-md-12">
+        <div class="card">
+          <ng-container *ngIf='activeChatGroupId>0'>
+            <div class="card-header card-header-flex align-items-center">
+              <div class="d-flex flex-column justify-content-center mr-auto">
+                <h5 class="mb-0 mr-2 font-size-18">
+                  Journal
+                </h5>
+              </div>
+              
+            </div>
+          </ng-container>
+       
+          <div class="card-body">
+            <div class="height-500">
+              <div *ngIf='activeChatGroupId==0'>
+                <h4 class="text-center" style="padding-top: 30%;">Create a chat group to start your conversation :)</h4>
+              </div>
+              <perfect-scrollbar>
+                <div class="d-flex flex-column justify-content-end pr-2 height-100p">
+                  <div *ngFor="let message of ChatMessages;"
+                    [ngClass]="['message', message.FromId != sessionUserData.FamilyMemberId ? 'answer' : '']">
+                    <div class="messageContent">
+                      <div class="text-gray-4 font-size-12 text-uppercase">
+                        {{message.From&&message.From.trim().length>0 ?message.From:'Co-Parent'}}, {{message.Date}}
+                      </div>
+                      <div>{{message.Message}}</div>
+                    </div>
+                    <div class="kit__utils__avatar messageAvatar">
+                      <img [src]="message.FromAvatar?message.FromAvatar : 'assets/images/avatars/avatar-2.png'" alt="Avatar">
+                    </div>
+                  </div>
+                
+                </div>
+              </perfect-scrollbar>
+  
+            </div>
+            <div class="pt-2 pb-2">
+                <!-- Salman is typing... -->
+            </div>
+            <div class="input-group mb-3">
+              <ng-container *ngIf='activeChatGroupId>0'>
+                <input type="text" class="form-control" [(ngModel)]='messageText' placeholder="Send message..." />
+                <div class="input-group-append">
+                  <button class="btn btn-primary" (click)='SendMessage()' type="button">
+                    <i class="fe fe-send align-middle"></i>
+                  </button>
+                </div>
+              </ng-container>
+             
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+   
