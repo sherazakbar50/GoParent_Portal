@@ -1,7 +1,7 @@
 <div class="color-picker">
     <div class="summary-info" (click)="toggleColors()">
       <div class="info">
-        <p class="style">Pick a color</p>
+        <p class="style">{{ label }}</p>
         <p class="style-value">{{ color }}</p>
       </div>
       <div class="circle" [ngStyle]="{'background': color}"></div>

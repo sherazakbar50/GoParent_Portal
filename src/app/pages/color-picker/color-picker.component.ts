@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class ColorPickerComponent {
   @Input() color: string;
+  @Input() label: string;
   @Output() event: EventEmitter<string> = new EventEmitter<string>();
 
   public show = false;

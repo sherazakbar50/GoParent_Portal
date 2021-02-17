@@ -180,3 +180,8 @@ $cleanui-theme: mat-light-theme((
 .w-30{
   width: 30%;
 }
+
+.readonly{
+  pointer-events: none;
+  opacity: 0.5
+}

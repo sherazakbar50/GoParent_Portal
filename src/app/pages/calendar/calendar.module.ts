@@ -9,9 +9,10 @@ import {ReactiveFormsModule,FormsModule} from '@angular/forms'
 import { ViewEventComponent } from './view-event/view-event.component';
 import { ColorPickerComponent } from 'src/app/pages/color-picker/color-picker.component';
 import { DatePipe } from '@angular/common';
+import { ScheduleCustodyComponent } from './schedule-custody/schedule-custody.component';
 
 @NgModule({
-  declarations: [ViewCalendarComponent,AddEventComponent,ViewEventComponent,ColorPickerComponent],
+  declarations: [ViewCalendarComponent,AddEventComponent,ViewEventComponent,ColorPickerComponent,ScheduleCustodyComponent],
   imports: [
     CommonModule,
     SharedModule,

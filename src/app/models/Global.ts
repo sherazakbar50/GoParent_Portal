@@ -50,12 +50,10 @@ export const API_ENDPOINTS = {
   ResetPassword: 'api/auth/ResetPassword',
   CreatePortalAccess: 'api/FamilyMember/CreatePortalAccess',
   GetOtherCoParentIfExits: 'api/FamilyMember/GetOtherCoParentIfExits',
-
   CreateLawyerAccount: 'api/Lawyers/CreateLawyerAccount',
   LawyersList: 'api/Lawyers/GetList',
   GetFamilies: 'api/Lawyers/GetFamilies',
   AssignCaseToLawyer: 'api/Lawyers/AssignCaseToLawyer',
-
   SaveFamilyEvent: 'api/FamilyMember/SaveFamilyEvent',
   GetAllFamilyEvents: 'api/FamilyMember/GetAllFamilyEvents',
   GetMonthWiseFamilyEvents: 'api/FamilyMember/GetMonthWiseFamilyEvents',
@@ -73,4 +71,6 @@ export const API_ENDPOINTS = {
   GetGroupChat: 'api/Messaging/getgroupchat',
   JournalGroupId: 'api/Messaging/journalgroupid',
   AllFamilyMembers: 'api/FamilyMember/getfamilymembers',
+  GetCoParentsInfo:'api/FamilyMember/GetCoParentsInfo',
+  SaveCustody:'api/FamilyCustodies/SaveCustody'
 }

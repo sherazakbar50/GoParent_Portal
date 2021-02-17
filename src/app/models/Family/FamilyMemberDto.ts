@@ -3,6 +3,7 @@ export class FamilyMemberDto {
   Name: string
   ProfileImage: string
   PortalAccessCreated: boolean
+  DisplayName:string
 }
 
 export class VaccineDto {
