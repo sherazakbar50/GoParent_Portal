@@ -18,7 +18,7 @@ export class AddChatGroupComponent implements OnInit {
   ) {}
   addGroupForm: FormGroup
   IsSubmitted: boolean = false
-  MembersList: any[]
+  MembersList: any[] = []
   @Output() GroupCreated: EventEmitter<boolean> = new EventEmitter<boolean>()
   ngOnInit(): void {
     this.addGroupForm = this.fb.group({

@@ -16,6 +16,7 @@
 
     <nz-form-item>
         <nz-form-control>
+            <p>Select Group Members:</p>
             <div formArrayName='Members'>
                 <div *ngFor="let _member of FamilyMembersArray.controls; let i=index">
                     <input type="checkbox" [formControlName]="i">  
@@ -23,7 +24,7 @@
                 </div>
              
             </div> 
-         
+            <p *ngIf='MembersList.length==0' class="text-danger">No family members found. Add family members to start chat with them.</p>
         </nz-form-control>
         </nz-form-item>
       

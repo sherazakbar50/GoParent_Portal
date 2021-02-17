@@ -8,6 +8,7 @@ import { WebsocketService } from './WebsocketService'
 })
 export class ChatService {
   messagesObserver$ = new Observable<ChatMessageDto>()
+  userConnectedObserver$ = new Observable<boolean>()
   constructor(private _WebsocketService: WebsocketService) {
     this.messagesObserver$ = this._WebsocketService.messagesSubject.asObservable()
   }

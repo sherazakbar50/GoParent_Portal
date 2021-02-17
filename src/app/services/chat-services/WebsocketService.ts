@@ -10,17 +10,24 @@ import { ChatMessageDto } from 'src/app/models/ChatDto'
 export class WebsocketService {
   private socket
 
-  constructor() {
-    this.connect()
-  }
+  constructor() {}
   messagesSubject = new Subject<ChatMessageDto>()
-
+  userConnectedSubject = new Subject<boolean>()
   connect() {
     this.socket = io(environment.ws_url)
 
     this.socket.on('message', data => {
-      debugger
       this.messagesSubject.next(data)
+    })
+    this.socket.on('connect', () => {
+      this.userConnectedSubject.next(true)
+      console.log('User connected')
+    })
+    this.socket.on('reconnect', () => {
+      console.log('User reconnected')
+    })
+    this.socket.on('disconnect', () => {
+      console.log('User disconnected')
     })
   }
   SendMessage(data, groupId) {

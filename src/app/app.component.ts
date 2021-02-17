@@ -13,6 +13,7 @@ import english from './locales/en-US'
 import french from './locales/fr-FR'
 import russian from './locales/ru-RU'
 import chinese from './locales/zh-CN'
+import { WebsocketService } from './services/chat-services/WebsocketService'
 
 const locales = {
   'en-US': english,
@@ -38,6 +39,7 @@ export class AppComponent implements OnInit {
     private titleService: Title,
     private store: Store<any>,
     translate: TranslateService,
+    private _WebSocketService: WebsocketService,
   ) {
     Object.keys(locales).forEach(locale => {
       translate.setTranslation(locale, locales[locale])
@@ -59,6 +61,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     // set page title from router data variable
+    this._WebSocketService.connect()
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),

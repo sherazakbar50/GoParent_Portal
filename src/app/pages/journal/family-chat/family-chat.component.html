@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-12 col-md-3">
         <div class="mb-4">
-          <button nz-button nzType="primary" class="btn-block" (click)="GoToJournal()">Journal</button> 
+          <button nz-button nzType="primary" *ngIf='sessionUserData && sessionUserData.UserRole=="Parent"' class="btn-block" (click)="GoToJournal()">Journal</button> 
           <button nz-button nzType="primary" class="btn-block" (click)="AddChatGroup()">Add Group</button> 
           </div>
         <div class="dialogs">
