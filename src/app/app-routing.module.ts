@@ -67,7 +67,23 @@ const routes: Routes = [
         path: 'calendar',
         canActivate: [AuthGuard],
         loadChildren: () => import('src/app/pages/calendar/calendar.module').then(x => x.CalendarModule)
-      }
+      },
+      {
+        path: 'Profile',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/user-profile/profile.module').then(x => x.ProfileModule)
+      },
+      {
+        path: 'documents',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/documents/documents.module').then(x => x.DocumentsModule)
+      },
+
+      {
+        path: 'cases',
+        canActivate: [AuthGuard],
+        loadChildren: () => import('src/app/pages/cases/cases.module').then(x => x.CasesModule)
+      },
     ],
   },
   {
@@ -101,4 +117,4 @@ const routes: Routes = [
   providers: [AppPreloader],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

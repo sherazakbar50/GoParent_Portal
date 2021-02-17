@@ -20,6 +20,7 @@ export class AuthorizeInterceptor implements HttpInterceptor {
   constructor(private authorize: jwtAuthService, private router: Router) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
     let accessToken = this.authorize.getAccessToken()
     return this.processRequestWithToken(accessToken, req, next).pipe(
       finalize(() => {}),

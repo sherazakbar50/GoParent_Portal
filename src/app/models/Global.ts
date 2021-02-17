@@ -61,4 +61,11 @@ export const API_ENDPOINTS = {
   GetMonthWiseFamilyEvents: 'api/FamilyMember/GetMonthWiseFamilyEvents',
   GetFamilyChilds: 'api/Family/GetFamilyChilds',
   DeleteEvent: 'api/FamilyMember/DeleteEvent',
+  AddUpdateFolder: 'api/Folder/addUpdate',
+  getAllFolders: 'api/Folder/folderList',
+  AddUpdateDocument: 'api/FamilyDocuments/addUpdate',
+  getFamilyDocuments: 'api/FamilyDocuments/familyDocumentList',
+  deleteFolder: 'api/Folder/DeleteFolder',
+  deleteDocument: 'api/FamilyDocuments/DeleteDocument',
+  downloadDocument: 'api/FamilyDocuments/DownloadDocument'
 }

@@ -1,0 +1,53 @@
+<div>
+  <div class="card">
+    <div class="card-body">
+      <app-add-document (documentCreated)='AddDocumentSuccess($event)' [fId]="folderId"></app-add-document>
+      <hr>
+      <div class="col-md-12 col-md-content">
+        <div class="row">
+          <div class="col-sm-2"  *ngFor="let docs of listDocumentsData" >
+            <div class="thumbnail mt-5">
+              <br>
+
+              <a class="folder-link" >
+                <div class="overlay">
+                  <img *ngIf="docs.Type ==='.pdf'"
+                       src="https://cdn0.iconfinder.com/data/icons/FileTypesIcons/256/pdf.png" alt="Folder"
+                       class="mswordType">
+                  <img *ngIf="docs.Type ==='.png'" [src]="docs.BlobUrl" alt="Folder" class="imageType">
+                  <img *ngIf="docs.Type ==='.jpg'" [src]="docs.BlobUrl" alt="Folder" class="imageType">
+                  <img *ngIf="docs.Type ==='.docx'"
+                       src="https://cdn0.iconfinder.com/data/icons/FileTypesIcons/256/docx_win.png" alt="Folder"
+                       class="mswordType">
+                  <img *ngIf="docs.Type ==='.xlsx'"
+                       src="https://cdn3.iconfinder.com/data/icons/cad-database-presentation-spreadsheet-vector-file-/512/22-256.png"
+                       class="mswordType" alt="Folder">
+                  <img *ngIf="docs.Type ==='.ppt'"
+                       src="https://cdn0.iconfinder.com/data/icons/FileTypesIcons/256/pptx_win.png" class="mswordType"
+                       alt="Folder">
+                </div>
+              </a>
+              <div class="caption">
+                <h3 class="mt-2 ml-1 text-center"><a href=""></a></h3>
+                <h5 class="text-center ">
+                <p class="docName">{{docs.Name}}</p> <p> {{docs.Type}}</p>
+                </h5>
+                <br>
+                <p class="text-center">
+                  <a class="btn btn-sm btn-default" tooltip="{ title: 'Edit' }" data-original-title="" title=""
+                     (click)="$event.stopPropagation(DownloadDocument(docs.BlobUrl))" nz-tooltip nzTooltipTitle="Download document"><i class="fa fa-download"></i>
+                  </a>
+                  <a class="btn btn-sm btn-primary ml-4"
+                     (click)="$event.stopPropagation(DeleteDocument(docs.DocumentId))"  nz-tooltip nzTooltipTitle="Delete document" tooltip="{ title: 'Destroy' }"
+                     rel="nofollow" data-method="delete" data-original-title="" title=""><i class="fa fa-trash"></i>
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div>

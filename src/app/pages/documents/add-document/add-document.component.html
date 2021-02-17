@@ -1,0 +1,30 @@
+<div class="col-xl-12">
+    <form  enctype="multipart/form-data">
+        <!-- <input type="hidden" formControlName='Id' /> -->
+        <div class="form-group col-xl-12">
+            <nz-upload [nzFileType]="'image/png,image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv'"
+            [nzAccept]="'image/png,image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv'"
+              nzType="drag" [(nzFileList)]="uploadedFiles"  [nzMultiple]="true"  [nzBeforeUpload]="beforeUpload">
+            <p class="ant-upload-drag-icon">
+                <i nz-icon nzType="upload" nzTheme="outline"></i>
+            </p>
+            <p class="ant-upload-text">Drag and Drop your file here, or <span class="text-primary">Browse</span></p>
+        </nz-upload>
+            <!-- <div class="row">
+                <div class="col-xl-12">
+                    <div class="mt-4" *ngFor="let imageitem of uploadedFiles;let index = index"> 
+                             <a class=" pull-right" (click)="RemoveFile(index)"><li class="fa fa-trash" style="color:red;"></li></a>
+                             <div> {{file.name}} - {{file.size}} bytes</div>
+                            </div>
+                 </div>
+            </div>  -->
+        </div>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary" [nzSize]="'large'" (click)="submitForm()" class="text-center w-100">
+                    <strong> Save</strong>
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>

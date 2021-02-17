@@ -10,6 +10,13 @@ export const getMenuData: any[] = [
     url: '/dashboard/index',
     roles: ["Admin", "Parent", "Lawyer"],
   },
+
+  {
+    title: 'Cases',
+    key: 'cases',
+    icon: 'fe fe-book',
+    url: '/cases',
+  },
   {
     title: 'Family Child(s)',
     key: 'childProfiles',
@@ -38,6 +45,12 @@ export const getMenuData: any[] = [
     icon: 'fa fa-dollar',
     url: '/expenses',
     roles: [ "Parent", "Lawyer"],
+  },
+  {
+    title: 'Family Documents',
+    key: 'documents',
+    icon: 'fe fe-folder',
+    url: '/documents',
   },
   {
     title: 'Connection',

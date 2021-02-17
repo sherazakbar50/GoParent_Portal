@@ -1,0 +1,23 @@
+
+<div class="col-xl-12">
+    <form nz-form [nzLayout]="'vertical'"
+     role="form" [formGroup]="form" (ngSubmit)="handleSubmit(formDirective)" #formDirective="ngForm" novalidate>
+        <!-- <input type="hidden" formControlName='Id' /> -->
+        <nz-form-item>
+          <nz-form-control>
+            <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Folder Name" />
+            <div class="text-danger">
+              <ng-container *ngIf="IsSubmitted && Name.hasError('required')">Folder Name is Required!</ng-container>
+            </div>
+          </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
+                    <strong> Save</strong>
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+  </div>
+  
