@@ -2,79 +2,37 @@
     <button nz-button nzType="primary" (click)="AddTime()">Add time record</button>
 </div>
 <hr>
+<div class="row ml-3 mt-4">
+    <p class="font-weight-bold font-size-24 mb-0">
+        Total time: {{casesTotalTimeInMinutes}}
+    </p>
 
-
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex flex-wrap align-items-center">
-            <div class="mr-auto">
-                <p class="text-uppercase text-dark font-weight-bold mb-1">
-                    COPA2 </p>
-                <p class="text-gray-5 mb-0">
-                    Calling to baba
-                </p>
+</div>
+<div *ngFor="let time of listData">
+    <div class="card">
+        <div class="card-body">
+            <div class="d-flex flex-wrap align-items-center">
+                <div class="mr-auto">
+                    <p class="text-uppercase text-dark font-weight-bold mb-1">
+                        CaseName </p>
+                    <p class="text-gray-5 mb-0">
+                        {{time.Task}}
+                    </p>
+                </div>
+                <p class="font-weight-bold font-size-24 mb-0">
+                    {{time.Hourse}}:{{time.Minutes}} </p>
             </div>
-            <p class=" font-weight-bold font-size-24 mb-0">
-                01:01:02 </p>
         </div>
     </div>
 </div>
 
 
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex flex-wrap align-items-center">
-            <div class="mr-auto">
-                <p class="text-uppercase text-dark font-weight-bold mb-1">
-                    Refunds </p>
-                <p class="text-gray-5 mb-0">
-                    Averache Weekly Reunds
-                </p>
-            </div>
-            <p class="font-weight-bold font-size-24 mb-0">
-                01:01:02 </p>
-        </div>
-    </div>
-</div>
 
-
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex flex-wrap align-items-center">
-            <div class="mr-auto">
-                <p class="text-uppercase text-dark font-weight-bold mb-1">
-                    Refunds </p>
-                <p class="text-gray-5 mb-0">
-                    Averache Weekly Reunds
-                </p>
-            </div>
-            <p class=" font-weight-bold font-size-24 mb-0">
-                01:01:02 </p>
-        </div>
-    </div>
-</div>
-
-
-<div class="card">
-    <div class="card-body">
-        <div class="d-flex flex-wrap align-items-center">
-            <div class="mr-auto">
-                <p class="text-uppercase text-dark font-weight-bold mb-1">
-                    Refunds </p>
-                <p class="text-gray-5 mb-0">
-                    Averache Weekly Reunds
-                </p>
-            </div>
-            <p class=" font-weight-bold font-size-24 mb-0">
-                01:01:02 </p>
-        </div>
-    </div>
-</div>
 
 
 <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="TimemodalTitle" (nzOnCancel)="ModalCancel()"
           nzMaskClosable="false">
     <ng-container *nzModalContent>
-        <app-add-time (folderCreated)='AddTimeSuccess($event)' (expenseSavedEvent)='SavedCallBack()'></app-add-time>
+        <app-add-time [CaseId]="this.caseId" (caseTimeCreated)='AddTimeSuccess($event)' (expenseSavedEvent)='SavedCallBack()'></app-add-time>
     </ng-container>
 </nz-modal>

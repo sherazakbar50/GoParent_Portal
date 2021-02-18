@@ -2,10 +2,10 @@
     <div class="card-body">
         <nz-tabset class="kit-tabs" [nzSelectedIndex]="0">
             <nz-tab nzTitle="Notes">
-                <app-note-tab></app-note-tab>
+                <app-note-tab [caseId]="this.caseId"></app-note-tab>
             </nz-tab>
             <nz-tab nzTitle="Time">
-            <app-time-tab></app-time-tab>
+                <app-time-tab [caseId]="this.caseId"></app-time-tab>
             </nz-tab>
         </nz-tabset>
     </div>

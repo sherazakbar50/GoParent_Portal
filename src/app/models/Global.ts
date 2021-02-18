@@ -74,4 +74,9 @@ export const API_ENDPOINTS = {
   GetCoParentsInfo: 'api/FamilyMember/GetCoParentsInfo',
   SaveCustody: 'api/FamilyCustodies/SaveCustody',
   UserAllRoomIds: 'api/Messaging/allroomids',
+  GetCasesByLawyer: 'api/Cases/casesList',
+  GetCaseNoteByCase: 'api/CasesNote/caseNoteList',
+  AddUpdateCaseNote: 'api/CasesNote/addUpdateNote',
+  GetCaseTimeByCase: 'api/CaseTime/caseTimeList',
+  AddUpdateCaseTime: 'api/CaseTime/addUpdateTime',
 }

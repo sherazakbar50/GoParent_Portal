@@ -1,4 +1,8 @@
 export class CaseDto {
-    caseName: string;
-    caseFor: string;
+    CaseId:number;
+    FamilyId: number;
+    LawyerAssociationId: number;
+    FamilyName:string;
+    LawyerId: number;
+    LawyerName:string;
 }

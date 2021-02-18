@@ -55,9 +55,9 @@ export class ViewDocumentsComponent implements OnInit {
       if (result && result.isConfirmed) {
         let response = await this.documentsService.DeleteDocument(id)
         if (response) {
+
           this.notification.success('', 'File has been deleted successfully!')
           this.documentsService.getFamilyDocuments();
-
         } else {
           this.notification.error('', 'There is some error please try again later!')
         }

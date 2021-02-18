@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+import { CaseTimeDto } from 'src/app/models/CaseTime/case-time-dto';
+import { CaseTimeService } from 'src/app/services/cases/CaseTime/case-time.service';
 
 @Component({
   selector: 'app-time-tab',
@@ -6,15 +9,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./time-tab.component.scss']
 })
 export class TimeTabComponent implements OnInit {
-  isVisible:boolean = false;
-  TimemodalTitle: string = 'Add time';
-  constructor() { }
+  isVisible: boolean = false;
+  TimemodalTitle: string = 'Add case time';
+  case = new CaseTimeDto;
+  casesTotalTimeInMinutes: number =0;
+  listData: CaseTimeDto[] = [];
+  @Input() caseId: number;
+  caseTimeObserverSubject: BehaviorSubject<CaseTimeDto> = new BehaviorSubject(null);
+  constructor(private caseTimeServices: CaseTimeService) { }
 
   ngOnInit(): void {
+    this.loadCaseTime()
   }
+
+  async loadCaseTime() {
+    this.caseTimeServices.caseTimeObserver$.subscribe(res => {
+      if (res) {
+        this.listData = res;
+        this.listData.forEach(x => {
+          this.casesTotalTimeInMinutes = this.casesTotalTimeInMinutes + x.TotalTime;
+        })
+      }
+    });
+
+
+    await this.caseTimeServices.getCasesTime(this.caseId)
+  }
+
 
   AddTime() {
     this.isVisible = true
+    this,this.caseTimeObserverSubject.next(null);
   }
 
   SavedCallBack() {
