@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { ChatMessageDto } from 'src/app/models/ChatDto'
 import { UserSessionModel } from 'src/app/models/UserSessionModel'
 import { ChatService } from 'src/app/services/chat-services/ChatService'
@@ -16,13 +16,13 @@ export class FamilyJournalChatComponent implements OnInit {
     private authService: jwtAuthService,
     private _ChatService: ChatService,
   ) {}
-
+  @ViewChild('inputMsg') input: ElementRef
   activeChatGroupId: number = 0
   activeChatGroupName: string = ''
   ChatMessages: ChatMessageDto[] = []
   sessionUserData: UserSessionModel
   messageText: string = ''
-
+  isEmojiPickerVisible = false
   ngOnInit() {
     this._ChatService.messagesObserver$.subscribe(_messageRecieved => {
       this.ChatMessages.push(_messageRecieved)
@@ -39,7 +39,21 @@ export class FamilyJournalChatComponent implements OnInit {
       })
     })
   }
-
+  OpenEmojiPicker() {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible
+  }
+  addEmoji(event) {
+    const emoji: string = event.emoji.native
+    const input = this.input.nativeElement
+    input.focus()
+    if (document.execCommand) {
+      document.execCommand('insertText', false, emoji)
+      return
+    }
+    // insert emoji on carrot position
+    const [start, end] = [input.selectionStart, input.selectionEnd]
+    input.setRangeText(emoji, start, end, 'end')
+  }
   SendMessage() {
     if (this.messageText && this.messageText.length && this.activeChatGroupId > 0) {
       let _message = new ChatMessageDto()

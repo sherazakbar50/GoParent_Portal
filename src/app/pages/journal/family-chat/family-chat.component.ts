@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
 import { ChatMessageDto } from 'src/app/models/ChatDto'
 import { UserSessionModel } from 'src/app/models/UserSessionModel'
@@ -25,6 +25,8 @@ export class FamilyChatComponent implements OnInit {
   sessionUserData: UserSessionModel
   messageText: string = ''
   addGroupModelVisible: boolean = false
+  @ViewChild('inputMsg') input: ElementRef
+  isEmojiPickerVisible = false
   ngOnInit() {
     this._ChatService.messagesObserver$.subscribe(_messageRecieved => {
       this.ChatMessages.push(_messageRecieved)
@@ -54,6 +56,21 @@ export class FamilyChatComponent implements OnInit {
     this._JournalService.GetGroupChat(_group.Id).then(_messages => {
       this.ChatMessages = _messages
     })
+  }
+  OpenEmojiPicker() {
+    this.isEmojiPickerVisible = !this.isEmojiPickerVisible
+  }
+  addEmoji(event) {
+    const emoji: string = event.emoji.native
+    const input = this.input.nativeElement
+    input.focus()
+    if (document.execCommand) {
+      document.execCommand('insertText', false, emoji)
+      return
+    }
+    // insert emoji on carrot position
+    const [start, end] = [input.selectionStart, input.selectionEnd]
+    input.setRangeText(emoji, start, end, 'end')
   }
   SendMessage() {
     if (this.messageText && this.messageText.length && this.activeChatGroupId > 0) {

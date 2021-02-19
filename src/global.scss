@@ -1,4 +1,3 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 // Plus imports for other components in your app.
@@ -24,32 +23,27 @@
 @import 'app/components/kit/core/style'; // Clean UI KIT core styles
 @import 'app/components/cleanui/styles/style'; // Clean UI styles
 
-
-.text-align-right{
-    text-align: right;
-  }
-  
-  .mg-top-20{
-    margin-top: 20px;
+.text-align-right {
+  text-align: right;
 }
 
-.p-15{
+.mg-top-20 {
+  margin-top: 20px;
+}
+
+.p-15 {
   padding: 15px;
 }
-.hidden{
+.hidden {
   display: none;
 }
-
+.emoji-mart-preview {
+  display: none !important;
+}
 // popup add Profile image
 .ant-upload.ant-upload-select-picture-card {
-  border-radius: 50% !important;
-  -webkit-border-radius: 50% !important;
-  -moz-border-radius: 50% !important;
-  -ms-border-radius: 50% !important;
-  -o-border-radius: 50% !important;
   position: relative;
-}
-.ant-upload.ant-upload-select-picture-card {
+
   width: 120px !important;
   height: 120px !important;
   border-radius: 50% !important;
@@ -61,7 +55,7 @@
   border: 0 !important;
 }
 
-.ant-upload.ant-upload-select-picture-card>.ant-upload {
+.ant-upload.ant-upload-select-picture-card > .ant-upload {
   display: flex !important;
   align-items: center;
   justify-content: center;
@@ -85,12 +79,11 @@
   }
 }
 
-
-.text-align-end{
+.text-align-end {
   text-align: end;
 }
 
-// for calendar page 
+// for calendar page
 .calendarView {
   .ant-badge-status-dot {
     display: none;
@@ -107,22 +100,21 @@
         .ant-badge-status-text {
           font-size: 10px;
           margin-left: 4px;
-          color: white;//var(--kit-color-primary);
+          color: white; //var(--kit-color-primary);
           font-weight: 500;
-
         }
         // ant-badge-status-text
       }
-      // li 
+      // li
     }
-    // ul 
+    // ul
   }
 
-  // ant-picker-calendar-date-content ends 
+  // ant-picker-calendar-date-content ends
 }
 
-.appointment-tag{
-  .appointment-tag-loop{
+.appointment-tag {
+  .appointment-tag-loop {
     background: #c4c4c4;
     border-radius: 4px;
     padding: 2px 6px;
@@ -132,7 +124,7 @@
   }
 }
 
-.ant-picker-calendar-date-content > .ng-star-inserted:not(.customDateBlock ) {
+.ant-picker-calendar-date-content > .ng-star-inserted:not(.customDateBlock) {
   position: static;
   width: auto;
   height: 90px;
@@ -150,16 +142,16 @@
   border: 1px solid #e4e9f0 !important;
   margin: 0 !important;
 }
-// calendarView ends 
+// calendarView ends
 
-.w-70{
+.w-70 {
   width: 70%;
 }
-.w-30{
+.w-30 {
   width: 30%;
 }
 
-.readonly{
+.readonly {
   pointer-events: none;
-  opacity: 0.5
+  opacity: 0.5;
 }

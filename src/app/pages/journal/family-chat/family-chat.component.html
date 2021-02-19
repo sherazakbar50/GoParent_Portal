@@ -79,17 +79,26 @@
   
             </div>
             <div class="pt-2 pb-2">
-                <!-- Salman is typing... -->
-            </div>
-            <div class="input-group mb-3">
-              <ng-container *ngIf='activeChatGroupId>0'>
-                <input type="text" class="form-control" [(ngModel)]='messageText' placeholder="Send message..." />
-                <div class="input-group-append">
-                  <button class="btn btn-primary" (click)='SendMessage()' type="button">
-                    <i class="fe fe-send align-middle"></i>
-                  </button>
-                </div>
-              </ng-container>
+              <!-- Salman is typing... -->
+             
+           
+              <emoji-mart *ngIf='isEmojiPickerVisible' (emojiSelect)="addEmoji($event)" title="Pick your emoji…" autoFocus='true' enableSearch='false' showPreview='false' showSkinTones='false' emoji="point_up"></emoji-mart>
+          </div>
+          <div class="input-group mb-3">
+            <ng-container *ngIf='activeChatGroupId>0'>
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-white" (click)="OpenEmojiPicker()">😀</span>
+                
+              </div>
+              <input type="text" class="form-control" #inputMsg [(ngModel)]='messageText' placeholder="Send message..." />
+              <div class="input-group-append">
+                 
+                <button class="btn btn-primary" (click)='SendMessage()' type="button">
+                  <i class="fe fe-send align-middle"></i>
+                </button>
+              </div>
+             
+            </ng-container>
              
             </div>
           </div>

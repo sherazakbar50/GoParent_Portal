@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
-
+import { PickerModule } from '@ctrl/ngx-emoji-mart'
 import { JournalRoutingModule } from './journal-routing.module'
 import { FamilyChatComponent } from './family-chat/family-chat.component'
 import { SharedModule } from '../../shared.module'
@@ -17,6 +17,7 @@ import { FamilyJournalChatComponent } from './family-journal-chat/family-journal
     PerfectScrollbarModule,
     FormsModule,
     ReactiveFormsModule,
+    PickerModule,
   ],
 })
 export class JournalModule {}
