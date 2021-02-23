@@ -74,7 +74,7 @@
       background: transparent !important;
     }
 
-  ::ng-deep .calendar-dot::after {
+  ::ng-deep .event-dot::after {
     content: "";
     height: 8px;
     width: 8px;
@@ -88,5 +88,14 @@
 
    ::ng-deep #smart-calendar .ant-picker-calendar-mode-switch{
      display: none !important;
+   }
+
+   ::ng-deep #smart-calendar .ant-picker-calendar-date-value{
+   font-size: 20px !important;
+  }
+
+   ::ng-deep #smart-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner{
+     background: none !important;
+     color:#595c97 !important
    }
   

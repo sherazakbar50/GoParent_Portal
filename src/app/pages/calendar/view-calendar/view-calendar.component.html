@@ -32,12 +32,12 @@
               </div>
               <div>
                 <ul class="events" *ngIf="date.getMonth() == selectedDate.getMonth()">
-                  <ng-container *ngFor="let event of events; trackBy:getEvents">
-                    <li nz-popover [style.background]="event.EventBgColor"
-                      *ngIf="IsRenderEventsOnCell(date,event.EventStartDate,event.EventEndDate)"
-                      nzPopoverContent="{{event.EventNotes}}"
-                      (click)="showEventDetails(event, date)">
-                      <nz-badge [nzStatus]="event.type" [nzText]="event.EventSubject"></nz-badge>
+                  <ng-container *ngFor="let item of calendarFormattedData; trackBy:trackByCalendarItemId">
+                    <li nz-popover [style.background]="item.Color"
+                      *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)"
+                      nzPopoverContent="{{item.Note}}"
+                      (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
                     </li>
                   </ng-container>
                 </ul>
@@ -49,9 +49,9 @@
               </div>
               <div>
                 <ul class="events">
-                  <ng-container *ngFor="let event of getMonthEvents(month)">
-                    <li [style.background]="event.EventBgColor" nz-popover nzPopoverContent="{{event.EventNotes}}" (click)="showEventDetails(event, event.EventStartDate)">
-                      <nz-badge [nzStatus]="event.type" [nzText]="event.EventSubject"></nz-badge>
+                  <ng-container *ngFor="let item of filterCalendarDataMonthWise(month)">
+                    <li [style.background]="item.Color" nz-popover nzPopoverContent="{{item.Note}}" (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
                     </li>
                   </ng-container>
                 </ul> 
@@ -71,14 +71,20 @@
       <nz-modal [nzFooter]="null" [nzWidth]="'647px'" [(nzVisible)]="custodyModalIsVisible" [nzTitle]="custodyModalTitle"
       nzMaskClosable="false" (nzOnCancel)="handleCustodyFormCancel()">
       <ng-container *nzModalContent>
-        <app-schedule-custody [modalCloseSub]="closeModalObserverSubject"></app-schedule-custody>
+        <app-schedule-custody [custodySub]="editCustodyObserverSubject" [modalCloseSub]="closeModalObserverSubject"></app-schedule-custody>
       </ng-container>
+      </nz-modal>
+    </div>
+    <div>
+      <nz-modal [nzFooter]="null" [nzTitle]="'Custody Details'" [(nzVisible)]="viewCustody" (nzOnCancel)="closeViewCustodyModal()" nzMaskClosable="false">
+        <app-view-custody [custodySub]="viewCustodyObserverSubject" (edit)="editCustody()" (delete)="deleteCustody()">
+        </app-view-custody>
       </nz-modal>
     </div>
 
     <!-- Add Modal -->
     <div>
-      <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
+      <nz-modal [nzFooter]="null" [nzWidth]="'647px'" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
       nzMaskClosable="false">
       <ng-container *nzModalContent>
         <app-add-event [eventSub]="editEventObserverSubject" [modalCloseSub]="closeModalObserverSubject"></app-add-event>
@@ -87,7 +93,7 @@
       </nz-modal>
     </div>
     <div>
-      <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent" (nzOnCancel)="closeViewEvent()" nzMaskClosable="false">
+      <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent" (nzOnCancel)="closeViewEventModal()" nzMaskClosable="false">
         <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
         </app-view-event>
       </nz-modal>

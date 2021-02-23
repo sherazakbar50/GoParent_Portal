@@ -5,9 +5,10 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { EventsDTO } from 'src/app/models/eventsDTO';
 import { EventsService } from 'src/app/services/APIServices/events.service';
 import { AppDateFormatPipe } from 'src/app/pipes/date-format.pipe';
-import { DatePipe } from '@angular/common';
-declare var require
-const Swal = require('sweetalert2')
+import { CalendarService } from 'src/app/services/calendar-services/calendar-service';
+import { CustodyDto } from 'src/app/models/CustodyDto';
+import { AlertService } from 'src/app/services/alert-service/alert-service';
+import { CustodyService } from 'src/app/services/APIServices/custody.service';
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
@@ -22,47 +23,58 @@ export class ViewCalendarComponent implements OnInit {
   isVisible: boolean = false;
   viewEvent: boolean = false;
   @ViewChild('calendar') cal: NzCalendarComponent;
-  current = new Date();
+  todayDate = new Date();
   events: EventsDTO[] = [];
   dateList: any = [];
   selectedEvent: any;
-  editEventObserverSubject: BehaviorSubject<EventsDTO> = new BehaviorSubject(null);  
+  editEventObserverSubject: BehaviorSubject<EventsDTO> = new BehaviorSubject(null);
+  editCustodyObserverSubject: BehaviorSubject<CustodyDto> = new BehaviorSubject(null);
   viewEventObserverSubject: Subject<EventsDTO> = new Subject();
   closeModalObserverSubject: Subject<boolean> = new Subject();
+  viewCustodyObserverSubject: Subject<CustodyDto> = new Subject();
   dateWiseEvents:Date[]=[]
+  dateWiseCustodies:any[]=[]
   custodyModalTitle = "Schedule Custody"
   custodyModalIsVisible = false
+  calendarFormattedData:any;
+  viewCustody: boolean;
+  selectedCustody: any;
 
-  constructor(private _eventsService: EventsService,private notifier:NzNotificationService,private appDateFormatPipe:AppDateFormatPipe,private datePipe: DatePipe) { }
+  constructor(private _alert:AlertService,
+    private _custody:CustodyService, 
+    private _calendarService:CalendarService, 
+    private _eventsService: EventsService,
+    private notifier:NzNotificationService,
+    private appDateFormatPipe:AppDateFormatPipe) 
+    { }
 
   ngOnInit(): void {
-    
-    this.current.setHours(0, 0, 0, 0);
-    this._eventsService.eventObserver$.subscribe(res => {
+    this.todayDate.setHours(0, 0, 0, 0);
+    this.subscribeToCalendarObserver();
+    this._calendarService.GetMonthlyCalendarData(this.selectedDate);
+  }
+
+  subscribeToCalendarObserver(){
+    this._calendarService.calendarObserver$.subscribe(res => {
       if (res) {
         this.dateList = [];
+        this.dateWiseEvents = [];
+        this.dateWiseCustodies=[];
         this.isVisible = false;
+        this.custodyModalIsVisible = false;
         this.editEventObserverSubject.next(null);
-        this.events = res;
-        this.events.forEach(element => {
-          element.EventStartDate = this.appDateFormatPipe.ToLocalDateTime(element.EventStartDate)
-          
-          if(element.EventEndDate)
-              element.EventEndDate = this.appDateFormatPipe.ToLocalDateTime(element.EventEndDate)
-          else
-              element.EventEndDate =  element.EventStartDate;
-
-          this.populateDataLists(element.EventStartDate, element.EventEndDate)
+        this.editCustodyObserverSubject.next(null);
+        this.calendarFormattedData = res.FormattedData;
+        this.calendarFormattedData.forEach(element => {
+          element.StartDate = this.appDateFormatPipe.ToLocalDateTime(element.StartDate)
+          element.EndDate = this.appDateFormatPipe.ToLocalDateTime(element.EndDate)
+          this.populateDataLists(element.StartDate, element.EndDate,element.IsCustody,element.Color)
           element.type = 'warning'
         });
+        
       }
-
-      //update side smart calendar
      this.updateSmartCalendar()
     });
-
-     
-    this._eventsService.getMonthWiseEvent(this.selectedDate);
   }
 
 
@@ -72,46 +84,67 @@ export class ViewCalendarComponent implements OnInit {
         allTds.forEach((elm,i)=>{
            let tdTtitle = new Date(elm.getAttribute('title'))
            tdTtitle.setHours(0,0,0,0);
+          
+           let _event = this.dateWiseEvents.find(item =>  this.IsExists(item,tdTtitle));
+           if(_event)
+               elm.classList.add("event-dot");
+           else
+               elm.classList.remove("event-dot");
 
-           if(this.HasEventOnDate(this.dateWiseEvents,tdTtitle)){
-               elm.classList.add("calendar-dot");
+           let _custody = this.dateWiseCustodies.find(item =>  this.IsExists(item.date,tdTtitle))
+           if(_custody){
+           elm.firstElementChild.firstElementChild.setAttribute('style',`color:${_custody.color};`);    
+           //elm.firstElementChild.firstElementChild.setAttribute('style',`background:${_custody.color};color:#fff;border-radius:2px`);
            }
-           else{
-            elm.classList.remove("calendar-dot");
+           else
+           {
+               elm.firstElementChild.firstElementChild.setAttribute('style',`background:none;color:''`);
            }
+        
+
         });
       }
   }
 
-  HasEventOnDate(array, value) {
-    return !!array.find(item => {return item.getDate() == value.getDate() && item.getMonth() == value.getMonth() && item.getYear() == value.getYear()});
+  IsExists(item:any,value:any):boolean{
+      return item.getDate() == value.getDate() && item.getMonth() == value.getMonth() && item.getFullYear() == value.getFullYear();
   }
-  populateDataLists(startDate, stopDate) {
-    var currentDate = new Date(JSON.parse(JSON.stringify(startDate)));
+  
+  populateDataLists(startDate, stopDate,isCustody,color) {
+    let currentDate = new Date(JSON.parse(JSON.stringify(startDate)));
     while (currentDate <= stopDate) {
-      var date = new Date(currentDate)
+      let date = new Date(currentDate)
       date.setHours(0, 0, 0, 0);
+
       if (!this.dateList.includes(date.getTime())) {
         this.dateList.push(date.getTime());
       }
+
       let storeDate = new Date(currentDate);
       storeDate.setHours(0,0,0,0);
-      if(!this.dateWiseEvents.some(x=>x.getDate() == storeDate.getDate()))
-         this.dateWiseEvents.push(storeDate);
+
+      if(isCustody){
+          if(!this.dateWiseCustodies.some(x=>x.date.getDate() == storeDate.getDate()))
+              this.dateWiseCustodies.push({date:storeDate,color:color});
+      }
+      else{
+          if(!this.dateWiseEvents.some(x=>x.getDate() == storeDate.getDate()))
+              this.dateWiseEvents.push(storeDate);
+        }
       
-         currentDate.setDate(currentDate.getDate() + 1);
+      currentDate.setDate(currentDate.getDate() + 1);
     }
   }
 
-  getEvents(index, event) {
-    return event;
+  trackByCalendarItemId(index, item) {
+    return item.Id;
   }
 
-  getMonthEvents(month: Date) {
-    return this.events.filter(value => {
-      return (value.EventStartDate.getMonth() <= month.getMonth()) && (value.EventEndDate.getMonth() >= month.getMonth());
+  filterCalendarDataMonthWise(month: Date) {
+    return this.calendarFormattedData.filter(value => { return (value.StartDate.getMonth() <= month.getMonth()) && (value.EndDate.getMonth() >= month.getMonth());
     });
   }
+
 
   SaveEventModal(): void {
     this.isVisible = true;
@@ -121,7 +154,7 @@ export class ViewCalendarComponent implements OnInit {
 
   ScheduleCustodyModal(): void {
     this.custodyModalIsVisible = true;
-    //this.editEventObserverSubject.next(null);
+    this.editCustodyObserverSubject.next(null);
   }
 
   handleCancel(): void {
@@ -132,6 +165,8 @@ export class ViewCalendarComponent implements OnInit {
 
   handleCustodyFormCancel(){
     this.custodyModalIsVisible = false;
+    this.editCustodyObserverSubject.next(null);
+    this.closeModalObserverSubject.next(true);
   }
 
   
@@ -143,6 +178,14 @@ export class ViewCalendarComponent implements OnInit {
     this.selectedEvent = data;
   }
 
+  showCustodyDetails(selectedItem, selectedDate): void {
+    selectedItem.selectedDate = selectedDate;
+    this.viewCustody = true;
+    selectedItem.ChildrenNames = selectedItem.ParentObject.ChildrenInfo.map(x=>x.ChildFirstName + " " + x.ChildLastName).toString();
+    this.viewCustodyObserverSubject.next(selectedItem);
+    this.selectedCustody = selectedItem;;
+  }
+
   editEvent() {
     this.modalTitle = "Update Event";
     this.viewEvent = false
@@ -151,33 +194,50 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   deleteEvent() {
-    Swal.fire({
-      title: 'Are you sure you want to delete the event?',
-      text: "You won't be able to revert this!",
-      type: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes, delete it!',
-      }).then(async result => {
+    this._alert.Delete('Are you sure you want to delete the event?',async result => {
       if (result && result.isConfirmed) {
         let res = await this._eventsService.deleteEvent(this.selectedEvent.EventId);
+        
         if(res){
           this.viewEvent = false;
-          this._eventsService.getMonthWiseEvent(this.selectedDate);
+          this._calendarService.GetMonthlyCalendarData(this.selectedDate);
           this.notifier.success('','Event deleted successfully')
         }
        }
     })
   }
 
-  closeViewEvent(): void {
+  editCustody() {
+    this.modalTitle = "Update Custody";
+    this.viewCustody = false
+    this.custodyModalIsVisible = true;
+    this.editCustodyObserverSubject.next(this.selectedCustody.ParentObject);
+  }
+
+  deleteCustody() {
+    this._alert.Delete("Are you sure you want to delete the custody?",async result => {
+      if (result && result.isConfirmed) {
+        let res = await this._custody.deleteCustody(this.selectedCustody.ParentObject.Id);
+        if(res){
+          this.viewCustody = false;
+          this._calendarService.GetMonthlyCalendarData(this.selectedDate);
+          this.notifier.success('','Custody deleted successfully')
+        }
+       }
+    },"This will delete the whole custody!")
+  }
+
+  closeViewEventModal(): void {
     this.viewEvent = false;
+  }
+
+  closeViewCustodyModal(): void {
+    this.viewCustody = false;
   }
  
   changeDate(date: any) {
     this.selectedDate = date;
-    this._eventsService.getMonthWiseEvent(this.selectedDate);
+    //this._eventsService.getMonthWiseEvent(this.selectedDate);
   }
 
   LoadDataOnChange(change: { date: Date; mode: string }){
@@ -185,7 +245,7 @@ export class ViewCalendarComponent implements OnInit {
      this.updateSmartCalendar()
   }
   
-  IsRenderEventsOnCell(actualDate:Date,StartDate:Date,EndDate:Date):boolean{
+  IsRenderDataOnCell(actualDate:Date,StartDate:Date,EndDate:Date):boolean{
     actualDate.setHours(0,0,0,0);
     StartDate.setHours(0,0,0,0);
     EndDate.setHours(0,0,0,0);

@@ -37,7 +37,7 @@ export class AuthorizeInterceptor implements HttpInterceptor {
           if (error.status === 401) {
             this.authorize.logoutUnAuthorizedUser()
             this.router.navigate(['/auth/login'])
-            notifier.error('',"Your session has been expired. Please sign in again.")
+            notifier.warning('',"Your session has been expired. Please sign in again.")
           }
         }
         

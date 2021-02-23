@@ -10,9 +10,10 @@ import { ViewEventComponent } from './view-event/view-event.component';
 import { ColorPickerComponent } from 'src/app/pages/color-picker/color-picker.component';
 import { DatePipe } from '@angular/common';
 import { ScheduleCustodyComponent } from './schedule-custody/schedule-custody.component';
+import { ViewCustodyComponent } from './view-custody/view-custody.component';
 
 @NgModule({
-  declarations: [ViewCalendarComponent,AddEventComponent,ViewEventComponent,ColorPickerComponent,ScheduleCustodyComponent],
+  declarations: [ViewCalendarComponent,AddEventComponent,ViewEventComponent,ColorPickerComponent,ScheduleCustodyComponent,ViewCustodyComponent],
   imports: [
     CommonModule,
     SharedModule,

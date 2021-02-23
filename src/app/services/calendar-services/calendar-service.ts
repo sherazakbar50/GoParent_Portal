@@ -11,20 +11,20 @@ import { tap,catchError,map } from 'rxjs/operators'
   providedIn: 'root'
 })
 
-export class CustodyService extends ApiHandler {
+export class CalendarService extends ApiHandler {
 
-    eventObserver$: Observable<EventsDTO[]>;
-    private eventSubject$: BehaviorSubject<EventsDTO[]> = new BehaviorSubject<EventsDTO[]>(undefined);
+    calendarObserver$: Observable<any>;
+    private calendarSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined);
     constructor(private httpClient: HttpClient) {
     super(httpClient);
-    this.eventObserver$ = this.eventSubject$.asObservable();
+    this.calendarObserver$ = this.calendarSubject$.asObservable();
     }
     
-    saveCustody(data: any) {
-        return this.Post(0, API_URL + API_ENDPOINTS.SaveCustody,data).pipe(map(x=>x.ResponseData)).toPromise();
+    GetMonthlyCalendarData(date:Date){
+        this.GetAll(API_URL + API_ENDPOINTS.GetMonthlyCalendarData,`date=${date.toUTCString()}`).subscribe(res => {
+            if(res.IsSuccessful)
+                this.calendarSubject$.next(res.ResponseData);
+        });
     }
 
-    deleteCustody(Id:number){
-      return this.Delete(API_URL + API_ENDPOINTS.DeleteCustody,Id).pipe(map(x=>x.ResponseData)).toPromise();
-    }
 }  

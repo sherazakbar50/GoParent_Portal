@@ -1,0 +1,46 @@
+<div class="client-appointment-view-div" *ngIf="custody">
+    <div class="appointment-title mb-3">
+        <h5>
+            <span class="appointment-title-span mr-2" [style.background]="custody.Color"></span>
+            {{custody.Title}} <small>({{custody.StartDate | date: dateFormat}} <span>-</span>   {{custody.EndDate | date: dateFormat}})</small>
+        </h5>
+    </div>
+
+    <!-- <div *ngIf="custody.ChildrenNames" class="appointment-description mb-3">
+        <div class="f-12">  
+            <span class="appointment-description-span mr-2">
+            <i class="fe fe-users"></i>
+            {{custody.ChildrenNames}}
+        </span>
+        </div>
+     </div> -->
+
+        <div *ngIf="custody.Statement" class="appointment-description mb-3">
+            <div class="f-12">  
+                <span class="appointment-description-span mr-2">
+                <i class="fe fe-users"></i>
+                {{custody.Statement}}
+            </span>
+            </div>
+        </div>
+
+<div *ngIf="custody.Note" class="appointment-description mb-3">
+    <div class="f-12">  
+        <span class="appointment-description-span mr-2">
+        <i class="fe fe-list"></i>
+        {{custody.Note}}
+    </span>
+    </div>
+    </div>
+
+    <nz-divider></nz-divider>
+    <div class="text-align-end">
+         <button nz-button nzType="primary" [nzSize]="'small'" (click)="editCustody()">
+            <strong> Edit</strong>
+          </button>
+          &nbsp;
+          <button nz-button nzType="danger" [nzSize]="'small'" (click)="deleteCustody()">
+            <strong> Delete</strong>
+          </button>
+    </div>
+</div>
