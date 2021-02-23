@@ -8,8 +8,14 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar'
 import { AddChatGroupComponent } from './add-chat-group/add-chat-group.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { FamilyJournalChatComponent } from './family-journal-chat/family-journal-chat.component'
+import { ChatAttachmentComponent } from './chat-attachment/chat-attachment.component'
 @NgModule({
-  declarations: [FamilyChatComponent, AddChatGroupComponent, FamilyJournalChatComponent],
+  declarations: [
+    FamilyChatComponent,
+    AddChatGroupComponent,
+    FamilyJournalChatComponent,
+    ChatAttachmentComponent,
+  ],
   imports: [
     CommonModule,
     JournalRoutingModule,

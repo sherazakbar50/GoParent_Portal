@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
 import { Router } from '@angular/router'
-import { ChatMessageDto } from 'src/app/models/ChatDto'
+import { ChatMessageDto, ChatUserDto } from 'src/app/models/ChatDto'
 import { UserSessionModel } from 'src/app/models/UserSessionModel'
 import { ChatService } from 'src/app/services/chat-services/ChatService'
 import { JournalService } from 'src/app/services/journal/journal.service'
@@ -26,7 +26,11 @@ export class FamilyChatComponent implements OnInit {
   messageText: string = ''
   addGroupModelVisible: boolean = false
   @ViewChild('inputMsg') input: ElementRef
+  attachmentType: string = ''
+  attachmentName: string = ''
+  attachmentUrl: string = ''
   isEmojiPickerVisible = false
+  IsAddAttachmentModalVisible: boolean = false
   ngOnInit() {
     this._ChatService.messagesObserver$.subscribe(_messageRecieved => {
       this.ChatMessages.push(_messageRecieved)
@@ -73,19 +77,45 @@ export class FamilyChatComponent implements OnInit {
     input.setRangeText(emoji, start, end, 'end')
   }
   SendMessage() {
-    if (this.messageText && this.messageText.length && this.activeChatGroupId > 0) {
+    if (
+      ((this.messageText && this.messageText.length) ||
+        (this.attachmentUrl && this.attachmentUrl.length)) &&
+      this.activeChatGroupId > 0
+    ) {
       let _message = new ChatMessageDto()
-      _message.Message = this.messageText
-      _message.Date = new Date()
-      _message.Id = '1'
-      _message.FromId = this.sessionUserData.FamilyMemberId
-      _message.From = this.sessionUserData.FirstName + ' ' + this.sessionUserData.LastName
-      _message.FromAvatar = this.sessionUserData.ProfilePicUrl
+      _message.text = this.messageText
+      _message.createdAt = new Date()
+      _message.send = true
+      _message.attachmentType = this.attachmentType
+      _message.attachmentUrl = this.attachmentUrl
+      _message.attachmentName = this.attachmentName
+      let chatUser = new ChatUserDto()
+      chatUser._id = this.sessionUserData.FamilyMemberId
+      chatUser.name = this.sessionUserData.FirstName + ' ' + this.sessionUserData.LastName
+      chatUser.avatar = this.sessionUserData.ProfilePicUrl
+      _message.user = chatUser
       this._ChatService.SendMessage(_message, this.activeChatGroupId)
       this.messageText = ''
+      this.attachmentType = ''
+      this.attachmentName = ''
+      this.attachmentUrl = ''
     }
   }
-
+  handleAddAttachmentModalCancel() {
+    this.IsAddAttachmentModalVisible = false
+  }
+  AddAttachment() {
+    this.IsAddAttachmentModalVisible = true
+  }
+  ChatAttachmentAddedCallback($event) {
+    this.IsAddAttachmentModalVisible = false
+    this.attachmentName = $event.attachmentName
+    this.attachmentType = $event.attachmentType
+    this.attachmentUrl = $event.attachmentUrl
+    // this.messageText=`<a href='${$event.FileUrl}' download><img  alt='${$event.FileName}' width='200' height='200' src='${$event.FileUrl}' /></a> `;
+    this.messageText = ''
+    this.SendMessage()
+  }
   AddChatGroup() {
     this.addGroupModelVisible = true
   }

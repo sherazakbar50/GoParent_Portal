@@ -1,0 +1,22 @@
+<div class="col-xl-12">
+    <form  enctype="multipart/form-data">
+       
+        <div class="form-group col-xl-12">
+            <nz-upload  
+              nzType="drag" [(nzFileList)]="uploadedFiles"   [nzMultiple]="false"  [nzBeforeUpload]="beforeUpload">
+            <p class="ant-upload-drag-icon">
+                <i nz-icon nzType="upload" nzTheme="outline"></i>
+            </p>
+            <p class="ant-upload-text">Drag and Drop your file here, or <span class="text-primary">Browse</span></p>
+        </nz-upload>
+           
+        </div>
+        <nz-form-item>
+            <nz-form-control>
+                <button nz-button nzType="primary" [nzSize]="'large'" (click)="submitForm()" class="text-center w-100">
+                    <strong> Save</strong>
+                </button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>

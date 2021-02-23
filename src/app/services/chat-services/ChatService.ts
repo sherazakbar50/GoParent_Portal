@@ -31,13 +31,14 @@ export class ChatService {
     this._WebsocketService.LeaveGroup(groupId)
   }
 
-  AddUserToHisAllRooms() {
-    this._JournalService.GetUserRoomIds().then(roomIds => {
-      if (roomIds && roomIds.length) {
-        ;(roomIds as any[]).forEach(roomId => {
-          this.JoinChatRoom(roomId)
-        })
-      }
-    })
+  AddUserToHisAllRooms(familyMemberId, familyId, isParent) {
+    this._WebsocketService.SubscribeUserToGroups(familyMemberId, familyId, isParent)
+    // this._JournalService.GetUserRoomIds().then(roomIds => {
+    //   if (roomIds && roomIds.length) {
+    //     (roomIds as any[]).forEach(roomId => {
+    //       this.JoinChatRoom(roomId)
+    //     })
+    //   }
+    // })
   }
 }

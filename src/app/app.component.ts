@@ -15,6 +15,7 @@ import russian from './locales/ru-RU'
 import chinese from './locales/zh-CN'
 import { WebsocketService } from './services/chat-services/WebsocketService'
 import { ChatService } from './services/chat-services/ChatService'
+import { jwtAuthService } from './services/jwt'
 
 const locales = {
   'en-US': english,
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit {
     translate: TranslateService,
     private _WebSocketService: WebsocketService,
     private _ChatService: ChatService,
+    private _userService: jwtAuthService,
   ) {
     Object.keys(locales).forEach(locale => {
       translate.setTranslation(locale, locales[locale])
@@ -64,10 +66,19 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     // set page title from router data variable
     this._WebSocketService.connect()
-    this._ChatService.userConnectedObserver$.subscribe(x => {
-      // user is connected to the node server please subscribe him into his rooms
-      this._ChatService.AddUserToHisAllRooms()
+    this._userService.getUserModel().then(userModel => {
+      if (userModel && (userModel.UserRole == 'Parent' || userModel.UserRole == 'Child')) {
+        this._ChatService.userConnectedObserver$.subscribe(x => {
+          // user is connected to the node server please subscribe him into his rooms
+          this._ChatService.AddUserToHisAllRooms(
+            userModel.FamilyMemberId,
+            userModel.FamilyId,
+            userModel.UserRole == 'Parent',
+          )
+        })
+      }
     })
+
     this.router.events
       .pipe(
         filter(event => event instanceof NavigationEnd),

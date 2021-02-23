@@ -62,15 +62,30 @@
               <perfect-scrollbar>
                 <div class="d-flex flex-column justify-content-end pr-2 height-100p">
                   <div *ngFor="let message of ChatMessages;"
-                    [ngClass]="['message', message.FromId != sessionUserData.FamilyMemberId ? 'answer' : '']">
+                    [ngClass]="['message', message.user._id != sessionUserData.FamilyMemberId ? 'answer' : '']">
                     <div class="messageContent">
                       <div class="text-gray-4 font-size-12 text-uppercase">
-                        {{message.From&&message.From.trim().length>0 ?message.From:'Co-Parent'}}, {{message.Date}}
+                        {{message.user.name&&message.user.name.trim().length>0 ?message.user.name:'Co-Parent'}}, {{message.createdAt}}
                       </div>
-                      <div>{{message.Message}}</div>
+                      <div [innerHTML]='message.text'></div>
+                      <div *ngIf='message.attachmentUrl&&message.attachmentUrl.length'>
+                          <div *ngIf='message.attachmentType==="image"' >
+                              <img [src]='message.attachmentUrl' width="200" height="200" />
+                          </div>
+                          <div *ngIf='message.attachmentType==="other"' >
+                            <p>{{message.attachmentName}}</p>
+                          </div>
+                          <div *ngIf='message.attachmentType==="audio"' >
+                            <audio controls  [src]='message.attachmentUrl'></audio>
+                          </div>
+                          <div *ngIf='message.attachmentType==="video"' >
+                            <video controls  width="300" height="200" [src]='message.attachmentUrl'></video>
+                          </div>
+                        <p class="text-center"><a [href]="message.attachmentUrl" download><i class="fa fa-download"></i> Download</a></p>
+                      </div>
                     </div>
                     <div class="kit__utils__avatar messageAvatar">
-                      <img [src]="message.FromAvatar?message.FromAvatar : 'assets/images/avatars/avatar-2.png'" alt="Avatar">
+                      <img [src]="message.user.avatar?message.user.avatar : 'assets/images/avatars/avatar-2.png'" alt="Avatar">
                     </div>
                   </div>
                 
@@ -88,7 +103,7 @@
             <ng-container *ngIf='activeChatGroupId>0'>
               <div class="input-group-prepend">
                 <span class="input-group-text bg-white" (click)="OpenEmojiPicker()">😀</span>
-                
+                <span class="input-group-text bg-white" (click)="AddAttachment()"><i class="fa fa-paperclip"></i></span>
               </div>
               <input type="text" class="form-control" #inputMsg [(ngModel)]='messageText' placeholder="Send message..." />
               <div class="input-group-append">
@@ -118,3 +133,12 @@
     </nz-modal>
     </div>
    
+       
+  <div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="IsAddAttachmentModalVisible" [nzTitle]="'Send Attachment'" (nzOnCancel)="handleAddAttachmentModalCancel()"
+      nzMaskClosable="false">
+      <ng-container *nzModalContent>
+        <app-chat-attachment (documentCreated)='ChatAttachmentAddedCallback($event)'></app-chat-attachment>
+      </ng-container>
+    </nz-modal>
+  </div>

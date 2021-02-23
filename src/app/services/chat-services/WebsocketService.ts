@@ -41,4 +41,12 @@ export class WebsocketService {
   LeaveGroup(groupId) {
     this.socket.emit('leavegroup', groupId.toString())
   }
+
+  SubscribeUserToGroups(familyMemberId, familyId, isParent) {
+    this.socket.emit('subscibeusergroups', {
+      FamilyMemberId: familyMemberId,
+      Familyid: familyId,
+      IsParent: isParent,
+    })
+  }
 }
