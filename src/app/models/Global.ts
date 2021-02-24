@@ -82,4 +82,5 @@ export const API_ENDPOINTS = {
   AddUpdateCaseTime: 'api/CaseTime/addUpdateTime',
   DeleteCustody: 'api/FamilyCustodies/DeleteCustody',
   GetMonthlyCalendarData: 'api/Calendar/GetMonthlyCalendarData',
+  GetYearlyCalendarData:'api/Calendar/GetYearlyCalendarData'
 }

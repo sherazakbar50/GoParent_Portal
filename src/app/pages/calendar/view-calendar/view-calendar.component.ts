@@ -9,6 +9,7 @@ import { CalendarService } from 'src/app/services/calendar-services/calendar-ser
 import { CustodyDto } from 'src/app/models/CustodyDto';
 import { AlertService } from 'src/app/services/alert-service/alert-service';
 import { CustodyService } from 'src/app/services/APIServices/custody.service';
+import { chainedInstruction } from '@angular/compiler/src/render3/view/util';
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
@@ -18,6 +19,7 @@ import { CustodyService } from 'src/app/services/APIServices/custody.service';
 export class ViewCalendarComponent implements OnInit {
 
   selectedDate = new Date();
+  selectedMode = 'month';
   mode: NzCalendarMode = 'month';
   modalTitle: string = "New Event";
   isVisible: boolean = false;
@@ -27,8 +29,8 @@ export class ViewCalendarComponent implements OnInit {
   events: EventsDTO[] = [];
   dateList: any = [];
   selectedEvent: any;
-  editEventObserverSubject: BehaviorSubject<EventsDTO> = new BehaviorSubject(null);
-  editCustodyObserverSubject: BehaviorSubject<CustodyDto> = new BehaviorSubject(null);
+  editEventObserverSubject: BehaviorSubject<any> = new BehaviorSubject(null);
+  editCustodyObserverSubject: BehaviorSubject<any> = new BehaviorSubject(null);
   viewEventObserverSubject: Subject<EventsDTO> = new Subject();
   closeModalObserverSubject: Subject<boolean> = new Subject();
   viewCustodyObserverSubject: Subject<CustodyDto> = new Subject();
@@ -39,6 +41,7 @@ export class ViewCalendarComponent implements OnInit {
   calendarFormattedData:any;
   viewCustody: boolean;
   selectedCustody: any;
+  loadedDateFor:Date= new Date();
 
   constructor(private _alert:AlertService,
     private _custody:CustodyService, 
@@ -51,7 +54,7 @@ export class ViewCalendarComponent implements OnInit {
   ngOnInit(): void {
     this.todayDate.setHours(0, 0, 0, 0);
     this.subscribeToCalendarObserver();
-    this._calendarService.GetMonthlyCalendarData(this.selectedDate);
+    this._calendarService.LoadCalendarDataByMode(this.selectedDate,this.selectedMode);
   }
 
   subscribeToCalendarObserver(){
@@ -93,8 +96,11 @@ export class ViewCalendarComponent implements OnInit {
 
            let _custody = this.dateWiseCustodies.find(item =>  this.IsExists(item.date,tdTtitle))
            if(_custody){
-           elm.firstElementChild.firstElementChild.setAttribute('style',`color:${_custody.color};`);    
-           //elm.firstElementChild.firstElementChild.setAttribute('style',`background:${_custody.color};color:#fff;border-radius:2px`);
+          //1 This will color the cell
+           //elm.firstElementChild.firstElementChild.setAttribute('style',`color:${_custody.color};`);    
+          
+           //2 This will set the background color
+           elm.firstElementChild.firstElementChild.setAttribute('style',`background:${_custody.color};color:#fff;border-radius:2px`);
            }
            else
            {
@@ -149,12 +155,12 @@ export class ViewCalendarComponent implements OnInit {
   SaveEventModal(): void {
     this.isVisible = true;
     this.modalTitle = "New Event";
-    this.editEventObserverSubject.next(null);
+    this.editEventObserverSubject.next({isAdd : true,selectedMode : this.selectedMode});
   }
 
   ScheduleCustodyModal(): void {
     this.custodyModalIsVisible = true;
-    this.editCustodyObserverSubject.next(null);
+    this.editCustodyObserverSubject.next({isAdd : true,selectedMode : this.selectedMode});
   }
 
   handleCancel(): void {
@@ -190,6 +196,7 @@ export class ViewCalendarComponent implements OnInit {
     this.modalTitle = "Update Event";
     this.viewEvent = false
     this.isVisible = true;
+    this.selectedEvent.selectedMode = this.selectedMode;
     this.editEventObserverSubject.next(this.selectedEvent);
   }
 
@@ -200,7 +207,7 @@ export class ViewCalendarComponent implements OnInit {
         
         if(res){
           this.viewEvent = false;
-          this._calendarService.GetMonthlyCalendarData(this.selectedDate);
+          this._calendarService.LoadCalendarDataByMode(this.selectedDate,this.selectedMode);
           this.notifier.success('','Event deleted successfully')
         }
        }
@@ -211,6 +218,7 @@ export class ViewCalendarComponent implements OnInit {
     this.modalTitle = "Update Custody";
     this.viewCustody = false
     this.custodyModalIsVisible = true;
+    this.selectedCustody.ParentObject.selectedMode = this.selectedMode;
     this.editCustodyObserverSubject.next(this.selectedCustody.ParentObject);
   }
 
@@ -220,7 +228,7 @@ export class ViewCalendarComponent implements OnInit {
         let res = await this._custody.deleteCustody(this.selectedCustody.ParentObject.Id);
         if(res){
           this.viewCustody = false;
-          this._calendarService.GetMonthlyCalendarData(this.selectedDate);
+          this._calendarService.LoadCalendarDataByMode(this.selectedDate,this.selectedMode);
           this.notifier.success('','Custody deleted successfully')
         }
        }
@@ -237,14 +245,24 @@ export class ViewCalendarComponent implements OnInit {
  
   changeDate(date: any) {
     this.selectedDate = date;
-    //this._eventsService.getMonthWiseEvent(this.selectedDate);
+    if(!this.IsAlreadyloadedData(date)){
+      this.loadedDateFor = date;
+      this._calendarService.LoadCalendarDataByMode(this.selectedDate,this.selectedMode);
+    }
   }
 
-  LoadDataOnChange(change: { date: Date; mode: string }){
-     //update side smart calendar
-     this.updateSmartCalendar()
+   IsAlreadyloadedData(date:Date){
+    return date.getMonth() == this.loadedDateFor.getMonth() &&
+                date.getFullYear() == this.loadedDateFor.getFullYear();
+   }
+ 
+  LoadDataOnPanelChange(change: { date: Date; mode: string }){
+    if(change){
+      this.selectedMode = change.mode;
+      this._calendarService.LoadCalendarDataByMode(change.date,this.selectedMode);
+    }
+    
   }
-  
   IsRenderDataOnCell(actualDate:Date,StartDate:Date,EndDate:Date):boolean{
     actualDate.setHours(0,0,0,0);
     StartDate.setHours(0,0,0,0);

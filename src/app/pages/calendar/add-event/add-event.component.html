@@ -2,20 +2,20 @@
     <div class="col-xl-12">
         <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="SaveEvent()" role="form" *ngIf="form">
             <nz-form-item>
-                <nz-form-control>
+                <nz-form-control nzErrorTip="Event subject is required">
                   <input type="text" nz-input formControlName="EventSubject" placeholder="Title" />
-                  <div class="text-danger">
+                  <!-- <div class="text-danger">
                     <ng-container *ngIf="IsSubmitted && fc.EventSubject.hasError('required')">Event subject is required</ng-container>
-                  </div>
+                  </div> -->
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-              <nz-form-control>
+              <nz-form-control nzErrorTip="Event date(s) are required">
                  <nz-range-picker [nzFormat]="'yyyy/MM/dd HH:mm'" [nzShowTime]="{ nzFormat: 'HH:mm a',nzUse12Hours:true }" formControlName="EventDateRange" [nzPlaceHolder]="['From', 'To']" class="w-100">
                  </nz-range-picker>
-                 <div class="text-danger">
+                 <!-- <div class="text-danger">
                   <ng-container *ngIf="IsSubmitted && fc.EventDateRange.hasError('required')">Event date(s) are required</ng-container>
-                </div>
+                </div> -->
               </nz-form-control>
           </nz-form-item> 
             <!-- <nz-form-item>
@@ -68,11 +68,11 @@
                         (event)="setColor($event)"></app-color-picker>
               </nz-form-control>
           </nz-form-item>
-          <nz-form-item>
+          <!-- <nz-form-item>
             <nz-form-control>
               <label nz-checkbox formControlName="IsPrivate">Is Private</label>
             </nz-form-control>
-        </nz-form-item>
+        </nz-form-item> -->
             <nz-form-item>
               <nz-form-control>
                 <textarea rows="3" nz-input formControlName="EventNotes" placeholder="Notes (Optional)"></textarea>

@@ -27,4 +27,17 @@ export class CalendarService extends ApiHandler {
         });
     }
 
+    GetYearlyCalendarData(date:Date){
+        this.GetAll(API_URL + API_ENDPOINTS.GetYearlyCalendarData,`date=${date.toUTCString()}`).subscribe(res => {
+            if(res.IsSuccessful)
+                this.calendarSubject$.next(res.ResponseData);
+        });
+    }
+
+    LoadCalendarDataByMode(date:Date,mode:string){
+        if(mode === 'year')
+           this.GetYearlyCalendarData(date);
+        else
+           this.GetMonthlyCalendarData(date);
+      }
 }  

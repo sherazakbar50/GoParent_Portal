@@ -24,12 +24,13 @@ export class ScheduleCustodyComponent implements OnInit  {
   firstCoParentColor = "#8E0622";
   secondCoParentColor = "#3E6158";
   form: FormGroup
-  @Input() custodySub: BehaviorSubject<CustodyDto>;
+  @Input() custodySub: BehaviorSubject<any>;
   @Input() modalCloseSub: Subject<boolean>;
   IsSubmitted = false;
   FamilyChilds:[]
   custodyId:number;
   CoParentsInfo:FamilyMemberDto[];
+  selectedMode:string;
 
   constructor(private fb: FormBuilder,
     private notifier:NzNotificationService,
@@ -79,14 +80,21 @@ export class ScheduleCustodyComponent implements OnInit  {
     if (this.custodySub) {
       this.custodySub.subscribe((res) => {
         if (res) {
-          this.custodyId = res.Id;
-          this.firstCoParentColor = res.FirstParentCustodyColor;
-          this.secondCoParentColor = res.SecondParentCustodyColor;
-          res.CustodySequences.forEach((x,i)=>{
-            if(i > 0)
-              this.addCustodyRow(null,false)
-          })
-          this.form.patchValue(res);
+          this.selectedMode = res.selectedMode;
+
+          if(res.isAdd){
+            this.form.reset();
+          }
+          else{
+            this.custodyId = res.Id;
+            this.firstCoParentColor = res.FirstParentCustodyColor;
+            this.secondCoParentColor = res.SecondParentCustodyColor;
+            res.CustodySequences.forEach((x,i)=>{
+              if(i > 0)
+                this.addCustodyRow(null,false)
+            })
+            this.form.patchValue(res);
+          }
         }
         else {
           this.form.reset();
@@ -118,7 +126,8 @@ export class ScheduleCustodyComponent implements OnInit  {
     custodyData.SecondParentCustodyColor = this.secondCoParentColor;
     let res = await this.custody.saveCustody(custodyData);
     if(res){
-       this._calendarService.GetMonthlyCalendarData(new Date());
+       let dateToRender = custodyData.CustodySequences[0]?.DateRange[0] || new Date();
+       this._calendarService.LoadCalendarDataByMode(new Date(dateToRender),this.selectedMode);
        this.notifier.success('',this.custodyId > 0 ? 'Custody updated successfully' : 'Custody scheduled successfully');
     }
     this.IsSubmitted = false;

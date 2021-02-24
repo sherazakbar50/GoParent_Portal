@@ -17,13 +17,13 @@
               {{ selectedDate.toLocaleString('default', { month: 'long' }) }} {{selectedDate.getFullYear()}}
             </h5>
             <div [ngStyle]="{ border: '1px solid #e3e3e3', borderRadius: '1px', marginTop: '33px'}">
-              <nz-calendar #calendar id="smart-calendar" [nzFullscreen]="false" (nzPanelChange)="LoadDataOnChange($event)" (nzSelectChange)="changeDate($event)" [(ngModel)]="selectedDate">
+              <nz-calendar #calendar id="smart-calendar" [nzFullscreen]="false" (nzPanelChange)="LoadDataOnPanelChange($event)" (nzSelectChange)="changeDate($event)" [(ngModel)]="selectedDate">
               </nz-calendar>
             </div>
             <!-- <nz-date-picker nzBorderless nzOpen style="visibility: hidden;" [(ngModel)]="selectedDate"></nz-date-picker> -->
           </div>
           <div class="col-xl-8 pr-5 mt-3">
-            <nz-calendar [(ngModel)]="selectedDate" [nzDateCell]="dateCellRender" [nzMonthCell]="monthCellRender" (nzPanelChange)="LoadDataOnChange($event)" (nzSelectChange)="changeDate($event)"></nz-calendar>
+            <nz-calendar [(ngModel)]="selectedDate" [nzDateCell]="dateCellRender" [nzMonthCell]="monthCellRender" (nzPanelChange)="LoadDataOnPanelChange($event)" (nzSelectChange)="changeDate($event)"></nz-calendar>
             <ng-template #dateCellRender let-date>
               <div class="customDateBlock" [ngClass]="{eventSelected: ((dateList.includes(date.getTime())) && (date.getMonth() == selectedDate.getMonth()) )}">
                 <ng-container *ngIf="date.getMonth() == selectedDate.getMonth()">
