@@ -89,6 +89,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/pages/journal/journal.module').then(x => x.JournalModule),
       },
+      {
+        path: 'custody-template',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/custody-templates/custody-templates.module').then(x => x.CustodyTemplatesModule),
+      },
     ],
   },
   {

@@ -1,0 +1,124 @@
+<div class="row">
+
+    <!-- Add Template -->
+    <ng-container>
+        <div class="col-md-3">
+            <div class="card" style="cursor: pointer; height: 94%;" (click)="showModal()">
+                <div class="card-body text-nowrap">
+                    <div class="align-items-center d-flex flex-column h-100 justify-content-center text-center">
+                        <div class="font-size-70 pt-3 pb-w text-gray-4">
+                            <i class="fe fe-plus-circle"></i>
+                        </div>
+                        <p class="text-uppercase text-muted mb-3">
+                            Create Parent Custody Template
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <!-- List of Templates -->
+    <ng-container *ngFor="let item of list">
+        <div class="col-md-3">
+            <div class="card calendarCard">
+                <div class="card-body">
+                    <div class="text-center">
+
+                        <app-go-calendar [dates]="item.CustodyPlanTemplateSequences" [obj]="item"></app-go-calendar>
+
+                        <button nz-button class="btn btn-outline-primary mb-1" (click)="showModal(item)">
+                            Edit
+                        </button>
+                        <button nz-button class="btn btn-outline-danger mb-1 ml-2" (click)="handleDelete(item.Id)">
+                            Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+</div>
+
+
+<!-- Custody Modal -->
+<div>
+    <nz-modal [nzFooter]="null" nzWidth="647px" [(nzVisible)]="isVisible" nzTitle="Custody Template"
+        nzMaskClosable="false" (nzOnCancel)="handleCancel()">
+        <ng-container *nzModalContent>
+            <div class="row">
+                <div class="col-lg-12">
+                    <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="handleSubmit()" role="form"
+                        *ngIf="form">
+                        <nz-form-item>
+                            <nz-form-control nzHasFeedback [nzErrorTip]="titleTpl">
+                                <input type="text" nz-input formControlName="Title" placeholder="Title" />
+                                <ng-template #titleTpl let-control>
+                                    <ng-container *ngIf="f.Title.hasError('required')">
+                                        Title is required
+                                    </ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+                        <nz-form-item>
+                            <nz-form-control [nzErrorTip]="startEndTpl">
+                                <nz-range-picker class="w-100" formControlName="StartEndDate"></nz-range-picker>
+                            </nz-form-control>
+                            <ng-template #startEndTpl let-control>
+                                <ng-container *ngIf="f.StartEndDate.hasError('required')">
+                                    Start Date & End Date is required
+                                </ng-container>
+                            </ng-template>
+                        </nz-form-item>
+
+                        <div *ngIf="f.StartEndDate.value">
+                            <nz-divider nzText="Define Custody Plan"></nz-divider>
+
+                            <div formArrayName="CustodyPlanTemplateSequences" [nzLayout]="vertical">
+                                <ng-container [formGroupName]="i" *ngFor="let control of fa.controls; let i = index">
+                                    <div class="custody-sequence-div">
+                                        <nz-form-item>
+                                            <nz-form-control nzErrorTip="All Fields are rquired">
+                                                <nz-range-picker style="width: 45%; margin-right: 2em;"
+                                                    [nzDisabledDate]="disabledDate" formControlName="DateRange"
+                                                    [nzFormat]="'yyyy/MM/dd'" [nzPlaceHolder]="['From', 'To']">
+                                                </nz-range-picker>
+                                                <nz-select style="width: 45%;" formControlName="ParentType"
+                                                    nzPlaceHolder="Select Co-Parent">
+                                                    <nz-option nzLabel="First Parent" [nzValue]="0"></nz-option>
+                                                    <nz-option nzLabel="Second Parent" [nzValue]="1"></nz-option>
+                                                </nz-select>
+                                                <i style="width: 5%;" nz-icon nzType="minus-circle-o"
+                                                    *ngIf="((fa.length-1) == i) && i != 0"
+                                                    class="dynamic-delete-button text-danger" (click)="removeRow(i)">
+                                                </i>
+                                            </nz-form-control>
+                                        </nz-form-item>
+                                    </div>
+                                </ng-container>
+                                <nz-form-item>
+                                    <nz-form-control>
+                                        <button nz-button nzType="dashed" class="add-button w-100"
+                                            (click)="addSequenceRow($event)">
+                                            <i nz-icon nzType="plus"></i>
+                                            Add Custody Plan
+                                        </button>
+                                    </nz-form-control>
+                                </nz-form-item>
+                            </div>
+                        </div>
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button nz-button nzType="primary" class="text-center w-100" [nzLoading]="isLoading">
+                                    Submit
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </form>
+                </div>
+            </div>
+
+        </ng-container>
+    </nz-modal>
+</div>

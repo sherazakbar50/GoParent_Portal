@@ -11,9 +11,9 @@
     color: #777;
   }
 
-  [nz-form] {
-    max-width: 600px;
-  }
+  // [nz-form] {
+  //   max-width: 600px;
+  // }
 
   ::ng-deep .custody-sequence-div .ant-form-item-control-input-content{
     display: flex;
@@ -21,5 +21,9 @@
 
   ::ng-deep .custody-sequence-coparent-ddl{
       margin: 0 10px !important
+  }
+
+  ::ng-deep .ant-modal-body {
+    overflow-x: auto;
   }
 

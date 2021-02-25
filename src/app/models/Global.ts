@@ -73,7 +73,13 @@ export const API_ENDPOINTS = {
   JournalGroupId: 'api/Messaging/journalgroupid',
   AllFamilyMembers: 'api/FamilyMember/getfamilymembers',
   GetCoParentsInfo: 'api/FamilyMember/GetCoParentsInfo',
+
+  // Custodies
   SaveCustody: 'api/FamilyCustodies/SaveCustody',
+  SaveCustodyTemplate: 'api/CustodyTemplates/SaveCustodyTemplate',
+  CustodyTemplatesList: 'api/CustodyTemplates/GetList',
+  DeleteCustodyTemplate: 'api/CustodyTemplates/Delete',
+
   UserAllRoomIds: 'api/Messaging/allroomids',
   GetCasesByLawyer: 'api/Cases/casesList',
   GetCaseNoteByCase: 'api/CasesNote/caseNoteList',

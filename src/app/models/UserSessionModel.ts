@@ -12,8 +12,8 @@ export class UserSessionModel {
 }
 
 export enum ApplicationRolesEnum {
-  Admin,
-  Parent,
-  Lawyer,
-  Child,
+  Admin = 1,
+  Parent = 2,
+  Lawyer = 3,
+  Child = 4,
 }

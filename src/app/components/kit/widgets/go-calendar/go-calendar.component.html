@@ -1,0 +1,14 @@
+<div>
+    <p class="text-dark font-size-28 font-weight-bold mb-2">
+        {{obj?.Title}}
+    </p>
+    <nz-calendar #calendar [id]="id" [(ngModel)]="selectedDate" class="custodyCalendar" [nzFullscreen]="false"
+        (nzSelectChange)="onValueChange($event)">
+    </nz-calendar>
+    <p class="mb-1">
+        From: <strong>{{obj.StartDate | date}}</strong>
+        <!-- •  -->
+        <br>
+        To: <strong>{{obj.EndDate | date}}</strong>
+    </p>
+</div>

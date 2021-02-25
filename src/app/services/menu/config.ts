@@ -1,3 +1,5 @@
+import { ApplicationRolesEnum } from "src/app/models/UserSessionModel";
+
 export const getMenuData: any[] = [
   // {
   //   category: true,
@@ -8,7 +10,7 @@ export const getMenuData: any[] = [
     key: 'mainDashboard',
     icon: 'fe fe-bookmark',
     url: '/dashboard/index',
-    roles: ['Admin', 'Parent', 'Lawyer'],
+    roles: [ApplicationRolesEnum[1], ApplicationRolesEnum[2], ApplicationRolesEnum[3], ApplicationRolesEnum[4]],
   },
 
   {
@@ -16,12 +18,13 @@ export const getMenuData: any[] = [
     key: 'cases',
     icon: 'fe fe-book',
     url: '/cases',
+    roles: [ApplicationRolesEnum[3]]
   },
   {
     title: 'Family Child(s)',
     key: 'childProfiles',
     icon: 'fa fa-child',
-    roles: ['Parent'],
+    roles: [ApplicationRolesEnum[2]],
     // roles: ['admin'], // set user roles with access to this route
     // count: 4,
     children: [
@@ -37,55 +40,63 @@ export const getMenuData: any[] = [
     key: 'familyContacts',
     icon: 'fe fe-users',
     url: '/contacts',
-    roles: ['Parent', 'Lawyer'],
+    roles: [ApplicationRolesEnum[2]],
   },
   {
     title: 'Expense(s)',
     key: 'familyExpenses',
     icon: 'fa fa-dollar',
     url: '/expenses',
-    roles: ['Parent', 'Lawyer'],
+    roles: [ApplicationRolesEnum[2]],
   },
   {
     title: 'Family Documents',
     key: 'documents',
     icon: 'fe fe-folder',
     url: '/documents',
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]]
   },
   {
     title: 'Connection',
     key: 'connection',
     icon: 'fe fe-link',
     url: '/connection',
-    roles: ['Parent'],
+    roles: [ApplicationRolesEnum[2]],
   },
   {
     title: 'Lawyers',
     key: 'lawyers',
     icon: 'fe fe-user',
     url: '/lawyers',
-    roles: ['Admin'],
+    roles: [ApplicationRolesEnum[1]],
   },
   {
     title: 'Calendar',
     key: 'connection',
     icon: 'fe fe-calendar',
     url: '/calendar',
-    roles: ['Parent', 'Lawyer'],
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
   },
   {
     title: 'Journal',
     key: 'familyJournal',
-    icon: 'fa fa-comments',
+    icon: 'fe fe-message-circle',
     url: '/journal',
-    roles: ['Parent'],
+    roles: [ApplicationRolesEnum[2]],
   },
   {
     title: 'Messages',
     key: 'messagesTab',
-    icon: 'fa fa-comments',
+    icon: 'fe fe-message-square',
     url: '/journal/groupchat',
-    roles: ['Parent', 'Child'],
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3], ApplicationRolesEnum[4]],
+  },
+  {
+    title: 'Custody Plan Template',
+    key: 'parentingPlan',
+    icon: 'fe fe-file-text',
+    url: '/custody-template',
+    roles: [ApplicationRolesEnum[1]],
   },
   // {
   //   title: 'Setting',

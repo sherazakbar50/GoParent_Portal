@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router'
 import { FamilyChatComponent } from './family-chat/family-chat.component'
 import { FamilyJournalChatComponent } from './family-journal-chat/family-journal-chat.component'
 const routes: Routes = [
-  { path: '', component: FamilyJournalChatComponent },
-  { path: 'groupchat', component: FamilyChatComponent },
+  { path: '', component: FamilyJournalChatComponent, data: { title: 'Journal' } },
+  { path: 'groupchat', component: FamilyChatComponent, data: { title: 'Group Chat' } },
   { path: '**', redirectTo: '', pathMatch: 'full' },
 ]
 
@@ -12,4 +12,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class JournalRoutingModule {}
+export class JournalRoutingModule { }

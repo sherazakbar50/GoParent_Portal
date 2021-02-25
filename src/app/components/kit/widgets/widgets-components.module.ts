@@ -110,7 +110,9 @@ import { CuiTable4Component } from './Tables/4/4.component'
 import { CuiTable5Component } from './Tables/5/5.component'
 import { CuiTable6Component } from './Tables/6/6.component'
 import { CuiTable7Component } from './Tables/7/7.component'
-import { CuiTable8Component } from './Tables/8/8.component'
+import { CuiTable8Component } from './Tables/8/8.component';
+import { GoCalendarComponent } from './go-calendar/go-calendar.component'
+import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 
 const COMPONENTS = [
   CuiGeneral1Component,
@@ -214,6 +216,7 @@ const COMPONENTS = [
   CuiTable6Component,
   CuiTable7Component,
   CuiTable8Component,
+  GoCalendarComponent,
 ]
 
 @NgModule({
@@ -225,6 +228,7 @@ const COMPONENTS = [
     ChartistModule,
     ChartModule,
     CommonModule,
+    NzCalendarModule,
     UsMapModule,
   ],
   declarations: [...COMPONENTS],

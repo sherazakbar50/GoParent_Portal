@@ -1,0 +1,16 @@
+::ng-deep .custodyCalendar {
+  pointer-events: none;
+  .ant-picker-calendar-header {
+    display: none;
+  }
+  .ant-picker-calendar .ant-picker-panel {
+    border-top: 0;
+  }
+  .ant-picker-calendar-date-value {
+    border-radius: 6px;
+  }
+  // .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  //   background-color: #fff;
+  //   border: none;
+  // }
+}

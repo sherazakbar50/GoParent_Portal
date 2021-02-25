@@ -1,33 +1,29 @@
-import { BrowserModule } from '@angular/platform-browser'
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
-import { NgModule, LOCALE_ID,Injector } from '@angular/core'
-import { TranslateModule } from '@ngx-translate/core'
-import { FormsModule } from '@angular/forms'
+import { CommonModule, registerLocaleData } from '@angular/common'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
-
-import { NgProgressModule } from '@ngx-progressbar/core'
-import { NgProgressRouterModule } from '@ngx-progressbar/router'
-import { NgProgressHttpModule } from '@ngx-progressbar/http'
+import { default as localeEn } from '@angular/common/locales/en'
+import { Injector, LOCALE_ID, NgModule } from '@angular/core'
 import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore'
-import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms'
+import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { StoreRouterConnectingModule } from '@ngrx/router-store'
+import { StoreModule } from '@ngrx/store'
+import { NgProgressModule } from '@ngx-progressbar/core'
+import { NgProgressHttpModule } from '@ngx-progressbar/http'
+import { NgProgressRouterModule } from '@ngx-progressbar/router'
+import { TranslateModule } from '@ngx-translate/core'
+import { en_US as localeZorro, NZ_I18N } from 'ng-zorro-antd/i18n'
+import { setAppInjector } from 'src/app/services/app-injector'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
-import { StoreModule } from '@ngrx/store'
-import { EffectsModule } from '@ngrx/effects'
-import { StoreRouterConnectingModule } from '@ngrx/router-store'
-import { reducers, metaReducers } from './store/reducers'
-import { firebaseConfig, firebaseAuthService } from './services/firebase'
-import { jwtAuthService } from './services/jwt'
-import { MockHttpCallInterceptor } from './services/fakeApi'
-// locale resistration
-import { registerLocaleData } from '@angular/common'
-import { default as localeEn } from '@angular/common/locales/en'
-import { NZ_I18N, en_US as localeZorro } from 'ng-zorro-antd/i18n'
 import { AuthorizeInterceptor } from './components/cleanui/system/Interceptor/authorize.interceptor'
+import { firebaseAuthService, firebaseConfig } from './services/firebase'
+import { jwtAuthService } from './services/jwt'
+import { metaReducers, reducers } from './store/reducers'
 
-import {setAppInjector} from 'src/app/services/app-injector';
+
 
 const LOCALE_PROVIDERS = [
   { provide: LOCALE_ID, useValue: 'en' },
@@ -44,7 +40,6 @@ registerLocaleData(localeEn, 'en')
     FormsModule,
     AppRoutingModule,
     CommonModule,
-    
 
     // translate
     TranslateModule.forRoot(),
@@ -91,5 +86,5 @@ registerLocaleData(localeEn, 'en')
 export class AppModule {
   constructor(injector: Injector) {
     setAppInjector(injector);
- }
+  }
 }

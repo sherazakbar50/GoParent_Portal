@@ -1,103 +1,110 @@
 <div class="calendarView">
-    <div>
-      <div class="row mb-4">
-        <div class="col-md-10">
-        </div>
-        <div class="col-md-1">
-          <a nz-button class="float-right" nzType="primary" (click)="ScheduleCustodyModal()">Schedule Custody</a>
-        </div>
-        <div class="col-md-1">
-          <a nz-button class="float-right" nzType="primary" (click)="SaveEventModal()">Add Event</a>
-        </div>
+  <div>
+    <div class="row mb-4">
+      <div class="col-md-10">
       </div>
-      <div class="row">
-        <div class="card bg-white d-flex flex-row">
-          <div class="p-5 col-xl-4 ">
-            <h5>
-              {{ selectedDate.toLocaleString('default', { month: 'long' }) }} {{selectedDate.getFullYear()}}
-            </h5>
-            <div [ngStyle]="{ border: '1px solid #e3e3e3', borderRadius: '1px', marginTop: '33px'}">
-              <nz-calendar #calendar id="smart-calendar" [nzFullscreen]="false" (nzPanelChange)="LoadDataOnPanelChange($event)" (nzSelectChange)="changeDate($event)" [(ngModel)]="selectedDate">
-              </nz-calendar>
+      <div class="col-md-1">
+        <a nz-button class="float-right" nzType="primary" (click)="ScheduleCustodyModal()">Schedule Custody</a>
+      </div>
+      <div class="col-md-1">
+        <a nz-button class="float-right" nzType="primary" (click)="SaveEventModal()">Add Event</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="card bg-white d-flex flex-row">
+        <div class="p-5 col-xl-4 ">
+          <h5>
+            {{ selectedDate.toLocaleString('default', { month: 'long' }) }} {{selectedDate.getFullYear()}}
+          </h5>
+          <div [ngStyle]="{ border: '1px solid #e3e3e3', borderRadius: '1px', marginTop: '33px'}">
+            <nz-calendar #calendar id="smart-calendar" [nzFullscreen]="false"
+              (nzPanelChange)="LoadDataOnPanelChange($event)" (nzSelectChange)="changeDate($event)"
+              [(ngModel)]="selectedDate">
+            </nz-calendar>
+          </div>
+          <!-- <nz-date-picker nzBorderless nzOpen style="visibility: hidden;" [(ngModel)]="selectedDate"></nz-date-picker> -->
+        </div>
+        <div class="col-xl-8 pr-5 mt-3">
+          <nz-calendar [(ngModel)]="selectedDate" [nzDateCell]="dateCellRender" [nzMonthCell]="monthCellRender"
+            (nzPanelChange)="LoadDataOnPanelChange($event)" (nzSelectChange)="changeDate($event)"></nz-calendar>
+          <ng-template #dateCellRender let-date>
+            <div class="customDateBlock"
+              [ngClass]="{eventSelected: ((dateList.includes(date.getTime())) && (date.getMonth() == selectedDate.getMonth()) )}">
+              <ng-container *ngIf="date.getMonth() == selectedDate.getMonth()">
+                {{ date.getDate() }}
+              </ng-container>
             </div>
-            <!-- <nz-date-picker nzBorderless nzOpen style="visibility: hidden;" [(ngModel)]="selectedDate"></nz-date-picker> -->
-          </div>
-          <div class="col-xl-8 pr-5 mt-3">
-            <nz-calendar [(ngModel)]="selectedDate" [nzDateCell]="dateCellRender" [nzMonthCell]="monthCellRender" (nzPanelChange)="LoadDataOnPanelChange($event)" (nzSelectChange)="changeDate($event)"></nz-calendar>
-            <ng-template #dateCellRender let-date>
-              <div class="customDateBlock" [ngClass]="{eventSelected: ((dateList.includes(date.getTime())) && (date.getMonth() == selectedDate.getMonth()) )}">
-                <ng-container *ngIf="date.getMonth() == selectedDate.getMonth()">
-                  {{ date.getDate() }}
+            <div>
+              <ul class="events" *ngIf="date.getMonth() == selectedDate.getMonth()">
+                <ng-container *ngFor="let item of calendarFormattedData; trackBy:trackByCalendarItemId">
+                  <li nz-popover [style.background]="item.Color"
+                    *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
+                    (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
+                    <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                  </li>
                 </ng-container>
-              </div>
-              <div>
-                <ul class="events" *ngIf="date.getMonth() == selectedDate.getMonth()">
-                  <ng-container *ngFor="let item of calendarFormattedData; trackBy:trackByCalendarItemId">
-                    <li nz-popover [style.background]="item.Color"
-                      *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)"
-                      nzPopoverContent="{{item.Note}}"
-                      (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
-                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
-                    </li>
-                  </ng-container>
-                </ul>
-              </div>
-            </ng-template>
-            <ng-template #monthCellRender let-month>
-              <div>
-                {{ month.toLocaleString('default', { month: 'long' }) }}
-              </div>
-              <div>
-                <ul class="events">
-                  <ng-container *ngFor="let item of filterCalendarDataMonthWise(month)">
-                    <li [style.background]="item.Color" nz-popover nzPopoverContent="{{item.Note}}" (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
-                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
-                    </li>
-                  </ng-container>
-                </ul> 
-              </div>
-            </ng-template>
-          </div>
-          
-          <!-- <ng-container *ngTemplateOutlet="noData" class="m-5"></ng-container> -->
+              </ul>
+            </div>
+          </ng-template>
+          <ng-template #monthCellRender let-month>
+            <div>
+              {{ month.toLocaleString('default', { month: 'long' }) }}
+            </div>
+            <div>
+              <ul class="events">
+                <ng-container *ngFor="let item of filterCalendarDataMonthWise(month)">
+                  <li [style.background]="item.Color" nz-popover nzPopoverContent="{{item.Note}}"
+                    (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
+                    <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                  </li>
+                </ng-container>
+              </ul>
+            </div>
+          </ng-template>
         </div>
+
+        <!-- <ng-container *ngTemplateOutlet="noData" class="m-5"></ng-container> -->
       </div>
-     
-    </div>
-  
-    
-    <!-- Custody Modal -->
-    <div>
-      <nz-modal [nzFooter]="null" [nzWidth]="'647px'" [(nzVisible)]="custodyModalIsVisible" [nzTitle]="custodyModalTitle"
-      nzMaskClosable="false" (nzOnCancel)="handleCustodyFormCancel()">
-      <ng-container *nzModalContent>
-        <app-schedule-custody [custodySub]="editCustodyObserverSubject" [modalCloseSub]="closeModalObserverSubject"></app-schedule-custody>
-      </ng-container>
-      </nz-modal>
-    </div>
-    <div>
-      <nz-modal [nzFooter]="null" [nzTitle]="'Custody Details'" [(nzVisible)]="viewCustody" (nzOnCancel)="closeViewCustodyModal()" nzMaskClosable="false">
-        <app-view-custody [custodySub]="viewCustodyObserverSubject" (edit)="editCustody()" (delete)="deleteCustody()">
-        </app-view-custody>
-      </nz-modal>
     </div>
 
-    <!-- Add Modal -->
-    <div>
-      <nz-modal [nzFooter]="null" [nzWidth]="'647px'" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
-      nzMaskClosable="false">
-      <ng-container *nzModalContent>
-        <app-add-event [eventSub]="editEventObserverSubject" [modalCloseSub]="closeModalObserverSubject"></app-add-event>
-      </ng-container>
-        (nzOnCancel)="handleCancel()" nzMaskClosable="false">
-      </nz-modal>
-    </div>
-    <div>
-      <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent" (nzOnCancel)="closeViewEventModal()" nzMaskClosable="false">
-        <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
-        </app-view-event>
-      </nz-modal>
-    </div>
   </div>
-  <!-- calendarView  -->
-  
+
+
+  <!-- Custody Modal -->
+  <div>
+    <nz-modal [nzFooter]="null" [nzWidth]="'1000px'" [(nzVisible)]="custodyModalIsVisible" [nzTitle]="custodyModalTitle"
+      nzMaskClosable="false" (nzOnCancel)="handleCustodyFormCancel()">
+      <ng-container *nzModalContent> 
+        <app-schedule-custody [custodySub]="editCustodyObserverSubject" [modalCloseSub]="closeModalObserverSubject">
+        </app-schedule-custody>
+      </ng-container>
+    </nz-modal>
+  </div>
+  <div>
+    <nz-modal [nzFooter]="null" [nzTitle]="'Custody Details'" [(nzVisible)]="viewCustody"
+      (nzOnCancel)="closeViewCustodyModal()" nzMaskClosable="false">
+      <app-view-custody [custodySub]="viewCustodyObserverSubject" (edit)="editCustody()" (delete)="deleteCustody()">
+      </app-view-custody>
+    </nz-modal>
+  </div>
+
+  <!-- Add Modal -->
+  <div>
+    <nz-modal [nzFooter]="null" [nzWidth]="'647px'" [(nzVisible)]="isVisible" [nzTitle]="modalTitle"
+      (nzOnCancel)="handleCancel()" nzMaskClosable="false">
+      <ng-container *nzModalContent>
+        <app-add-event [eventSub]="editEventObserverSubject" [modalCloseSub]="closeModalObserverSubject">
+        </app-add-event>
+      </ng-container>
+      (nzOnCancel)="handleCancel()" nzMaskClosable="false">
+    </nz-modal>
+  </div>
+  <div>
+    <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent"
+      (nzOnCancel)="closeViewEventModal()" nzMaskClosable="false">
+      <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
+      </app-view-event>
+    </nz-modal>
+  </div>
+</div>
+<!-- calendarView  -->
