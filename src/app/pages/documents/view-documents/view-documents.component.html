@@ -1,14 +1,13 @@
 <div>
   <div class="card">
     <div class="card-body">
-      <app-add-document (documentCreated)='AddDocumentSuccess($event)' [fId]="folderId"></app-add-document>
-      <hr>
+      <app-add-document [hidden]="userRole !== 'Parent' && userRole !== 'Child'" (documentCreated)='AddDocumentSuccess($event)' [fId]="folderId"></app-add-document>
+      <hr [hidden]="userRole !== 'Parent' && userRole !== 'Child'">
       <div class="col-md-12 col-md-content">
-        <div class="row">
-          <div class="col-sm-2"  *ngFor="let docs of listDocumentsData" >
+        <div class="row" *ngIf="listData.length !== 0; else noData">
+          <div class="col-sm-2"  *ngFor="let docs of listData" >
             <div class="thumbnail mt-5">
               <br>
-
               <a class="folder-link" >
                 <div class="overlay">
                   <img *ngIf="docs.Type ==='.pdf'"
@@ -25,19 +24,21 @@
                   <img *ngIf="docs.Type ==='.ppt'"
                        src="https://cdn0.iconfinder.com/data/icons/FileTypesIcons/256/pptx_win.png" class="mswordType"
                        alt="Folder">
+                       <img *ngIf="docs.Type !=='.ppt' && docs.Type !=='.pdf' && docs.Type !=='.xlsx' && docs.Type !=='.png' && docs.Type !=='.jpg' "
+                       src="https://www.flaticon.com/svg/vstatic/svg/4270/4270655.svg?token=exp=1614158209~hmac=9dbb4c5030b7725acfdc311aa21a2cda" class="mswordType"
+                       alt="Folder">
                 </div>
               </a>
               <div class="caption">
-                <h3 class="mt-2 ml-1 text-center"><a href=""></a></h3>
-                <h5 class="text-center ">
+                <h5 class="text-center">
                 <p class="docName">{{docs.Name}}</p> <p> {{docs.Type}}</p>
                 </h5>
                 <br>
-                <p class="text-center">
-                  <a class="btn btn-sm btn-default" tooltip="{ title: 'Edit' }" data-original-title="" title=""
+                <p class="text-center ml-3">
+                  <a class="btn btn-sm btn-default" [hidden]="userRole !== 'Parent' && userRole !== 'Child'" tooltip="{ title: 'Edit' }" data-original-title="" title=""
                      (click)="$event.stopPropagation(DownloadDocument(docs.BlobUrl))" nz-tooltip nzTooltipTitle="Download document"><i class="fa fa-download"></i>
                   </a>
-                  <a class="btn btn-sm btn-primary ml-4"
+                  <a class="btn btn-sm btn-primary ml-4" [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
                      (click)="$event.stopPropagation(DeleteDocument(docs.DocumentId))"  nz-tooltip nzTooltipTitle="Delete document" tooltip="{ title: 'Destroy' }"
                      rel="nofollow" data-method="delete" data-original-title="" title=""><i class="fa fa-trash"></i>
                   </a>
@@ -46,6 +47,10 @@
             </div>
           </div>
         </div>
+
+        <ng-template #noData>
+          <nz-empty></nz-empty>
+        </ng-template>
       </div>
     </div>
   </div>

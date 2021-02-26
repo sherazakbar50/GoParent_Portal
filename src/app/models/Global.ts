@@ -64,6 +64,7 @@ export const API_ENDPOINTS = {
   AddUpdateDocument: 'api/FamilyDocuments/addUpdate',
   AddChatAttachment: 'api/FamilyDocuments/AddChatAttachment',
   getFamilyDocuments: 'api/FamilyDocuments/familyDocumentList',
+  getFolderDocuments: 'api/FamilyDocuments/documentListByFolder',
   deleteFolder: 'api/Folder/DeleteFolder',
   deleteDocument: 'api/FamilyDocuments/DeleteDocument',
   downloadDocument: 'api/FamilyDocuments/DownloadDocument',
@@ -84,9 +85,10 @@ export const API_ENDPOINTS = {
   GetCasesByLawyer: 'api/Cases/casesList',
   GetCaseNoteByCase: 'api/CasesNote/caseNoteList',
   AddUpdateCaseNote: 'api/CasesNote/addUpdateNote',
+  deleteCaseNote: 'api/CasesNote/DeleteCaseNote',
   GetCaseTimeByCase: 'api/CaseTime/caseTimeList',
   AddUpdateCaseTime: 'api/CaseTime/addUpdateTime',
   DeleteCustody: 'api/FamilyCustodies/DeleteCustody',
   GetMonthlyCalendarData: 'api/Calendar/GetMonthlyCalendarData',
-  GetYearlyCalendarData:'api/Calendar/GetYearlyCalendarData'
+  GetYearlyCalendarData: 'api/Calendar/GetYearlyCalendarData',
 }

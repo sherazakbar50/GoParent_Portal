@@ -12,8 +12,8 @@ export class JournalService extends ApiHandler {
     super(_httpClient)
   }
 
-  GetChatGroups() {
-    return this.GetAll(API_URL + API_ENDPOINTS.ChatGoupsList)
+  GetChatGroups(id: number) {
+    return this.Get(id, API_URL + API_ENDPOINTS.ChatGoupsList)
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }
@@ -37,8 +37,8 @@ export class JournalService extends ApiHandler {
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }
-  GetJournalGroupId() {
-    return this.GetAll(API_URL + API_ENDPOINTS.JournalGroupId)
+  GetJournalGroupId(id: number) {
+    return this.Get(id, API_URL + API_ENDPOINTS.JournalGroupId)
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }

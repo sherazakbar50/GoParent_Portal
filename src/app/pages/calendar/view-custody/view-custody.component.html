@@ -35,11 +35,12 @@
 
     <nz-divider></nz-divider>
     <div class="text-align-end">
-         <button nz-button nzType="primary" [nzSize]="'small'" (click)="editCustody()">
+         <button nz-button nzType="primary" [hidden]="userRole !== 'Parent'" [nzSize]="'small'" (click)="editCustody()">
             <strong> Edit</strong>
           </button>
           &nbsp;
-          <button nz-button nzType="primary" nzDanger [nzSize]="'small'" (click)="deleteCustody()">
+
+          <button nz-button nzType="danger" nzDanger [nzSize]="'small'" [hidden]="userRole !== 'Parent'" (click)="deleteCustody()">
             <strong> Delete</strong>
           </button>
     </div>

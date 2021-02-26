@@ -1,22 +1,22 @@
 <div class="row">
-    <div class="col-xl-12">
-        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" role="form" (ngSubmit)="handleSubmit(formDirective)" #formDirective="ngForm">
-            <nz-form-item>
-                <nz-form-control>
-                    <textarea nz-input formControlName='Note' placeholder="Notes ..."></textarea>
-                    <div class="text-danger">
-                        <ng-container *ngIf="IsSubmitted && Note.hasError('required')">Note is Required!</ng-container>
-                      </div>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-control>
-                    <button nz-button nzType="primary"  [nzSize]="'large'"
-                            class="text-center w-100">
-                        <strong> Save</strong>
-                    </button>
-                </nz-form-control>
-            </nz-form-item>
-        </form>
-    </div>
+  <div class="col-xl-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="form" role="form" (ngSubmit)="handleSubmit()"
+      #formDirective="ngForm">
+      <nz-form-item>
+        <nz-form-control  [nzErrorTip]="noteTpl">
+            <textarea nz-input formControlName='Note'  placeholder="Notes ..."></textarea>
+          <ng-template #noteTpl let-control>
+            <ng-container  *ngIf="control.hasError('required')">Note is Required!</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
+            <strong> Save</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
 </div>

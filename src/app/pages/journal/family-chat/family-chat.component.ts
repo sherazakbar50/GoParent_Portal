@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  Input,
+  OnInit,
+  ViewChild,
+} from '@angular/core'
 import { Router } from '@angular/router'
 import { ChatMessageDto, ChatUserDto } from 'src/app/models/ChatDto'
 import { UserSessionModel } from 'src/app/models/UserSessionModel'
@@ -12,18 +19,26 @@ import { jwtAuthService } from 'src/app/services/jwt'
   styleUrls: ['./family-chat.component.scss'],
 })
 export class FamilyChatComponent implements OnInit {
+  userRole: string = ''
   constructor(
     private _JournalService: JournalService,
     private authService: jwtAuthService,
     private _ChatService: ChatService,
     private _router: Router,
-  ) {}
+    private _auth: jwtAuthService,
+  ) {
+    this._auth.getUserModel().then(r => {
+      this.userRole = r?.UserRole
+    })
+  }
   activeChatGroupId: number = 0
   activeChatGroupName: string = ''
   ChatRooms: []
   ChatMessages: ChatMessageDto[] = []
   sessionUserData: UserSessionModel
   messageText: string = ''
+
+  @Input() caseId: number = 0
   addGroupModelVisible: boolean = false
   @ViewChild('inputMsg') input: ElementRef
   attachmentType: string = ''
@@ -38,11 +53,11 @@ export class FamilyChatComponent implements OnInit {
     this.authService.getUserModel().then(x => {
       this.sessionUserData = x
     })
-    this.getRoomsList()
+    this.getRoomsList(this.caseId)
   }
 
-  getRoomsList() {
-    this._JournalService.GetChatGroups().then(_rooms => {
+  getRoomsList(caseId: number) {
+    this._JournalService.GetChatGroups(this.caseId).then(_rooms => {
       this.ChatRooms = _rooms
     })
   }
@@ -126,7 +141,7 @@ export class FamilyChatComponent implements OnInit {
 
   GroupCreatedCallback() {
     this.addGroupModelVisible = false
-    this.getRoomsList()
+    this.getRoomsList(this.caseId)
   }
 
   GoToJournal() {

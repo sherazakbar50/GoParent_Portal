@@ -1,38 +1,53 @@
 <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
-    <button nz-button nzType="primary" (click)="AddTime()">Add time record</button>
+  <button nz-button nzType="primary" (click)="AddTime()">Add time record</button>
 </div>
 <hr>
 <div class="row ml-3 mt-4">
-    <p class="font-weight-bold font-size-24 mb-0">
-        Total time: {{casesTotalTimeInMinutes}}
-    </p>
+  <p class="font-weight-bold font-size-24 mb-0">
+    Total time: {{casesTotalTimeInMinutes}}
+  </p>
+  <p class=" text-gray-5 mt-2 ml-3">in minutes</p>
 
 </div>
-<div *ngFor="let time of listData">
+
+<div *ngIf="listData.length !==0 ; else noData">
+  <div *ngFor="let time of listData">
     <div class="card">
-        <div class="card-body">
-            <div class="d-flex flex-wrap align-items-center">
-                <div class="mr-auto">
-                    <p class="text-uppercase text-dark font-weight-bold mb-1">
-                        CaseName </p>
-                    <p class="text-gray-5 mb-0">
-                        {{time.Task}}
-                    </p>
-                </div>
-                <p class="font-weight-bold font-size-24 mb-0">
-                    {{time.Hourse}}:{{time.Minutes}} </p>
-            </div>
+      <div class="card-body">
+        <div class="d-flex flex-wrap align-items-center">
+          <div class="mr-auto">
+            <p class="text-uppercase text-dark font-weight-bold mb-1">
+              CaseName </p>
+            <p class="text-gray-5 mb-0">
+              {{time.Task}}
+            </p>
+          </div>
+          <p class="font-weight-bold font-size-24 mb-0">
+            {{time.Hours}}:{{time.Minutes}} </p>
         </div>
+        <div class="pull-right">
+          <a class="btn btn-sm btn-default" (click)="$event.stopPropagation(EditCaseTime(time))" nz-tooltip
+            nzTooltipTitle="Edit note" data-original-title="" title="">
+            <i class="fa fa-edit"></i> </a>
+        </div>
+      </div>
+
+
     </div>
+  </div>
 </div>
 
 
 
+<ng-template #noData>
+  <nz-empty></nz-empty>
+</ng-template>
 
 
 <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="TimemodalTitle" (nzOnCancel)="ModalCancel()"
-          nzMaskClosable="false">
-    <ng-container *nzModalContent>
-        <app-add-time [CaseId]="this.caseId" (caseTimeCreated)='AddTimeSuccess($event)' (expenseSavedEvent)='SavedCallBack()'></app-add-time>
-    </ng-container>
+  nzMaskClosable="false">
+  <ng-container *nzModalContent>
+    <app-add-time [CaseId]="this.caseId" [caseTimeDataSub]="caseTimeObserverSubject"
+      (caseTimeCreated)='AddTimeSuccess($event)' (expenseSavedEvent)='SavedCallBack()'></app-add-time>
+  </ng-container>
 </nz-modal>

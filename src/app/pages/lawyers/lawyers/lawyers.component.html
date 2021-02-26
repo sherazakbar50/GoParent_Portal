@@ -4,14 +4,12 @@
             <div nz-row>
                 <div nz-col nzSpan="20">
                     <nz-form-item>
-                        <nz-form-control nzHasFeedback [nzErrorTip]="emailTpl">
+                        <nz-form-control nzHasFeedback [nzErrorTip]="noteTpl">
                             <nz-input-group nzPrefixIcon="user">
                                 <input type="email" [nzSize]="'large'" formControlName="lawyerEmail" nz-input id="email"
                                     autocomplete="off" placeholder="Lawyer Email Address" />
-
                             </nz-input-group>
-
-                            <ng-template #emailTpl let-control>
+                            <ng-template #noteTpl let-control>
                                 <ng-container *ngIf="control.hasError('required')">
                                     Email Address is required
                                 </ng-container>

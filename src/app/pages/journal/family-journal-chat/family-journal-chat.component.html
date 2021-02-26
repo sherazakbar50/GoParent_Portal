@@ -59,7 +59,7 @@
              
                 <emoji-mart *ngIf='isEmojiPickerVisible' (emojiSelect)="addEmoji($event)" title="Pick your emoji…" autoFocus='true' enableSearch='false' showPreview='false' showSkinTones='false' emoji="point_up"></emoji-mart>
             </div>
-            <div class="input-group mb-3">
+            <div class="input-group mb-3"  [hidden] ="userRole !== 'Parent' && userRole !== 'Child'">
               <ng-container *ngIf='activeChatGroupId>0'>
                 <div class="input-group-prepend">
                   <span class="input-group-text bg-white" (click)="OpenEmojiPicker()">😀</span>

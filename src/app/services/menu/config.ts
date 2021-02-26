@@ -1,4 +1,4 @@
-import { ApplicationRolesEnum } from "src/app/models/UserSessionModel";
+import { ApplicationRolesEnum } from 'src/app/models/UserSessionModel'
 
 export const getMenuData: any[] = [
   // {
@@ -10,7 +10,12 @@ export const getMenuData: any[] = [
     key: 'mainDashboard',
     icon: 'fe fe-bookmark',
     url: '/dashboard/index',
-    roles: [ApplicationRolesEnum[1], ApplicationRolesEnum[2], ApplicationRolesEnum[3], ApplicationRolesEnum[4]],
+    roles: [
+      ApplicationRolesEnum[1],
+      ApplicationRolesEnum[2],
+      ApplicationRolesEnum[3],
+      ApplicationRolesEnum[4],
+    ],
   },
 
   {
@@ -18,7 +23,7 @@ export const getMenuData: any[] = [
     key: 'cases',
     icon: 'fe fe-book',
     url: '/cases',
-    roles: [ApplicationRolesEnum[3]]
+    roles: [ApplicationRolesEnum[3]],
   },
   {
     title: 'Family Child(s)',
@@ -50,11 +55,11 @@ export const getMenuData: any[] = [
     roles: [ApplicationRolesEnum[2]],
   },
   {
-    title: 'Family Documents',
+    title: 'Family Document(s)',
     key: 'documents',
     icon: 'fe fe-folder',
     url: '/documents',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]]
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
   },
   {
     title: 'Connection',
@@ -75,7 +80,7 @@ export const getMenuData: any[] = [
     key: 'connection',
     icon: 'fe fe-calendar',
     url: '/calendar',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
+    roles: [ApplicationRolesEnum[2]],
   },
   {
     title: 'Journal',
@@ -89,7 +94,7 @@ export const getMenuData: any[] = [
     key: 'messagesTab',
     icon: 'fe fe-message-square',
     url: '/journal/groupchat',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3], ApplicationRolesEnum[4]],
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4]],
   },
   {
     title: 'Custody Plan Template',

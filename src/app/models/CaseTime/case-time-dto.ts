@@ -1,12 +1,12 @@
-import { Time } from "@angular/common";
+import { Time } from '@angular/common'
 
 export class CaseTimeDto {
-    Id:number;
-    LawyerAssociationId: number;
-    Hourse: number;
-    Minutes: number;
-    ModifiedDate: Date;
-    Description: string;
-    Task: string;
-    TotalTime: number;
+  Id: number
+  LawyerAssociationId: number
+  Hours: number
+  Minutes: number
+  ModifiedDate: Date
+  Description: string
+  Task: string
+  TotalTime: number
 }

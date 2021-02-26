@@ -29,8 +29,8 @@ export class FamilyDocumentsService extends ApiHandler {
       .toPromise()
   }
 
-  async getFamilyDocuments() {
-    let response = await this.GetAll(API_URL + API_ENDPOINTS.getFamilyDocuments)
+  async getFamilyDocuments(folderId?: number) {
+    let response = await this.Get(folderId, API_URL + API_ENDPOINTS.getFolderDocuments)
       .pipe(map(x => x.ResponseData))
       .toPromise()
     if (response) {

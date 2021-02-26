@@ -18,12 +18,12 @@ export class LawyersComponent implements OnInit {
   isLoading: boolean = false
   isVisible: boolean = false
   lawyersList: Observable<any[]>
-  assignLoading: boolean = false;
+  assignLoading: boolean = false
   constructor(
     private _formService: FormsService,
     private _lawyerService: LawyerService,
     private _notify: NzNotificationService,
-  ) { }
+  ) {}
 
   async ngOnInit() {
     this.form = new FormGroup(
@@ -41,8 +41,6 @@ export class LawyersComponent implements OnInit {
     // Get Lawyers
     this._lawyerService.getLawyersList()
     this.lawyersList = this._lawyerService.laywersListObservable$()
-
-
   }
 
   get control() {
@@ -71,7 +69,8 @@ export class LawyersComponent implements OnInit {
       LawyerID: this.selectedLawyer.LawyerID,
       FamilyIDs: this.listOfSelectedCases,
     }
-    let result = await this._lawyerService.assignCase(data);
+
+    let result = await this._lawyerService.assignCase(data)
     this.assignLoading = false
     if (result) {
       this.handleCancel()
@@ -79,7 +78,6 @@ export class LawyersComponent implements OnInit {
       this._notify.success('', `Case(s) updated successfully against: ${this.selectedLawyer.Email}`)
     }
   }
-
 
   showModal(data) {
     this.isVisible = true

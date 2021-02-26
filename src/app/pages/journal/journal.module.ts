@@ -25,5 +25,7 @@ import { ChatAttachmentComponent } from './chat-attachment/chat-attachment.compo
     ReactiveFormsModule,
     PickerModule,
   ],
+
+  exports: [FamilyChatComponent, FamilyJournalChatComponent],
 })
 export class JournalModule {}
