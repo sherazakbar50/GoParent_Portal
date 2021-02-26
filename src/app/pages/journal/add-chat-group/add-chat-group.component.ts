@@ -48,7 +48,6 @@ export class AddChatGroupComponent implements OnInit {
   async submitHandler() {
     this.IsSubmitted = true
     if (this.addGroupForm.valid) {
-      debugger
       let formData = this.addGroupForm.value
       const selectedMemberIds = formData.Members.map((checked, i) =>
         checked ? this.MembersList[i].Id : null,

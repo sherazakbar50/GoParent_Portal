@@ -98,7 +98,6 @@ export class FamilyJournalChatComponent implements OnInit {
     this.IsAddAttachmentModalVisible = true
   }
   ChatAttachmentAddedCallback($event) {
-    debugger
     this.IsAddAttachmentModalVisible = false
     this.attachmentName = $event.attachmentName
     this.attachmentType = $event.attachmentType

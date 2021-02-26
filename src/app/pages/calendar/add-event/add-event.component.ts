@@ -62,7 +62,6 @@ export class AddEventComponent implements OnInit {
   SubcribeEventEditObserver() {
     if (this.eventSub) {
       this.eventSub.subscribe(res => {
-        debugger
         if (res) {
           this.selectedMode = res.selectedMode
 
