@@ -136,7 +136,7 @@ export class ScheduleCustodyComponent implements OnInit {
     let res = await this.custody.saveCustody(custodyData);
     if (res) {
       let dateToRender = custodyData.CustodySequences[0]?.DateRange[0] || new Date();
-      this._calendarService.LoadCalendarDataByMode(new Date(dateToRender), this.selectedMode);
+      this._calendarService.LoadCalendarDataByMode(new Date(dateToRender), this.selectedMode,0);
       this.notifier.success('', this.custodyId > 0 ? 'Custody updated successfully' : 'Custody scheduled successfully');
     }
     this.IsSubmitted = false;

@@ -37,10 +37,9 @@ export class CalendarService extends ApiHandler {
     })
   }
 
-  LoadCalendarDataByMode(date: Date, mode: string, caseId?: number) {
+  LoadCalendarDataByMode(date: Date, mode: string, caseId: number = 0) {
     if (mode === 'year') this.GetYearlyCalendarData(date, caseId)
     else this.GetMonthlyCalendarData(date, caseId)
     this._request.getRequests()
-    
   }
 }
