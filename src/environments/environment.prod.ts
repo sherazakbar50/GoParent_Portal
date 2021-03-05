@@ -3,5 +3,5 @@ export const environment = {
   authenticated: false,
   hmr: false,
   api_url: 'http://goparent.calimaticlms.com/',
-  ws_url: 'http://localhost:3001',
+  ws_url: 'http://goparentchitchat.calimaticlms.com/',
 }
