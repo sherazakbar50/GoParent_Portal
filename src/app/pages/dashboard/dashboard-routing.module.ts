@@ -10,7 +10,7 @@ import { DashboardGammaComponent } from 'src/app/pages/dashboard/gamma/gamma.com
 
 const routes: Routes = [
   {
-    path: 'index',
+    path: '',
     component: DashboardAlphaComponent,
     data: { title: 'Dashboard' },
   },

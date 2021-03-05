@@ -7,10 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: ViewCasesComponent,
+    data: {title: 'Cases'}
   },
+  { 
+    path: 'cases-tab', 
+    component: CasesTabComponent,
+    data: {title: 'Cases'}
+  }
 
-  {path: 'cases-tab' , component: CasesTabComponent}
-  
 ]
 
 @NgModule({

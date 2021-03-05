@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { ExpensesListComponent } from './expenses-list/expenses-list.component'
 const routes: Routes = [
-  { path: 'list', component: ExpensesListComponent },
+  { path: 'list', component: ExpensesListComponent, data: { title: 'Expenses' } },
   { path: '', redirectTo: 'list' },
 ]
 
@@ -10,4 +10,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class FamilyExpensesRoutingModule {}
+export class FamilyExpensesRoutingModule { }

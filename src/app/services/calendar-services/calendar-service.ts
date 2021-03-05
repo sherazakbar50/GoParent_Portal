@@ -6,6 +6,7 @@ import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { BaseResponse } from 'src/app/models/IApiResponse'
 import { ApiHandler } from '../ApiHandler'
 import { tap, catchError, map } from 'rxjs/operators'
+import { ChangeRequestService } from './change-request.service'
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ import { tap, catchError, map } from 'rxjs/operators'
 export class CalendarService extends ApiHandler {
   calendarObserver$: Observable<any>
   private calendarSubject$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined)
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, private _request: ChangeRequestService) {
     super(httpClient)
     this.calendarObserver$ = this.calendarSubject$.asObservable()
   }
@@ -39,5 +40,7 @@ export class CalendarService extends ApiHandler {
   LoadCalendarDataByMode(date: Date, mode: string, caseId?: number) {
     if (mode === 'year') this.GetYearlyCalendarData(date, caseId)
     else this.GetMonthlyCalendarData(date, caseId)
+    this._request.getRequests()
+    
   }
 }

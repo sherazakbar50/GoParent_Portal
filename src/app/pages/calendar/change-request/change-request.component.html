@@ -1,0 +1,126 @@
+<ng-container *ngIf="!isViewMode; else viewTpl">
+    <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please select a Parent">
+                <nz-select formControlName="ParentId" nzPlaceHolder="Select Parent">
+                    <nz-option *ngFor="let item of parentList" [nzValue]="item.Id" [nzLabel]="item.DisplayName"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please select a Child">
+                <nz-select formControlName="ChildId" nzPlaceHolder="Select Child">
+                    <nz-option *ngFor="let item of childList" [nzValue]="item.Id" [nzLabel]="item.Name"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please enter From Date">
+                <nz-date-picker formControlName="DateFrom" nzPlaceHolder="From" class="w-100"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please enter To Date">
+                <nz-date-picker formControlName="DateTo" nzPlaceHolder="To" class="w-100"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please write something here">
+                <textarea formControlName="Notes" nz-input rows="2" placeholder="Enter Notes"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control [nzOffset]="10" [nzSpan]="12">
+                <button nz-button nzType="primary">Submit</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</ng-container>
+
+<ng-template #viewTpl>
+    <div class="client-appointment-view-div">
+        <div class="appointment-description mb-3">
+            <div class="f-12">
+                <span class="appointment-description-span mr-2 col-3">
+                    <i class="fe fe-user mr-2"></i>
+                    <b class="mr-5">Parent: </b>
+                </span>
+                {{Data.ParentName}}
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12">
+                <span class="appointment-description-span mr-2 col-3">
+                    <i class="fe fe-users mr-2"></i>
+                    <b class="mr-5">Child: </b>
+                </span>
+                {{Data.ChildName}}
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12">
+                <span class="appointment-description-span mr-2 col-3">
+                    <i class="fe fe-calendar mr-2"></i>
+                    <b class="mr-5">From: </b>
+                </span>
+                {{Data.StartDate | date}}
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12">
+                <span class="appointment-description-span mr-2 col-3">
+                    <i class="fe fe-calendar mr-2"></i>
+                    <b class="mr-5">Till: </b>
+                </span>
+                {{Data.EndDate | date}}
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12">
+                <span class="appointment-description-span mr-2  col-3">
+                    <i class="fe fe-file mr-2"></i>
+                    <b class="mr-5">Notes: </b>
+                </span>
+                {{Data.Note}}
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12">
+                <span class="appointment-description-span mr-2 col-3">
+                    <i class="fe fe-check mr-2"></i>
+                    <b class="mr-5">Status: </b>
+                </span>
+                <ng-container *ngIf="Data.Status == 0">
+                    <nz-badge [nzStatus]="'warning'" [nzText]="statusEnum[Data.Status]"></nz-badge>
+                </ng-container>
+                <ng-container *ngIf="Data.Status == 1">
+                    <nz-badge [nzStatus]="'error'" [nzText]="statusEnum[Data.Status]"></nz-badge>
+                </ng-container>
+                <ng-container *ngIf="Data.Status == 2">
+                    <nz-badge [nzStatus]="'success'" [nzText]="statusEnum[Data.Status]"></nz-badge>
+                </ng-container>
+            </div>
+        </div>
+        <nz-divider></nz-divider>
+        <div class="text-center">
+            <div *ngIf="Data.UserId != currentUserId; else editBtn" class="mb-3">
+                <button nz-button nzType="primary" class="mr-3" (click)="updateStatus(2)">
+                    <strong>Approve</strong>
+                </button>
+                <button nz-button nzType="default" nzDanger (click)="updateStatus(1)">
+                    <strong>Reject</strong>
+                </button>
+            </div>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #editBtn>
+    <button nz-button nzType="default" class="mb-3" (click)="editChangeRequest()">
+        <strong>Edit Request</strong>
+    </button>
+</ng-template>

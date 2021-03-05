@@ -64,15 +64,10 @@ export class GoCalendarComponent implements OnInit {
         let tdTtitle = new Date(elm.getAttribute('title'))
         tdTtitle.setHours(0, 0, 0, 0);
         let some = dateArr.find((item: Date) => this.isExists(item, tdTtitle));
-        // console.log('some:', some)
-        // dateArr.find(item => {
           if (some) {
-            // elm.setAttribute('style', `background-color:${color}; color: #fff`);
             elm.firstElementChild.firstElementChild.setAttribute('style', `background:${color}; color: #fff`);
           } else {
-            // elm.firstElementChild.firstElementChild.setAttribute('style', `background: none; color: '';`);
           }
-        // })
       });
     }
   }

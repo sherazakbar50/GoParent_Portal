@@ -11,7 +11,9 @@ import { ColorPickerComponent } from 'src/app/pages/color-picker/color-picker.co
 import { DatePipe } from '@angular/common'
 import { ScheduleCustodyComponent } from './schedule-custody/schedule-custody.component'
 import { ViewCustodyComponent } from './view-custody/view-custody.component'
-import { WidgetsComponentsModule } from 'src/app/components/kit/widgets/widgets-components.module'
+import { WidgetsComponentsModule } from 'src/app/components/kit/widgets/widgets-components.module';
+import { ChangeRequestComponent } from './change-request/change-request.component';
+import { CheckInOutComponent } from './check-in-out/check-in-out.component'
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { WidgetsComponentsModule } from 'src/app/components/kit/widgets/widgets-
     ColorPickerComponent,
     ScheduleCustodyComponent,
     ViewCustodyComponent,
+    ChangeRequestComponent,
+    CheckInOutComponent,
   ],
   imports: [
     CommonModule,

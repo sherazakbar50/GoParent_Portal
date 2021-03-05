@@ -1,101 +1,114 @@
-.calendarView{
-    .events .ant-badge-status {
-        overflow: hidden;
-        white-space: nowrap;
-        width: 100%;
-        text-overflow: ellipsis;
-        font-size: 12px;
-      }
-      ul.events{
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        height: auto;
-        min-height: 100%;
-        padding: 0;
-        list-style-type: none;
-      }
-    
-    .customDateBlock{
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 10px;
-      margin-bottom: 6px;
-    }
-    
-    .eventSelected{
-      background: var(--kit-color-primary);
-      color: #fff !important;
-    }
-    }
-    
-    .ant-picker-input {
-      display: none !important;
-      .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-value {
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 10px;
-        background: var(--kit-color-primary);
-        color: #fff !important;
-        margin-left: auto;
-        margin-bottom: 6px;
-    }
-    .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date {
-        padding: 4px 6px 0;
-    }
-    }
-    ::ng-deep button.fc-button{
-      background: transparent  !important;
-      color: #595c97 !important;
-      border-radius: 0 !important;
-      border-color: #e4e9f0 !important
-   
-    }
-
-    ::ng-deep .fc .fc-button-primary:not(:disabled).fc-button-active, .fc .fc-button-primary:not(:disabled):active {
-      color: #355bcc !important;
-      border-color: #355bcc !important;
-      background: transparent !important;
-    }
-    ::ng-deep .fc .fc-button-primary:hover {
-      color: #355bcc !important;
-      border-color: #355bcc !important;
-      background: transparent !important;
-    }
-
-  ::ng-deep .event-dot::after {
-    content: "";
-    height: 8px;
-    width: 8px;
-    background: #4b7cf3;
-    border-radius: 50%;
+.calendarView {
+  .events .ant-badge-status {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    text-overflow: ellipsis;
+    font-size: 12px;
+  }
+  ul.events {
     display: flex;
-    position: absolute;
-    top: 0;
-    right: 0;
-   }
-
-   ::ng-deep #smart-calendar .ant-picker-calendar-mode-switch{
-     display: none !important;
-   }
-
-   ::ng-deep #smart-calendar .ant-picker-calendar-date-value{
-   font-size: 20px !important;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: auto;
+    min-height: 100%;
+    padding: 0;
+    list-style-type: none;
   }
 
-   ::ng-deep #smart-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner{
-     background: none !important;
-     color:#595c97 !important
-   }
-  
+  .customDateBlock {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    margin-bottom: 6px;
+  }
+
+  .eventSelected {
+    background: var(--kit-color-primary);
+    color: #fff !important;
+  }
+
+}
+
+.ant-picker-input {
+  display: none !important;
+  .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-value {
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    background: var(--kit-color-primary);
+    color: #fff !important;
+    margin-left: auto;
+    margin-bottom: 6px;
+  }
+  .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date {
+    padding: 4px 6px 0;
+  }
+}
+::ng-deep button.fc-button {
+  background: transparent !important;
+  color: #595c97 !important;
+  border-radius: 0 !important;
+  border-color: #e4e9f0 !important;
+}
+
+::ng-deep .fc .fc-button-primary:not(:disabled).fc-button-active,
+.fc .fc-button-primary:not(:disabled):active {
+  color: #355bcc !important;
+  border-color: #355bcc !important;
+  background: transparent !important;
+}
+::ng-deep .fc .fc-button-primary:hover {
+  color: #355bcc !important;
+  border-color: #355bcc !important;
+  background: transparent !important;
+}
+
+::ng-deep .event-dot::after {
+  content: '';
+  height: 8px;
+  width: 8px;
+  background: #4b7cf3;
+  border-radius: 50%;
+  display: flex;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+::ng-deep .request-dot::before {
+  content: '';
+  height: 8px !important;
+  width: 8px;
+  background: #ffa500;
+  border-radius: 50%;
+  display: flex;
+  position: absolute;
+  top: 4px !important;
+  right: 0 !important;
+  left: 3px !important;
+}
+
+::ng-deep #smart-calendar .ant-picker-calendar-mode-switch {
+  display: none !important;
+}
+
+::ng-deep #smart-calendar .ant-picker-calendar-date-value {
+  font-size: 20px !important;
+}
+
+::ng-deep #smart-calendar .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  background: none !important;
+  color: #595c97 !important;
+}

@@ -2,51 +2,53 @@
     <button nz-button nzType="primary" (click)="AddNote()">Add note</button>
 </div>
 <hr>
-<div *ngIf="listData.length !==0 ; else noData">
+<ng-container *ngIf="listData && listData.length > 0; else noData">
     <div *ngFor="let caseNote of listData">
         <div class="card">
             <div class="card-body">
                 <div _ngcontent-ioe-c293="" class="d-flex flex-wrap align-items-start">
                     <div _ngcontent-ioe-c293="" class="kit__utils__avatar kit__utils__avatar--size64 mr-3">
                         <img _ngcontent-ioe-c293=""
-                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOALqcMjby_cOSIr-3GFWRO_zY_j0qcB4zRA&usqp=CAU"
-                             alt="Mary Stanform">
+                            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOALqcMjby_cOSIr-3GFWRO_zY_j0qcB4zRA&usqp=CAU"
+                            alt="Mary Stanform">
                     </div>
                     <div _ngcontent-ioe-c293="">
                         <div class="row ml-4">
                             <p class="text-uppercase text-dark font-size-18 font-weight-bold  ">
                                 CaseName </p>
-                            <div  class="text-uppercase font-weight-bold font-size-18 ml-5">
-                                {{caseNote.ModifiedDate |  date}}</div>
+                            <div class="text-uppercase font-weight-bold font-size-18 ml-5">
+                                {{caseNote.ModifiedDate | date}}</div>
                         </div>
                         <p class="text-gray-5 ml-4">
                             {{caseNote.Note}}
                         </p>
                     </div>
                 </div>
-    
+
                 <div class="row pull-right">
-                    <a class="btn btn-sm btn-default" (click)="$event.stopPropagation(EditCaseNote(caseNote))" nz-tooltip nzTooltipTitle="Edit note" data-original-title=""
-                       title="">
+                    <a class="btn btn-sm btn-default" (click)="$event.stopPropagation(EditCaseNote(caseNote))"
+                        nz-tooltip nzTooltipTitle="Edit note" data-original-title="" title="">
                         <i class="fa fa-edit"></i> </a>
-    
-                        <a class="btn btn-sm btn-danger ml-2" (click)="$event.stopPropagation(DeleteNote(caseNote.Id))" nz-tooltip nzTooltipTitle="Delete note" data-original-title=""
-                        title="">
-                         <i class="fa fa-trash"></i> </a>
+
+                    <a class="btn btn-sm btn-danger ml-2" (click)="$event.stopPropagation(DeleteNote(caseNote.Id))"
+                        nz-tooltip nzTooltipTitle="Delete note" data-original-title="" title="">
+                        <i class="fa fa-trash"></i> </a>
                 </div>
             </div>
-    
+
         </div>
     </div>
-</div>
-
-<ng-template #noData>
-<nz-empty></nz-empty>
-</ng-template>
+</ng-container>
 
 <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="CaseNotemodalTitle" (nzOnCancel)="ModalCancel()"
-          nzMaskClosable="false">
+    nzMaskClosable="false">
     <ng-container *nzModalContent>
-        <app-add-note [CaseId]="this.caseId" [caseNoteDataSub]="caseNoteObserverSubject"  (caseNoteCreated)='AddNoteSuccess($event)' (expenseSavedEvent)='SavedCallBack()'></app-add-note>
+        <app-add-note [CaseId]="this.caseId" [caseNoteDataSub]="caseNoteObserverSubject"
+            (caseNoteCreated)='AddNoteSuccess($event)' (expenseSavedEvent)='SavedCallBack()'></app-add-note>
     </ng-container>
 </nz-modal>
+
+
+<ng-template #noData>
+    <nz-empty style="margin: 0 auto;"></nz-empty>
+</ng-template>

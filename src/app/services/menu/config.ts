@@ -9,21 +9,24 @@ export const getMenuData: any[] = [
     title: 'Dashboard',
     key: 'mainDashboard',
     icon: 'fe fe-bookmark',
-    url: '/dashboard/index',
+    url: '/dashboard',
     roles: [
       ApplicationRolesEnum[1],
-      ApplicationRolesEnum[2],
-      ApplicationRolesEnum[3],
-      ApplicationRolesEnum[4],
     ],
   },
-
   {
     title: 'Cases',
     key: 'cases',
     icon: 'fe fe-book',
     url: '/cases',
     roles: [ApplicationRolesEnum[3]],
+  },
+  {
+    title: 'Calendar',
+    key: 'calendar',
+    icon: 'fe fe-calendar',
+    url: '/calendar',
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4]],
   },
   {
     title: 'Family Child(s)',
@@ -59,7 +62,7 @@ export const getMenuData: any[] = [
     key: 'documents',
     icon: 'fe fe-folder',
     url: '/documents',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4]],
   },
   {
     title: 'Connection',
@@ -75,13 +78,7 @@ export const getMenuData: any[] = [
     url: '/lawyers',
     roles: [ApplicationRolesEnum[1]],
   },
-  {
-    title: 'Calendar',
-    key: 'connection',
-    icon: 'fe fe-calendar',
-    url: '/calendar',
-    roles: [ApplicationRolesEnum[2]],
-  },
+
   {
     title: 'Journal',
     key: 'familyJournal',

@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core'
 import { ChatMessageDto, ChatUserDto } from 'src/app/models/ChatDto'
-import { UserSessionModel } from 'src/app/models/UserSessionModel'
+import { ApplicationRolesEnum, UserSessionModel } from 'src/app/models/UserSessionModel'
 import { ChatService } from 'src/app/services/chat-services/ChatService'
 import { JournalService } from 'src/app/services/journal/journal.service'
 import { jwtAuthService } from 'src/app/services/jwt'
@@ -11,17 +11,11 @@ import { jwtAuthService } from 'src/app/services/jwt'
   styleUrls: ['./family-journal-chat.component.scss'],
 })
 export class FamilyJournalChatComponent implements OnInit {
-  userRole: string = ''
   constructor(
     private _JournalService: JournalService,
-    private authService: jwtAuthService,
-    private _ChatService: ChatService,
     private _auth: jwtAuthService,
-  ) {
-    this._auth.getUserModel().then(r => {
-      this.userRole = r?.UserRole
-    })
-  }
+    private _ChatService: ChatService,
+  ) { }
   @ViewChild('inputMsg') input: ElementRef
   activeChatGroupId: number = 0
   activeChatGroupName: string = ''
@@ -34,11 +28,20 @@ export class FamilyJournalChatComponent implements OnInit {
   attachmentName: string = ''
   attachmentUrl: string = ''
   isEmojiPickerVisible = false
+
+  // Permission
+  roles = ApplicationRolesEnum
+  userRole: string
+
   ngOnInit() {
+    this._auth.getUserModel().then(r => {
+      this.userRole = r.UserRole
+    })
+
     this._ChatService.messagesObserver$.subscribe(_messageRecieved => {
       this.ChatMessages.push(_messageRecieved)
     })
-    this.authService.getUserModel().then(x => {
+    this._auth.getUserModel().then(x => {
       this.sessionUserData = x
     })
     this._JournalService.GetJournalGroupId(this.caseId).then(_groupId => {

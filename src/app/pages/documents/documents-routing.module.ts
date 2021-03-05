@@ -7,8 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ViewFolderComponent,
+    data: { title: 'Documents' }
   },
-  { path: 'view-documents', component: ViewDocumentsComponent  },
+  {
+    path: 'view-documents', component: ViewDocumentsComponent,
+    data: { title: 'Documents' }
+  },
 ]
 
 @NgModule({

@@ -10,7 +10,7 @@
 
 </div>
 
-<div *ngIf="listData.length !==0 ; else noData">
+<div *ngIf="listData && listData.length > 0 ; else noData">
   <div *ngFor="let time of listData">
     <div class="card">
       <div class="card-body">
@@ -40,7 +40,7 @@
 
 
 <ng-template #noData>
-  <nz-empty></nz-empty>
+  <nz-empty style="margin: 0 auto;"></nz-empty>
 </ng-template>
 
 

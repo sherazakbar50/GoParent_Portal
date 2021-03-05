@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Observable } from 'rxjs'
+import { BehaviorSubject, Observable } from 'rxjs'
 import { HttpClient } from '@angular/common/http'
 import store from 'store'
 import { UserDTO } from 'src/app/models/UserDTO'
@@ -12,8 +12,19 @@ import { Router } from '@angular/router'
 
 @Injectable()
 export class jwtAuthService extends ApiHandler {
+
+  homePathSub$: BehaviorSubject<string> = new BehaviorSubject<string>('dashboard')
+
   constructor(http: HttpClient, private router: Router) {
     super(http)
+  }
+
+  get homePath() {
+    return this.homePathSub$.value
+  }
+
+  setHomePath(path: string) {
+    this.homePathSub$.next(path)
   }
 
   login(email: string, password: string) {

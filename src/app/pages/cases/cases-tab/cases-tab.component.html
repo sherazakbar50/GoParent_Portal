@@ -1,23 +1,35 @@
 <div class="card">
   <div class="card-body">
-    <nz-tabset class="kit-tabs" [nzSelectedIndex]="0">
+    <nz-tabset [nzSelectedIndex]="0" [nzSize]="'large'">
       <nz-tab nzTitle="Notes">
-        <app-note-tab [caseId]="this.caseId"></app-note-tab>
+        <ng-template nz-tab>
+          <app-note-tab [caseId]="this.caseId"></app-note-tab>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Time">
-        <app-time-tab [caseId]="this.caseId"></app-time-tab>
+        <ng-template nz-tab>
+          <app-time-tab [caseId]="this.caseId"></app-time-tab>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Documents">
-        <app-view-folder [caseId]="this.caseId"></app-view-folder>
+        <ng-template nz-tab>
+          <app-view-folder [caseId]="this.caseId"></app-view-folder>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Messages">
-        <app-family-chat [caseId]="this.caseId"></app-family-chat>
+        <ng-template nz-tab>
+          <app-family-chat [caseId]="this.caseId"></app-family-chat>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Journal">
-        <app-family-journal-chat [caseId]="this.caseId"></app-family-journal-chat>
+        <ng-template nz-tab>
+          <app-family-journal-chat [caseId]="this.caseId"></app-family-journal-chat>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Calendar">
-        <app-view-calendar [caseId]="this.caseId"></app-view-calendar>
+        <ng-template nz-tab>
+          <app-view-calendar [caseId]="this.caseId"></app-view-calendar>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Requests">
         Requests Tab

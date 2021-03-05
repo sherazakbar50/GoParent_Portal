@@ -29,7 +29,7 @@ export class AddDocumentComponent implements OnInit {
     const fsize = file.size
     const sizeMb = Math.round(fsize / 1024)
     if (sizeMb >= 49096) {
-      this.notification.error('', '(' + file.name + ')  size is exceeded 50mb')
+      this.notification.error('',  `${file.name} size is exceeded than 50mb`)
     } else {
       this.uploadedFiles = this.uploadedFiles.concat(file)
     }

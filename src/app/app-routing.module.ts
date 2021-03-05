@@ -13,7 +13,7 @@ import { LayoutMainComponent } from 'src/app/layouts/Main/main.component'
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard/index',
+    redirectTo: 'dashboard',
     pathMatch: 'full',
   },
   {

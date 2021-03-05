@@ -8,7 +8,7 @@ import {
 } from '@angular/core'
 import { Router } from '@angular/router'
 import { ChatMessageDto, ChatUserDto } from 'src/app/models/ChatDto'
-import { UserSessionModel } from 'src/app/models/UserSessionModel'
+import { ApplicationRolesEnum, UserSessionModel } from 'src/app/models/UserSessionModel'
 import { ChatService } from 'src/app/services/chat-services/ChatService'
 import { JournalService } from 'src/app/services/journal/journal.service'
 import { jwtAuthService } from 'src/app/services/jwt'
@@ -19,17 +19,12 @@ import { jwtAuthService } from 'src/app/services/jwt'
   styleUrls: ['./family-chat.component.scss'],
 })
 export class FamilyChatComponent implements OnInit {
-  userRole: string = ''
   constructor(
     private _JournalService: JournalService,
-    private authService: jwtAuthService,
     private _ChatService: ChatService,
     private _router: Router,
     private _auth: jwtAuthService,
   ) {
-    this._auth.getUserModel().then(r => {
-      this.userRole = r?.UserRole
-    })
   }
   activeChatGroupId: number = 0
   activeChatGroupName: string = ''
@@ -46,11 +41,18 @@ export class FamilyChatComponent implements OnInit {
   attachmentUrl: string = ''
   isEmojiPickerVisible = false
   IsAddAttachmentModalVisible: boolean = false
+
+  roles = ApplicationRolesEnum
+  userRole: string
+
   ngOnInit() {
+    this._auth.getUserModel().then(r => {
+      this.userRole = r.UserRole
+    })
     this._ChatService.messagesObserver$.subscribe(_messageRecieved => {
       this.ChatMessages.push(_messageRecieved)
     })
-    this.authService.getUserModel().then(x => {
+    this._auth.getUserModel().then(x => {
       this.sessionUserData = x
     })
     this.getRoomsList(this.caseId)

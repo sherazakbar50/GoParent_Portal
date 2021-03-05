@@ -6,7 +6,7 @@ import { ViewCalendarComponent } from './view-calendar/view-calendar.component';
 
 
 const routes: Routes = [
-  { path: '', component: ViewCalendarComponent,data:{title:"Calendar"} },
+  { path: '', component: ViewCalendarComponent, data: { title: "Calendar" } },
   { path: 'add', component: AddEventComponent },
   { path: 'schedule-custody', component: ScheduleCustodyComponent },
 ];

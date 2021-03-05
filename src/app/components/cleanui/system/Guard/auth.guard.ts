@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core'
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router'
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router'
 import { Observable } from 'rxjs'
-import { environment } from 'src/environments/environment'
-import { select, Store } from '@ngrx/store'
-import * as Reducers from 'src/app/store/reducers'
 import { jwtAuthService } from 'src/app/services/jwt'
 
 @Injectable({
@@ -11,8 +8,10 @@ import { jwtAuthService } from 'src/app/services/jwt'
 })
 export class AuthGuard implements CanActivate {
   authorized: boolean
+  role: string
 
-  constructor(private authorize: jwtAuthService, public router: Router) {}
+  constructor(private authorize: jwtAuthService, public router: Router) {
+  }
 
   canActivate(
     _next: ActivatedRouteSnapshot,
@@ -29,7 +28,6 @@ export class AuthGuard implements CanActivate {
         },
       })
     }
-
     return isAuthenticated
   }
 }

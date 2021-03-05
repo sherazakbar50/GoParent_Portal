@@ -10,6 +10,8 @@ import { CustodyDto } from 'src/app/models/CustodyDto'
 import { AlertService } from 'src/app/services/alert-service/alert-service'
 import { CustodyService } from 'src/app/services/APIServices/custody.service'
 import { jwtAuthService } from 'src/app/services/jwt'
+import { ChangeRequestService } from 'src/app/services/calendar-services/change-request.service'
+import { CustodyRequestStatusEnum, RequestDTO } from 'src/app/models/RequestDTO'
 @Component({
   selector: 'app-view-calendar',
   templateUrl: './view-calendar.component.html',
@@ -39,10 +41,16 @@ export class ViewCalendarComponent implements OnInit {
   dateWiseCustodies: any[] = []
   custodyModalTitle = 'Schedule Custody'
   custodyModalIsVisible = false
-  calendarFormattedData: any
+  calendarFormattedData: any[] = []
   viewCustody: boolean
   selectedCustody: any
   loadedDateFor: Date = new Date()
+  requestVisible: boolean
+  requestList: any
+  dateWiseRequests: any[] = []
+  requestData: any
+  checkVisible: boolean
+  checkData: any
 
   constructor(
     private _alert: AlertService,
@@ -52,6 +60,7 @@ export class ViewCalendarComponent implements OnInit {
     private notifier: NzNotificationService,
     private appDateFormatPipe: AppDateFormatPipe,
     private _auth: jwtAuthService,
+    private _request: ChangeRequestService,
   ) {
     this._auth.getUserModel().then(r => {
       this.userRole = r?.UserRole
@@ -59,6 +68,39 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._request.getRequests()
+    this._request.requestObs$().subscribe(r => {
+      // console.log('r:', r)
+      if(r) {
+        this.requestList = r
+        this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest != true)
+        this.requestList.forEach((e: RequestDTO) => {
+          
+          if(e.Status !== CustodyRequestStatusEnum.Rejected) {
+            e.DateFrom = this.appDateFormatPipe.ToLocalDateTime(e.DateFrom)
+            e.DateTo = this.appDateFormatPipe.ToLocalDateTime(e.DateTo)
+            this.populateRequestLists(e.DateFrom, e.DateTo)
+            this.calendarFormattedData.push({
+              Id: e.Id,
+              UserId: e.UserId,
+              StartDate: this.appDateFormatPipe.ToLocalDateTime(e.DateFrom),
+              EndDate: this.appDateFormatPipe.ToLocalDateTime(e.DateTo),
+              Color: e.Status === CustodyRequestStatusEnum.Pending ? '#ffbb33' : '#00C851',
+              IsRequest: true,
+              Note: e.Notes,
+              ParentId: e.ParentId,
+              ChildId: e.ChildId,
+              FamilyId: e.FamilyId,
+              Status: e.Status,
+              FamilyName: e.FamilyName,
+              ParentName: e.ParentName,
+              ChildName: e.ChildName,
+            })
+            this.updateSmartCalendar()
+          }
+        })
+      }
+    })
     this.todayDate.setHours(0, 0, 0, 0)
     this.subscribeToCalendarObserver()
     this._calendarService.LoadCalendarDataByMode(this.selectedDate, this.selectedMode, this.caseId)
@@ -67,6 +109,8 @@ export class ViewCalendarComponent implements OnInit {
   subscribeToCalendarObserver() {
     this._calendarService.calendarObserver$.subscribe(res => {
       if (res) {
+        this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest == true)
+        // console.log('this.calendarFormattedData:', this.calendarFormattedData)
         this.dateList = []
         this.dateWiseEvents = []
         this.dateWiseCustodies = []
@@ -74,8 +118,8 @@ export class ViewCalendarComponent implements OnInit {
         this.custodyModalIsVisible = false
         this.editEventObserverSubject.next(null)
         this.editCustodyObserverSubject.next(null)
-        this.calendarFormattedData = res.FormattedData
-        this.calendarFormattedData.forEach(element => {
+        res.FormattedData.forEach(element => {
+          this.calendarFormattedData.push(element);
           element.StartDate = this.appDateFormatPipe.ToLocalDateTime(element.StartDate)
           element.EndDate = this.appDateFormatPipe.ToLocalDateTime(element.EndDate)
           this.populateDataLists(
@@ -97,10 +141,14 @@ export class ViewCalendarComponent implements OnInit {
       allTds.forEach((elm, i) => {
         let tdTtitle = new Date(elm.getAttribute('title'))
         tdTtitle.setHours(0, 0, 0, 0)
+        let _request = this.dateWiseRequests.find(item => this.IsExists(item, tdTtitle))
+        if (_request) elm.classList.add('request-dot')
+        else elm.classList.remove('request-dot')
 
         let _event = this.dateWiseEvents.find(item => this.IsExists(item, tdTtitle))
         if (_event) elm.classList.add('event-dot')
         else elm.classList.remove('event-dot')
+
 
         let _custody = this.dateWiseCustodies.find(item => this.IsExists(item.date, tdTtitle))
         if (_custody) {
@@ -151,6 +199,18 @@ export class ViewCalendarComponent implements OnInit {
       currentDate.setDate(currentDate.getDate() + 1)
     }
   }
+
+  populateRequestLists(startDate, stopDate) {
+    let currentDate = new Date(JSON.parse(JSON.stringify(startDate)))
+    while (currentDate <= stopDate) {
+      let storeDate = new Date(currentDate)
+      storeDate.setHours(0, 0, 0, 0)
+      if (!this.dateWiseRequests.some(x => x.getDate() == storeDate.getDate()))
+        this.dateWiseRequests.push(storeDate)
+      currentDate.setDate(currentDate.getDate() + 1)
+    }
+  }
+
 
   trackByCalendarItemId(index, item) {
     return item.Id
@@ -299,5 +359,27 @@ export class ViewCalendarComponent implements OnInit {
     StartDate.setHours(0, 0, 0, 0)
     EndDate.setHours(0, 0, 0, 0)
     return actualDate >= StartDate && actualDate <= EndDate
+  }
+
+
+  closeRequestView() {
+    this.requestVisible = false
+    this.requestData = null
+
+  }
+  viewChangeRequest(data) {
+    this.requestVisible = true
+    this.requestData = data
+  }
+
+  closeCheckView() {
+    this.checkVisible = false
+    this.checkData = null
+
+  }
+
+  viewCheckInOut(data) {
+    this.checkVisible = true
+    this.checkData = data
   }
 }

@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-12 text-right mb-2">
+        <a nz-button nzType="default" (click)="isAddUpdate = !isAddUpdate; form.reset({ IsCheckIn: true })">
+            <span [hidden]="isAddUpdate">Add New</span>
+            <span [hidden]="!isAddUpdate">Back</span>
+        </a>
+    </div>
+</div>
+<ng-container *ngIf="isAddUpdate; else viewTpl">
+    <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
+
+        <nz-form-item>
+            <nz-form-control>
+                <nz-radio-group formControlName="IsCheckIn">
+                    <label nz-radio [nzValue]="true" class="mr-5">Check In</label>
+                    <label nz-radio [nzValue]="false">Check Out</label>
+                  </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please enter Date & Time">
+                <nz-date-picker formControlName="DateTime" nzPlaceHolder="Date Time" class="w-100"
+                    nzFormat="yyyy-MM-dd HH:mm:ss" [nzShowTime]="true"></nz-date-picker>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please enter Location">
+                <input formControlName="Location" nz-input placeholder="Location" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please write something here">
+                <textarea formControlName="Notes" nz-input rows="2" placeholder="Notes"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control [nzOffset]="10" [nzSpan]="12">
+                <button nz-button nzType="primary">Submit</button>
+            </nz-form-control>
+        </nz-form-item>
+    </form>
+</ng-container>
+
+
+<ng-template #viewTpl>
+    <div>
+        <nz-table #basicTable [nzData]="dataList" class="kit__utils__table mb-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Date Time</th>
+                    <th>Check In/Out</th>
+                    <th>Location</th>
+                    <th>Notes</th>
+                    <th style="width: 100px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ data.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss A' }}</td>
+                    <td>{{ data.IsCheckIn ? 'Check In' : 'Check Out' }}</td>
+                    <td>{{ data.Location }}</td>
+                    <td>{{ data.Notes }}</td>
+
+                    <td style="width: 100px;">
+                        <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
+                            (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
+                        <nz-divider nzType="vertical"></nz-divider>
+                        <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
+                            (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill" class="text-danger"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</ng-template>

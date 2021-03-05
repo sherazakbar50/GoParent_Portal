@@ -7,6 +7,11 @@ export const DATA_FORMATS = {
   DATETIME: 'MMMM d, y h:mm a',
 }
 
+export class SelectItem  {
+  Id: number | string;
+  Name: string;
+}
+
 export const API_ENDPOINTS = {
   UserRegistration: 'api/auth/register',
   GetToken: 'api/auth/token',
@@ -91,4 +96,16 @@ export const API_ENDPOINTS = {
   DeleteCustody: 'api/FamilyCustodies/DeleteCustody',
   GetMonthlyCalendarData: 'api/Calendar/GetMonthlyCalendarData',
   GetYearlyCalendarData: 'api/Calendar/GetYearlyCalendarData',
+
+
+  // Change Request
+  GetRequestsList: 'api/ChangeRequest/GetRequestsList',
+  AddUpdateChangeRequest: 'api/ChangeRequest/AddUpdateChangeRequest',
+  UpdateStatusOfRequest: 'api/ChangeRequest/UpdateStatusOfRequest',
+
+
+  // Check In/Out
+  GetCheckList: 'api/CheckInOut/GetList',
+  AddUpdateCheck: 'api/CheckInOut/AddUpdate',
+  
 }

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { jwtAuthService } from 'src/app/services/jwt'
 
 declare var require: any
 const data: any = require('./data.json')
@@ -18,7 +20,10 @@ export class DashboardAlphaComponent implements OnInit {
   displayReferalsData = [...this.referalsData]
   sortNameReferals = null
   sortValueReferals = null
-  constructor() {
+  constructor(
+    private authService: jwtAuthService,
+    private router: Router,
+  ) {
     this.chartCardGraphOptions = {
       options: {
         axisX: {
@@ -52,7 +57,16 @@ export class DashboardAlphaComponent implements OnInit {
       type: 'Line',
     }
   }
-  ngOnInit() {}
+  async ngOnInit() {
+    let role = await (await this.authService.getUserModel()).UserRole
+    if (role && (role == 'Parent' || role == 'Child')) {
+      this.router.navigate(['/calendar'])
+    } else if (role && (role == 'Lawyer')) {
+      this.router.navigate(['/cases'])
+    } else {
+      // this.router.navigate(['/dashboard'])
+    }
+  }
 
   sort(sort: { key: string; value: string }): void {
     this.sortNameReferals = sort.key

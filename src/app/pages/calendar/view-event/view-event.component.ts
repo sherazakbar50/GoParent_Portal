@@ -28,17 +28,17 @@ export class ViewEventComponent implements OnInit {
       if (res) {
         this.event = res
         this.startDateFormat =
-          (this.event.EventStartDate.getHours() ||
-            this.event.EventStartDate.getMinutes() ||
-            this.event.EventStartDate.getSeconds()) &&
-          !this.event.IsAllDay
+          (new Date(this.event.EventStartDate).getHours() ||
+            new Date(this.event.EventStartDate).getMinutes() ||
+            new Date(this.event.EventStartDate).getSeconds()) &&
+            !this.event.IsAllDay
             ? DATA_FORMATS.DATETIME
             : DATA_FORMATS.Date
         this.endDateFormat =
-          (this.event.EventEndDate.getHours() ||
-            this.event.EventEndDate.getMinutes() ||
-            this.event.EventEndDate.getSeconds()) &&
-          !this.event.IsAllDay
+          (new Date(this.event.EventEndDate).getHours() ||
+            new Date(this.event.EventEndDate).getMinutes() ||
+            new Date(this.event.EventEndDate).getSeconds()) &&
+            !this.event.IsAllDay
             ? DATA_FORMATS.DATETIME
             : DATA_FORMATS.Date
       }

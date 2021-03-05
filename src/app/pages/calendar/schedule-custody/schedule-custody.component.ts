@@ -103,6 +103,7 @@ export class ScheduleCustodyComponent implements OnInit {
                 this.addCustodyRow(null, false)
             })
             this.form.patchValue(res);
+            this.templateChosenOrCustom = true
           }
         }
         else {
@@ -204,9 +205,9 @@ export class ScheduleCustodyComponent implements OnInit {
   }
   disabledDate = (current: Date): boolean => {
     let custodySeqElm = this.getCustodySeqArrayElmFromLast(2) || this.getCustodySeqArrayElmFromLast(1);
-    return differenceInCalendarDays(current, this.custodyStartDate.value) < 0
-      || (custodySeqElm && custodySeqElm.value.DateRange && differenceInCalendarDays(current, custodySeqElm.value.DateRange[1]) <= 0)
-      || differenceInCalendarDays(current, this.custodyEndDate.value) > 0;
+    return differenceInCalendarDays(current, new Date(this.custodyStartDate.value)) < 0
+      || (custodySeqElm && custodySeqElm.value.DateRange && differenceInCalendarDays(current, new Date (custodySeqElm.value.DateRange[1])) <= 0)
+      || differenceInCalendarDays(current, new Date(this.custodyEndDate.value)) > 0;
   };
 
   OnCustodyDateChange(currentDate: Date) {

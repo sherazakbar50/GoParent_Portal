@@ -39,22 +39,18 @@ export class CustodyTemplatesComponent implements OnInit {
     // Get Custody List
     this._custody.getCustodyTemplatesList();
     this._custody.custodyTemplatesObservable$.subscribe(r => {
-      // console.log('r:', r)
       this.list = r
     })
 
     // Start End Date Change Listener
     this.f.StartEndDate.valueChanges.subscribe(v => {
-      // console.log('v:', v)
       if (v && v.length > 0) {
-        // this._start = true
         this.startDate = v[0]
         this.endDate = v[1]
 
         // Add row if there is no row available
         if (this.fa && this.fa.length == 0)
           this.fa.push(this.createCustodySequencesControls())
-        // this.fa.controls[0]['controls']['dateRange'].setValue([this.startDate])
       }
     })
   }
@@ -81,7 +77,6 @@ export class CustodyTemplatesComponent implements OnInit {
   }
 
   showModal(data?: any) {
-    // console.log('data:', data)
     this.isVisible = true
     if (data) {
       data.StartEndDate = [data.StartDate, data.EndDate];
