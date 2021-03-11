@@ -1,0 +1,55 @@
+<div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="mb-4 d-flex justify-content-between">
+                <strong>Expense Types</strong>
+                <button nz-button nzType="primary" (click)="showModal()">Add Expense Type</button>
+            </h5>
+            <nz-table #basicTable [nzData]="dataList" class="kit__utils__table mb-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th style="width: 100px;">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let data of basicTable.data; let i=index">
+                        <td>{{ i+1 }}</td>
+                        <td>{{ data.Name }}</td>
+                        <td>
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Profile"
+                                (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Child"
+                                (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill"
+                                class="text-danger"></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</div>
+
+
+
+<div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="Expense Type" (nzOnCancel)="isVisible = false"
+        nzMaskClosable="false">
+        <ng-container *nzModalContent>
+            <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <nz-form-item>
+                    <nz-form-control nzHasFeedback nzErrorTip="Please enter Expense Type">
+                        <input formControlName="Name" nz-input placeholder="Expense Type" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control class="text-center">
+                        <button nz-button nzType="primary">Submit</button>
+                    </nz-form-control>
+                </nz-form-item>
+            </form>
+        </ng-container>
+    </nz-modal>
+</div>

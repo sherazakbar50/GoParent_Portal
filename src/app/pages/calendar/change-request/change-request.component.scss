@@ -16,3 +16,19 @@
 ::ng-deep .ant-modal-body {
   padding: 10px 24px !important;
 }
+
+.status {
+  display: flex;
+  justify-content: center;
+  border-radius: 6px;
+  color: #ffffff;
+}
+.pending {
+  background-color: #ffbb33;
+}
+.rejected {
+  background-color: #ff4b33;
+}
+.approved {
+  background-color: #00c851;
+}

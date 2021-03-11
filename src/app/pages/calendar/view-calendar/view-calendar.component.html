@@ -13,8 +13,8 @@
         <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary"
           (click)="requestVisible = true">Change Request</a>
 
-        <!-- <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="default" (click)="checkVisible = true">Check
-          In/Out</a> -->
+        <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary" (click)="checkVisible = true">Check
+          In/Out</a>
       </div>
     </div>
 
@@ -149,7 +149,7 @@
 
 
 <!-- Request -->
-<nz-modal [nzFooter]="null" nzTitle="Change Request" [nzVisible]="requestVisible" (nzOnCancel)="closeRequestView()"
+<nz-modal [nzFooter]="null" nzWidth="1000px"  nzTitle="Change Request" [nzVisible]="requestVisible" (nzOnCancel)="closeRequestView()"
   nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-change-request [Data]="requestData" (close)="closeRequestView()"></app-change-request>
@@ -158,7 +158,7 @@
 
 
 <!-- Check In Out -->
-<nz-modal [nzFooter]="null" nzWidth="800px" nzTitle="Check In/Out" [nzVisible]="checkVisible"
+<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="Check In/Out" [nzVisible]="checkVisible"
   (nzOnCancel)="closeCheckView()" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-check-in-out [data]="checkData" (close)="closeCheckView()"></app-check-in-out>

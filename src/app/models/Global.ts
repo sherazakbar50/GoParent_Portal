@@ -7,9 +7,9 @@ export const DATA_FORMATS = {
   DATETIME: 'MMMM d, y h:mm a',
 }
 
-export class SelectItem  {
-  Id: number | string;
-  Name: string;
+export class SelectItem {
+  Id: number | string
+  Name: string
 }
 
 export const API_ENDPOINTS = {
@@ -97,15 +97,17 @@ export const API_ENDPOINTS = {
   GetMonthlyCalendarData: 'api/Calendar/GetMonthlyCalendarData',
   GetYearlyCalendarData: 'api/Calendar/GetYearlyCalendarData',
 
-
   // Change Request
   GetRequestsList: 'api/ChangeRequest/GetRequestsList',
   AddUpdateChangeRequest: 'api/ChangeRequest/AddUpdateChangeRequest',
   UpdateStatusOfRequest: 'api/ChangeRequest/UpdateStatusOfRequest',
 
-
   // Check In/Out
   GetCheckList: 'api/CheckInOut/GetList',
   AddUpdateCheck: 'api/CheckInOut/AddUpdate',
-  
+
+  // ExpenseType
+  GetExpenseTypeList: 'api/FamilyExpenses/GetExpenseTypeList',
+  AddUdpateExpenseType: 'api/FamilyExpenses/AddUdpateExpenseType',
+  DeleteExpenseType: 'api/FamilyExpenses/DeleteExpenseType',
 }

@@ -11,4 +11,15 @@ export class FormsService {
       form.controls[key].updateValueAndValidity()
     }
   }
+
+  disableControls(form: FormGroup) {
+    for (const key in form.controls) {
+      form.controls[key].disable()
+    }
+  }
+  enableControls(form: FormGroup) {
+    for (const key in form.controls) {
+      form.controls[key].enable()
+    }
+  }
 }

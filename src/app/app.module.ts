@@ -2,9 +2,9 @@ import { CommonModule, registerLocaleData } from '@angular/common'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { default as localeEn } from '@angular/common/locales/en'
 import { Injector, LOCALE_ID, NgModule } from '@angular/core'
-import { AngularFireModule } from '@angular/fire'
-import { AngularFireAuthModule } from '@angular/fire/auth'
-import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore'
+// import { AngularFireModule } from '@angular/fire'
+// import { AngularFireAuthModule } from '@angular/fire/auth'
+// import { AngularFirestoreModule, SETTINGS } from '@angular/fire/firestore'
 import { FormsModule } from '@angular/forms'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
@@ -19,11 +19,9 @@ import { setAppInjector } from 'src/app/services/app-injector'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { AuthorizeInterceptor } from './components/cleanui/system/Interceptor/authorize.interceptor'
-import { firebaseAuthService, firebaseConfig } from './services/firebase'
+// import { firebaseAuthService, firebaseConfig } from './services/firebase'
 import { jwtAuthService } from './services/jwt'
 import { metaReducers, reducers } from './store/reducers'
-
-
 
 const LOCALE_PROVIDERS = [
   { provide: LOCALE_ID, useValue: 'en' },
@@ -59,13 +57,13 @@ registerLocaleData(localeEn, 'en')
     NgProgressHttpModule,
 
     // init firebase
-    AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule,
-    AngularFirestoreModule,
+    // AngularFireModule.initializeApp(firebaseConfig),
+    // AngularFireAuthModule,
+    // AngularFirestoreModule,
   ],
   providers: [
     // auth services
-    firebaseAuthService,
+    // firebaseAuthService,
     jwtAuthService,
 
     // fake http interceptors
@@ -79,12 +77,12 @@ registerLocaleData(localeEn, 'en')
     ...LOCALE_PROVIDERS,
 
     // firestore settings
-    { provide: SETTINGS, useValue: {} },
+    // { provide: SETTINGS, useValue: {} },
   ],
   bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(injector: Injector) {
-    setAppInjector(injector);
+    setAppInjector(injector)
   }
 }

@@ -1,3 +1,12 @@
+<div class="row">
+    <div class="col-12 text-right mb-2">
+        <a nz-button nzType="default" (click)="isViewMode = !isViewMode; form.reset()">
+            <span [hidden]="!isViewMode">Add New</span>
+            <span [hidden]="isViewMode">Back to List</span>
+        </a>
+    </div>
+</div>
+
 <ng-container *ngIf="!isViewMode; else viewTpl">
     <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
         <nz-form-item>
@@ -34,13 +43,23 @@
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
-            <nz-form-control [nzOffset]="10" [nzSpan]="12">
+            <div class="text-center w-100">
+                <div *ngIf="Data.UserId != currentUserId; else editBtn" class="mb-3">
+                    <button type="button" nz-button nzType="primary" class="mr-3" (click)="updateStatus(2)">
+                        <strong>Approve</strong>
+                    </button>
+                    <button nz-button type="button" nzType="default" nzDanger (click)="updateStatus(1)">
+                        <strong>Reject</strong>
+                    </button>
+                </div>
+            </div>
+            <ng-template #editBtn>
                 <button nz-button nzType="primary">Submit</button>
-            </nz-form-control>
+            </ng-template>
         </nz-form-item>
     </form>
 </ng-container>
-
+<!-- 
 <ng-template #viewTpl>
     <div class="client-appointment-view-div">
         <div class="appointment-description mb-3">
@@ -117,10 +136,59 @@
             </div>
         </div>
     </div>
-</ng-template>
+</ng-template> -->
 
 <ng-template #editBtn>
     <button nz-button nzType="default" class="mb-3" (click)="editChangeRequest()">
         <strong>Edit Request</strong>
     </button>
+</ng-template>
+
+
+<ng-template #viewTpl>
+    <div>
+        <nz-table #basicTable [nzData]="dataList" class="kit__utils__table mb-4" nzTableLayout="fixed">
+            <thead>
+                <tr>
+                    <th style="width: 50px;">#</th>
+                    <th>Parent</th>
+                    <th>Child</th>
+                    <th>From</th>
+                    <th>Till</th>
+                    <th>Status</th>
+                    <th width="200px">Notes</th>
+                    <th style="width: 80px;">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>{{ data.ParentName }}</td>
+                    <td>{{ data.ChildName }}</td>
+                    <td>{{ data.DateFrom | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
+                    <td>{{ data.DateTo | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
+                    <td>
+                        <span class="status pending" *ngIf="data.Status == 0">
+                            {{ statusEnum[data.Status] }}
+                        </span>
+                        <span class="status rejected" *ngIf="data.Status == 1">
+                            {{ statusEnum[data.Status] }}
+                        </span>
+                        <span class="status approved" *ngIf="data.Status == 2">
+                            {{ statusEnum[data.Status] }}
+                        </span>
+                    </td>
+                    <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
+
+                    <td style="width: 80px;">
+                        <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
+                            (click)="$event.stopPropagation(editChangeRequest(data))" nzTheme="fill" class="text-success"></i>
+                        <!-- <nz-divider nzType="vertical"></nz-divider> -->
+                        <!-- <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
+                            (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill" class="text-danger"></i> -->
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
 </ng-template>

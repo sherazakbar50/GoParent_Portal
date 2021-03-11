@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { BehaviorSubject, Subject } from 'rxjs'
 import { map } from 'rxjs/internal/operators/map'
 import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { ApiHandler } from '../ApiHandler'
@@ -8,9 +9,38 @@ import { ApiHandler } from '../ApiHandler'
   providedIn: 'root',
 })
 export class FamilyExpensesService extends ApiHandler {
+  expenseTypesSub$: BehaviorSubject<any> = new BehaviorSubject<any>(undefined)
+
   constructor(private _HttpClient: HttpClient) {
     super(_HttpClient)
   }
+
+  getExpenseObserver$() {
+    return this.expenseTypesSub$.asObservable()
+  }
+
+  // Expense Types
+  AddUdpateExpenseType(data: any) {
+    return this.Post(data.Id, API_URL + API_ENDPOINTS.AddUdpateExpenseType, data)
+      .pipe(map(x => x.ResponseData))
+      .toPromise<boolean>()
+  }
+
+  GetExpenseTypeList() {
+    this.GetAll(API_URL + API_ENDPOINTS.GetExpenseTypeList)
+      .pipe(map(x => x.ResponseData))
+      .subscribe(s => {
+        this.expenseTypesSub$.next(s)
+      })
+  }
+
+  DeleteExpenseType(id: number) {
+    return this.Delete(API_URL + API_ENDPOINTS.DeleteExpenseType, id)
+      .pipe(map(x => x.ResponseData))
+      .toPromise<boolean>()
+  }
+
+  // End Expense Type
 
   GetFamilyExpenses() {
     return this.GetAll(API_URL + API_ENDPOINTS.GetFamilyExpenses)

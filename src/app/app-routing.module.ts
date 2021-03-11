@@ -46,6 +46,12 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'expense-type',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/expense-type/expense-type.module').then(x => x.ExpenseTypeModule),
+      },
+      {
         path: 'profile',
         canActivate: [AuthGuard],
         loadChildren: () =>
@@ -66,22 +72,19 @@ const routes: Routes = [
       {
         path: 'calendar',
         canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/calendar/calendar.module').then(x => x.CalendarModule)
-      },
-      {
-        path: 'Profile',
-        canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/user-profile/profile.module').then(x => x.ProfileModule)
+        loadChildren: () =>
+          import('src/app/pages/calendar/calendar.module').then(x => x.CalendarModule),
       },
       {
         path: 'documents',
         canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/documents/documents.module').then(x => x.DocumentsModule)
+        loadChildren: () =>
+          import('src/app/pages/documents/documents.module').then(x => x.DocumentsModule),
       },
       {
         path: 'cases',
         canActivate: [AuthGuard],
-        loadChildren: () => import('src/app/pages/cases/cases.module').then(x => x.CasesModule)
+        loadChildren: () => import('src/app/pages/cases/cases.module').then(x => x.CasesModule),
       },
       {
         path: 'journal',
@@ -93,7 +96,9 @@ const routes: Routes = [
         path: 'custody-template',
         canActivate: [AuthGuard],
         loadChildren: () =>
-          import('src/app/pages/custody-templates/custody-templates.module').then(x => x.CustodyTemplatesModule),
+          import('src/app/pages/custody-templates/custody-templates.module').then(
+            x => x.CustodyTemplatesModule,
+          ),
       },
     ],
   },
@@ -128,4 +133,4 @@ const routes: Routes = [
   providers: [AppPreloader],
   exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

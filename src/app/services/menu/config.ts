@@ -10,9 +10,7 @@ export const getMenuData: any[] = [
     key: 'mainDashboard',
     icon: 'fe fe-bookmark',
     url: '/dashboard',
-    roles: [
-      ApplicationRolesEnum[1],
-    ],
+    roles: [ApplicationRolesEnum[1]],
   },
   {
     title: 'Cases',
@@ -56,6 +54,13 @@ export const getMenuData: any[] = [
     icon: 'fa fa-dollar',
     url: '/expenses',
     roles: [ApplicationRolesEnum[2]],
+  },
+  {
+    title: 'Expense Types',
+    key: 'expense',
+    icon: 'fa fa-dollar',
+    url: '/expense-type',
+    roles: [ApplicationRolesEnum[1]],
   },
   {
     title: 'Family Document(s)',

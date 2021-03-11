@@ -2,7 +2,7 @@
     <div class="col-12 text-right mb-2">
         <a nz-button nzType="default" (click)="isAddUpdate = !isAddUpdate; form.reset({ IsCheckIn: true })">
             <span [hidden]="isAddUpdate">Add New</span>
-            <span [hidden]="!isAddUpdate">Back</span>
+            <span [hidden]="!isAddUpdate">Back to List</span>
         </a>
     </div>
 </div>
@@ -15,6 +15,13 @@
                     <label nz-radio [nzValue]="true" class="mr-5">Check In</label>
                     <label nz-radio [nzValue]="false">Check Out</label>
                   </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+        <nz-form-item>
+            <nz-form-control nzHasFeedback nzErrorTip="Please select a Child">
+                <nz-select formControlName="ChildId" nzPlaceHolder="Select Child">
+                    <nz-option *ngFor="let item of childList" [nzValue]="item.Id" [nzLabel]="item.Name"></nz-option>
+                </nz-select>
             </nz-form-control>
         </nz-form-item>
 
@@ -48,12 +55,13 @@
 
 <ng-template #viewTpl>
     <div>
-        <nz-table #basicTable [nzData]="dataList" class="kit__utils__table mb-4">
+        <nz-table #basicTable [nzData]="dataList" class="kit__utils__table mb-4" nzTableLayout="fixed">
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th style="width: 50px;">#</th>
+                    <th>Child</th>
                     <th>Date Time</th>
-                    <th>Check In/Out</th>
+                    <th style="width: 120px;">Check In/Out</th>
                     <th>Location</th>
                     <th>Notes</th>
                     <th style="width: 100px;">Actions</th>
@@ -62,10 +70,19 @@
             <tbody>
                 <tr *ngFor="let data of basicTable.data; let i=index">
                     <td>{{ i+1 }}</td>
+                    <td>{{ data.ChildName }}</td>
                     <td>{{ data.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss A' }}</td>
-                    <td>{{ data.IsCheckIn ? 'Check In' : 'Check Out' }}</td>
-                    <td>{{ data.Location }}</td>
-                    <td>{{ data.Notes }}</td>
+                    <td>
+                        <span class="status in" *ngIf="data.IsCheckIn">
+                            Check In
+                        </span>
+                        <span class="status out" *ngIf="!data.IsCheckIn">
+                            Check Out
+                        </span>
+                        <!-- {{ data.IsCheckIn ? 'Check In' : 'Check Out' }} -->
+                    </td>
+                    <td  nzEllipsis nz-tooltip [nzTooltipTitle]="data.Location">{{ data.Location }}</td>
+                    <td  nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
 
                     <td style="width: 100px;">
                         <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
