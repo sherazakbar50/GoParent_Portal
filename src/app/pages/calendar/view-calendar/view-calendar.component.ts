@@ -48,6 +48,7 @@ export class ViewCalendarComponent implements OnInit {
   requestVisible: boolean
   requestList: any
   dateWiseRequests: any[] = []
+  dateWiseCheckIns: any[] = []
   requestData: any
   checkVisible: boolean
   checkData: any
@@ -68,39 +69,39 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._request.getRequests()
-    this._request.requestObs$().subscribe(r => {
-      // console.log('r:', r)
-      if(r) {
-        this.requestList = r
-        this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest != true)
-        this.requestList.forEach((e: RequestDTO) => {
-          
-          if(e.Status !== CustodyRequestStatusEnum.Rejected) {
-            e.DateFrom = this.appDateFormatPipe.ToLocalDateTime(e.DateFrom)
-            e.DateTo = this.appDateFormatPipe.ToLocalDateTime(e.DateTo)
-            this.populateRequestLists(e.DateFrom, e.DateTo)
-            this.calendarFormattedData.push({
-              Id: e.Id,
-              UserId: e.UserId,
-              StartDate: this.appDateFormatPipe.ToLocalDateTime(e.DateFrom),
-              EndDate: this.appDateFormatPipe.ToLocalDateTime(e.DateTo),
-              Color: e.Status === CustodyRequestStatusEnum.Pending ? '#ffbb33' : '#00C851',
-              IsRequest: true,
-              Note: e.Notes,
-              ParentId: e.ParentId,
-              ChildId: e.ChildId,
-              FamilyId: e.FamilyId,
-              Status: e.Status,
-              FamilyName: e.FamilyName,
-              ParentName: e.ParentName,
-              ChildName: e.ChildName,
-            })
-            this.updateSmartCalendar()
-          }
-        })
-      }
-    })
+    // this._request.getRequests()
+    // this._request.requestObs$().subscribe(r => {
+    //   // console.log('r:', r)
+    //   if (r) {
+    //     this.requestList = r
+    //     this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest != true)
+    //     this.requestList.forEach((e: RequestDTO) => {
+
+    //       if (e.Status !== CustodyRequestStatusEnum.Rejected) {
+    //         e.DateFrom = this.appDateFormatPipe.ToLocalDateTime(e.DateFrom)
+    //         e.DateTo = this.appDateFormatPipe.ToLocalDateTime(e.DateTo)
+    //         this.populateRequestLists(e.DateFrom, e.DateTo)
+    //         this.calendarFormattedData.push({
+    //           Id: e.Id,
+    //           UserId: e.UserId,
+    //           StartDate: this.appDateFormatPipe.ToLocalDateTime(e.DateFrom),
+    //           EndDate: this.appDateFormatPipe.ToLocalDateTime(e.DateTo),
+    //           Color: e.Status === CustodyRequestStatusEnum.Pending ? '#ffbb33' : '#00C851',
+    //           IsRequest: true,
+    //           Note: e.Notes,
+    //           ParentId: e.ParentId,
+    //           ChildId: e.ChildId,
+    //           FamilyId: e.FamilyId,
+    //           Status: e.Status,
+    //           FamilyName: e.FamilyName,
+    //           ParentName: e.ParentName,
+    //           ChildName: e.ChildName,
+    //         })
+    //         this.updateSmartCalendar()
+    //       }
+    //     })
+    //   }
+    // })
     this.todayDate.setHours(0, 0, 0, 0)
     this.subscribeToCalendarObserver()
     this._calendarService.LoadCalendarDataByMode(this.selectedDate, this.selectedMode, this.caseId)
@@ -109,7 +110,7 @@ export class ViewCalendarComponent implements OnInit {
   subscribeToCalendarObserver() {
     this._calendarService.calendarObserver$.subscribe(res => {
       if (res) {
-        this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest == true)
+        // this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest == true)
         // console.log('this.calendarFormattedData:', this.calendarFormattedData)
         this.dateList = []
         this.dateWiseEvents = []
@@ -118,14 +119,14 @@ export class ViewCalendarComponent implements OnInit {
         this.custodyModalIsVisible = false
         this.editEventObserverSubject.next(null)
         this.editCustodyObserverSubject.next(null)
-        res.FormattedData.forEach(element => {
-          this.calendarFormattedData.push(element);
+        this.calendarFormattedData = res.FormattedData;
+        this.calendarFormattedData.forEach(element => {
           element.StartDate = this.appDateFormatPipe.ToLocalDateTime(element.StartDate)
           element.EndDate = this.appDateFormatPipe.ToLocalDateTime(element.EndDate)
           this.populateDataLists(
             element.StartDate,
             element.EndDate,
-            element.IsCustody,
+            element.DataType,
             element.Color,
           )
           element.type = 'warning'
@@ -175,7 +176,7 @@ export class ViewCalendarComponent implements OnInit {
     )
   }
 
-  populateDataLists(startDate, stopDate, isCustody, color) {
+  populateDataLists(startDate, stopDate, type, color) {
     let currentDate = new Date(JSON.parse(JSON.stringify(startDate)))
     while (currentDate <= stopDate) {
       let date = new Date(currentDate)
@@ -188,12 +189,24 @@ export class ViewCalendarComponent implements OnInit {
       let storeDate = new Date(currentDate)
       storeDate.setHours(0, 0, 0, 0)
 
-      if (isCustody) {
-        if (!this.dateWiseCustodies.some(x => x.date.getDate() == storeDate.getDate()))
-          this.dateWiseCustodies.push({ date: storeDate, color: color })
-      } else {
+      // Event
+      if (type == 0) {
         if (!this.dateWiseEvents.some(x => x.getDate() == storeDate.getDate()))
           this.dateWiseEvents.push(storeDate)
+      } else 
+      // Custody
+      if (type == 1) {
+        if (!this.dateWiseCustodies.some(x => x.date.getDate() == storeDate.getDate()))
+          this.dateWiseCustodies.push({ date: storeDate, color: color })
+      } else 
+      // Change Request
+      if (type == 3) {
+        if (!this.dateWiseRequests.some(x => x.getDate() == storeDate.getDate()))
+        this.dateWiseRequests.push(storeDate)
+      } else {
+        // Check In/Check Out
+        if (!this.dateWiseCheckIns.some(x => x.getDate() == storeDate.getDate()))
+        this.dateWiseCheckIns.push(storeDate)
       }
 
       currentDate.setDate(currentDate.getDate() + 1)

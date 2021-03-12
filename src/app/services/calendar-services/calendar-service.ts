@@ -21,7 +21,8 @@ export class CalendarService extends ApiHandler {
 
   GetMonthlyCalendarData(date: Date, caseId?: number) {
     this.GetAll(
-      API_URL + API_ENDPOINTS.GetMonthlyCalendarData,
+      // API_URL + API_ENDPOINTS.GetMonthlyCalendarData,
+      API_URL + API_ENDPOINTS.GetCalendarbyMonth,
       `date=${date.toUTCString()}&Id=${caseId}`,
     ).subscribe(res => {
       if (res.IsSuccessful) this.calendarSubject$.next(res.ResponseData)
@@ -30,7 +31,8 @@ export class CalendarService extends ApiHandler {
 
   GetYearlyCalendarData(date: Date, caseId?: number) {
     this.GetAll(
-      API_URL + API_ENDPOINTS.GetYearlyCalendarData,
+      // API_URL + API_ENDPOINTS.GetYearlyCalendarData,
+      API_URL + API_ENDPOINTS.GetCalendarbyYear,
       `date=${date.toUTCString()} &Id=${caseId}`,
     ).subscribe(res => {
       if (res.IsSuccessful) this.calendarSubject$.next(res.ResponseData)

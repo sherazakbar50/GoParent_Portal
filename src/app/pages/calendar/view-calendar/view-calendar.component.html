@@ -37,7 +37,7 @@
                 *Colors Definitions:
               </h5>
             </div>
-           
+
             <div class="row">
               <h6 style="background-color: #ffbb33; border-radius: 4px; color: white;" class="py-2 px-2 mr-2 mt-1"></h6>
               Change Request
@@ -66,20 +66,42 @@
             <div>
               <ul class="events" *ngIf="date.getMonth() == selectedDate.getMonth()">
                 <ng-container *ngFor="let item of calendarFormattedData; trackBy:trackByCalendarItemId">
-                  <ng-container *ngIf="item?.IsRequest; else custodyEventTpl">
-                    <li nz-popover [style.background]="item.Color" (click)="viewChangeRequest(item)"
-                      style="text-align: center;" *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)"
-                      nzPopoverContent="{{item.Note}}">
-                      <nz-badge [nzStatus]="'warning'" nzText="Change Request"></nz-badge>
-                    </li>
-                  </ng-container>
-                  <ng-template #custodyEventTpl>
+                  <!-- Events -->
+                  <ng-container *ngIf="item.DataType == 0">
                     <li nz-popover [style.background]="item.Color"
                       *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
-                      (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
+                      (click)="showEventDetails(item.ParentObject, date)">
                       <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
                     </li>
-                  </ng-template>
+                  </ng-container>
+
+                  
+                  <!-- Custody -->
+                  <ng-container *ngIf="item.DataType == 1">
+                    <li nz-popover [style.background]="item.Color"
+                      *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
+                      (click)="showCustodyDetails(item, date)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
+
+                  <!-- Change Request -->
+                  <ng-container *ngIf="item.DataType == 2">
+                    <li nz-popover [style.background]="item.Color" style="text-align: center;" 
+                      *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
+                      (click)="viewChangeRequest(item)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
+
+                  <!-- Check In/Out -->
+                  <ng-container *ngIf="item.DataType == 3">
+                    <li nz-popover [style.background]="item.Color" style="text-align: center;"
+                      *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
+                      (click)="viewCheckInOut(item)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
                 </ng-container>
               </ul>
             </div>
@@ -149,8 +171,8 @@
 
 
 <!-- Request -->
-<nz-modal [nzFooter]="null" nzWidth="1000px"  nzTitle="Change Request" [nzVisible]="requestVisible" (nzOnCancel)="closeRequestView()"
-  nzMaskClosable="false">
+<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="Change Request" [nzVisible]="requestVisible"
+  (nzOnCancel)="closeRequestView()" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-change-request [Data]="requestData" (close)="closeRequestView()"></app-change-request>
   </ng-container>

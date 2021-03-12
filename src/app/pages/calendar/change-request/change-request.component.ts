@@ -60,7 +60,6 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
 
   ngOnChanges(change: SimpleChanges) {
     if (this.Data) {
-      // console.log('this.Data:', this.Data)
       this.form.patchValue({
         Id: this.Data.Id,
         ParentId: this.Data.ParentId,
@@ -78,7 +77,6 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
   async ngOnInit() {
     this._request.getRequests()
     this._request.requestObs$().subscribe(r => {
-      // console.log('r:', r)
       if (r) {
         this.dataList = r
       }

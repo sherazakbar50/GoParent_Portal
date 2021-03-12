@@ -44,7 +44,7 @@
         </nz-form-item>
         <nz-form-item>
             <div class="text-center w-100">
-                <div *ngIf="Data.UserId != currentUserId; else editBtn" class="mb-3">
+                <div *ngIf="Data && Data.UserId != currentUserId; else editBtn" class="mb-3">
                     <button type="button" nz-button nzType="primary" class="mr-3" (click)="updateStatus(2)">
                         <strong>Approve</strong>
                     </button>

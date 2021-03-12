@@ -110,4 +110,9 @@ export const API_ENDPOINTS = {
   GetExpenseTypeList: 'api/FamilyExpenses/GetExpenseTypeList',
   AddUdpateExpenseType: 'api/FamilyExpenses/AddUdpateExpenseType',
   DeleteExpenseType: 'api/FamilyExpenses/DeleteExpenseType',
+
+
+  // Calendar Updated
+  GetCalendarbyMonth: 'api/Calendar/GetCalendarbyMonth',
+  GetCalendarbyYear: 'api/Calendar/GetCalendarbyYear',
 }

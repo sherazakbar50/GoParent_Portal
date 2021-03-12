@@ -159,3 +159,28 @@
 .card:hover {
   box-shadow: 0 4px 20px 0 rgb(20 19 34 / 3%), 0 0 20px 0 rgb(20 19 34 / 2%);
 }
+
+
+.ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
+  overflow-y: auto !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
