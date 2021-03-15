@@ -23,21 +23,38 @@
                     class="mswordType">
                   <img *ngIf="docs.Type ==='.png'" [src]="docs.BlobUrl" alt="Folder" class="imageType">
                   <img *ngIf="docs.Type ==='.jpg'" [src]="docs.BlobUrl" alt="Folder" class="imageType">
-                  <img *ngIf="docs.Type ==='.docx'"
+                  <img *ngIf="docs.Type ==='.docx' || docs.Type ==='.doc'"
                     src="https://cdn0.iconfinder.com/data/icons/FileTypesIcons/256/docx_win.png" alt="Folder"
                     class="mswordType">
-                  <img *ngIf="docs.Type ==='.xlsx'"
-                    src="https://cdn3.iconfinder.com/data/icons/cad-database-presentation-spreadsheet-vector-file-/512/22-256.png"
+                  <img *ngIf="docs.Type ==='.xlsx' || docs.Type ==='.xls'"
+                    src="https://icons.iconarchive.com/icons/treetog/file-type/256/xlsx-win-icon.png"
                     class="mswordType" alt="Folder">
-                  <img *ngIf="docs.Type ==='.ppt'"
+                  <img *ngIf="docs.Type ==='.ppt' || docs.Type ==='.pptx'"
                     src="https://cdn0.iconfinder.com/data/icons/FileTypesIcons/256/pptx_win.png" class="mswordType"
                     alt="Folder">
-                  <img
-                    *ngIf="docs.Type !=='.ppt' && docs.Type !=='.pdf' && docs.Type !=='.xlsx' && docs.Type !=='.png' && docs.Type !=='.jpg' "
-                    src="https://www.flaticon.com/svg/vstatic/svg/4270/4270655.svg?token=exp=1614158209~hmac=9dbb4c5030b7725acfdc311aa21a2cda"
-                    class="mswordType" alt="Folder">
+
+                    <img *ngIf="docs.Type ==='.mp4'"
+                    src="https://www.flaticon.com/svg/vstatic/svg/1975/1975520.svg?token=exp=1615803630~hmac=0d99560a8b18adc003557e5031056b75" class="mswordType"
+                    alt="Folder">
+
+                    <img *ngIf="docs.Type ==='.mp3'"
+                    src="https://iconarchive.com/download/i95107/trayse101/basic-filetypes-2/mp3.ico" class="mswordType"
+                    alt="Folder">
+
+                    <img *ngIf="docs.Type ==='.txt'"
+                    src="https://icons.iconarchive.com/icons/treetog/file-type/256/readme-icon.png" class="mswordType"
+                    alt="Folder">
+                   <img
+                    *ngIf="docs.Type !=='.ppt' && docs.Type !=='.pdf' && docs.Type !=='.xlsx'
+                     && docs.Type !=='.png' && docs.Type !=='.jpg' && docs.Type !== '.mp3' 
+                     && docs.Type !== '.mp4' && docs.Type !=='.docx' && docs.Type !=='.xls' && docs.Type !=='.pptx'
+                     && docs.Type !=='.doc' && docs.Type !=='.xlsx' && docs.Type !=='.txt' "
+                    src="https://thumbs.dreamstime.com/b/office-folders-isolated-white-18104748.jpg"
+                    class="mswordType" alt="Folder"> 
                 </div>
               </a>
+
+             
               <div class="caption">
                 <h5 class="text-center">
                   <p class="docName">{{docs.Name}}</p>

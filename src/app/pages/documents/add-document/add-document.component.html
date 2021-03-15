@@ -2,8 +2,7 @@
     <form  enctype="multipart/form-data">
         <!-- <input type="hidden" formControlName='Id' /> -->
         <div class="form-group col-xl-12">
-            <nz-upload [nzFileType]="'image/png,image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, text/csv'"
-            [nzAccept]="'image/png,image/jpeg,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.ms-excel,application/vnd.ms-powerpoint,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.csv'"
+            <nz-upload 
               nzType="drag" [(nzFileList)]="uploadedFiles"  [nzMultiple]="true"  [nzBeforeUpload]="beforeUpload">
             <p class="ant-upload-drag-icon">
                 <i nz-icon nzType="upload" nzTheme="outline"></i>
