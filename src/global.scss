@@ -184,3 +184,19 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+i {
+  cursor: pointer;
+}
+
+.ant-badge-status-dot {
+  width: 10px !important;
+  height: 10px !important;
+}
+
+.v-none {
+  visibility: hidden;
+}
+.v-visible {
+  visibility: visible;
+}

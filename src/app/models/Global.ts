@@ -101,10 +101,12 @@ export const API_ENDPOINTS = {
   GetRequestsList: 'api/ChangeRequest/GetRequestsList',
   AddUpdateChangeRequest: 'api/ChangeRequest/AddUpdateChangeRequest',
   UpdateStatusOfRequest: 'api/ChangeRequest/UpdateStatusOfRequest',
+  DeleteRequest: 'api/ChangeRequest/DeleteRequest',
 
   // Check In/Out
   GetCheckList: 'api/CheckInOut/GetList',
   AddUpdateCheck: 'api/CheckInOut/AddUpdate',
+  DeleteCheck: 'api/CheckInOut/DeleteCheck',
 
   // ExpenseType
   GetExpenseTypeList: 'api/FamilyExpenses/GetExpenseTypeList',

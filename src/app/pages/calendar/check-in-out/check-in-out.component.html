@@ -2,7 +2,7 @@
     <div class="col-12 text-right mb-2">
         <a nz-button nzType="default" (click)="isAddUpdate = !isAddUpdate; form.reset({ IsCheckIn: true })">
             <span [hidden]="isAddUpdate">Add New</span>
-            <span [hidden]="!isAddUpdate">Back to List</span>
+            <span [hidden]="!isAddUpdate">Go to List</span>
         </a>
     </div>
 </div>
@@ -14,7 +14,7 @@
                 <nz-radio-group formControlName="IsCheckIn">
                     <label nz-radio [nzValue]="true" class="mr-5">Check In</label>
                     <label nz-radio [nzValue]="false">Check Out</label>
-                  </nz-radio-group>
+                </nz-radio-group>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
@@ -60,7 +60,8 @@
                 <tr>
                     <th style="width: 50px;">#</th>
                     <th>Child</th>
-                    <th>Date Time</th>
+                    <th>Created By</th>
+                    <th style="width: 180px;">Date Time</th>
                     <th style="width: 120px;">Check In/Out</th>
                     <th>Location</th>
                     <th>Notes</th>
@@ -71,7 +72,8 @@
                 <tr *ngFor="let data of basicTable.data; let i=index">
                     <td>{{ i+1 }}</td>
                     <td>{{ data.ChildName }}</td>
-                    <td>{{ data.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss A' }}</td>
+                    <td>{{ data.CreatedByName }}</td>
+                    <td>{{ data.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A' }}</td>
                     <td>
                         <span class="status in" *ngIf="data.IsCheckIn">
                             Check In
@@ -81,18 +83,26 @@
                         </span>
                         <!-- {{ data.IsCheckIn ? 'Check In' : 'Check Out' }} -->
                     </td>
-                    <td  nzEllipsis nz-tooltip [nzTooltipTitle]="data.Location">{{ data.Location }}</td>
-                    <td  nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
+                    <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Location">{{ data.Location }}</td>
+                    <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
 
                     <td style="width: 100px;">
-                        <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
-                            (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
-                        <nz-divider nzType="vertical"></nz-divider>
-                        <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
-                            (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill" class="text-danger"></i>
+                        <ng-container *ngIf="data && data.CreatedBy == currentUserId; else noData">
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
+                                (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
+                                (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill" class="text-danger"></i>
+                        </ng-container>
                     </td>
                 </tr>
             </tbody>
         </nz-table>
     </div>
+</ng-template>
+
+<ng-template #noData>
+    <span nz-tooltip nzTooltipTitle="You can only Update/Delete your added records!">
+        ...
+    </span>
 </ng-template>

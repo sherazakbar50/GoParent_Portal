@@ -1,0 +1,72 @@
+<ng-container>
+    <div class="client-appointment-view-div">
+        <div class="appointment-description mb-3">
+            <div class="f-12 row">
+                <div class="col-md-4"></div>
+                <div class="col-md-8">
+                    <h5><b>{{Data.IsCheckIn ? "Check In" : "Check Out"}}</b></h5>
+                </div>
+            </div>
+        </div>
+        
+        <div class="appointment-description mb-3">
+            <div class="f-12 row">
+                <div class="col-md-4">
+                    <span class="appointment-description-span mr-2">
+                        <i class="fe fe-users mr-2"></i>
+                        <b class="mr-5">Child: </b>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    {{Data?.ChildName}}
+                </div>
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12 row">
+                <div class="col-md-4">
+                    <span class="appointment-description-span mr-2">
+                        <i class="fe fe-calendar mr-2"></i>
+                        <b class="mr-5">Date Time: </b>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    {{Data?.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss A' }}
+                </div>
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12 row">
+                <div class="col-md-4">
+                    <span class="appointment-description-span mr-2">
+                        <i class="fe fe-calendar mr-2"></i>
+                        <b class="mr-5">Location: </b>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    {{Data?.Location }}
+                </div>
+            </div>
+        </div>
+        <div class="appointment-description mb-3">
+            <div class="f-12 row">
+                <div class="col-md-4">
+                    <span class="appointment-description-span mr-2 ">
+                        <i class="fe fe-file mr-2"></i>
+                        <b class="mr-5">Notes: </b>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    {{Data?.Notes}}
+                </div>
+            </div>
+        </div>
+        
+        <nz-divider></nz-divider>
+        <div class="text-center" *ngIf="userRole === 'Parent'">
+            <div class="mb-3">
+                <a nz-button nzType="default" (click)="backToList()">Go to List</a>
+            </div>
+        </div>
+    </div>
+</ng-container>

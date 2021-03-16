@@ -16,7 +16,7 @@ export class AlertService {
     callback: any,
     text: string = "You won't be able to revert this!",
     type: string = 'warning',
-    confirmBtnText: string = 'Yes, delete it!',
+    confirmBtnText: string = 'Yes, Sure!',
   ) {
     Swal.fire({
       title: title,

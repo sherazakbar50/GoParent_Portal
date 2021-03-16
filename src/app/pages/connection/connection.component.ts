@@ -18,7 +18,7 @@ export class ConnectionComponent implements OnInit {
    constructor(private connService:ConnectionService,private fb:FormBuilder,private notifier:NzNotificationService) {
     this.form = this.fb.group({
       otherCoParentEmail:['',[Validators.required,Validators.maxLength(255),Validators.pattern(Regex.Email)]]
-    },{updateOn:"submit"});
+    },{updateOn:"blur"});
    }
    
   public get otherCoParentEmail() { return this.form.controls.otherCoParentEmail};

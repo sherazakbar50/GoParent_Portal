@@ -6,18 +6,18 @@
     <div *ngFor="let caseNote of listData">
         <div class="card">
             <div class="card-body">
-                <div _ngcontent-ioe-c293="" class="d-flex flex-wrap align-items-start">
-                    <div _ngcontent-ioe-c293="" class="kit__utils__avatar kit__utils__avatar--size64 mr-3">
+                <div class="d-flex flex-wrap align-items-start">
+                    <!-- <div _ngcontent-ioe-c293="" class="kit__utils__avatar kit__utils__avatar--size64 mr-3">
                         <img _ngcontent-ioe-c293=""
                             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOALqcMjby_cOSIr-3GFWRO_zY_j0qcB4zRA&usqp=CAU"
                             alt="Mary Stanform">
-                    </div>
-                    <div _ngcontent-ioe-c293="">
-                        <div class="row ml-4">
-                            <p class="text-uppercase text-dark font-size-18 font-weight-bold  ">
-                                CaseName </p>
-                            <div class="text-uppercase font-weight-bold font-size-18 ml-5">
-                                {{caseNote.ModifiedDate | date}}</div>
+                    </div> -->
+                    <div>
+                        <div class="ml-4">
+                            <!-- <p class="text-uppercase text-dark font-size-18 font-weight-bold  ">
+                                CaseName </p> -->
+                            <div class="text-uppercase font-weight-bold font-size-18 mb-3">
+                                {{caseNote.ModifiedDate | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A'}}</div>
                         </div>
                         <p class="text-gray-5 ml-4">
                             {{caseNote.Note}}

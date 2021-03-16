@@ -52,6 +52,8 @@ export class ViewCalendarComponent implements OnInit {
   requestData: any
   checkVisible: boolean
   checkData: any
+  singleRequestVisible = false
+  singleCheckVisible = false
 
   constructor(
     private _alert: AlertService,
@@ -69,39 +71,6 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this._request.getRequests()
-    // this._request.requestObs$().subscribe(r => {
-    //   // console.log('r:', r)
-    //   if (r) {
-    //     this.requestList = r
-    //     this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest != true)
-    //     this.requestList.forEach((e: RequestDTO) => {
-
-    //       if (e.Status !== CustodyRequestStatusEnum.Rejected) {
-    //         e.DateFrom = this.appDateFormatPipe.ToLocalDateTime(e.DateFrom)
-    //         e.DateTo = this.appDateFormatPipe.ToLocalDateTime(e.DateTo)
-    //         this.populateRequestLists(e.DateFrom, e.DateTo)
-    //         this.calendarFormattedData.push({
-    //           Id: e.Id,
-    //           UserId: e.UserId,
-    //           StartDate: this.appDateFormatPipe.ToLocalDateTime(e.DateFrom),
-    //           EndDate: this.appDateFormatPipe.ToLocalDateTime(e.DateTo),
-    //           Color: e.Status === CustodyRequestStatusEnum.Pending ? '#ffbb33' : '#00C851',
-    //           IsRequest: true,
-    //           Note: e.Notes,
-    //           ParentId: e.ParentId,
-    //           ChildId: e.ChildId,
-    //           FamilyId: e.FamilyId,
-    //           Status: e.Status,
-    //           FamilyName: e.FamilyName,
-    //           ParentName: e.ParentName,
-    //           ChildName: e.ChildName,
-    //         })
-    //         this.updateSmartCalendar()
-    //       }
-    //     })
-    //   }
-    // })
     this.todayDate.setHours(0, 0, 0, 0)
     this.subscribeToCalendarObserver()
     this._calendarService.LoadCalendarDataByMode(this.selectedDate, this.selectedMode, this.caseId)
@@ -110,8 +79,6 @@ export class ViewCalendarComponent implements OnInit {
   subscribeToCalendarObserver() {
     this._calendarService.calendarObserver$.subscribe(res => {
       if (res) {
-        // this.calendarFormattedData = this.calendarFormattedData.filter(x => x.IsRequest == true)
-        // console.log('this.calendarFormattedData:', this.calendarFormattedData)
         this.dateList = []
         this.dateWiseEvents = []
         this.dateWiseCustodies = []
@@ -149,6 +116,10 @@ export class ViewCalendarComponent implements OnInit {
         let _event = this.dateWiseEvents.find(item => this.IsExists(item, tdTtitle))
         if (_event) elm.classList.add('event-dot')
         else elm.classList.remove('event-dot')
+
+        // let _check = this.dateWiseCheckIns.find(item => this.IsExists(item, tdTtitle))
+        // if (_check) elm.classList.add('check-dot')
+        // else elm.classList.remove('check-dot')
 
 
         let _custody = this.dateWiseCustodies.find(item => this.IsExists(item.date, tdTtitle))
@@ -200,7 +171,7 @@ export class ViewCalendarComponent implements OnInit {
           this.dateWiseCustodies.push({ date: storeDate, color: color })
       } else 
       // Change Request
-      if (type == 3) {
+      if (type == 2) {
         if (!this.dateWiseRequests.some(x => x.getDate() == storeDate.getDate()))
         this.dateWiseRequests.push(storeDate)
       } else {
@@ -377,18 +348,37 @@ export class ViewCalendarComponent implements OnInit {
 
   closeRequestView() {
     this.requestVisible = false
-    this.requestData = null
+  }
+
+  backToRequestList(e) {
+    if(e)
+    {
+      this.requestVisible = true
+      this.singleRequestVisible = false
+    } 
 
   }
-  viewChangeRequest(data) {
-    this.requestVisible = true
+
+  viewSingleChangeRequest(data) {
+    this.singleRequestVisible = true
     this.requestData = data
   }
 
   closeCheckView() {
     this.checkVisible = false
     this.checkData = null
+  }
 
+  viewSingleCheck(data) {
+    this.singleCheckVisible = true
+    this.checkData = data
+  }
+
+  backToCheckList(e){
+    if(e) {
+      this.singleCheckVisible = false
+      this.checkVisible = true
+    }
   }
 
   viewCheckInOut(data) {

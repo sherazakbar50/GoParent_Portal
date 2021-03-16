@@ -45,7 +45,7 @@ export class RegisterComponent {
       //Children
       childsArray: fb.array([this.createChildsFormGroup()]),
 
-    }, {updateOn: 'submit'})
+    }, {updateOn: 'blur'})
 
     this.store.pipe(select(Reducers.getUser)).subscribe(state => {
       this.loading = state.loading

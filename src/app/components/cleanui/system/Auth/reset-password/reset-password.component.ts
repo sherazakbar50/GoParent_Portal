@@ -28,7 +28,7 @@ export class ResetPasswordComponent implements OnInit {
       confirmPassword:[,Validators.required]
     }, {
         validators: MustMatch('password', 'confirmPassword'),
-        updateOn:"submit"
+        updateOn:"blur"
       });
   }
   

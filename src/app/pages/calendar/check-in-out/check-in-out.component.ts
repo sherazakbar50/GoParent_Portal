@@ -2,9 +2,13 @@ import { Component, EventEmitter, Input, OnInit, Output, SimpleChanges } from '@
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { Subscription } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { CheckInOutDTO } from 'src/app/models/CheckInOutDTO'
 import { FamilyMemberDto } from 'src/app/models/Family/FamilyMemberDto'
+import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { UserSessionModel } from 'src/app/models/UserSessionModel'
+import { AlertService } from 'src/app/services/alert-service/alert-service'
+import { CalendarService } from 'src/app/services/calendar-services/calendar-service'
 import { CheckInOutService } from 'src/app/services/calendar-services/check-in-out.service'
 import { FamilyMemberService } from 'src/app/services/family_member/familymember.service'
 import { jwtAuthService } from 'src/app/services/jwt'
@@ -32,6 +36,8 @@ export class CheckInOutComponent implements OnInit {
     private _notify: NzNotificationService,
     private _auth: jwtAuthService,
     private _familyMember: FamilyMemberService,
+    private _calendarService: CalendarService,
+    private _alert: AlertService,
   ) {
     _auth.getUserModel().then(r => {
       this.currentUserData = r
@@ -44,21 +50,20 @@ export class CheckInOutComponent implements OnInit {
 
   ngOnChanges(change: SimpleChanges) {
     this.isAddUpdate = false
-    if (this.data) {
-    } else {
-      // this.form.reset()
-    }
+    // if (this.data) {
+    // } else {
+    //   // this.form.reset()
+    // }
   }
 
   async ngOnInit() {
     this._checkInOut.getList()
     this.subscription = this._checkInOut.getCheckListObserver$().subscribe((r: any) => {
-      // console.log('r:', r)
-      if (r) this.dataList = r
-    })
 
-    if (this.currentUserData) {
-    }
+      if (r) {
+        this.dataList = r
+      }
+    })
 
     this.form = new FormGroup({
       Id: new FormControl(0),
@@ -81,6 +86,7 @@ export class CheckInOutComponent implements OnInit {
     let res = await this._checkInOut.addUpdate(data)
     if (res) {
       this._checkInOut.getList()
+      this._calendarService.LoadCalendarDataByMode(new Date(), 'month', 0)
       this.isAddUpdate = false
       this._notify.success('', 'Record submitted successfully!')
       this.form.reset({ IsCheckIn: true })
@@ -94,10 +100,18 @@ export class CheckInOutComponent implements OnInit {
     }
   }
 
-  delete(id: number) {
-    if (id) {
-      this.isAddUpdate = true
-    }
+  async delete(id: number) {
+    this._alert.Delete('Are you sure you want to Delete this!', async cb => {
+      if (cb.isConfirmed) {
+        let r = await this._checkInOut.Delete(API_URL + API_ENDPOINTS.DeleteCheck, id).pipe(map(x => x.ResponseData)).toPromise<boolean>()
+        if (r) {
+          this._notify.success('', `Record deleted successfully!`)
+          this._checkInOut.getList()
+          this._calendarService.LoadCalendarDataByMode(new Date(), 'month', 0)
+        }
+      }
+    })
+
   }
 
   ngOnDestroy() {

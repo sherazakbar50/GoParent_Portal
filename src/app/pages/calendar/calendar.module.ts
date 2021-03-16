@@ -13,7 +13,9 @@ import { ScheduleCustodyComponent } from './schedule-custody/schedule-custody.co
 import { ViewCustodyComponent } from './view-custody/view-custody.component'
 import { WidgetsComponentsModule } from 'src/app/components/kit/widgets/widgets-components.module';
 import { ChangeRequestComponent } from './change-request/change-request.component';
-import { CheckInOutComponent } from './check-in-out/check-in-out.component'
+import { CheckInOutComponent } from './check-in-out/check-in-out.component';
+import { ViewChangeRequestComponent } from './view-change-request/view-change-request.component';
+import { ViewCheckInOutComponent } from './view-check-in-out/view-check-in-out.component'
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { CheckInOutComponent } from './check-in-out/check-in-out.component'
     ViewCustodyComponent,
     ChangeRequestComponent,
     CheckInOutComponent,
+    ViewChangeRequestComponent,
+    ViewCheckInOutComponent,
   ],
   imports: [
     CommonModule,

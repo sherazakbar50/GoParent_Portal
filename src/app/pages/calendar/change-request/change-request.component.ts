@@ -10,9 +10,12 @@ import {
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { NzModalService } from 'ng-zorro-antd/modal'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
+import { map } from 'rxjs/operators'
 import { FamilyMemberDto } from 'src/app/models/Family/FamilyMemberDto'
-import { SelectItem } from 'src/app/models/Global'
+import { API_ENDPOINTS, API_URL, SelectItem } from 'src/app/models/Global'
 import { CustodyRequestStatusEnum, RequestDTO } from 'src/app/models/RequestDTO'
+import { AlertService } from 'src/app/services/alert-service/alert-service'
+import { CalendarService } from 'src/app/services/calendar-services/calendar-service'
 import { ChangeRequestService } from 'src/app/services/calendar-services/change-request.service'
 import { ConnectionService } from 'src/app/services/connection/connection.service'
 import { FamilyMemberService } from 'src/app/services/family_member/familymember.service'
@@ -43,6 +46,8 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     private _request: ChangeRequestService,
     private _auth: jwtAuthService,
     private _familyMember: FamilyMemberService,
+    private _calendarService: CalendarService,
+    private _alert: AlertService,
   ) {
     _auth.getUserModel().then(r => {
       this.currentUserData = r
@@ -59,19 +64,20 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(change: SimpleChanges) {
-    if (this.Data) {
-      this.form.patchValue({
-        Id: this.Data.Id,
-        ParentId: this.Data.ParentId,
-        ChildId: this.Data.ChildId,
-        DateFrom: this.Data.StartDate,
-        DateTo: this.Data.EndDate,
-        Notes: this.Data.Note,
-      })
-      this.isViewMode = false
-    } else {
-      this.isViewMode = true
-    }
+    this.isViewMode = true
+    // if (this.Data) {
+    //   this.form.patchValue({
+    //     Id: this.Data.Id,
+    //     ParentId: this.Data.ParentId,
+    //     ChildId: this.Data.ChildId,
+    //     DateFrom: this.Data.StartDate,
+    //     DateTo: this.Data.EndDate,
+    //     Notes: this.Data.Note,
+    //   })
+    //   this.isViewMode = false
+    // } else {
+    //   this.isViewMode = true
+    // }
   }
 
   async ngOnInit() {
@@ -92,6 +98,10 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     this._forms.markAllFieldsAsDirty(this.form)
     if (this.form.invalid) return
     let data = this.form.value as RequestDTO
+    if(this.checkDates(data.DateFrom,data.DateTo)) {
+      this._notification.warning('Wrong Dates', 'Date To must be greater than Date From')
+      return
+    }
     if (!data.Id) {
       data.Id = 0
     }
@@ -99,9 +109,10 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     if (r) {
       this._notification.success('', 'Change Request submitted successfully!')
       // this.close.emit(true);
-      this.isViewMode = false
+      this.isViewMode = true
       this.form.reset()
       this._request.getRequests()
+      this._calendarService.LoadCalendarDataByMode(new Date(), 'month', 0)
     }
   }
 
@@ -124,25 +135,45 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     }
   }
 
-  async updateStatus(status: number) {
-    let _data = {
-      Id: this.Data.Id,
-      ParentId: this.Data.ParentId,
-      ChildId: this.Data.ChildId,
-      DateFrom: this.Data.StartDate,
-      DateTo: this.Data.EndDate,
-      Notes: this.Data.Note,
-      Status: status,
-    } as RequestDTO
+  async updateStatus(status: number, data: RequestDTO) {
+    this._alert.Delete(`Are you sure you want it to be ${this.statusEnum[status]}!`, async cb => {
+      if (cb.isConfirmed) {
+        data.Status = status
+        let res = await this._request.updateStatus(data)
+        if (res) {
+          this._notification.success('', `You have ${this.statusEnum[status]} the request!`)
+          // this.close.emit(true);
+          this.isViewMode = true
+          this._request.getRequests()
+          this._calendarService.LoadCalendarDataByMode(new Date(), 'month', 0)
+        }
+      }
+    })
 
-    let res = await this._request.updateStatus(_data)
-    if (res) {
-      this._notification.success('', `You have ${this.statusEnum[status]} the request!`)
-      // this.close.emit(true);
-      this.isViewMode = true
-      this._request.getRequests()
-    }
   }
 
-  async delete(id: number) {}
+  async delete(id: number) {
+    this._alert.Delete('Are you sure you want to Delete this!', async cb => {
+      if (cb.isConfirmed) {
+        let r = await this._request.Delete(API_URL + API_ENDPOINTS.DeleteRequest, id).pipe(map(x => x.ResponseData)).toPromise<boolean>()
+        if (r) {
+          this._notification.success('', `Request deleted successfully!`)
+          this.isViewMode = true
+          this._request.getRequests()
+          this._calendarService.LoadCalendarDataByMode(new Date(), 'month', 0)
+        }
+      }
+    })
+  }
+
+  checkDates(DateFrom: any, DateTo: any): boolean {
+    let df = new Date (DateFrom)
+    let dt = new Date (DateTo)
+    if(df.getDate() == dt.getDate()) return false
+    else if(df.getDate() > dt.getDate()) return true 
+    else return false;
+  }
 }
+
+
+

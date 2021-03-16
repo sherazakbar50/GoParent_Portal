@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     this.form = fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
-    }, { updateOn: 'submit' })
+    }, { updateOn: 'blur' })
   }
   ngOnInit(): void {
     this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/'

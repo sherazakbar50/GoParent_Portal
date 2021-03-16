@@ -8,4 +8,5 @@ export interface CheckInOutDTO {
   Location: string
   FamilyId: number | null
   CreatedBy: string
+  CreatedByName: string
 }

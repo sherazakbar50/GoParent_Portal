@@ -36,7 +36,7 @@ export class LawyersComponent implements OnInit {
           ),
         ]),
       },
-      { updateOn: 'submit' },
+      { updateOn: 'blur' },
     )
     // Get Lawyers
     this._lawyerService.getLawyersList()
