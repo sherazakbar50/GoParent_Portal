@@ -20,6 +20,13 @@ export const getMenuData: any[] = [
     roles: [ApplicationRolesEnum[3]],
   },
   {
+    title: 'View Case',
+    key: 'view-cases',
+    icon: 'fe fe-book',
+    url: '/cases/cases-tab',
+    hidden: true,
+  },
+  {
     title: 'Calendar',
     key: 'calendar',
     icon: 'fe fe-calendar',
@@ -39,6 +46,12 @@ export const getMenuData: any[] = [
         key: 'viewChildInformation',
         url: '/childs/list',
       },
+      {
+        title: 'Child Profile',
+        key: 'childprofile',
+        url: '/childs/childprofile',
+        hidden: true
+      }
     ],
   },
   {
@@ -68,6 +81,13 @@ export const getMenuData: any[] = [
     icon: 'fe fe-folder',
     url: '/documents',
     roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4]],
+  },
+  {
+    title: 'View Documents',
+    key: 'view-documents',
+    icon: 'fe fe-folder',
+    url: '/documents/view-documents',
+    hidden: true,
   },
   {
     title: 'Connection',

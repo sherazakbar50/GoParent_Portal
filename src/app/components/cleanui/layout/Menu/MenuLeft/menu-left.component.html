@@ -40,7 +40,7 @@
                 </span>
               </li>
               <!-- main item -->
-              <li nz-menu-item *ngIf="!item.children && item.url" routerLink={{item.url}} [nzSelected]="item.selected"
+              <li nz-menu-item *ngIf="!item.children && item.url && !item.hidden" routerLink={{item.url}} [nzSelected]="item.selected"
                 [nzDisabled]="item.disabled" nz-tooltip nzTooltipPlacement="right"
                 [nzTooltipTitle]="isMenuCollapsed && level === 0 ? tooltipTpl : ''">
                 <span [ngStyle]="{'padding-left.px': isMenuCollapsed ? '0' : level * 15}">

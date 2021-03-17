@@ -31,7 +31,8 @@ export class BreadcrumbsComponent implements OnInit {
   }
 
   generateBreadcrumbs(event: any) {
-    this.breadcrumbs = this.getPath(this.menuData, event).reverse()
+    let e = event.includes("?") ? event.split("?")[0] : event
+    this.breadcrumbs = this.getPath(this.menuData, e).reverse()
   }
 
   getPath(data: any[], url: string, parents = []) {
