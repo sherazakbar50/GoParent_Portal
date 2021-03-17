@@ -69,7 +69,7 @@ export class ProfileComponent implements OnInit {
       lastName:[this.userData.LastName,[Validators.required]],
       email: [this.userData.Email],
       relationship:[this.userData.Relationship],
-     },{updateOn:"blur"});    
+     },{updateOn:"change"});    
      this.email.disable();
     }
 

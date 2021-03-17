@@ -48,7 +48,7 @@ export class AddTimeComponent implements OnInit {
         Task: [null, { validators: [Validators.required] }],
         Description: [null, { validators: [Validators.required] }],
       },
-      { updateOn: 'blur' },
+      { updateOn: 'change' },
     )
   }
 

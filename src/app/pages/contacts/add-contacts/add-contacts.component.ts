@@ -30,7 +30,7 @@ export class AddContactsComponent implements OnInit {
         Name: [''],
         Email: ['', { validators: [Validators.required, Validators.pattern(Regex.Email)] }],
       },
-      { updateOn: 'blur' },
+      { updateOn: 'change' },
     )
   }
 

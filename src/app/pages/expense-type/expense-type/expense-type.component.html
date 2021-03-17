@@ -18,10 +18,10 @@
                         <td>{{ i+1 }}</td>
                         <td>{{ data.Name }}</td>
                         <td>
-                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Profile"
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
                                 (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
                             <nz-divider nzType="vertical"></nz-divider>
-                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Child"
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
                                 (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill"
                                 class="text-danger"></i>
                         </td>

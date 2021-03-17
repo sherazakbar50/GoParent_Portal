@@ -16,7 +16,7 @@ isSubmitted = false
 constructor(private fb:FormBuilder,private authService: jwtAuthService,private notifier:NzNotificationService,private router: Router){
   this.form = fb.group({
      email:['',[Validators.required,Validators.pattern(Regex.Email)]]
-  },{updateOn:'blur'}) 
+  },{updateOn:'change'}) 
 }
 
 public get email(){

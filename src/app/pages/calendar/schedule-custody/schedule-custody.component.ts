@@ -73,7 +73,7 @@ export class ScheduleCustodyComponent implements OnInit {
       Children: ['', { updateOn: 'change', validators: [Validators.required] }],
       Notes: [],
       CustodySequences: this.fb.array([this.createCustodySequencesElm()])
-    }, { updateOn: 'blur' });
+    }, { updateOn: 'change' });
   }
 
   subscribeModalCloseEvent() {

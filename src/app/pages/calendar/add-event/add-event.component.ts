@@ -55,7 +55,7 @@ export class AddEventComponent implements OnInit {
         IsAllDay: [false],
         EventDateRange: [, Validators.required],
       },
-      { updateOn: 'blur' },
+      { updateOn: 'change' },
     )
   }
 

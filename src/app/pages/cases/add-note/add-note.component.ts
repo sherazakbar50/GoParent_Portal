@@ -33,7 +33,7 @@ export class AddNoteComponent implements OnInit {
       {
         Note: new FormControl('', [Validators.required]),
       },
-      { updateOn: 'blur' },
+      { updateOn: 'change' },
     )
   }
   get Note() {
