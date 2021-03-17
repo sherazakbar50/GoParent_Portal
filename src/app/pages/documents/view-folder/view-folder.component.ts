@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { BehaviorSubject } from 'rxjs'
 import { FolderElementdto } from 'src/app/models/folder-elementdto'
@@ -24,6 +24,7 @@ export class ViewFolderComponent implements OnInit {
     public folderService: FamilyFoldersService,
     private _router: Router,
     private notification: NzNotificationService,
+    private _route: ActivatedRoute,
     private _auth: jwtAuthService,
     private _alert: AlertService,
   ) {
@@ -44,6 +45,9 @@ export class ViewFolderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this._route.queryParams.subscribe(params => {
+      this.caseId = +params['caseId'] || 0
+    })
     this.loadFolder()
   }
 
@@ -68,7 +72,9 @@ export class ViewFolderComponent implements OnInit {
 
   NavigateToDocuments(folderId: number) {
     if (folderId) {
-      this._router.navigate(['/documents/view-documents'], { queryParams: { folderId: folderId } })
+      this._router.navigate(['/documents/view-documents'], {
+        queryParams: { folderId: folderId, caseId: this.caseId },
+      })
     }
   }
 

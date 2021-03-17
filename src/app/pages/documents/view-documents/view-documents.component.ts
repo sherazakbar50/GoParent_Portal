@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { takeUntil } from 'rxjs/operators'
 import { FamilyDocumentsDto } from 'src/app/models/document-dto'
@@ -18,12 +18,14 @@ export class ViewDocumentsComponent implements OnInit {
   listDocumentsData: FamilyDocumentsDto[] = []
   createdBy: string = ''
   userRole: string = ''
+  caseId: number = 0
   constructor(
     private _route: ActivatedRoute,
     private documentsService: FamilyDocumentsService,
     private notification: NzNotificationService,
     private _auth: jwtAuthService,
     private _alert: AlertService,
+    private _router: Router,
   ) {
     this._auth.getUserModel().then(r => {
       this.userRole = r?.UserRole
@@ -33,6 +35,7 @@ export class ViewDocumentsComponent implements OnInit {
   ngOnInit(): void {
     this._route.queryParams.subscribe(params => {
       this.folderId = +params['folderId'] || 0
+      this.caseId = +params['caseId'] || 0
     })
 
     this.documentsService.documentsObserver$.subscribe(res => {
@@ -41,6 +44,10 @@ export class ViewDocumentsComponent implements OnInit {
       }
     })
     this.documentsService.getFamilyDocuments(this.folderId)
+  }
+
+  navigateToFolder() {
+    this._router.navigate(['/documents'], { queryParams: { caseId: this.caseId } })
   }
 
   async DeleteDocument(id: any) {
