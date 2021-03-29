@@ -14,7 +14,7 @@
           (click)="requestVisible = true">Change Request</a>
 
         <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary" (click)="checkVisible = true">Check
-          In/Out</a>
+          In</a>
       </div>
     </div>
 
@@ -52,7 +52,7 @@
             </div>
             <div class="row">
               <h6 style="background-color: #ff7979; border-radius: 4px; color: white;" class="py-2 px-2 mr-2 mt-1"></h6>
-              Check In / Check Out
+              Check In
             </div>
           </div>
           <!-- <nz-date-picker nzBorderless nzOpen style="visibility: hidden;" [(ngModel)]="selectedDate"></nz-date-picker> -->
@@ -191,16 +191,16 @@
 </nz-modal>
 
 
-<!-- Check In Out -->
-<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="Check In/Out" [nzVisible]="checkVisible"
+<!-- Check In -->
+<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="Check In" [nzVisible]="checkVisible"
   (nzOnCancel)="closeCheckView()" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-check-in-out [data]="checkData" (close)="closeCheckView()"></app-check-in-out>
   </ng-container>
 </nz-modal>
 
-<!-- Single Check In Out -->
-<nz-modal [nzFooter]="null" nzWidth="600px" nzTitle="Check In/Out Detail" [nzVisible]="singleCheckVisible"
+<!-- Single Check In -->
+<nz-modal [nzFooter]="null" nzWidth="600px" nzTitle="Check In Detail" [nzVisible]="singleCheckVisible"
   (nzOnCancel)="singleCheckVisible = false" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-view-check-in-out [Data]="checkData" (onBack)="backToCheckList($event)"></app-view-check-in-out>

@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 text-right mb-2">
+    <div class="col-12 text-right mb-2" [hidden]="currentUserData?.UserRole !== 'Parent'">
         <a nz-button nzType="default" (click)="isViewMode = !isViewMode; form.reset()">
             <span [hidden]="!isViewMode">Add New</span>
             <span [hidden]="isViewMode">Go to List</span>
@@ -63,13 +63,13 @@
                     <th>Till</th>
                     <th>Status</th>
                     <th width="200px">Notes</th>
-                    <th style="width: 80px;">Actions</th>
+                    <th width="80px">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let data of basicTable.data; let i=index">
                     <td>{{ i+1 }}</td>
-                    <td>{{ data.ParentName }}</td>
+                    <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.ParentName">{{ data.ParentName }}</td>
                     <td>{{ data.ChildName }}</td>
                     <td>{{ data.DateFrom | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
                     <td>{{ data.DateTo | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
@@ -86,22 +86,25 @@
                     </td>
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
 
-                    <td style="width: 80px;">
-                        <ng-container *ngIf="data && data.UserId != currentUserId; else sameUserTpl">
-                            <ng-container *ngIf="data.Status === 0; else noAction">
-                                <i nz-icon nzType="check-circle" nz-tooltip nzTooltipTitle="Approve"
-                                    (click)="$event.stopPropagation(updateStatus(2, data))" nzTheme="outline"
-                                    class="text-success"></i>
-                                <nz-divider nzType="vertical"></nz-divider>
-                                <i nz-icon nzType="stop" nz-tooltip nzTooltipTitle="Reject"
-                                    (click)="$event.stopPropagation(updateStatus(1, data))" nzTheme="outline"
-                                    class="text-danger"></i>
+                    <td width="80px">
+                        <ng-container *ngIf="currentUserData?.UserRole === 'Parent'">
+                            <ng-container *ngIf="data && data.UserId != currentUserId; else sameUserTpl">
+                                <ng-container *ngIf="data.Status === 0; else noAction">
+                                    <i nz-icon nzType="check-circle" nz-tooltip nzTooltipTitle="Approve"
+                                        (click)="$event.stopPropagation(updateStatus(2, data))" nzTheme="outline"
+                                        class="text-success"></i>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <i nz-icon nzType="stop" nz-tooltip nzTooltipTitle="Reject"
+                                        (click)="$event.stopPropagation(updateStatus(1, data))" nzTheme="outline"
+                                        class="text-danger"></i>
+                                </ng-container>
+                                <ng-template #noAction>
+                                    <span nz-tooltip
+                                        nzTooltipTitle="You have already {{statusEnum[data.Status].toLowerCase()}} this request">
+                                        ...
+                                    </span>
+                                </ng-template>
                             </ng-container>
-                            <ng-template #noAction>
-                                <span nz-tooltip nzTooltipTitle="You have already {{statusEnum[data.Status].toLowerCase()}} this request">
-                                    ...
-                                </span>
-                            </ng-template>
                         </ng-container>
 
                         <ng-template #sameUserTpl>

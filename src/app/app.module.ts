@@ -15,6 +15,7 @@ import { NgProgressHttpModule } from '@ngx-progressbar/http'
 import { NgProgressRouterModule } from '@ngx-progressbar/router'
 import { TranslateModule } from '@ngx-translate/core'
 import { en_US as localeZorro, NZ_I18N } from 'ng-zorro-antd/i18n'
+import { QuillModule } from 'ngx-quill'
 import { setAppInjector } from 'src/app/services/app-injector'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
@@ -38,7 +39,7 @@ registerLocaleData(localeEn, 'en')
     FormsModule,
     AppRoutingModule,
     CommonModule,
-
+    QuillModule.forRoot(),
     // translate
     TranslateModule.forRoot(),
 

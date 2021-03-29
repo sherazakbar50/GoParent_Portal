@@ -1,23 +1,21 @@
 import {
   Component,
+  EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
-  EventEmitter,
 } from '@angular/core'
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { NzModalService } from 'ng-zorro-antd/modal'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { map } from 'rxjs/operators'
 import { FamilyMemberDto } from 'src/app/models/Family/FamilyMemberDto'
-import { API_ENDPOINTS, API_URL, SelectItem } from 'src/app/models/Global'
+import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { CustodyRequestStatusEnum, RequestDTO } from 'src/app/models/RequestDTO'
 import { AlertService } from 'src/app/services/alert-service/alert-service'
 import { CalendarService } from 'src/app/services/calendar-services/calendar-service'
 import { ChangeRequestService } from 'src/app/services/calendar-services/change-request.service'
-import { ConnectionService } from 'src/app/services/connection/connection.service'
 import { FamilyMemberService } from 'src/app/services/family_member/familymember.service'
 import { jwtAuthService } from 'src/app/services/jwt'
 import { FormsService } from 'src/app/services/shared/forms.service'
@@ -29,6 +27,7 @@ import { FormsService } from 'src/app/services/shared/forms.service'
 })
 export class ChangeRequestComponent implements OnInit, OnChanges {
   @Input() Data: any
+  @Input() caseId?: number
   @Output() close = new EventEmitter<boolean>()
   isViewMode = false
   isSameUser = true
@@ -65,40 +64,31 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
 
   ngOnChanges(change: SimpleChanges) {
     this.isViewMode = true
-    // if (this.Data) {
-    //   this.form.patchValue({
-    //     Id: this.Data.Id,
-    //     ParentId: this.Data.ParentId,
-    //     ChildId: this.Data.ChildId,
-    //     DateFrom: this.Data.StartDate,
-    //     DateTo: this.Data.EndDate,
-    //     Notes: this.Data.Note,
-    //   })
-    //   this.isViewMode = false
-    // } else {
-    //   this.isViewMode = true
-    // }
   }
 
   async ngOnInit() {
-    this._request.getRequests()
+    if (this.caseId && this.caseId > 0) {
+      this._request.getRequests(this.caseId)
+    } else {
+      this._request.getRequests()
+      this.parentList = await this._familyMember.GetCoParentsInfo()
+
+      if (this.currentUserData)
+        this.childList = await this._familyMember.GetFamilyChildsList(this.currentUserData.FamilyId)
+    }
+
     this._request.requestObs$().subscribe(r => {
       if (r) {
         this.dataList = r
       }
     })
-
-    this.parentList = await this._familyMember.GetCoParentsInfo()
-
-    if (this.currentUserData)
-      this.childList = await this._familyMember.GetFamilyChildsList(this.currentUserData.FamilyId)
   }
 
   async submitForm() {
     this._forms.markAllFieldsAsDirty(this.form)
     if (this.form.invalid) return
     let data = this.form.value as RequestDTO
-    if(this.checkDates(data.DateFrom,data.DateTo)) {
+    if (this.checkDates(data.DateFrom, data.DateTo)) {
       this._notification.warning('Wrong Dates', 'Date To must be greater than Date From')
       return
     }
@@ -149,13 +139,15 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
         }
       }
     })
-
   }
 
   async delete(id: number) {
     this._alert.Delete('Are you sure you want to Delete this!', async cb => {
       if (cb.isConfirmed) {
-        let r = await this._request.Delete(API_URL + API_ENDPOINTS.DeleteRequest, id).pipe(map(x => x.ResponseData)).toPromise<boolean>()
+        let r = await this._request
+          .Delete(API_URL + API_ENDPOINTS.DeleteRequest, id)
+          .pipe(map(x => x.ResponseData))
+          .toPromise<boolean>()
         if (r) {
           this._notification.success('', `Request deleted successfully!`)
           this.isViewMode = true
@@ -167,13 +159,10 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
   }
 
   checkDates(DateFrom: any, DateTo: any): boolean {
-    let df = new Date (DateFrom)
-    let dt = new Date (DateTo)
-    if(df.getDate() == dt.getDate()) return false
-    else if(df.getDate() > dt.getDate()) return true 
-    else return false;
+    let df = new Date(DateFrom)
+    let dt = new Date(DateTo)
+    if (df.getDate() == dt.getDate()) return false
+    else if (df.getDate() > dt.getDate()) return true
+    else return false
   }
 }
-
-
-

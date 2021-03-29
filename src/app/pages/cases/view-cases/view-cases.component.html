@@ -5,7 +5,7 @@
                 <div class="row">
                     <ng-container *ngIf="listData && listData.length > 0 ; else noData">
                         <div class="card card2 mr-4" *ngFor="let case of listData">
-                            <div class="card-body" (click)="NavigateToCasesTab(case.CaseId)">
+                            <div class="card-body case-card" (click)="NavigateToCasesTab(case.CaseId)">
                                 <!-- <div class="order">
                                     <p nz-button class="pull-right " nz-dropdown [nzDropdownMenu]="menu">
                                         <i class="	fa fa-ellipsis-h" style="font-size:25px"></i>

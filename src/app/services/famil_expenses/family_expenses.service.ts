@@ -42,8 +42,8 @@ export class FamilyExpensesService extends ApiHandler {
 
   // End Expense Type
 
-  GetFamilyExpenses() {
-    return this.GetAll(API_URL + API_ENDPOINTS.GetFamilyExpenses)
+  GetFamilyExpenses(caseId) {
+    return this.Get(caseId, API_URL + API_ENDPOINTS.GetFamilyExpenses)
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }

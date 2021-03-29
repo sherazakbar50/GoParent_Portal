@@ -3,37 +3,47 @@
     <nz-tabset [nzSelectedIndex]="0" [nzSize]="'large'">
       <nz-tab nzTitle="Notes">
         <ng-template nz-tab>
-          <app-note-tab [caseId]="this.caseId"></app-note-tab>
+          <app-note-tab [caseId]="caseId"></app-note-tab>
         </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Time">
         <ng-template nz-tab>
-          <app-time-tab [caseId]="this.caseId"></app-time-tab>
+          <app-time-tab [caseId]="caseId"></app-time-tab>
         </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Documents">
         <ng-template nz-tab>
-          <app-view-folder [caseId]="this.caseId"></app-view-folder>
+          <app-view-folder [caseId]="caseId"></app-view-folder>
         </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Messages">
         <ng-template nz-tab>
-          <app-family-chat [caseId]="this.caseId"></app-family-chat>
+          <app-family-chat [caseId]="caseId"></app-family-chat>
         </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Journal">
         <ng-template nz-tab>
-          <app-family-journal-chat [caseId]="this.caseId"></app-family-journal-chat>
+          <app-family-journal-chat [caseId]="caseId"></app-family-journal-chat>
         </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Calendar">
         <ng-template nz-tab>
-          <app-view-calendar [caseId]="this.caseId"></app-view-calendar>
+          <app-view-calendar [caseId]="caseId"></app-view-calendar>
         </ng-template>
       </nz-tab>
-      <!-- <nz-tab nzTitle="Requests">
-        Requests Tab
-      </nz-tab> -->
+      <nz-tab nzTitle="Requests">
+        <ng-template nz-tab>
+          <h5 class="mb-4">
+            <strong>Change Requests</strong>
+          </h5>
+          <app-change-request [caseId]="caseId"></app-change-request>
+        </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="Expenses">
+        <ng-template nz-tab>
+          <app-expenses-list [caseId]="caseId"></app-expenses-list>
+        </ng-template>
+      </nz-tab>
     </nz-tabset>
   </div>
 </div>

@@ -100,6 +100,20 @@ const routes: Routes = [
             x => x.CustodyTemplatesModule,
           ),
       },
+      {
+        path: 'positive-parenting',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/positive-parenting/positive-parenting.module').then(
+            x => x.PositiveParentingModule,
+          ),
+      },
+      {
+        path: 'agreement',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/agreement/agreement.module').then(x => x.AgreementModule),
+      },
     ],
   },
   {

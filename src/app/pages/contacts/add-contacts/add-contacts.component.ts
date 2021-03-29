@@ -27,8 +27,12 @@ export class AddContactsComponent implements OnInit {
   ) {
     this.form = fb.group(
       {
-        Name: [''],
-        Email: ['', { validators: [Validators.required, Validators.pattern(Regex.Email)] }],
+        Name: ['', Validators.required],
+        Surname: [''],
+        Status: [''],
+        Email: ['', { validators: [Validators.pattern(Regex.Email)] }],
+        PhoneNo: [''],
+        Address: [''],
       },
       { updateOn: 'change' },
     )
@@ -50,6 +54,9 @@ export class AddContactsComponent implements OnInit {
   //Parent Fields
   get Email() {
     return this.form.controls.Email
+  }
+  get Phone() {
+    return this.form.controls.PhoneNo
   }
   get Name() {
     return this.form.controls.Name

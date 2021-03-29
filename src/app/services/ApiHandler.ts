@@ -61,4 +61,9 @@ export class ApiHandler implements IApiBaseActions {
     url = `${url}?id=${id}`
     return this.myHttpClient.put<BaseResponse>(url, data).pipe(tap(x => this.HandleResponse(x)))
   }
+
+  Feedback(url, id, feedback) {
+    url = url + `?id=${id}&feedback=${feedback}`
+    return this.myHttpClient.get<BaseResponse>(url).pipe(tap(x => this.HandleResponse(x)))
+  }
 }

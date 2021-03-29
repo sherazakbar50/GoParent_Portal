@@ -50,8 +50,8 @@ export const getMenuData: any[] = [
         title: 'Child Profile',
         key: 'childprofile',
         url: '/childs/childprofile',
-        hidden: true
-      }
+        hidden: true,
+      },
     ],
   },
   {
@@ -125,16 +125,19 @@ export const getMenuData: any[] = [
     url: '/custody-template',
     roles: [ApplicationRolesEnum[1]],
   },
-  // {
-  //   title: 'Setting',
-  //   key: 'userSetting',
-  //   icon: 'fe fe-home',
-  //   children: [
-  //     {
-  //       title: 'Connection',
-  //       key: 'userSettingConnection',
-  //       url: '/setting/connection',
-  //     },
-  //   ],
-  // },
+
+  {
+    title: 'Agreement',
+    key: 'parentAgreement',
+    icon: 'fe fe-feather',
+    url: '/agreement',
+    roles: [ApplicationRolesEnum[2]],
+  },
+  {
+    title: 'Positive Parenting',
+    key: 'positiveParenting',
+    icon: 'fe fe-user-check',
+    url: '/positive-parenting',
+    roles: [ApplicationRolesEnum[1], ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
+  },
 ]

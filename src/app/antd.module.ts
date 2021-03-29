@@ -25,7 +25,7 @@ import { NzInputModule } from 'ng-zorro-antd/input'
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number'
 // import { NzMentionModule } from 'ng-zorro-antd/mention'
 import { NzRadioModule } from 'ng-zorro-antd/radio'
-// import { NzRateModule } from 'ng-zorro-antd/rate'
+import { NzRateModule } from 'ng-zorro-antd/rate'
 import { NzSelectModule } from 'ng-zorro-antd/select'
 // import { NzSliderModule } from 'ng-zorro-antd/slider'
 // import { NzSwitchModule } from 'ng-zorro-antd/switch'
@@ -91,7 +91,7 @@ const MODULES = [
   NzInputNumberModule,
   // NzMentionModule,
   NzRadioModule,
-  // NzRateModule,
+  NzRateModule,
   NzSelectModule,
   // NzSliderModule,
   // NzSwitchModule,

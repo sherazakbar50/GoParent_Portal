@@ -1,0 +1,15 @@
+.card:hover {
+  background-color: #f8f6f5;
+  cursor: pointer;
+  .card-body {
+    overflow-y: auto;
+  }
+}
+.card-body {
+  max-height: 320px;
+  overflow-y: hidden;
+}
+
+::ng-deep p > img {
+  width: 100%;
+}

@@ -28,7 +28,11 @@
               <td>
                 {{ data.Name }}
               </td>
+              <td>{{ data.Surname }}</td>
+              <td>{{ data.Status }}</td>
               <td>{{ data.Email }}</td>
+              <td>{{ data.PhoneNo }}</td>
+              <td>{{ data.Address }}</td>
               <td>
                 <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Contact"
                   (click)="$event.stopPropagation(EditContacts(data))" nzTheme="fill" class="text-success"></i>

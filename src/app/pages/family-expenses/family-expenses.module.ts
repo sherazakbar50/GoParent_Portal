@@ -17,5 +17,6 @@ import { ViewExpenseComponent } from './view-expense/view-expense.component'
     ReactiveFormsModule,
     FormsModule,
   ],
+  exports: [ExpensesListComponent],
 })
 export class FamilyExpensesModule {}

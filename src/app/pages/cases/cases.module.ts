@@ -15,6 +15,8 @@ import { ViewFolderComponent } from '../documents/view-folder/view-folder.compon
 import { ViewDocumentsComponent } from '../documents/view-documents/view-documents.component'
 import { JournalModule } from '../journal/journal.module'
 import { CalendarModule } from '../calendar/calendar.module'
+import { FamilyExpensesModule } from '../family-expenses/family-expenses.module'
+
 @NgModule({
   declarations: [
     ViewCasesComponent,
@@ -32,6 +34,7 @@ import { CalendarModule } from '../calendar/calendar.module'
     DocumentsModule,
     JournalModule,
     CalendarModule,
+    FamilyExpensesModule,
   ],
 })
 export class CasesModule {}

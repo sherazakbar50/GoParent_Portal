@@ -1,0 +1,68 @@
+<div class="row mb-2">
+    <div class="text-right col-md-12" *ngIf="userRole === 'Admin'">
+        <button nz-button nzType="primary" (click)="isVisible = true; Content = null; Id = 0">
+            Add New
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12" *ngIf="loading && dataList && dataList.length == 0">
+        <nz-skeleton [nzActive]="true"></nz-skeleton>
+    </div>
+    <div class="col-md-12" *ngIf="!loading && dataList && dataList.length == 0">
+        <nz-result nzStatus="404" nzTitle="No Data Found!">
+        </nz-result>
+    </div>
+    <div class="col-md-4" *ngFor="let item of dataList">
+        <div class="card" style="max-height: 350px; min-height: 350px; height: 350px;">
+
+            <div class="card-body" (click)="viewVisible = true; Content = item.Content" nz-tooltip
+                nzTooltipTitle="Click to View" nzTooltipPlacement="right">
+                <div [innerHTML]="item.Content"></div>
+            </div>
+
+            <div class="card-footer text-center" [hidden]="userRole !== 'Admin'">
+                <button nz-button nzType="primary" (click)="edit(item)" class="mr-3">
+                    Edit
+                </button>
+                <button nz-button nzType="default" nzDanger (click)="delete(item.Id)">
+                    Delete
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add -->
+<div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="Positive Parenting Post"
+        (nzOnCancel)="isVisible = false" nzMaskClosable="false" [nzWidth]="700">
+        <ng-container *nzModalContent>
+            <form nz-form class="col-md-12">
+                <nz-form-item>
+                    <nz-form-control>
+                        <quill-editor name="Content" [(ngModel)]="Content"></quill-editor>
+                        <div *ngIf="showError" class="text-danger">
+                            Content is required
+                        </div>
+                    </nz-form-control>
+                </nz-form-item>
+
+                <div class="text-center w-100 my-3">
+                    <button nz-button nzType="primary" (click)="submitForm()">Submit</button>
+                </div>
+            </form>
+        </ng-container>
+    </nz-modal>
+</div>
+
+<!-- View -->
+<div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="viewVisible" nzTitle="Positive Parenting"
+        (nzOnCancel)="viewVisible = false" nzMaskClosable="false" [nzWidth]="700">
+        <ng-container *nzModalContent>
+            <div [innerHTML]="Content"></div>
+        </ng-container>
+    </nz-modal>
+</div>

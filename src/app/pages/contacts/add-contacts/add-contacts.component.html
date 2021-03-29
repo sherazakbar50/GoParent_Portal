@@ -1,28 +1,55 @@
 <div class="row">
-    <div class="col-xl-12">
-        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="handleSubmit()" role="form">
-          <nz-form-item>
-                <nz-form-control>
-                  <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Full Name" />
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-control [nzErrorTip]="EmailTpl">
-                  <input type="email" nz-input nzSize="large" formControlName="Email" placeholder="Email Address" />
-                  <ng-template #EmailTpl>
-                    <ng-container *ngIf="Email.hasError('required')">Email is required!</ng-container>
-                    <ng-container *ngIf="Email.hasError('pattern') && !Email.hasError('required')">Please enter valid email address e.g abc@xyz.com</ng-container>
-                  </ng-template>
+  <div class="col-xl-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="handleSubmit()" role="form">
+      <nz-form-item class="mt-2">
+        <nz-form-control nzErrorTip="Name is requied">
+          <input type="text" nz-input formControlName="Name" placeholder="Name" />
+        </nz-form-control>
+      </nz-form-item>
+    
+      <nz-form-item>
+        <nz-form-control>
+          <input type="text" nz-input formControlName="Surname" placeholder="Surname" />
+        </nz-form-control>
+      </nz-form-item>
+     
+      <nz-form-item>
+        <nz-form-control>
+          <input type="text" nz-input formControlName="Status" placeholder="Status e.g. Doctor, Teacher..." />
+        </nz-form-control>
+      </nz-form-item>
 
-                </nz-form-control>
-              </nz-form-item>
-              <nz-form-item>
-                <nz-form-control>
-                  <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
-                    <strong> Save</strong>
-                  </button>
-                </nz-form-control>
-              </nz-form-item>
-        </form>
-    </div>
+      <nz-form-item>
+        <nz-form-control [nzErrorTip]="EmailTpl">
+          <input type="email" nz-input formControlName="Email" placeholder="Email Address" />
+          <ng-template #EmailTpl>
+            <ng-container *ngIf="Email.hasError('required')">Email is required!</ng-container>
+            <ng-container *ngIf="Email.hasError('pattern') && !Email.hasError('required')">Please enter valid email
+              address e.g abc@xyz.com</ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <input type="email" nz-input formControlName="PhoneNo" placeholder="Phone Number" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <textarea type="text" nz-input formControlName="Address" placeholder="Address" ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" class="text-center w-100">
+            <strong>Save</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
 </div>

@@ -8,15 +8,6 @@
 </div>
 <ng-container *ngIf="isAddUpdate; else viewTpl">
     <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
-
-        <nz-form-item>
-            <nz-form-control>
-                <nz-radio-group formControlName="IsCheckIn">
-                    <label nz-radio [nzValue]="true" class="mr-5">Check In</label>
-                    <label nz-radio [nzValue]="false">Check Out</label>
-                </nz-radio-group>
-            </nz-form-control>
-        </nz-form-item>
         <nz-form-item>
             <nz-form-control nzHasFeedback nzErrorTip="Please select a Child">
                 <nz-select formControlName="ChildId" nzPlaceHolder="Select Child">
@@ -28,7 +19,7 @@
         <nz-form-item>
             <nz-form-control nzHasFeedback nzErrorTip="Please enter Date & Time">
                 <nz-date-picker formControlName="DateTime" nzPlaceHolder="Date Time" class="w-100"
-                    nzFormat="yyyy-MM-dd HH:mm:ss" [nzShowTime]="true"></nz-date-picker>
+                    nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm a',nzUse12Hours:true, nzMinuteStep:'5' }"></nz-date-picker>
             </nz-form-control>
         </nz-form-item>
 
@@ -60,9 +51,9 @@
                 <tr>
                     <th style="width: 50px;">#</th>
                     <th>Child</th>
-                    <th>Created By</th>
+                    <th>Check in by</th>
                     <th style="width: 180px;">Date Time</th>
-                    <th style="width: 120px;">Check In/Out</th>
+                    <!-- <th style="width: 120px;">Check In</th> -->
                     <th>Location</th>
                     <th>Notes</th>
                     <th style="width: 100px;">Actions</th>
@@ -74,15 +65,14 @@
                     <td>{{ data.ChildName }}</td>
                     <td>{{ data.CreatedByName }}</td>
                     <td>{{ data.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A' }}</td>
-                    <td>
+                    <!-- <td>
                         <span class="status in" *ngIf="data.IsCheckIn">
                             Check In
                         </span>
                         <span class="status out" *ngIf="!data.IsCheckIn">
                             Check Out
                         </span>
-                        <!-- {{ data.IsCheckIn ? 'Check In' : 'Check Out' }} -->
-                    </td>
+                    </td> -->
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Location">{{ data.Location }}</td>
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
 

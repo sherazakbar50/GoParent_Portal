@@ -1,18 +1,26 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, Input, OnInit } from '@angular/core'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { FamilyExpensesService } from 'src/app/services/famil_expenses/family_expenses.service'
-declare var require
-const Swal = require('sweetalert2')
+import { jwtAuthService } from 'src/app/services/jwt'
+import Swal from 'sweetalert2'
 @Component({
   selector: 'app-expenses-list',
   templateUrl: './expenses-list.component.html',
   styleUrls: ['./expenses-list.component.scss'],
 })
 export class ExpensesListComponent implements OnInit {
+  @Input() caseId?: number = 0
+  userRole: string
+
   constructor(
     private expensesService: FamilyExpensesService,
     private notification: NzNotificationService,
-  ) {}
+    private authService: jwtAuthService,
+  ) {
+    authService.getUserModel().then(r => {
+      this.userRole = r.UserRole
+    })
+  }
   expensesData: any[]
   expenseData: any
   isVisible: boolean = false
@@ -20,10 +28,10 @@ export class ExpensesListComponent implements OnInit {
   modalTitle: string = 'Add Expense'
 
   ngOnInit(): void {
-    this.getExpensesData()
+    this.getExpensesData(this.caseId)
   }
-  getExpensesData() {
-    this.expensesService.GetFamilyExpenses().then(expenses => {
+  getExpensesData(caseId) {
+    this.expensesService.GetFamilyExpenses(caseId).then(expenses => {
       if (expenses) {
         expenses.forEach(element => {
           element.FormattedStatus = this.expensesService.FormatExpenseStatus(element.ExpenseStatus)
@@ -60,12 +68,12 @@ export class ExpensesListComponent implements OnInit {
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
       confirmButtonText: 'Yes, delete it!',
-    }).then(async result => {
+    } as any).then(async result => {
       if (result && result.isConfirmed) {
         let response = await this.expensesService.DeleteExpense(id)
         if (response) {
           this.notification.success('', 'Expense has been deleted successfully!')
-          this.getExpensesData()
+          this.getExpensesData(this.caseId)
         } else {
           this.notification.error('', 'There is some error please try again later!')
         }
@@ -75,6 +83,6 @@ export class ExpensesListComponent implements OnInit {
 
   expenseSavedCallBack() {
     this.isVisible = false
-    this.getExpensesData()
+    this.getExpensesData(this.caseId)
   }
 }

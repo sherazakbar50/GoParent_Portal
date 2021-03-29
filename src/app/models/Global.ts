@@ -113,8 +113,18 @@ export const API_ENDPOINTS = {
   AddUdpateExpenseType: 'api/FamilyExpenses/AddUdpateExpenseType',
   DeleteExpenseType: 'api/FamilyExpenses/DeleteExpenseType',
 
-
   // Calendar Updated
   GetCalendarbyMonth: 'api/Calendar/GetCalendarbyMonth',
   GetCalendarbyYear: 'api/Calendar/GetCalendarbyYear',
+
+  // Positive Parenting
+  GetPositiveParentingList: 'api/PositiveParenting/GetPositiveParentingList',
+  AddUpdatePositiveParentingPost: 'api/PositiveParenting/AddUpdatePositiveParentingPost',
+  DeletePositiveParenting: 'api/PositiveParenting/DeletePositiveParenting',
+
+  // Agreement
+  AddUpdateAgreement: 'api/Agreement/AddUpdateAgreement',
+  GetAgreementList: 'api/Agreement/GetAgreementList',
+  DeleteAgreement: 'api/Agreement/DeleteAgreement',
+  AgreementFeedback: 'api/Agreement/Feedback',
 }

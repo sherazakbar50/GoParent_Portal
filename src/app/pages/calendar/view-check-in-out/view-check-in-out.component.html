@@ -1,6 +1,6 @@
 <ng-container>
     <div class="client-appointment-view-div">
-        <div class="appointment-description mb-3">
+        <!-- <div class="appointment-description mb-3">
             <div class="f-12 row">
                 <div class="col-md-4"></div>
                 <div class="col-md-8">
@@ -8,7 +8,7 @@
                 </div>
             </div>
         </div>
-        
+         -->
         <div class="appointment-description mb-3">
             <div class="f-12 row">
                 <div class="col-md-4">
@@ -31,7 +31,7 @@
                     </span>
                 </div>
                 <div class="col-md-8">
-                    {{Data?.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm:ss A' }}
+                    {{Data?.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A' }}
                 </div>
             </div>
         </div>
