@@ -127,4 +127,9 @@ export const API_ENDPOINTS = {
   GetAgreementList: 'api/Agreement/GetAgreementList',
   DeleteAgreement: 'api/Agreement/DeleteAgreement',
   AgreementFeedback: 'api/Agreement/Feedback',
+
+  // Lawyer Documents
+  AddLawyerDocument: 'api/LawyerDocuments/AddLawyerDocuments',
+  GetLawyerDocuments: 'api/LawyerDocuments/GetLawyerDocuments',
+  ShareDocument: 'api/LawyerDocuments/ShareDocument',
 }

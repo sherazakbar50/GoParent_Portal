@@ -1,0 +1,83 @@
+<nz-card nzTitle="Lawyer's Documents">
+    <div>
+        <div class="mb-3">
+            <nz-upload nzType="drag" [(nzFileList)]="fileList" [nzMultiple]="true" [nzBeforeUpload]="beforeUpload">
+                <p class="ant-upload-drag-icon">
+                    <i nz-icon nzType="upload" nzTheme="outline"></i>
+                </p>
+                <p class="ant-upload-text">Drag and Drop your file here, or <span class="text-primary">Browse</span></p>
+            </nz-upload>
+        </div>
+        <div class="text-center">
+            <button nz-button nzType="primary" [nzLoading]="btnLoading" (click)="onUpload()">Upload</button>
+        </div>
+    </div>
+    <div class="mt-4">
+        <nz-table #basicTable [nzData]="dataList" class="kit__utils__table mb-4">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Document</th>
+                    <th>Shared with</th>
+                    <th style="width: 150px;">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let data of basicTable.data; let i=index">
+                    <td>{{ i+1 }}</td>
+                    <td>
+                        <a href="{{data.BlobUrl}}" nz-tooltip nzTooltipTitle="Click to View" target="_blank">
+                            <nz-avatar nzSrc="/assets/files-icons/svg/{{data.Type.split('.')[1]}}.svg" nzIcon="file"
+                                [nzShape]="'square'" class="avatar"></nz-avatar>
+                            {{ data.Name }}
+                        </a>
+                    </td>
+                    <td>
+                        <ng-container *ngIf="data.Families && data.Families.length > 0; else noFamilyTpl">
+                            <ng-container *ngFor="let item of data.Families">
+                                <span class="mr-2 p-2 mb-1 badge badge-light badge-pill">
+                                    {{item.FamilyName}}
+                                </span>
+                                <br>
+                            </ng-container>
+                        </ng-container>
+                        <ng-template #noFamilyTpl>
+                            <span class="text-gray-4">
+                                Not shared yet!
+                            </span>
+                        </ng-template>
+                    </td>
+                    <td>
+                        <button nz-button nzType="default" nzSize="small" class="mr-2" (click)="showModal(data)">
+                            <i class="fe fe-send font-size-10 pr-2"></i>
+                            Share
+                        </button>
+                        <button nz-button nzType="default" nzSize="small" nzDanger (click)="deletDoc(data.DocumentId)">
+                            <i class="fe fe-delete font-size-10 pr-2"></i>
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</nz-card>
+
+
+<div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="Share Document with Family"
+        (nzOnCancel)="handleCancel()" nzMaskClosable="false">
+        <ng-container *nzModalContent>
+            <div class="mb-3">
+                <nz-select class="w-100" nzMode="multiple" nzPlaceHolder="Select/Search Family to Share with"
+                    [(ngModel)]="selectionList">
+                    <nz-option *ngFor="let item of familyList" [nzLabel]="item.Name" [nzValue]="item.Id">
+                    </nz-option>
+                </nz-select>
+            </div>
+            <div class="mb-3">
+                <button class="w-100" nz-button nzType="primary" (click)="onShare()">Share</button>
+            </div>
+        </ng-container>
+    </nz-modal>
+</div>

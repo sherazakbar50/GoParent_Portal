@@ -45,8 +45,9 @@
             </tr>
             <tr>
               <td colspan="7">
-                <b>{{ data.ExpenseOwnerName }}</b> added an expense: <b>{{data.Title}}</b> with cost of <b>${{ data.Cost }}</b>,
-                co-parent should pay $<b>{{(data.Cost) / 2 }}</b>
+                <b>{{ data.ExpenseOwnerName }}</b> added an expense: <b>{{data.Title}}</b> with cost of <b>${{ data.Cost
+                  }}</b>,
+                co-parent should pay $<b>{{(data.Cost) / 2 | number : '1.2-2'}}</b>
               </td>
             </tr>
           </ng-container>

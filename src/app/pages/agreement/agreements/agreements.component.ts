@@ -49,7 +49,6 @@ export class AgreementsComponent implements OnInit {
     this.agreementService.agreementListObservable().subscribe(res => {
       if (res) {
         this.dataList = res
-        console.log('this.dataList:', this.dataList)
       }
     })
   }

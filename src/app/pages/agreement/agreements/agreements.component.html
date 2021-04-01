@@ -1,72 +1,96 @@
 <div class="row">
-    <div class="container">
+    <div class="col-md-12">
         <h5 class="mb-4">
-            <strong>Parent Agreements</strong>
-            <span class="float-right">
+            <strong>Parental Agreements</strong>
+            <span class="float-right" *ngIf="userRole === 'Parent'">
                 <button nz-button nzType="primary" (click)="openFormModal()">Define Agreement</button>
             </span>
         </h5>
 
     </div>
-    <div class="col-md-6 mb-4" *ngFor="let data of dataList">
-        <div>
-            <div class="pt-4 pl-4 overflow-hidden position-relative bg-light"
-                style="border-radius: 20px; height: 295px; overflow-y: auto !important;">
-                <div class=" mb-2">
-                    Agreement Content:<br>
-                    <span class="font-size-18 text-dark ml-4">
-                        {{data.Content}}
-                    </span>
-                </div>
-                <div class="mb-3">
-                    Agreement File:<br>
-                    <span class="font-size-18 text-dark ml-4" *ngIf="data.ContentFileURL">
-                        <a href="{{data.ContentFileURL}}" target="_blank">
-                            {{data.ContentFileName}}
-                            <div class="font-size-10 text-gray-4 ml-4">
-                                Click to View
-                            </div>
-                        </a>
-                    </span>
-                </div>
-                <div *ngIf="userId == data.CreatedBy" class="mb-4">
-                    <label class="mb-0">Co-Parent's Feedback</label><br>
-                    <div class="ml-4">
-                        <nz-rate [(ngModel)]="data.Feedback" [nzDisabled]="true"
-                            [nzTooltips]="['Strongly Disagree', 'Disagree', 'Moderate', 'Agree', 'Strongly Agree']">
-                        </nz-rate>
-                        <div class="font-size-10 text-gray-4">
-                            You cannot add feedback to your own agreement
-                        </div>
+    <ng-container *ngIf="dataList && dataList.length > 0; else noData">
+        <div class="col-md-6 mb-4" *ngFor="let data of dataList">
+            <div>
+                <div class="agreement-card pt-4 pl-4 overflow-hidden position-relative bg-light">
+                    <div class=" mb-2">
+                        Agreement Content:<br>
+                        <span class="font-size-18 text-dark ml-4">
+                            {{data.Content}}
+                        </span>
                     </div>
-                </div>
-                <div class="font-size-21">
-                    <div *ngIf="userId == data.CreatedBy; else feedbackTpl" [hidden]="userRole !== 'Parent'">
-                        <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
-                            (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
-                        <nz-divider nzType="vertical"></nz-divider>
-                        <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
-                            (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill" class="text-danger"></i>
+                    <div class="mb-3">
+                        Agreement File:<br>
+                        <span class="font-size-18 text-dark ml-4" *ngIf="data.ContentFileURL">
+                            <a href="{{data.ContentFileURL}}" target="_blank">
+                                {{data.ContentFileName}}
+                                <div class="font-size-10 text-gray-4 ml-4">
+                                    Click to View
+                                </div>
+                            </a>
+                        </span>
                     </div>
-                    <ng-template #feedbackTpl>
-                        <label class="mb-0 font-size-16">Your Feedback</label><br>
+                    <div *ngIf="userId == data.CreatedBy" class="mb-4">
+                        <label class="mb-0">Co-Parent's Feedback</label><br>
                         <div class="ml-4">
-                            <nz-rate [(ngModel)]="data.Feedback"
-                                [nzTooltips]="['Strongly Disagree', 'Disagree', 'Moderate', 'Agree', 'Strongly Agree']"
-                                (ngModelChange)="onFeedbackChange($event, data.Id)">
+                            <nz-rate [(ngModel)]="data.Feedback" [nzDisabled]="true"
+                                [nzTooltips]="['Strongly Disagree', 'Disagree', 'Moderate', 'Agree', 'Strongly Agree']">
                             </nz-rate>
                             <div class="font-size-10 text-gray-4">
-                                Give feedback to this agreement
+                                You cannot add feedback to your own agreement
                             </div>
                         </div>
-                    </ng-template>
-                </div>
+                    </div>
+                    <div class="font-size-21">
+                        <div *ngIf="userId == data.CreatedBy; else feedbackTpl" [hidden]="userRole !== 'Parent'">
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
+                                (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
+                                (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill"
+                                class="text-danger"></i>
+                        </div>
+                        <ng-template #feedbackTpl>
+                            <ng-container *ngIf="userRole === 'Parent'; else lawyerTpl">
+                                <label class="mb-0 font-size-16">Your Feedback</label><br>
+                                <div class="ml-4">
+                                    <nz-rate [(ngModel)]="data.Feedback"
+                                        [nzTooltips]="['Strongly Disagree', 'Disagree', 'Moderate', 'Agree', 'Strongly Agree']"
+                                        (ngModelChange)="onFeedbackChange($event, data.Id)">
+                                    </nz-rate>
+                                    <div class="font-size-10 text-gray-4">
+                                        Give feedback to this agreement
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-template>
+                        <ng-template #lawyerTpl>
+                            <label class="mb-0 font-size-16">Other Co-Parent's Feedback</label><br>
+                            <div class="ml-4">
+                                <nz-rate [(ngModel)]="data.Feedback" [nzDisabled]="true"
+                                    [nzTooltips]="['Strongly Disagree', 'Disagree', 'Moderate', 'Agree', 'Strongly Agree']"
+                                    (ngModelChange)="onFeedbackChange($event, data.Id)">
+                                </nz-rate>
+                                <div class="font-size-10 text-gray-4">
+                                    You can only view feedback
+                                </div>
+                            </div>
+                        </ng-template>
+                    </div>
 
-                <!-- <i class="icon fe fe-file-text text-gray-4"></i> -->
+                    <!-- <i class="icon fe fe-file-text text-gray-4"></i> -->
+                </div>
             </div>
         </div>
-    </div>
+    </ng-container>
 </div>
+
+<ng-template #noData>
+    <div class="col-md-12">
+        <nz-result nzStatus="404" nzTitle="No Data Found!">
+        </nz-result>
+    </div>
+</ng-template>
+
 <!-- 
 <div>
     <div class="card">
@@ -177,13 +201,3 @@
         </ng-container>
     </nz-modal>
 </div>
-
-
-<!--<div>
-<nz-modal [nzFooter]="null" [(nzVisible)]="ExpenseViewModelVisible" [nzTitle]="'Expense Details'"
-    (nzOnCancel)="handleExpenseViewModalCancel()" nzMaskClosable="false">
-    <ng-container *nzModalContent>
-    <app-view-expense [ExpenseData]='expenseData'></app-view-expense>
-    </ng-container>
-</nz-modal>
-</div> -->

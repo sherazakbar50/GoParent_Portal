@@ -8,5 +8,6 @@ import { SharedModule } from 'src/app/shared.module'
 @NgModule({
   declarations: [AgreementsComponent],
   imports: [CommonModule, SharedModule, AgreementRoutingModule],
+  exports: [AgreementsComponent]
 })
-export class AgreementModule {}
+export class AgreementModule { }

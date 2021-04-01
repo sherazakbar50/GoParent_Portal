@@ -49,9 +49,27 @@
     </div>
   </div>
 </div>
+<nz-card nzTitle="Shared with me">
+  <div class="row">
+    <ng-container *ngFor="let item of sharedDocs">
+      <div class="col-md-2 mb-4 text-center" style="word-break: break-all;">
+        <a href="{{item.BlobUrl}}" nz-tooltip nzTooltipTitle="Click to View" target="_blank">
+          <div class="mb-2">
+            <nz-avatar nzSrc="/assets/files-icons/svg/{{item.Type.split('.')[1]}}.svg" nzIcon="file" nzSize="large"
+              [nzShape]="'square'" class="avatar">
+            </nz-avatar>
+          </div>
+          <div>
+            {{item.Name}}
+          </div>
+        </a>
+      </div>
+    </ng-container>
+  </div>
+</nz-card>
+
+
 <div>
-
-
   <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="FoldermodalTitle" (nzOnCancel)="ModalCancel()"
     nzMaskClosable="false">
     <ng-container *nzModalContent>

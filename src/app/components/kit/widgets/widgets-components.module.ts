@@ -57,29 +57,29 @@ import { CuiGeneral24v1Component } from './General/24v1/24v1.component'
 import { CuiGeneral27Component } from './General/27/27.component'
 import { CuiGeneral27v1Component } from './General/27v1/27v1.component'
 
-import { CuiList1Component } from './Lists/1/1.component'
+// import { CuiList1Component } from './Lists/1/1.component'
 import { CuiList2Component } from './Lists/2/2.component'
-import { CuiList3Component } from './Lists/3/3.component'
-import { CuiList4Component } from './Lists/4/4.component'
-import { CuiList5Component } from './Lists/5/5.component'
-import { CuiList6Component } from './Lists/6/6.component'
-import { CuiList7Component } from './Lists/7/7.component'
-import { CuiList8Component } from './Lists/8/8.component'
-import { CuiList9Component } from './Lists/9/9.component'
-import { CuiList10Component } from './Lists/10/10.component'
-import { CuiList11Component } from './Lists/11/11.component'
-import { CuiList12Component } from './Lists/12/12.component'
-import { CuiList13Component } from './Lists/13/13.component'
-import { CuiList14Component } from './Lists/14/14.component'
-import { CuiList15Component } from './Lists/15/15.component'
-import { CuiList16Component } from './Lists/16/16.component'
-import { CuiList17Component } from './Lists/17/17.component'
-import { CuiList18Component } from './Lists/18/18.component'
-import { CuiList19Component } from './Lists/19/19.component'
-import { CuiList20Component } from './Lists/20/20.component'
-import { CuiList21Component } from './Lists/21/21.component'
-import { CuiList21v1Component } from './Lists/21v1/21v1.component'
-import { CuiList21v2Component } from './Lists/21v2/21v2.component'
+// import { CuiList3Component } from './Lists/3/3.component'
+// import { CuiList4Component } from './Lists/4/4.component'
+// import { CuiList5Component } from './Lists/5/5.component'
+// import { CuiList6Component } from './Lists/6/6.component'
+// import { CuiList7Component } from './Lists/7/7.component'
+// import { CuiList8Component } from './Lists/8/8.component'
+// import { CuiList9Component } from './Lists/9/9.component'
+// import { CuiList10Component } from './Lists/10/10.component'
+// import { CuiList11Component } from './Lists/11/11.component'
+// import { CuiList12Component } from './Lists/12/12.component'
+// import { CuiList13Component } from './Lists/13/13.component'
+// import { CuiList14Component } from './Lists/14/14.component'
+// import { CuiList15Component } from './Lists/15/15.component'
+// import { CuiList16Component } from './Lists/16/16.component'
+// import { CuiList17Component } from './Lists/17/17.component'
+// import { CuiList18Component } from './Lists/18/18.component'
+// import { CuiList19Component } from './Lists/19/19.component'
+// import { CuiList20Component } from './Lists/20/20.component'
+// import { CuiList21Component } from './Lists/21/21.component'
+// import { CuiList21v1Component } from './Lists/21v1/21v1.component'
+// import { CuiList21v2Component } from './Lists/21v2/21v2.component'
 
 import { CuiChart1Component } from './Charts/1/1.component'
 import { CuiChart2Component } from './Charts/2/2.component'
@@ -103,14 +103,14 @@ import { CuiChart13Component } from './Charts/13/13.component'
 import { CuiChart13v1Component } from './Charts/13v1/13v1.component'
 import { CuiChart13v2Component } from './Charts/13v2/13v2.component'
 
-import { CuiTable1Component } from './Tables/1/1.component'
-import { CuiTable2Component } from './Tables/2/2.component'
-import { CuiTable3Component } from './Tables/3/3.component'
-import { CuiTable4Component } from './Tables/4/4.component'
-import { CuiTable5Component } from './Tables/5/5.component'
-import { CuiTable6Component } from './Tables/6/6.component'
-import { CuiTable7Component } from './Tables/7/7.component'
-import { CuiTable8Component } from './Tables/8/8.component';
+// import { CuiTable1Component } from './Tables/1/1.component'
+// import { CuiTable2Component } from './Tables/2/2.component'
+// import { CuiTable3Component } from './Tables/3/3.component'
+// import { CuiTable4Component } from './Tables/4/4.component'
+// import { CuiTable5Component } from './Tables/5/5.component'
+// import { CuiTable6Component } from './Tables/6/6.component'
+// import { CuiTable7Component } from './Tables/7/7.component'
+// import { CuiTable8Component } from './Tables/8/8.component';
 import { GoCalendarComponent } from './go-calendar/go-calendar.component'
 import { NzCalendarModule } from 'ng-zorro-antd/calendar';
 
@@ -164,29 +164,29 @@ const COMPONENTS = [
   CuiGeneral24v1Component,
   CuiGeneral27Component,
   CuiGeneral27v1Component,
-  CuiList1Component,
+  // CuiList1Component,
   CuiList2Component,
-  CuiList3Component,
-  CuiList4Component,
-  CuiList5Component,
-  CuiList6Component,
-  CuiList7Component,
-  CuiList8Component,
-  CuiList9Component,
-  CuiList10Component,
-  CuiList11Component,
-  CuiList12Component,
-  CuiList13Component,
-  CuiList14Component,
-  CuiList15Component,
-  CuiList16Component,
-  CuiList17Component,
-  CuiList18Component,
-  CuiList19Component,
-  CuiList20Component,
-  CuiList21Component,
-  CuiList21v1Component,
-  CuiList21v2Component,
+  // CuiList3Component,
+  // CuiList4Component,
+  // CuiList5Component,
+  // CuiList6Component,
+  // CuiList7Component,
+  // CuiList8Component,
+  // CuiList9Component,
+  // CuiList10Component,
+  // CuiList11Component,
+  // CuiList12Component,
+  // CuiList13Component,
+  // CuiList14Component,
+  // CuiList15Component,
+  // CuiList16Component,
+  // CuiList17Component,
+  // CuiList18Component,
+  // CuiList19Component,
+  // CuiList20Component,
+  // CuiList21Component,
+  // CuiList21v1Component,
+  // CuiList21v2Component,
   CuiChart1Component,
   CuiChart2Component,
   CuiChart3Component,
@@ -208,14 +208,14 @@ const COMPONENTS = [
   CuiChart13Component,
   CuiChart13v1Component,
   CuiChart13v2Component,
-  CuiTable1Component,
-  CuiTable2Component,
-  CuiTable3Component,
-  CuiTable4Component,
-  CuiTable5Component,
-  CuiTable6Component,
-  CuiTable7Component,
-  CuiTable8Component,
+  // CuiTable1Component,
+  // CuiTable2Component,
+  // CuiTable3Component,
+  // CuiTable4Component,
+  // CuiTable5Component,
+  // CuiTable6Component,
+  // CuiTable7Component,
+  // CuiTable8Component,
   GoCalendarComponent,
 ]
 
@@ -234,4 +234,4 @@ const COMPONENTS = [
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS],
 })
-export class WidgetsComponentsModule {}
+export class WidgetsComponentsModule { }

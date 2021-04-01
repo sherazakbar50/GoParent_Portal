@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, Subject } from 'rxjs'
-import { map } from 'rxjs/internal/operators/map'
+import { BehaviorSubject } from 'rxjs'
+import { map } from 'rxjs/operators'
 import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { ApiHandler } from '../ApiHandler'
 

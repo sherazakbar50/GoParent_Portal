@@ -2,8 +2,11 @@ import { Component, Input, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { BehaviorSubject } from 'rxjs'
+import { FamilyDocumentsDto } from 'src/app/models/document-dto'
 import { FolderElementdto } from 'src/app/models/folder-elementdto'
+import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { AlertService } from 'src/app/services/alert-service/alert-service'
+import { FamilyDocumentsService } from 'src/app/services/family_documents/family-documents.service'
 import { FamilyFoldersService } from 'src/app/services/family_folders/family-folders.service'
 import { jwtAuthService } from 'src/app/services/jwt'
 declare var require
@@ -20,6 +23,7 @@ export class ViewFolderComponent implements OnInit {
   FoldermodalTitle: string = 'Add Folder'
   listData: FolderElementdto[] = []
   folderObserverSubject: BehaviorSubject<FolderElementdto> = new BehaviorSubject(null)
+  sharedDocs: FamilyDocumentsDto[] = []
   constructor(
     public folderService: FamilyFoldersService,
     private _router: Router,
@@ -27,10 +31,17 @@ export class ViewFolderComponent implements OnInit {
     private _route: ActivatedRoute,
     private _auth: jwtAuthService,
     private _alert: AlertService,
+    private familyDocumentsService: FamilyDocumentsService,
   ) {
     this._auth.getUserModel().then(r => {
-      this.userRole = r?.UserRole
+      if (r) {
+        this.userRole = r.UserRole
+        this.familyDocumentsService.getSharedWithFamily().then((res: FamilyDocumentsDto[]) => {
+          this.sharedDocs = res.filter(x => x.FamilyId === null)
+        })
+      }
     })
+
   }
 
   loadFolder() {
@@ -97,5 +108,5 @@ export class ViewFolderComponent implements OnInit {
     await this.loadFolder()
   }
 
-  getRole() {}
+  getRole() { }
 }

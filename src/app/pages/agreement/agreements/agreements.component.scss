@@ -11,3 +11,13 @@
   right: 0px;
   bottom: 0px;
 }
+
+.agreement-card {
+  border-radius: 20px; 
+  height: 295px; 
+  overflow-y: auto !important;
+}
+.agreement-card:hover {
+  background-color: white !important;
+  box-shadow: 0px 10px 30px #e2e2e2;
+}

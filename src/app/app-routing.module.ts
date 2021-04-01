@@ -114,6 +114,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/pages/agreement/agreement.module').then(x => x.AgreementModule),
       },
+      {
+        path: 'lawyer-documents',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/lawyer-documents/lawyer-documents.module').then(x => x.LawyerDocumentsModule),
+      },
     ],
   },
   {

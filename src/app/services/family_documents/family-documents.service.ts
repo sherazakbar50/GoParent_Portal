@@ -47,4 +47,8 @@ export class FamilyDocumentsService extends ApiHandler {
   DownloadDocument(id): Observable<any> {
     return this.Post(id, API_URL + API_ENDPOINTS.downloadDocument, undefined)
   }
+
+  getSharedWithFamily() {
+    return this.GetAll(API_URL + API_ENDPOINTS.getFamilyDocuments).pipe(map(x => x.ResponseData)).toPromise();
+  }
 }

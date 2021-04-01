@@ -127,7 +127,7 @@ export const getMenuData: any[] = [
   },
 
   {
-    title: 'Agreement',
+    title: 'Parental Agreement',
     key: 'parentAgreement',
     icon: 'fe fe-feather',
     url: '/agreement',
@@ -138,6 +138,13 @@ export const getMenuData: any[] = [
     key: 'positiveParenting',
     icon: 'fe fe-user-check',
     url: '/positive-parenting',
-    roles: [ApplicationRolesEnum[1], ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
+    roles: [ApplicationRolesEnum[1], ApplicationRolesEnum[2]],
+  },
+  {
+    title: 'Documents',
+    key: 'documents',
+    icon: 'fe fe-file-text',
+    url: '/lawyer-documents',
+    roles: [ApplicationRolesEnum[3]],
   },
 ]
