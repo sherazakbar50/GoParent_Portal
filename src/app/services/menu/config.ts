@@ -143,8 +143,21 @@ export const getMenuData: any[] = [
   {
     title: 'Documents',
     key: 'documents',
-    icon: 'fe fe-file-text',
+    icon: 'fe fe-file',
     url: '/lawyer-documents',
     roles: [ApplicationRolesEnum[3]],
+  },
+  {
+    title: 'Forms',
+    key: 'forms',
+    icon: 'fe fe-file-text',
+    url: '/forms',
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
+  },
+  {
+    title: 'Profile',
+    key: 'profile',
+    url: '/profile',
+    hidden: true,
   },
 ]

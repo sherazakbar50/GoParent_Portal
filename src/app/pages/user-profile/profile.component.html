@@ -1,48 +1,52 @@
 <div>
-  <nz-alert
-  nzType="info"
-  nzMessage="You will get auto logged out once you update your information."
-  nzShowIcon>
-</nz-alert>
-<br />
+  <nz-alert nzType="info" *ngIf="activeKey === 0"
+    nzMessage="You will get auto logged out once you update your information." nzShowIcon>
+  </nz-alert>
+  <br />
   <div class="row">
     <div class="col-xl-12 col-lg-12">
       <div class="card">
         <div class="card-header card-header-flex flex-column">
           <nz-tabset class="kit-tabs kit-tabs-bold" (nzSelectedIndexChange)="changeKey($event)">
-            <nz-tab nzTitle="Personal Info"></nz-tab>
+            <nz-tab nzTitle="Personal Info">
+
+            </nz-tab>
+
+            <nz-tab nzTitle="Change Password">
+
+            </nz-tab>
           </nz-tabset>
         </div>
         <div class="card-body">
-          <div id="persona-info-div" *ngIf="activeKey === 0">
+          <div id="persona-info-div" *ngIf="activeKey === 0; else passTpl">
             <div class="clearfix">
               <div class="col-xl-12 m-3 text-center" id='siku'>
-                <nz-upload
-                [nzShape] ="'circle'"
-                class="avatar-uploader d-flex justify-content-center"
-                nzShowButton="true"
-                nzName="avatar"
-                nzListType="picture-card"
-                [nzShowUploadList]="false"
-                [nzBeforeUpload]="beforeUpload">
-                <ng-container *ngIf="!ProfilePicUrl">
-                  <i class="upload-icon" nz-icon [nzType]="ProfilePictureUploader ? 'loading' : 'plus'"></i>
-                  <div class="ant-upload-text">Upload</div>
-                </ng-container>
-                <img *ngIf="ProfilePicUrl" [src]="ProfilePicUrl" style="width: 100%" />
-              </nz-upload>
-              <a (click)="RemoveProfilePicture(event)" class="fe fe-trash profile-pic-delete-icon position-absolute" *ngIf="ProfilePicUrl"></a>
+                <nz-upload [nzShape]="'circle'" class="avatar-uploader d-flex justify-content-center"
+                  nzShowButton="true" nzName="avatar" nzListType="picture-card" [nzShowUploadList]="false"
+                  [nzBeforeUpload]="beforeUpload">
+                  <ng-container *ngIf="!ProfilePicUrl">
+                    <i class="upload-icon" nz-icon [nzType]="ProfilePictureUploader ? 'loading' : 'plus'"></i>
+                    <div class="ant-upload-text">Upload</div>
+                  </ng-container>
+                  <img *ngIf="ProfilePicUrl" [src]="ProfilePicUrl" style="width: 100%" />
+                </nz-upload>
+                <a (click)="RemoveProfilePicture(event)" class="fe fe-trash profile-pic-delete-icon position-absolute"
+                  *ngIf="ProfilePicUrl"></a>
               </div>
             </div>
-            <form nz-form [nzLayout]="'vertical'" [formGroup]="personalInfoForm" (ngSubmit)="personalInfoFormSubmission()" role="form" *ngIf="personalInfoForm">
+            <form nz-form [nzLayout]="'vertical'" [formGroup]="personalInfoForm"
+              (ngSubmit)="personalInfoFormSubmission()" role="form" *ngIf="personalInfoForm">
               <div class="row">
                 <div class="col-lg-6">
                   <nz-form-item>
                     <nz-form-label nzFor="firstName">First Name</nz-form-label>
                     <nz-form-control>
-                      <input type="text" nz-input nzSize="medium" formControlName="firstName" placeholder="First Name" />
-                      <div class="text-danger"> 
-                        <ng-container *ngIf="personalInfoSubmissionHolder && firstName.hasError('required')">Please enter your First Name!</ng-container>
+                      <input type="text" nz-input nzSize="medium" formControlName="firstName"
+                        placeholder="First Name" />
+                      <div class="text-danger">
+                        <ng-container *ngIf="personalInfoSubmissionHolder && firstName.hasError('required')">
+                          Please
+                          enter your First Name!</ng-container>
                       </div>
                     </nz-form-control>
                   </nz-form-item>
@@ -52,8 +56,10 @@
                     <nz-form-label nzFor="lastName">Last Name</nz-form-label>
                     <nz-form-control>
                       <input type="text" nz-input nzSize="medium" formControlName="lastName" placeholder="Last Name" />
-                      <div class="text-danger"> 
-                        <ng-container *ngIf="personalInfoSubmissionHolder && lastName.hasError('required')">Please enter your Last Name!</ng-container>
+                      <div class="text-danger">
+                        <ng-container *ngIf="personalInfoSubmissionHolder && lastName.hasError('required')">Please
+                          enter
+                          your Last Name!</ng-container>
                       </div>
                     </nz-form-control>
                   </nz-form-item>
@@ -79,8 +85,8 @@
                   </nz-form-item>
                 </div>
               </div>
-              <div class="form-actions">
-                <button nz-button nzType="primary" [nzSize]="'medium'" style="float: right;" [nzLoading]="loading" class="text-center">
+              <div class="form-actions text-center w-100">
+                <button nz-button nzType="primary" [nzSize]="'medium'" [nzLoading]="loading">
                   <strong> Update</strong>
                 </button>
               </div>
@@ -91,3 +97,50 @@
     </div>
   </div>
 </div>
+
+<ng-template #passTpl>
+  <form nz-form [nzLayout]="'vertical'" [formGroup]="changePasswordForm" (ngSubmit)="submitChangePassword()">
+    <div class="row">
+      <div class="col-lg-12">
+        <nz-form-item>
+          <nz-form-label>Current Password</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="Current Password is required">
+            <input type="password" nz-input nzSize="medium" formControlName="OldPassword"
+              placeholder="Current Password" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-lg-6">
+        <nz-form-item>
+          <nz-form-label>New Password</nz-form-label>
+          <nz-form-control nzHasFeedback nzErrorTip="New Password is required">
+            <input type="password" nz-input nzSize="medium" formControlName="NewPassword" placeholder="New Password" />
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+      <div class="col-lg-6">
+        <nz-form-item>
+          <nz-form-label>Confirm Password</nz-form-label>
+          <nz-form-control nzHasFeedback [nzErrorTip]="errorTpl">
+            <input type="password" nz-input nzSize="medium" formControlName="ConfirmPassword"
+              placeholder="Confirm New Password" />
+            <ng-template #errorTpl>
+              <div *ngIf="pf.ConfirmPassword.hasError('required')">
+                Confirm password is required
+              </div>
+              <div *ngIf="pf.ConfirmPassword.hasError('mustMatch')">
+                Confirm Password must match with the New Password
+              </div>
+            </ng-template>
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+    </div>
+    <div class="form-actions text-center w-100">
+      <button nz-button nzType="primary" [nzSize]="'medium'" [nzLoading]="loading">
+        <strong>Update</strong>
+      </button>
+    </div>
+  </form>
+</ng-template>

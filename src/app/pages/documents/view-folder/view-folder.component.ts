@@ -24,6 +24,7 @@ export class ViewFolderComponent implements OnInit {
   listData: FolderElementdto[] = []
   folderObserverSubject: BehaviorSubject<FolderElementdto> = new BehaviorSubject(null)
   sharedDocs: FamilyDocumentsDto[] = []
+  sharedDocTitle: string
   constructor(
     public folderService: FamilyFoldersService,
     private _router: Router,
@@ -36,7 +37,8 @@ export class ViewFolderComponent implements OnInit {
     this._auth.getUserModel().then(r => {
       if (r) {
         this.userRole = r.UserRole
-        this.familyDocumentsService.getSharedWithFamily().then((res: FamilyDocumentsDto[]) => {
+        this.sharedDocTitle = this.userRole == "Parent" ? "Shared with me" : "Shared Documents"
+        this.familyDocumentsService.getSharedWithFamily(this.caseId).then((res: FamilyDocumentsDto[]) => {
           this.sharedDocs = res.filter(x => x.FamilyId === null)
         })
       }

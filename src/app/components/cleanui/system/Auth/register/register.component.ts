@@ -1,5 +1,5 @@
 import { Component } from '@angular/core'
-import { FormBuilder, FormGroup, Validators,FormArray } from '@angular/forms'
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms'
 import { select, Store } from '@ngrx/store'
 import * as Reducers from 'src/app/store/reducers'
 import * as UserActions from 'src/app/store/user/actions'
@@ -17,10 +17,10 @@ import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/no
   styleUrls: ['../style.component.scss'],
 })
 export class RegisterComponent {
- 
+
   registrationStepsEnums = {
-    Parent:1,
-    CoParentChildren:2
+    Parent: 1,
+    CoParentChildren: 2
   }
 
   form: FormGroup
@@ -30,30 +30,30 @@ export class RegisterComponent {
   current = 0;
   currentRegStep = this.registrationStepsEnums.Parent;
 
-  constructor(private fb: FormBuilder, private store: Store<any>,private authService:jwtAuthService,private router: Router,private notification: NzNotificationService) {
+  constructor(private fb: FormBuilder, private store: Store<any>, private authService: jwtAuthService, private router: Router, private notification: NzNotificationService) {
     this.form = fb.group({
-      
+
       //Parent
-      email: [, [Validators.required,Validators.pattern(Regex.Email),Validators.maxLength(255)]],
-      password: [, [Validators.required,Validators.minLength(4)]],
+      email: [, [Validators.required, Validators.pattern(Regex.Email), Validators.maxLength(255)]],
+      password: [, [Validators.required, Validators.minLength(4)]],
       firstName: [, [Validators.required]],
-      lastName:[, [Validators.required]],
+      lastName: [, [Validators.required]],
 
       //Co Parent
-      coParentEmail:['',[Validators.pattern(Regex.Email),Validators.maxLength(255)]],
-      
+      coParentEmail: ['', [Validators.pattern(Regex.Email), Validators.maxLength(255)]],
+
       //Children
       childsArray: fb.array([this.createChildsFormGroup()]),
 
-    }, {updateOn: 'change'})
+    }, { updateOn: 'submit' })
 
     this.store.pipe(select(Reducers.getUser)).subscribe(state => {
       this.loading = state.loading
     })
   }
 
- 
-  
+
+
 
   backToPreviousStep(): void {
     this.current -= 1;
@@ -121,13 +121,13 @@ export class RegisterComponent {
       return;
     }
     this.moveToNextStep();
-    
-    
-    
+
+
+
     //this.store.dispatch(new UserActions.Register(payload,this.authService))
   }
 
-  async CoParentChildForm(){
+  async CoParentChildForm() {
     this.CoParentChildSubmission = true;
     this.coParentEmail.markAsDirty()
     this.coParentEmail.updateValueAndValidity()
@@ -139,13 +139,13 @@ export class RegisterComponent {
       password: this.password.value,
       firstName: this.firstName.value,
       lastName: this.lastName.value,
-      coParentEmail:this.coParentEmail.value,
-      childs:this.childs.value
+      coParentEmail: this.coParentEmail.value,
+      childs: this.childs.value
     };
-    
+
     this.loading = true;
     let response = await this.authService.register(this.createRegistrationDataPayload());
-    if(response){
+    if (response) {
       this.notification.success(
         '',
         'Your account has been created successfully.'
@@ -155,19 +155,19 @@ export class RegisterComponent {
       this.parentSubmission = false
       this.loading = false;
     }
-    else{
-      this.loading = false; 
+    else {
+      this.loading = false;
     }
   }
 
-  createRegistrationDataPayload():UserDTO.UserDTO {
+  createRegistrationDataPayload(): UserDTO.UserDTO {
     const payload = {
       email: this.email.value,
       password: this.password.value,
       firstName: this.firstName.value,
       lastName: this.lastName.value,
-      coParentEmail:this.coParentEmail.value,
-      childs:this.childs.value
+      coParentEmail: this.coParentEmail.value,
+      childs: this.childs.value
     };
     return payload;
   }
@@ -175,7 +175,7 @@ export class RegisterComponent {
   addChild() {
     this.childs.push(this.createChildsFormGroup())
   }
- 
+
   createChildsFormGroup(): FormGroup {
     return this.fb.group({
       childFirstName: [''],

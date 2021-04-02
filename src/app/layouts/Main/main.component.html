@@ -12,6 +12,7 @@
 
     <!-- <cui-sidebar></cui-sidebar>
     <cui-support-chat></cui-support-chat> -->
+    <nz-spin nzSimple *ngIf="isLoading" [nzSize]="'large'" nzTip="Loading..." class="global-loader"></nz-spin>
 
     <!-- left menu -->
     <!-- FIX: nz-sider wrapper fix layout behaviour in case when cui-menu-left root tag breaks layout transformation -->

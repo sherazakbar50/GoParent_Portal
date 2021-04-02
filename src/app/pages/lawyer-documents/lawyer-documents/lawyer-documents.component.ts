@@ -111,31 +111,26 @@ export class LawyerDocumentsComponent implements OnInit {
           this.notificationService.success('', 'Document deleted successfully!')
           this.lawyerDocService.getDocs()
         }
-
       }
     })
   }
 
   async onShare() {
     let data = new documentToShareDTO()
-    if (this.selectionList.length > 0) {
-
-      data = {
-        DocumentId: this.selectedDocumentId,
-        LawyerId: this.userData.UserId,
-        FamilyIds: this.selectionList,
-      }
-      let res = await this.lawyerDocService.shareDoc(data)
-
-      if (res) {
-        this.lawyerDocService.getDocs()
-        this.notificationService.success('', 'Document shared successfully!')
-        this.isVisible = false
-        this.selectionList = []
-      }
-    } else {
-      this.notificationService.warning('Invalid', 'Please select atleast one family!')
+    data = {
+      DocumentId: this.selectedDocumentId,
+      LawyerId: this.userData.UserId,
+      FamilyIds: this.selectionList,
     }
+    let res = await this.lawyerDocService.shareDoc(data)
+
+    if (res) {
+      this.lawyerDocService.getDocs()
+      this.notificationService.success('', 'Document shared successfully!')
+      this.isVisible = false
+      this.selectionList = []
+    }
+
   }
 
 }

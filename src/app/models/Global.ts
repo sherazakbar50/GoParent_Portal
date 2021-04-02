@@ -13,6 +13,7 @@ export class SelectItem {
 }
 
 export const API_ENDPOINTS = {
+  ChangePassword: 'api/auth/ChangePassword',
   UserRegistration: 'api/auth/register',
   GetToken: 'api/auth/token',
   GetAllContacts: 'api/Contacts/list',
@@ -132,4 +133,10 @@ export const API_ENDPOINTS = {
   AddLawyerDocument: 'api/LawyerDocuments/AddLawyerDocuments',
   GetLawyerDocuments: 'api/LawyerDocuments/GetLawyerDocuments',
   ShareDocument: 'api/LawyerDocuments/ShareDocument',
+
+  // Forms
+  AddUpdateForm: 'api/Form/AddUpdateForm',
+  DeleteForm: 'api/Form/DeleteForm',
+  GetAllForms: 'api/Form/GetAllForms',
+  ShareForms: 'api/Form/ShareForms',
 }

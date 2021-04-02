@@ -120,6 +120,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/pages/lawyer-documents/lawyer-documents.module').then(x => x.LawyerDocumentsModule),
       },
+      {
+        path: 'forms',
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/forms/forms.module').then(x => x.FormsModule),
+      },
     ],
   },
   {
@@ -153,4 +159,4 @@ const routes: Routes = [
   providers: [AppPreloader],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

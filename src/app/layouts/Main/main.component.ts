@@ -5,6 +5,8 @@ import { Observable } from 'rxjs'
 import * as SettingsActions from 'src/app/store/settings/actions'
 import * as Reducers from 'src/app/store/reducers'
 import { slideFadeinUp, slideFadeinRight, zoomFadein, fadein } from '../router-animations'
+import { delay } from 'rxjs/operators'
+import { LoaderService } from 'src/app/services/shared/loading.service'
 
 @Component({
   selector: 'layout-main',
@@ -32,7 +34,9 @@ export class LayoutMainComponent implements OnInit {
   touchStartPrev: Number = 0
   touchStartLocked: Boolean = false
 
-  constructor(private store: Store<any>) {
+  isLoading: boolean = false
+
+  constructor(private store: Store<any>, private loaderService: LoaderService) {
     this.store.pipe(select(Reducers.getSettings)).subscribe(state => {
       this.isContentMaxWidth = state.isContentMaxWidth
       this.isAppMaxWidth = state.isAppMaxWidth
@@ -48,6 +52,12 @@ export class LayoutMainComponent implements OnInit {
       this.leftMenuWidth = state.leftMenuWidth
       this.isTopbarFixed = state.isTopbarFixed
       this.isGrayTopbar = state.isGrayTopbar
+    })
+
+    loaderService.loaderSubject.pipe(
+      delay(0)
+    ).subscribe(res => {
+      this.isLoading = res
     })
   }
 

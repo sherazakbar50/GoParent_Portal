@@ -60,7 +60,7 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification'
 import { NzProgressModule } from 'ng-zorro-antd/progress'
 import { NzResultModule } from 'ng-zorro-antd/result'
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton'
-// import { NzSpinModule } from 'ng-zorro-antd/spin'
+import { NzSpinModule } from 'ng-zorro-antd/spin'
 // import { NzAnchorModule } from 'ng-zorro-antd/anchor'
 // import { NzBackTopModule } from 'ng-zorro-antd/back-top'
 import { NzDividerModule } from 'ng-zorro-antd/divider'
@@ -126,7 +126,7 @@ const MODULES = [
   NzProgressModule,
   NzResultModule,
   NzSkeletonModule,
-  // NzSpinModule,
+  NzSpinModule,
   // NzAnchorModule,
   // NzBackTopModule,
   NzDividerModule,
@@ -145,4 +145,4 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   providers: [{ provide: NZ_ICONS, useValue: icons }],
   exports: [...MODULES],
 })
-export class AntdModule {}
+export class AntdModule { }

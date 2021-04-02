@@ -11,36 +11,40 @@ import { jwtAuthService } from 'src/app/services/jwt/index'
 import { catchError, finalize, mergeMap } from 'rxjs/operators'
 import { Router } from '@angular/router'
 import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification';
-import {AppInjector} from 'src/app/services/app-injector';
+import { AppInjector } from 'src/app/services/app-injector';
+import { LoaderService } from 'src/app/services/shared/loading.service'
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorizeInterceptor implements HttpInterceptor {
-  constructor(private authorize: jwtAuthService, private router: Router) {}
+  constructor(private authorize: jwtAuthService, private router: Router, private loaderService: LoaderService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
+    this.loaderService.loaderSubject.next(true);
     let accessToken = this.authorize.getAccessToken()
     return this.processRequestWithToken(accessToken, req, next).pipe(
-      finalize(() => {}),
+      finalize(() => {
+        this.loaderService.loaderSubject.next(false);
+      }),
       catchError((error: HttpErrorResponse) => {
-        
+        // this.loaderService.loaderSubject.next(false);
+
         let errorMsg = '', notifier = AppInjector.get(NzNotificationService);
 
         if (error.error instanceof ErrorEvent) {
-             console.log('CLIENT Side Error')
-             errorMsg = `Error: ${error.error.message}`
-        } 
+          console.log('CLIENT Side Error')
+          errorMsg = `Error: ${error.error.message}`
+        }
         else {
           errorMsg = `Error Code: ${error.status},  Message: ${error.message}, Possible Reason: ${error.error && error.error["Error"] || "Unknown"}`
           if (error.status === 401) {
             this.authorize.logoutUnAuthorizedUser()
             this.router.navigate(['/auth/login'])
-            notifier.warning('',"Your session has been expired. Please sign in again.")
+            notifier.warning('', "Your session has been expired. Please sign in again.")
           }
         }
-        
+
         return throwError(errorMsg)
       }),
     )

@@ -43,6 +43,9 @@ export class jwtAuthService extends ApiHandler {
     return this.Post(0, API_URL + API_ENDPOINTS.ResetPassword, { Email: email, Token: token, Password: passwrod }).pipe(map(x => x.ResponseData)).toPromise();
   }
 
+  changePassword(data) {
+    return this.Post(0, API_URL + API_ENDPOINTS.ChangePassword, data).pipe(map(x => x.ResponseData)).toPromise();
+  }
   logoutUnAuthorizedUser() {
     localStorage.removeItem('accessToken')
     localStorage.removeItem('refreshToken')

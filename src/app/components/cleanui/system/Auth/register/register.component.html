@@ -5,11 +5,12 @@
     </div>
     <div class="mb-4">
       <p>
-        Complete your registration and start spending more time on your CoParenting activities and less time managing your
+        Complete your registration and start spending more time on your CoParenting activities and less time managing
+        your
         infrastructure.
       </p>
     </div>
-    
+
     <nz-steps [nzCurrent]="current">
       <nz-step nzTitle="Parent Account" nzDescription="Create your parent account"></nz-step>
       <nz-step nzTitle="Co Parent & Child(ren)" nzDescription="Add your co-parent and children"></nz-step>
@@ -22,8 +23,9 @@
           <nz-form-item>
             <nz-form-control>
               <input type="text" nz-input nzSize="large" formControlName="firstName" placeholder="First Name" />
-              <div class="text-danger"> 
-                <ng-container *ngIf="parentSubmission && firstName.hasError('required')">Please enter your First Name!</ng-container>
+              <div class="text-danger">
+                <ng-container *ngIf="parentSubmission && firstName.hasError('required')">Please enter your First Name!
+                </ng-container>
                 <!-- <ng-container *ngIf="parentSubmission && firstName.hasError('minlength') && !firstName.hasError('required')">Minimum 3 characters are required!</ng-container> -->
               </div>
             </nz-form-control>
@@ -32,7 +34,8 @@
             <nz-form-control>
               <input type="text" nz-input nzSize="large" formControlName="lastName" placeholder="Last Name" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && lastName.hasError('required')">Please enter your Last Name!</ng-container>
+                <ng-container *ngIf="parentSubmission && lastName.hasError('required')">Please enter your Last Name!
+                </ng-container>
                 <!-- <ng-container *ngIf="parentSubmission && lastName.hasError('minlength') && !lastName.hasError('required')">Minimum 3 characters are required!</ng-container> -->
               </div>
             </nz-form-control>
@@ -41,9 +44,13 @@
             <nz-form-control>
               <input type="email" nz-input nzSize="large" formControlName="email" placeholder="Email Address" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && email.hasError('required')">Please enter your Email!</ng-container>
-                <ng-container *ngIf="parentSubmission && email.hasError('pattern') && !email.hasError('required')">Please enter a valid email e.g abc@xyz.com</ng-container>
-                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !email.hasError('required') && !email.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('required')">Please enter your Email!
+                </ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('pattern') && !email.hasError('required')">
+                  Please enter a valid email e.g abc@xyz.com</ng-container>
+                <ng-container
+                  *ngIf="parentSubmission && email.hasError('maxlength') && !email.hasError('required') && !email.hasError('pattern')">
+                  Maximum 255 characters are allowed!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -51,8 +58,11 @@
             <nz-form-control>
               <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && password.hasError('required')">Please enter your Password!</ng-container>
-                <ng-container *ngIf="parentSubmission && password.hasError('minlength') && !password.hasError('required')">Minimum 4 characters are required!</ng-container>
+                <ng-container *ngIf="parentSubmission && password.hasError('required')">Please enter your Password!
+                </ng-container>
+                <ng-container
+                  *ngIf="parentSubmission && password.hasError('minlength') && !password.hasError('required')">Minimum 4
+                  characters are required!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>
@@ -67,50 +77,58 @@
       </div>
       <div *ngIf="currentRegStep == registrationStepsEnums.CoParentChildren">
         <nz-divider nzText="Co Parent"></nz-divider>
-         <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="CoParentChildForm()" role="form">
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="CoParentChildForm()" role="form">
           <nz-form-item>
             <nz-form-control>
-              <input type="email" nz-input nzSize="large" formControlName="coParentEmail" placeholder="Email Address (Optional)" />
+              <input type="email" nz-input nzSize="large" formControlName="coParentEmail"
+                placeholder="Email Address (Optional)" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && coParentEmail.hasError('pattern')">Please enter a valid email e.g abc@xyz.com</ng-container>
-                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !lastName.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
+                <ng-container *ngIf="parentSubmission && coParentEmail.hasError('pattern')">Please enter a valid email
+                  e.g abc@xyz.com</ng-container>
+                <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !lastName.hasError('pattern')">
+                  Maximum 255 characters are allowed!</ng-container>
               </div>
             </nz-form-control>
           </nz-form-item>
-          
+
           <div formArrayName="childsArray">
             <div *ngFor="let item of childs.controls; index as i">
               <nz-divider nzText="{{i > 0 ? 'Child ' + (i+1) : 'Child'}}"></nz-divider>
               <div class="text-align-right">
-                <i *ngIf="childs.length !== (i+1)" nz-icon nzType="delete" nzDanger (click)="removeChildFormGroup(i)" nz-tooltip nzTooltipTitle="Delete Child" nzTheme="fill" class="text-danger pointer "></i>
+                <i *ngIf="childs.length !== (i+1)" nz-icon nzType="delete" nzDanger (click)="removeChildFormGroup(i)"
+                  nz-tooltip nzTooltipTitle="Delete Child" nzTheme="fill" class="text-danger pointer "></i>
               </div>
               <ng-container [formGroupName]="i">
-               <nz-form-item>
-               <nz-form-control>
-                <input type="text" nz-input nzSize="large" formControlName="childFirstName" placeholder="First Name (Optional)" />
-              </nz-form-control>
-               </nz-form-item>
-               <nz-form-item>
-                <nz-form-control>
-                   <input type="text" nz-input nzSize="large" formControlName="childLastName" placeholder="Last Name (Optional)" />
+                <nz-form-item>
+                  <nz-form-control>
+                    <input type="text" nz-input nzSize="large" formControlName="childFirstName"
+                      placeholder="First Name (Optional)" />
                   </nz-form-control>
-               </nz-form-item>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-control>
+                    <input type="text" nz-input nzSize="large" formControlName="childLastName"
+                      placeholder="Last Name (Optional)" />
+                  </nz-form-control>
+                </nz-form-item>
               </ng-container>
-              </div>
+            </div>
             <ng-container>
-              <button type="button" class="text-center" [nzBlock] = "true" nz-button [nzSize]="small" nzType="link" (click)="addChild()"> + Add Child </button>
+              <button type="button" class="text-center" [nzBlock]="true" nz-button [nzSize]="small" nzType="link"
+                (click)="addChild()"> + Add Child </button>
             </ng-container>
           </div>
           <nz-form-item>
             <nz-form-control>
-              <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100 mg-top-20">
+              <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading"
+                class="text-center w-100 mg-top-20">
                 <strong> Complete Registration</strong>
               </button>
             </nz-form-control>
           </nz-form-item>
         </form>
       </div>
-      </div>
+    </div>
     <div class="steps-action">
       <button nz-button nzType="link" (click)="backToPreviousStep()" *ngIf="current > 0">
         <span><i nz-icon nzType="left" nzTheme="outline"></i> Previous</span>
@@ -143,4 +161,4 @@
       Sign in
     </a>
   </div>
-</div>  
+</div>

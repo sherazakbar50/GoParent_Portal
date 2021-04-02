@@ -1,13 +1,13 @@
 <div>
   <div class="card">
     <div class="card-body">
-      <div class="w-100 m-3">
+      <!-- <div class="w-100 m-3">
         <a (click)="navigateToFolder()" nz-button nzType="default" nzSize="large">
           <span>
             <i nz-icon nzType="caret-left"></i>
           </span>
         </a>
-      </div>
+      </div> -->
       <app-add-document [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
         (documentCreated)='AddDocumentSuccess($event)' [fId]="folderId"></app-add-document>
       <hr [hidden]="userRole !== 'Parent' && userRole !== 'Child'">

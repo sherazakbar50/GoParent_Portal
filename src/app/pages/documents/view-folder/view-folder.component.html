@@ -49,8 +49,9 @@
     </div>
   </div>
 </div>
-<nz-card nzTitle="Shared with me">
+<nz-card [nzTitle]="sharedDocTitle">
   <div class="row">
+    <ng-container *ngIf="sharedDocs && sharedDocs.length > 0; else noSharedDocs"></ng-container>
     <ng-container *ngFor="let item of sharedDocs">
       <div class="col-md-2 mb-4 text-center" style="word-break: break-all;">
         <a href="{{item.BlobUrl}}" nz-tooltip nzTooltipTitle="Click to View" target="_blank">
@@ -78,3 +79,10 @@
     </ng-container>
   </nz-modal>
 </div>
+
+<ng-template #noSharedDocs>
+  <div class="col-md-12">
+    <nz-result nzStatus="404" nzTitle="No Data Found!">
+    </nz-result>
+  </div>
+</ng-template>

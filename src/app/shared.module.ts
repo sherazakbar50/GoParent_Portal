@@ -27,4 +27,4 @@ const MODULES = [
   exports: [...MODULES],
   providers: [FamilyFoldersService],
 })
-export class SharedModule {}
+export class SharedModule { }
