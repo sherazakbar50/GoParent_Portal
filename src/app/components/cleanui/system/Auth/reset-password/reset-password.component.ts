@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { jwtAuthService } from 'src/app/services/jwt/index';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {NzNotificationService } from 'ng-zorro-antd/notification';
-import {MustMatch } from 'src/app/directives/password-match';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { MustMatch } from 'src/app/directives/password-match';
 
 @Component({
   selector: 'cui-system-reset-password',
@@ -14,8 +14,8 @@ export class ResetPasswordComponent implements OnInit {
 
   form: FormGroup;
   isSubmitted = false;
-  token:string;
-  email:string;
+  token: string;
+  email: string;
   constructor(
     public authorizeService: jwtAuthService,
     private _activatedRoute: ActivatedRoute,
@@ -24,42 +24,42 @@ export class ResetPasswordComponent implements OnInit {
     private notifier: NzNotificationService,
   ) {
     this.form = fb.group({
-      password: [, [Validators.required,Validators.minLength(4)]],
-      confirmPassword:[,Validators.required]
+      password: [, [Validators.required, Validators.minLength(4)]],
+      confirmPassword: [, Validators.required]
     }, {
-        validators: MustMatch('password', 'confirmPassword'),
-        updateOn:"change"
-      });
+      validators: MustMatch('password', 'confirmPassword'),
+      updateOn: "submit"
+    });
   }
-  
+
   ngOnInit() {
     this.token = this._activatedRoute.snapshot.queryParams['token'];
     this.email = this._activatedRoute.snapshot.queryParams['email'];
 
-    if(!this.token || !this.email)
-         this.router.navigate(['auth', 'login'])
+    if (!this.token || !this.email)
+      this.router.navigate(['auth', 'login'])
   }
 
 
-  get password(){return this.form.controls.password}
-  get confirmPassword(){return this.form.controls.confirmPassword}
+  get password() { return this.form.controls.password }
+  get confirmPassword() { return this.form.controls.confirmPassword }
 
   get f() { return this.form.controls }
 
- async ResetPassword() {
-   this.isSubmitted = true;
-   this.password.markAsDirty();
-   this.password.updateValueAndValidity();
-   this.confirmPassword.markAsDirty();
-   this.confirmPassword.updateValueAndValidity();
+  async ResetPassword() {
+    this.isSubmitted = true;
+    this.password.markAsDirty();
+    this.password.updateValueAndValidity();
+    this.confirmPassword.markAsDirty();
+    this.confirmPassword.updateValueAndValidity();
 
-    if(this.form.invalid)
-        return
+    if (this.form.invalid)
+      return
 
-    let res = await this.authorizeService.resetPassword(this.token,this.email,this.password.value);
-    if(res){
-        this.notifier.success('','Password has been reset successfully');
-        this.router.navigate(["auth/login"]);
+    let res = await this.authorizeService.resetPassword(this.token, this.email, this.password.value);
+    if (res) {
+      this.notifier.success('', 'Password has been reset successfully');
+      this.router.navigate(["auth/login"]);
     }
   }
 }

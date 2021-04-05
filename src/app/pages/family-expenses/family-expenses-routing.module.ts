@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { ExpensesListComponent } from './expenses-list/expenses-list.component'
 const routes: Routes = [
-  { path: 'list', component: ExpensesListComponent, data: { title: 'Expenses' } },
-  { path: '', redirectTo: 'list' },
+  { path: '', component: ExpensesListComponent, data: { title: 'Expenses' } },
+  // { path: '', redirectTo: 'list' },
 ]
 
 @NgModule({

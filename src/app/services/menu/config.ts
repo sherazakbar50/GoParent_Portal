@@ -45,12 +45,16 @@ export const getMenuData: any[] = [
         title: 'View Children',
         key: 'viewChildInformation',
         url: '/childs/list',
+        roles: [ApplicationRolesEnum[2]],
+
       },
       {
         title: 'Child Profile',
         key: 'childprofile',
         url: '/childs/childprofile',
         hidden: true,
+        roles: [ApplicationRolesEnum[2]],
+
       },
     ],
   },

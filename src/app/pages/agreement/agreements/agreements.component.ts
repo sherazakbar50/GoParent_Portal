@@ -104,7 +104,6 @@ export class AgreementsComponent implements OnInit {
   }
 
   edit(data) {
-    console.log('data:', data)
     this.form.patchValue(data)
     this.formModalVisible = true
     if (data.ContentFileName) {
