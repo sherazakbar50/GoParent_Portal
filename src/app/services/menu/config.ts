@@ -59,7 +59,7 @@ export const getMenuData: any[] = [
     ],
   },
   {
-    title: 'Family Contact(s)',
+    title: 'Contacts',
     key: 'familyContacts',
     icon: 'fe fe-users',
     url: '/contacts',
@@ -94,7 +94,7 @@ export const getMenuData: any[] = [
     hidden: true,
   },
   {
-    title: 'Connection',
+    title: 'Family',
     key: 'connection',
     icon: 'fe fe-link',
     url: '/connection',

@@ -113,12 +113,12 @@
 
 
 <!-- Templates -->
-<div [hidden]="templateChosenOrCustom" >
+<div [hidden]="templateChosenOrCustom">
   <h4>Select or Create Custody Template</h4>
   <!-- List of Templates -->
   <div class="row flex-nowrap">
     <ng-container *ngFor="let item of list">
-      <div class="col-md-4" (click)="onTemplateSelect(item)">
+      <div class="col-md-6 col-lg-6 col-xl-4" (click)="onTemplateSelect(item)">
         <div class="card calendarCard">
           <div class="card-body">
             <div class="text-center">
@@ -129,7 +129,7 @@
       </div>
     </ng-container>
     <ng-container>
-      <div class="col-md-4">
+      <div class="col-md-6 col-lg-6 col-xl-4">
         <div class="card" style="cursor: pointer; height: 94%;" (click)="templateChosenOrCustom = true">
           <div class="card-body text-nowrap">
             <div class="align-items-center d-flex flex-column h-100 justify-content-center text-center">
