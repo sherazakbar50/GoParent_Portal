@@ -1,8 +1,20 @@
 export class CaseDto {
-    CaseId:number;
+    CaseId: number;
     FamilyId: number;
     LawyerAssociationId: number;
-    FamilyName:string;
+    FamilyName: string;
     LawyerId: number;
-    LawyerName:string;
+    LawyerName: string;
+}
+
+
+export interface CaseFamily {
+    Id: number;
+    Name: string;
+    FamilyMembers: CaseFamilyMember[];
+}
+
+export interface CaseFamilyMember {
+    Id: number;
+    Name: string;
 }

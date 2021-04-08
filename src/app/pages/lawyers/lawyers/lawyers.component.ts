@@ -4,6 +4,7 @@ import { NzNotificationService } from 'ng-zorro-antd/notification'
 import { Observable } from 'rxjs'
 import { LawyerService } from 'src/app/services/lawyers/lawyer.service'
 import { FormsService } from 'src/app/services/shared/forms.service'
+import { Regex } from 'src/Regex/Regex'
 
 @Component({
   selector: 'app-lawyers',
@@ -23,7 +24,7 @@ export class LawyersComponent implements OnInit {
     private _formService: FormsService,
     private _lawyerService: LawyerService,
     private _notify: NzNotificationService,
-  ) {}
+  ) { }
 
   async ngOnInit() {
     this.form = new FormGroup(
@@ -32,11 +33,11 @@ export class LawyersComponent implements OnInit {
           Validators.required,
           Validators.maxLength(50),
           Validators.pattern(
-            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            Regex.Email
           ),
         ]),
       },
-      { updateOn: 'change' },
+      { updateOn: 'blur' },
     )
     // Get Lawyers
     this._lawyerService.getLawyersList()

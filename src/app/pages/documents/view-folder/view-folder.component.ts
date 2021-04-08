@@ -17,6 +17,7 @@ const Swal = require('sweetalert2')
   styleUrls: ['./view-folder.component.scss'],
 })
 export class ViewFolderComponent implements OnInit {
+  activeKey: number = 0
   isVisible: boolean = false
   @Input() caseId: number = 0
   userRole: string = ''
@@ -38,7 +39,7 @@ export class ViewFolderComponent implements OnInit {
       if (r) {
         this.userRole = r.UserRole
         this.sharedDocTitle = this.userRole == "Parent" ? "Shared with me" : "Shared Documents"
-        this.familyDocumentsService.getSharedWithFamily(this.caseId).then((res: FamilyDocumentsDto[]) => {
+        this.familyDocumentsService.getSharedWithFamily().then((res: FamilyDocumentsDto[]) => {
           this.sharedDocs = res.filter(x => x.FamilyId === null)
         })
       }
@@ -110,5 +111,7 @@ export class ViewFolderComponent implements OnInit {
     await this.loadFolder()
   }
 
-  getRole() { }
+  changeKey(key) {
+    this.activeKey = key
+  }
 }

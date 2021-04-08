@@ -1,0 +1,122 @@
+<!-- <div class="breadcrumbs mb-3">
+    <strong>Contacts</strong>
+    <span class="text-muted"> | {{this.listData.length}} contacts in total</span>
+  </div> -->
+<div>
+    <div class="row mb-2">
+        <div class="col-xl-12">
+            <button nz-button class="float-right" nzType="primary" (click)="openModal()">Add User</button>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12 ">
+            <nz-table class="card" #filterTable [nzData]="listData">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Status</th>
+                        <th>Email</th>
+                        <th>Phone No</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let data of filterTable.data; let i = index;">
+                        <td>{{ i + 1 }}</td>
+                        <td>
+                            {{ data.FirstName }}
+                        </td>
+                        <td>{{ data.LastName }}</td>
+                        <td>{{ data.Status }}</td>
+                        <td>{{ data.Email }}</td>
+                        <td>{{ data.PhoneNo }}</td>
+                        <td>{{ data.Address }}</td>
+                        <td>
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit User"
+                                (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete User"
+                                (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill"
+                                class="text-danger"></i>
+                            <ng-container *ngIf="!data.PortalAccessCreated">
+                                <nz-divider nzType="vertical"></nz-divider>
+                                <i class="fe fe-shield" nz-tooltip nzTooltipTitle="Create Portal Access"
+                                    (click)="$event.stopPropagation(sendAccess(data.Id, data.Email))"></i>
+                            </ng-container>
+                        </td>
+                    </tr>
+                </tbody>
+            </nz-table>
+        </div>
+    </div>
+</div>
+<!-- Add Modal -->
+<div>
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="User Details" (nzOnCancel)="handleCancel()"
+        nzMaskClosable="false">
+        <ng-container *nzModalContent>
+            <div class="row">
+                <div class="col-xl-12">
+                    <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="handleSubmit()">
+                        <nz-form-item class="mt-2">
+                            <nz-form-control nzErrorTip="First Name is requied">
+                                <input type="text" nz-input formControlName="FirstName" placeholder="First Name" />
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="text" nz-input formControlName="LastName" placeholder="Last Name" />
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="text" nz-input formControlName="Status"
+                                    placeholder="Status e.g. Doctor, Teacher..." />
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control [nzErrorTip]="EmailTpl">
+                                <input type="email" nz-input formControlName="Email" placeholder="Email Address" />
+                                <ng-template #EmailTpl>
+                                    <ng-container *ngIf="Email.hasError('required')">Email is required!</ng-container>
+                                    <ng-container *ngIf="Email.hasError('pattern') && !Email.hasError('required')">
+                                        Please enter valid email
+                                        address e.g abc@xyz.com</ng-container>
+                                </ng-template>
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <input type="email" nz-input formControlName="PhoneNo" placeholder="Phone Number" />
+                            </nz-form-control>
+                        </nz-form-item>
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <textarea type="text" nz-input formControlName="Address"
+                                    placeholder="Address"></textarea>
+                            </nz-form-control>
+                        </nz-form-item>
+
+
+                        <nz-form-item>
+                            <nz-form-control>
+                                <button nz-button nzType="primary" class="text-center w-100">
+                                    <strong>Save</strong>
+                                </button>
+                            </nz-form-control>
+                        </nz-form-item>
+                    </form>
+                </div>
+            </div>
+        </ng-container>
+    </nz-modal>
+</div>

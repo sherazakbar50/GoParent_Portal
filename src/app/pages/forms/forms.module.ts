@@ -12,6 +12,9 @@ import { SharedModule } from 'src/app/shared.module';
     CommonModule,
     SharedModule,
     FormsRoutingModule
+  ],
+  exports: [
+    FormsComponent
   ]
 })
 export class FormsModule { }

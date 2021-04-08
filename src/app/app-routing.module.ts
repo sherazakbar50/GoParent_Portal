@@ -127,6 +127,12 @@ const routes: Routes = [
         loadChildren: () =>
           import('src/app/pages/forms/forms.module').then(x => x.FormsModule),
       },
+      {
+        path: 'users',
+        // canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('src/app/pages/other-users/other-users.module').then(x => x.OtherUsersModule),
+      },
     ],
   },
   {

@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { CaseDto } from 'src/app/models/Cases/case-dto';
+import { ApplicationRolesEnum, UserSessionModel } from 'src/app/models/UserSessionModel';
 import { CasesService } from 'src/app/services/cases/cases.service';
+import { jwtAuthService } from 'src/app/services/jwt';
 
 @Component({
   selector: 'app-view-cases',
@@ -12,8 +14,17 @@ import { CasesService } from 'src/app/services/cases/cases.service';
 export class ViewCasesComponent implements OnInit {
   case = new CaseDto;
   listData: CaseDto[] = [];
+
   caseObserverSubject: BehaviorSubject<CaseDto> = new BehaviorSubject(null);
-  constructor(private router: Router, private casesService: CasesService) {
+  user: UserSessionModel;
+  constructor(
+    private router: Router,
+    private casesService: CasesService,
+    private authService: jwtAuthService,
+  ) {
+    authService.getUserModel().then(res => {
+      this.user = res
+    })
   }
 
   ngOnInit(): void {
@@ -25,7 +36,11 @@ export class ViewCasesComponent implements OnInit {
         this.listData = res;
       }
     });
-    this.casesService.getCases()
+    if (this.user.UserRole == ApplicationRolesEnum[3]) {
+      this.casesService.getCases()
+    } else {
+      this.casesService.getAllCases()
+    }
   }
 
 

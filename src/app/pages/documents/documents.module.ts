@@ -6,6 +6,7 @@ import { AddFolderComponent } from './add-folder/add-folder.component'
 import { ViewFolderComponent } from './view-folder/view-folder.component'
 import { AddDocumentComponent } from './add-document/add-document.component'
 import { SharedModule } from 'src/app/shared.module'
+import { FormsModule } from '../forms/forms.module'
 
 @NgModule({
   declarations: [
@@ -14,8 +15,8 @@ import { SharedModule } from 'src/app/shared.module'
     ViewFolderComponent,
     AddDocumentComponent,
   ],
-  imports: [CommonModule, DocumentsRoutingModule, SharedModule],
+  imports: [CommonModule, DocumentsRoutingModule, SharedModule, FormsModule],
 
   exports: [ViewFolderComponent, ViewDocumentsComponent],
 })
-export class DocumentsModule {}
+export class DocumentsModule { }

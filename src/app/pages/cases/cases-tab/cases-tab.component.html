@@ -1,12 +1,12 @@
 <div class="card">
   <div class="card-body">
     <nz-tabset [nzSelectedIndex]="0" [nzSize]="'large'">
-      <nz-tab nzTitle="Notes">
+      <nz-tab nzTitle="Notes" *ngIf="user.UserRole === 'Lawyer'">
         <ng-template nz-tab>
           <app-note-tab [caseId]="caseId"></app-note-tab>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Time">
+      <nz-tab nzTitle="Time" *ngIf="user.UserRole === 'Lawyer'">
         <ng-template nz-tab>
           <app-time-tab [caseId]="caseId"></app-time-tab>
         </ng-template>

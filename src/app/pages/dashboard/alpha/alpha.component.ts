@@ -64,7 +64,7 @@ export class DashboardAlphaComponent implements OnInit {
     } else if (role && (role == 'Lawyer')) {
       this.router.navigate(['/cases'])
     } else {
-      // this.router.navigate(['/dashboard'])
+      this.router.navigate(['/calendar'])
     }
   }
 

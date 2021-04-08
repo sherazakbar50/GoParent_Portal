@@ -16,4 +16,5 @@ export enum ApplicationRolesEnum {
   Parent = 2,
   Lawyer = 3,
   Child = 4,
+  Other = 5
 }

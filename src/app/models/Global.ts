@@ -59,6 +59,7 @@ export const API_ENDPOINTS = {
   CreateLawyerAccount: 'api/Lawyers/CreateLawyerAccount',
   LawyersList: 'api/Lawyers/GetList',
   GetFamilies: 'api/Lawyers/GetFamilies',
+  GetFamiliesAssigned: 'api/Lawyers/GetFamiliesAssigned',
   AssignCaseToLawyer: 'api/Lawyers/AssignCaseToLawyer',
   SaveFamilyEvent: 'api/FamilyMember/SaveFamilyEvent',
   GetAllFamilyEvents: 'api/FamilyMember/GetAllFamilyEvents',
@@ -88,7 +89,8 @@ export const API_ENDPOINTS = {
   DeleteCustodyTemplate: 'api/CustodyTemplates/Delete',
 
   UserAllRoomIds: 'api/Messaging/allroomids',
-  GetCasesByLawyer: 'api/Cases/casesList',
+  GetAllCases: 'api/Cases/AllCases',
+  GetCasesByLawyer: 'api/Cases/casesListByLawyer',
   GetCaseNoteByCase: 'api/CasesNote/caseNoteList',
   AddUpdateCaseNote: 'api/CasesNote/addUpdateNote',
   deleteCaseNote: 'api/CasesNote/DeleteCaseNote',
@@ -139,4 +141,14 @@ export const API_ENDPOINTS = {
   DeleteForm: 'api/Form/DeleteForm',
   GetAllForms: 'api/Form/GetAllForms',
   ShareForms: 'api/Form/ShareForms',
+
+  // Other Users
+  AddOtherUser: 'api/OtherUser/AddOtherUser',
+  UpdateOtherUser: 'api/OtherUser/UpdateOtherUser',
+  DeleteOtherUser: 'api/OtherUser/DeleteOtherUser',
+  CreateOtherUserPortalAccess: 'api/OtherUser/CreateOtherUserPortalAccess',
+  GetOtherUsers: 'api/OtherUser/GetOtherUsers',
+
+  // Shared Documents
+  GetSharedDocs: 'api/FamilyDocuments/GetSharedDocs',
 }

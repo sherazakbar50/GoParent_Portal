@@ -79,6 +79,7 @@ export class FamilyMemberService extends ApiHandler {
     relationship: string,
     profilePicture: any,
     isDeleteProfilePic: any,
+    email: string
   ) {
     const formData = new FormData()
     formData.append('ProfilePicture', profilePicture)
@@ -86,6 +87,7 @@ export class FamilyMemberService extends ApiHandler {
     formData.append('LastName', lastName)
     formData.append('Relationship', relationship)
     formData.append('IsDeleteProfilePic', isDeleteProfilePic)
+    formData.append('Email', email)
 
     return this.Post(0, API_URL + API_ENDPOINTS.UpdateUserInfo, formData)
       .pipe(map(x => x.ResponseData))
@@ -97,7 +99,7 @@ export class FamilyMemberService extends ApiHandler {
       .pipe(map(x => x.ResponseData))
       .toPromise()
   }
-  GetCoParentsInfo(){
+  GetCoParentsInfo() {
     return this.Get(0, `${API_URL + API_ENDPOINTS.GetCoParentsInfo}`)
       .pipe(map(x => x.ResponseData))
       .toPromise();

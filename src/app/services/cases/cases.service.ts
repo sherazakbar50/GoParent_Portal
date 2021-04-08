@@ -26,4 +26,11 @@ export class CasesService extends ApiHandler {
     }
   }
 
+  getAllCases() {
+    this.GetAll(API_URL + API_ENDPOINTS.GetAllCases).pipe(map(x => x.ResponseData)).subscribe(res => {
+      if (res) {
+        this.caseSubject$.next(res)
+      }
+    })
+  }
 }

@@ -3,7 +3,8 @@
     <div class="row flex-row justify-content-end">
       <div class="mb-2 mr-2">
 
-        <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary" (click)="SaveEventModal()">Add
+        <a nz-button class="mr-2" *ngIf="userRole == 'Parent' || userRole == 'Other'" nzType="primary"
+          (click)="SaveEventModal()">Add
           Event</a>
 
         <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary"
@@ -147,8 +148,10 @@
   <div>
     <nz-modal [nzFooter]="null" [nzTitle]="'Custody Details'" [(nzVisible)]="viewCustody"
       (nzOnCancel)="closeViewCustodyModal()" nzMaskClosable="false">
-      <app-view-custody [custodySub]="viewCustodyObserverSubject" (edit)="editCustody()" (delete)="deleteCustody()">
-      </app-view-custody>
+      <ng-container *nzModalContent>
+        <app-view-custody [custodySub]="viewCustodyObserverSubject" (edit)="editCustody()" (delete)="deleteCustody()">
+        </app-view-custody>
+      </ng-container>
     </nz-modal>
   </div>
 
@@ -160,14 +163,15 @@
         <app-add-event [eventSub]="editEventObserverSubject" [modalCloseSub]="closeModalObserverSubject">
         </app-add-event>
       </ng-container>
-      (nzOnCancel)="handleCancel()" nzMaskClosable="false">
     </nz-modal>
   </div>
   <div>
     <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent"
       (nzOnCancel)="closeViewEventModal()" nzMaskClosable="false">
-      <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
-      </app-view-event>
+      <ng-container *nzModalContent>
+        <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
+        </app-view-event>
+      </ng-container>
     </nz-modal>
   </div>
 </div>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
+import { CaseFamily } from 'src/app/models/Cases/case-dto';
 import { documentToShareDTO, LawyerDocDTO } from 'src/app/models/document-dto';
 import { UserSessionModel } from 'src/app/models/UserSessionModel';
 import { AlertService } from 'src/app/services/alert-service/alert-service';
@@ -49,10 +50,16 @@ export class LawyerDocumentsComponent implements OnInit {
       }
     })
 
-    this.lawyerService.getCasesFamilies(this.userData.UserId)
-    this.lawyerService.caseListObservable$().subscribe(r => {
+    this.lawyerService.GetFamiliesAssigned(this.userData.UserId)
+    this.lawyerService.caseListObservable$().subscribe((r: CaseFamily[]) => {
       if (r) {
-        this.familyList = r
+        this.familyList = []
+        r.forEach(family => {
+          family.FamilyMembers.forEach(member => {
+            this.familyList.push(member)
+
+          })
+        });
       }
     })
   }
@@ -60,8 +67,8 @@ export class LawyerDocumentsComponent implements OnInit {
   showModal(data: LawyerDocDTO) {
     this.isVisible = true
     this.selectedDocumentId = data.DocumentId
-    if (data.Families) {
-      this.selectionList = data.Families.map(x => x.FamilyId)
+    if (data.FamilyMembers) {
+      this.selectionList = data.FamilyMembers.map(x => x.Id)
     }
 
   }
@@ -120,8 +127,9 @@ export class LawyerDocumentsComponent implements OnInit {
     data = {
       DocumentId: this.selectedDocumentId,
       LawyerId: this.userData.UserId,
-      FamilyIds: this.selectionList,
+      FamilyMemberIds: this.selectionList,
     }
+
     let res = await this.lawyerDocService.shareDoc(data)
 
     if (res) {

@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { map } from 'rxjs/operators'
+import { CaseFamily } from 'src/app/models/Cases/case-dto'
 import { API_ENDPOINTS, API_URL } from 'src/app/models/Global'
 import { ApiHandler } from '../ApiHandler'
 
@@ -10,7 +11,7 @@ import { ApiHandler } from '../ApiHandler'
 })
 export class LawyerService extends ApiHandler {
   private laywersList$: BehaviorSubject<any[]> = new BehaviorSubject(null)
-  private caseList$: BehaviorSubject<any[]> = new BehaviorSubject(null)
+  private caseList$: BehaviorSubject<CaseFamily[]> = new BehaviorSubject(null)
 
   constructor(private _HttpClient: HttpClient) {
     super(_HttpClient)
@@ -20,7 +21,7 @@ export class LawyerService extends ApiHandler {
     return this.laywersList$.asObservable()
   }
 
-  caseListObservable$(): Observable<any[]> {
+  caseListObservable$(): Observable<CaseFamily[]> {
     return this.caseList$.asObservable()
   }
 
@@ -40,6 +41,14 @@ export class LawyerService extends ApiHandler {
 
   getCasesFamilies(lawyerId) {
     this.Get(lawyerId, API_URL + API_ENDPOINTS.GetFamilies)
+      .pipe(map(x => x.ResponseData))
+      .subscribe(res => {
+        this.caseList$.next(res)
+      })
+  }
+
+  GetFamiliesAssigned(lawyerId) {
+    this.Get(lawyerId, API_URL + API_ENDPOINTS.GetFamiliesAssigned)
       .pipe(map(x => x.ResponseData))
       .subscribe(res => {
         this.caseList$.next(res)

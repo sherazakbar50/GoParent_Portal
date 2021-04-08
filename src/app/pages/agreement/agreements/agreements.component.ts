@@ -36,6 +36,7 @@ export class AgreementsComponent implements OnInit {
 
     this.form = new FormGroup({
       Id: new FormControl(0),
+      Title: new FormControl(null),
       Content: new FormControl(null),
       ContentFileURL: new FormControl(null),
       ContentFileBlobName: new FormControl(null),
@@ -75,10 +76,18 @@ export class AgreementsComponent implements OnInit {
           'Content',
           this.form.value.Content ? this.form.value.Content.toString() : '',
         )
+        formData.append(
+          'Title',
+          this.form.value.Title ? this.form.value.Title.toString() : '',
+        )
       })
     } else {
       formData.append('Id', this.form.value.Id.toString())
       formData.append('Content', this.form.value.Content ? this.form.value.Content.toString() : '')
+      formData.append(
+        'Title',
+        this.form.value.Title ? this.form.value.Title.toString() : '',
+      )
       formData.append(
         'ContentFileURL',
         this.form.value.ContentFileURL ? this.form.value.ContentFileURL.toString() : '',

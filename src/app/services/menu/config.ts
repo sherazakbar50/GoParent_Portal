@@ -17,7 +17,7 @@ export const getMenuData: any[] = [
     key: 'cases',
     icon: 'fe fe-book',
     url: '/cases',
-    roles: [ApplicationRolesEnum[3]],
+    roles: [ApplicationRolesEnum[3], ApplicationRolesEnum[1]],
   },
   {
     title: 'View Case',
@@ -31,10 +31,10 @@ export const getMenuData: any[] = [
     key: 'calendar',
     icon: 'fe fe-calendar',
     url: '/calendar',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4]],
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4], ApplicationRolesEnum[5]],
   },
   {
-    title: 'Family Child(s)',
+    title: 'Child(s)',
     key: 'childProfiles',
     icon: 'fa fa-child',
     roles: [ApplicationRolesEnum[2]],
@@ -80,11 +80,11 @@ export const getMenuData: any[] = [
     roles: [ApplicationRolesEnum[1]],
   },
   {
-    title: 'Family Document(s)',
+    title: 'Document(s)',
     key: 'documents',
     icon: 'fe fe-folder',
     url: '/documents',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4]],
+    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[4], ApplicationRolesEnum[5]],
   },
   {
     title: 'View Documents',
@@ -156,7 +156,14 @@ export const getMenuData: any[] = [
     key: 'forms',
     icon: 'fe fe-file-text',
     url: '/forms',
-    roles: [ApplicationRolesEnum[2], ApplicationRolesEnum[3]],
+    roles: [ApplicationRolesEnum[3]],
+  },
+  {
+    title: 'Users',
+    key: 'users',
+    icon: 'fe fe-users',
+    url: '/users',
+    roles: [ApplicationRolesEnum[2]],
   },
   {
     title: 'Profile',

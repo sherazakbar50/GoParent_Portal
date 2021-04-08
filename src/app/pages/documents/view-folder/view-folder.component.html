@@ -1,73 +1,103 @@
 <div>
-  <div class="card">
-    <div class="card-body">
+  <div class="row">
+    <div class="col-xl-12 col-lg-12">
+      <div class="card">
+        <div class="card-header card-header-flex flex-column">
+          <nz-tabset class="kit-tabs kit-tabs-bold" (nzSelectedIndexChange)="changeKey($event)">
+            <nz-tab nzTitle="Documents">
 
-      <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
-        <button [hidden]="userRole !=='Parent' && userRole !=='Child'" nz-button nzType="primary"
-          (click)="AddFolder()">Create a new folder</button>
-      </div>
-      <hr [hidden]="userRole !=='Parent' && userRole !=='Child'">
-      <div class="col-md-12 col-md-content">
-        <div class="row" *ngIf="listData.length !== 0; else noData">
+            </nz-tab>
 
-          <div class=" col-sm-2 " *ngFor="let folder of listData">
-            <div class="thumbnail mt-5">
-              <br>
-              <a class="folder-link pointer" (click)="NavigateToDocuments(folder.FolderId)">
-                <div class="overlay">
-                  <img src="https://www.svgrepo.com/show/117522/folder.svg" alt="Folder">
-                </div>
-              </a>
-              <div class="caption">
-                <h5 class="mt-2 ml-1 text-center"><a>{{folder.Name}}</a></h5>
-                <h6 class="text-center text-gray-5">
-                  <div class="row ml-1">
-                    {{folder.DocumentCount}} documents
+            <nz-tab nzTitle="Forms">
+
+            </nz-tab>
+          </nz-tabset>
+        </div>
+        <div class="card-body">
+          <div id="docs-div" *ngIf="activeKey === 0; else formTpl">
+
+            <div>
+              <div class="card">
+                <div class="card-body">
+
+                  <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
+                    <button [hidden]="userRole !=='Parent' && userRole !=='Child'" nz-button nzType="primary"
+                      (click)="AddFolder()">Create a new folder</button>
                   </div>
+                  <hr [hidden]="userRole !=='Parent' && userRole !=='Child'">
+                  <div class="col-md-12 col-md-content">
+                    <div class="row" *ngIf="listData.length !== 0; else noData">
 
-                </h6>
-                <br>
-                <p class="text-center">
-                  <a class="btn btn-sm btn-default" [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
-                    (click)="$event.stopPropagation(EditFolder(folder))" nz-tooltip nzTooltipTitle="Edit folder"
-                    data-original-title="" title=""><i class="fa fa-edit"></i> </a>
-                  <a class="btn btn-sm btn-primary ml-4" [hidden]="userRole !=='Parent' && userRole !=='Child'"
-                    (click)="$event.stopPropagation(DeleteFolder(folder.FolderId))" nz-tooltip
-                    nzTooltipTitle="Delete folder" data-original-title="" title=""><i class="fa fa-trash"></i> </a>
-                </p>
+                      <div class=" col-sm-2 " *ngFor="let folder of listData">
+                        <div class="thumbnail mt-5">
+                          <br>
+                          <a class="folder-link pointer" (click)="NavigateToDocuments(folder.FolderId)">
+                            <div class="overlay">
+                              <img src="https://www.svgrepo.com/show/117522/folder.svg" alt="Folder">
+                            </div>
+                          </a>
+                          <div class="caption">
+                            <h5 class="mt-2 ml-1 text-center"><a>{{folder.Name}}</a></h5>
+                            <h6 class="text-center text-gray-5">
+                              <div class="row ml-1">
+                                {{folder.DocumentCount}} documents
+                              </div>
+
+                            </h6>
+                            <br>
+                            <p class="text-center">
+                              <a class="btn btn-sm btn-default" [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
+                                (click)="$event.stopPropagation(EditFolder(folder))" nz-tooltip
+                                nzTooltipTitle="Edit folder" data-original-title="" title=""><i class="fa fa-edit"></i>
+                              </a>
+                              <a class="btn btn-sm btn-primary ml-4"
+                                [hidden]="userRole !=='Parent' && userRole !=='Child'"
+                                (click)="$event.stopPropagation(DeleteFolder(folder.FolderId))" nz-tooltip
+                                nzTooltipTitle="Delete folder" data-original-title="" title=""><i
+                                  class="fa fa-trash"></i> </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+
+                    <ng-template #noData class="align-center">
+                      <nz-empty></nz-empty>
+                    </ng-template>
+                  </div>
+                </div>
               </div>
             </div>
+            <nz-card [nzTitle]="sharedDocTitle" *ngIf="userRole !=='Lawyer'">
+              <div class="row">
+                <ng-container *ngIf="sharedDocs && sharedDocs.length > 0; else noSharedDocs"></ng-container>
+                <ng-container *ngFor="let item of sharedDocs">
+                  <div class="col-md-2 mb-4 text-center" style="word-break: break-all;">
+                    <a href="{{item.BlobUrl}}" nz-tooltip nzTooltipTitle="Click to View" target="_blank">
+                      <div class="mb-2">
+                        <nz-avatar nzSrc="/assets/files-icons/svg/{{item.Type.split('.')[1]}}.svg" nzIcon="file"
+                          nzSize="large" [nzShape]="'square'" class="avatar">
+                        </nz-avatar>
+                      </div>
+                      <div>
+                        {{item.Name}}
+                      </div>
+                    </a>
+                  </div>
+                </ng-container>
+              </div>
+            </nz-card>
+
+
           </div>
-
-
         </div>
-
-        <ng-template #noData class="align-center">
-          <nz-empty></nz-empty>
-        </ng-template>
       </div>
     </div>
   </div>
 </div>
-<nz-card [nzTitle]="sharedDocTitle">
-  <div class="row">
-    <ng-container *ngIf="sharedDocs && sharedDocs.length > 0; else noSharedDocs"></ng-container>
-    <ng-container *ngFor="let item of sharedDocs">
-      <div class="col-md-2 mb-4 text-center" style="word-break: break-all;">
-        <a href="{{item.BlobUrl}}" nz-tooltip nzTooltipTitle="Click to View" target="_blank">
-          <div class="mb-2">
-            <nz-avatar nzSrc="/assets/files-icons/svg/{{item.Type.split('.')[1]}}.svg" nzIcon="file" nzSize="large"
-              [nzShape]="'square'" class="avatar">
-            </nz-avatar>
-          </div>
-          <div>
-            {{item.Name}}
-          </div>
-        </a>
-      </div>
-    </ng-container>
-  </div>
-</nz-card>
+
 
 
 <div>
@@ -84,5 +114,12 @@
   <div class="col-md-12">
     <nz-result nzStatus="404" nzTitle="No Data Found!">
     </nz-result>
+  </div>
+</ng-template>
+
+
+<ng-template #formTpl>
+  <div>
+    <app-forms></app-forms>
   </div>
 </ng-template>

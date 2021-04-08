@@ -114,10 +114,10 @@ export class ProfileComponent implements OnInit {
       return;
 
     this.loading = true;
-    let updateInfo = await this.familyMemberService.UpdateUserInfo(this.firstName.value, this.lastName.value, this.relationship.value, this.ProfilePictureFile, this.isDeleteProfilePic);
+    let updateInfo = await this.familyMemberService.UpdateUserInfo(this.firstName.value, this.lastName.value, this.relationship.value, this.ProfilePictureFile, this.isDeleteProfilePic, this.userData.Email);
     if (updateInfo) {
       this.notify.success('', 'Information updated successfully');
-      this.authService.logoutUnAuthorizedUser();
+      // this.authService.logoutUnAuthorizedUser();
     }
     this.loading = false;
     this.personalInfoSubmissionHolder = false;
@@ -129,7 +129,7 @@ export class ProfileComponent implements OnInit {
     if (this.changePasswordForm.invalid) return
     let rs = await this.authService.changePassword(this.changePasswordForm.value)
     if (rs) {
-      this.notify.success('', 'Password Changed successfully!');
+      this.notify.success('', 'Password changed successfully!');
       this.changePasswordForm.reset()
     }
   }

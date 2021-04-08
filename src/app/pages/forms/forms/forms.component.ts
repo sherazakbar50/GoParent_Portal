@@ -34,12 +34,7 @@ export class FormsComponent implements OnInit {
     private lawyerFormService: LawyerFormService,
     private lawyerService: LawyerService,
   ) {
-    this.authService.getUserModel().then(res => {
-      if (res) {
-        this.userRole = res.UserRole
-        this.userData = res
-      }
-    })
+
   }
 
   ngOnInit(): void {
@@ -57,11 +52,22 @@ export class FormsComponent implements OnInit {
         this.dataList = res
       }
     })
-
-    this.lawyerService.getCasesFamilies(this.userData.UserId)
+    this.authService.getUserModel().then(res => {
+      if (res) {
+        this.userRole = res.UserRole
+        this.userData = res
+        this.lawyerService.GetFamiliesAssigned(this.userData.UserId)
+      }
+    })
     this.lawyerService.caseListObservable$().subscribe(r => {
       if (r) {
-        this.familyList = r
+        this.familyList = []
+        r.forEach(family => {
+          family.FamilyMembers.forEach(member => {
+            this.familyList.push(member)
+
+          })
+        });
       }
     })
   }
@@ -118,7 +124,7 @@ export class FormsComponent implements OnInit {
     data = {
       Id: 0,
       FormId: this.selectedFormId,
-      FamilyIds: this.selectionList,
+      FamilyMemberIds: this.selectionList,
     }
     let res = await this.lawyerFormService.shareForm(data)
 
@@ -134,8 +140,8 @@ export class FormsComponent implements OnInit {
     this.isShareVisible = true
     this.selectedFormId = data.Id
     this.selectionList = []
-    if (data.Families && data.Families) {
-      this.selectionList = data.Families.map(x => x.FamilyId)
+    if (data.FamilyMembers && data.FamilyMembers) {
+      this.selectionList = data.FamilyMembers.map(x => x.Id)
     }
   }
 

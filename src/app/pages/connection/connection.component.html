@@ -1,39 +1,47 @@
 <nz-card nzTitle="Other Co-Parent Info">
-    <div *ngIf="!OtherCoParentInfo">
-        <form nz-form [formGroup]="form" (ngSubmit)="CreatePortalAccess()" *ngIf="form">
-           <div nz-row>
-               <div nz-col nzSpan="20">
-                <nz-form-item >
-                    <nz-form-control>
-                      <nz-input-group nzPrefixIcon="user">
-                        <input type="email"  [nzSize]="'large'" formControlName="otherCoParentEmail" nz-input placeholder="Co-Parent Email Address" />
-                      </nz-input-group>
-                      <div class="text-danger">
-                        <ng-container *ngIf="isSubmitted && otherCoParentEmail.hasError('required')">Email is required</ng-container>
-                        <ng-container *ngIf="isSubmitted && otherCoParentEmail.hasError('pattern') && !otherCoParentEmail.hasError('required')">Please enter a valid email e.g abc@xyz.com</ng-container>
-                        <ng-container *ngIf="isSubmitted && otherCoParentEmail.hasError('maxlength') && !otherCoParentEmail.hasError('required') && !otherCoParentEmail.hasError('pattern')">Maximum 255 characters are allowed!</ng-container>
-                      </div>
-                    </nz-form-control>
-                  </nz-form-item>
-               </div>
-               <div nz-col nzSpan="1"></div>
-               <div nz-col nzSpan="3">
-                <nz-form-item>
-                    <nz-form-control>
-                      <button nz-button nzType="primary">Send  Portal Access</button>
-                    </nz-form-control>
-                  </nz-form-item>
-               </div>
-           </div>
-          </form>
-    </div>
-    <div *ngIf="OtherCoParentInfo">
-        <nz-card-meta nzTitle="Email" nzDescription="{{OtherCoParentInfo.Email}}"></nz-card-meta>
-        <nz-divider *ngIf="OtherCoParentInfo.Name"></nz-divider>
-        <nz-card-meta *ngIf="OtherCoParentInfo.Name" nzTitle="Full Name" nzDescription="{{OtherCoParentInfo.Name}}"></nz-card-meta>
-        <nz-divider *ngIf="OtherCoParentInfo.Relationship"></nz-divider>
-        <nz-card-meta *ngIf="OtherCoParentInfo.Relationship" nzTitle="Relationship" nzDescription="{{OtherCoParentInfo.Relationship | uppercase }}"></nz-card-meta>
-    </div>
-  </nz-card>
-
-
+  <div *ngIf="!OtherCoParentInfo">
+    <form nz-form [formGroup]="form" (ngSubmit)="CreatePortalAccess()" *ngIf="form">
+      <div nz-row>
+        <div nz-col nzSpan="20">
+          <nz-form-item>
+            <nz-form-control [nzErrorTip]="errorTpl">
+              <nz-input-group nzPrefixIcon="user">
+                <input type="email" [nzSize]="'large'" formControlName="otherCoParentEmail" nz-input
+                  placeholder="Co-Parent Email Address" />
+              </nz-input-group>
+              <ng-template #errorTpl>
+                <div class="text-danger">
+                  <ng-container *ngIf="otherCoParentEmail.hasError('required')">Email is required
+                  </ng-container>
+                  <ng-container
+                    *ngIf="otherCoParentEmail.hasError('pattern') && !otherCoParentEmail.hasError('required')">
+                    Please enter a valid email e.g abc@xyz.com</ng-container>
+                  <ng-container
+                    *ngIf="otherCoParentEmail.hasError('maxlength') && !otherCoParentEmail.hasError('required') && !otherCoParentEmail.hasError('pattern')">
+                    Maximum 255 characters are allowed!</ng-container>
+                </div>
+              </ng-template>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="1"></div>
+        <div nz-col nzSpan="3">
+          <nz-form-item>
+            <nz-form-control>
+              <button nz-button nzType="primary">Send Portal Access</button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div *ngIf="OtherCoParentInfo">
+    <nz-card-meta nzTitle="Email" nzDescription="{{OtherCoParentInfo.Email}}"></nz-card-meta>
+    <nz-divider *ngIf="OtherCoParentInfo.Name"></nz-divider>
+    <nz-card-meta *ngIf="OtherCoParentInfo.Name" nzTitle="Full Name" nzDescription="{{OtherCoParentInfo.Name}}">
+    </nz-card-meta>
+    <nz-divider *ngIf="OtherCoParentInfo.Relationship"></nz-divider>
+    <nz-card-meta *ngIf="OtherCoParentInfo.Relationship" nzTitle="Relationship"
+      nzDescription="{{OtherCoParentInfo.Relationship | uppercase }}"></nz-card-meta>
+  </div>
+</nz-card>

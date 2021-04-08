@@ -7,6 +7,7 @@ export class FamilyDocumentsDto {
     FileUrl: string;
     BlobUrl: string;
     FamilyId: number;
+    FamilyMemberId: number;
     DocumentFiles: File[] = [];
 }
 
@@ -19,17 +20,17 @@ export class LawyerDocDTO {
     BlobUrl: string;
     LawyerId: string;
     FamilyIds: number[];
-    Families: Family[];
+    FamilyMembers: FamilyMember[];
     DocumentFiles: File[] = [];
 }
 
-class Family {
-    FamilyId: number;
-    FamilyName: string;
+class FamilyMember {
+    Id: number;
+    Name: string;
 }
 
 export class documentToShareDTO {
     DocumentId: number;
     LawyerId: string;
-    FamilyIds: number[];
+    FamilyMemberIds: number[];
 }

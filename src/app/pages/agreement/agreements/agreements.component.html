@@ -13,13 +13,19 @@
             <div>
                 <div class="agreement-card pt-4 pl-4 overflow-hidden position-relative bg-light">
                     <div class=" mb-2">
-                        Agreement Content:<br>
+                        Title:<br>
+                        <span class="font-size-18 text-dark ml-4">
+                            {{data.Title}}
+                        </span>
+                    </div>
+                    <div class=" mb-2">
+                        Content:<br>
                         <span class="font-size-18 text-dark ml-4">
                             {{data.Content}}
                         </span>
                     </div>
                     <div class="mb-3">
-                        Agreement File:<br>
+                        File:<br>
                         <span class="font-size-18 text-dark ml-4" *ngIf="data.ContentFileURL">
                             <a href="{{data.ContentFileURL}}" target="_blank">
                                 {{data.ContentFileName}}
@@ -163,14 +169,20 @@
             <form nz-form [formGroup]="form" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
                 <nz-form-item>
                     <nz-form-control>
-                        <label class="mb-0">Agreement Content</label>
+                        <label class="mb-0">Title</label>
+                        <input nz-input formControlName="Title" placeholder="Enter Title" />
+                    </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                    <nz-form-control>
+                        <label class="mb-0">Content</label>
                         <textarea nz-input formControlName="Content"
                             placeholder="e.g., Check In(s) must be before 10 PM"></textarea>
                     </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                     <nz-form-control>
-                        <label class="mb-0">Agreement File</label>
+                        <label class="mb-0">File</label>
                         <nz-upload nzType="drag" [(nzFileList)]="fileList" [nzMultiple]="false"
                             [nzBeforeUpload]="beforeUpload">
                             <p class="ant-upload-drag-icon">

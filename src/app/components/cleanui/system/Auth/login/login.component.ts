@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
       this.authService.getUserModel().then(r => {
         let role = r.UserRole
         this.authService.setHomePath(role)
-        if (role && (role == 'Parent' || role == 'Child')) {
+        if (role && (role == 'Parent' || role == 'Child' || role == 'Other')) {
           this.router.navigate(['/calendar'])
         } else if (role && (role == 'Lawyer')) {
           this.router.navigate(['/cases'])
