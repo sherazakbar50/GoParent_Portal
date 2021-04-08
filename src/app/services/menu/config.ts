@@ -91,6 +91,7 @@ export const getMenuData: any[] = [
     key: 'view-documents',
     icon: 'fe fe-folder',
     url: '/documents/view-documents',
+    roles: [ApplicationRolesEnum[3]],
     hidden: true,
   },
   {

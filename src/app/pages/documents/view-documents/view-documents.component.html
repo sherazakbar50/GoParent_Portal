@@ -8,7 +8,7 @@
           </span>
         </a>
       </div> -->
-      <app-add-document [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
+      <app-add-document [hidden]="userRole !== 'Parent' && userRole !== 'Child' && userRole !== 'Other'"
         (documentCreated)='AddDocumentSuccess($event)' [fId]="folderId"></app-add-document>
       <hr [hidden]="userRole !== 'Parent' && userRole !== 'Child'">
       <div class="col-md-12 col-md-content">
@@ -61,12 +61,12 @@
                 </h5>
                 <br>
                 <p class="text-center ml-3">
-                  <a class="btn btn-sm btn-default" [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
-                    tooltip="{ title: 'Edit' }" data-original-title="" title=""
+                  <a class="btn btn-sm btn-default" tooltip="{ title: 'Edit' }" data-original-title="" title=""
                     (click)="$event.stopPropagation(DownloadDocument(docs.BlobUrl))" nz-tooltip
                     nzTooltipTitle="Download document"><i class="fa fa-download"></i>
                   </a>
-                  <a class="btn btn-sm btn-primary ml-4" [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
+                  <a class="btn btn-sm btn-primary ml-4"
+                    [hidden]="userRole !== 'Parent' && userRole !== 'Child' && userRole !== 'Other'"
                     (click)="$event.stopPropagation(DeleteDocument(docs.DocumentId))" nz-tooltip
                     nzTooltipTitle="Delete document" tooltip="{ title: 'Destroy' }" rel="nofollow" data-method="delete"
                     data-original-title="" title=""><i class="fa fa-trash"></i>

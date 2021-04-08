@@ -27,7 +27,7 @@ export class PermissionGuard implements CanActivate {
         return this.authorize.getUserModel().then(r => {
             this.role = r.UserRole
             this.menuData.forEach(e => {
-                if (e.url && state.url == e.url) {
+                if (e.url && (state.url.split('?')[0]) == e.url) {
                     if (e.roles && e.roles.includes(this.role)) {
                         isAuthenticated = true
                     } else if (!e.roles) {

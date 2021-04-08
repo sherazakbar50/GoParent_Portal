@@ -21,10 +21,10 @@
                 <div class="card-body">
 
                   <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
-                    <button [hidden]="userRole !=='Parent' && userRole !=='Child'" nz-button nzType="primary"
-                      (click)="AddFolder()">Create a new folder</button>
+                    <button [hidden]="userRole !=='Parent' && userRole !=='Child' && userRole !== 'Other'" nz-button
+                      nzType="primary" (click)="AddFolder()">Create a new folder</button>
                   </div>
-                  <hr [hidden]="userRole !=='Parent' && userRole !=='Child'">
+                  <hr [hidden]="userRole !=='Parent' && userRole !=='Child' && userRole !== 'Other'">
                   <div class="col-md-12 col-md-content">
                     <div class="row" *ngIf="listData.length !== 0; else noData">
 
