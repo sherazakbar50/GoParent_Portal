@@ -1,8 +1,8 @@
 <div>
-  <nz-alert nzType="info" *ngIf="activeKey === 0"
+  <!-- <nz-alert nzType="info" *ngIf="activeKey === 0"
     nzMessage="You will get auto logged out once you update your information." nzShowIcon>
-  </nz-alert>
-  <br />
+  </nz-alert> -->
+  <!-- <br /> -->
   <div class="row">
     <div class="col-xl-12 col-lg-12">
       <div class="card">
@@ -19,78 +19,88 @@
         </div>
         <div class="card-body">
           <div id="persona-info-div" *ngIf="activeKey === 0; else passTpl">
-            <div class="clearfix">
-              <div class="col-xl-12 m-3 text-center" id='siku'>
-                <nz-upload [nzShape]="'circle'" class="avatar-uploader d-flex justify-content-center"
-                  nzShowButton="true" nzName="avatar" nzListType="picture-card" [nzShowUploadList]="false"
-                  [nzBeforeUpload]="beforeUpload">
-                  <ng-container *ngIf="!ProfilePicUrl">
-                    <i class="upload-icon" nz-icon [nzType]="ProfilePictureUploader ? 'loading' : 'plus'"></i>
-                    <div class="ant-upload-text">Upload</div>
-                  </ng-container>
-                  <img *ngIf="ProfilePicUrl" [src]="ProfilePicUrl" style="width: 100%" />
-                </nz-upload>
-                <a (click)="RemoveProfilePicture(event)" class="fe fe-trash profile-pic-delete-icon position-absolute"
-                  *ngIf="ProfilePicUrl"></a>
+            <div *ngIf="userData?.UserRole !== 'Lawyer'; else emailTemp">
+              <div class="clearfix">
+                <div class="col-xl-12 m-3 text-center" id='siku'>
+                  <nz-upload [nzShape]="'circle'" class="avatar-uploader d-flex justify-content-center"
+                    nzShowButton="true" nzName="avatar" nzListType="picture-card" [nzShowUploadList]="false"
+                    [nzBeforeUpload]="beforeUpload">
+                    <ng-container *ngIf="!ProfilePicUrl">
+                      <i class="upload-icon" nz-icon [nzType]="ProfilePictureUploader ? 'loading' : 'plus'"></i>
+                      <div class="ant-upload-text">Upload</div>
+                    </ng-container>
+                    <img *ngIf="ProfilePicUrl" [src]="ProfilePicUrl" style="width: 100%" />
+                  </nz-upload>
+                  <a (click)="RemoveProfilePicture(event)" class="fe fe-trash profile-pic-delete-icon position-absolute"
+                    *ngIf="ProfilePicUrl"></a>
+                </div>
               </div>
+              <form nz-form [nzLayout]="'vertical'" [formGroup]="personalInfoForm"
+                (ngSubmit)="personalInfoFormSubmission()" role="form" *ngIf="personalInfoForm">
+                <div class="row">
+                  <div class="col-lg-6">
+                    <nz-form-item>
+                      <nz-form-label nzFor="firstName">First Name</nz-form-label>
+                      <nz-form-control>
+                        <input type="text" nz-input nzSize="medium" formControlName="firstName"
+                          placeholder="First Name" />
+                        <div class="text-danger">
+                          <ng-container *ngIf="personalInfoSubmissionHolder && firstName.hasError('required')">
+                            Please
+                            enter your First Name!</ng-container>
+                        </div>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-lg-6">
+                    <nz-form-item>
+                      <nz-form-label nzFor="lastName">Last Name</nz-form-label>
+                      <nz-form-control>
+                        <input type="text" nz-input nzSize="medium" formControlName="lastName"
+                          placeholder="Last Name" />
+                        <div class="text-danger">
+                          <ng-container *ngIf="personalInfoSubmissionHolder && lastName.hasError('required')">Please
+                            enter
+                            your Last Name!</ng-container>
+                        </div>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-lg-6">
+                    <nz-form-item>
+                      <nz-form-label nzFor="email">Email</nz-form-label>
+                      <nz-form-control>
+                        <input type="email" nz-input nzSize="medium" formControlName="email" placeholder="Email" />
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div class="col-lg-6">
+                    <nz-form-item>
+                      <nz-form-label nzFor="email">Family Role / Relationship</nz-form-label>
+                      <nz-form-control>
+                        <nz-select nzPlaceHolder="Choose your role" formControlName="relationship">
+                          <nz-option nzValue="father" nzLabel="I'm father"></nz-option>
+                          <nz-option nzValue="mother" nzLabel="I'm mother"></nz-option>
+                          <nz-option nzValue="guardian" nzLabel="I'm guardian"></nz-option>
+                        </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                <div class="form-actions text-center w-100">
+                  <button nz-button nzType="primary" [nzSize]="'medium'" [nzLoading]="loading">
+                    <strong> Update</strong>
+                  </button>
+                </div>
+              </form>
             </div>
-            <form nz-form [nzLayout]="'vertical'" [formGroup]="personalInfoForm"
-              (ngSubmit)="personalInfoFormSubmission()" role="form" *ngIf="personalInfoForm">
-              <div class="row">
-                <div class="col-lg-6">
-                  <nz-form-item>
-                    <nz-form-label nzFor="firstName">First Name</nz-form-label>
-                    <nz-form-control>
-                      <input type="text" nz-input nzSize="medium" formControlName="firstName"
-                        placeholder="First Name" />
-                      <div class="text-danger">
-                        <ng-container *ngIf="personalInfoSubmissionHolder && firstName.hasError('required')">
-                          Please
-                          enter your First Name!</ng-container>
-                      </div>
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div class="col-lg-6">
-                  <nz-form-item>
-                    <nz-form-label nzFor="lastName">Last Name</nz-form-label>
-                    <nz-form-control>
-                      <input type="text" nz-input nzSize="medium" formControlName="lastName" placeholder="Last Name" />
-                      <div class="text-danger">
-                        <ng-container *ngIf="personalInfoSubmissionHolder && lastName.hasError('required')">Please
-                          enter
-                          your Last Name!</ng-container>
-                      </div>
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div class="col-lg-6">
-                  <nz-form-item>
-                    <nz-form-label nzFor="email">Email</nz-form-label>
-                    <nz-form-control>
-                      <input type="email" nz-input nzSize="medium" formControlName="email" placeholder="Email" />
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
-                <div class="col-lg-6">
-                  <nz-form-item>
-                    <nz-form-label nzFor="email">Family Role / Relationship</nz-form-label>
-                    <nz-form-control>
-                      <nz-select nzPlaceHolder="Choose your role" formControlName="relationship">
-                        <nz-option nzValue="father" nzLabel="I'm father"></nz-option>
-                        <nz-option nzValue="mother" nzLabel="I'm mother"></nz-option>
-                        <nz-option nzValue="guardian" nzLabel="I'm guardian"></nz-option>
-                      </nz-select>
-                    </nz-form-control>
-                  </nz-form-item>
-                </div>
+
+            <ng-template #emailTemp>
+              <div class="text-left">
+                <strong>Email:</strong>
+                {{userData?.Email}}
               </div>
-              <div class="form-actions text-center w-100">
-                <button nz-button nzType="primary" [nzSize]="'medium'" [nzLoading]="loading">
-                  <strong> Update</strong>
-                </button>
-              </div>
-            </form>
+            </ng-template>
           </div>
         </div>
       </div>

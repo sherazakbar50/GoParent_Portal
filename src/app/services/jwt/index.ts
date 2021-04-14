@@ -14,9 +14,18 @@ import { Router } from '@angular/router'
 export class jwtAuthService extends ApiHandler {
 
   homePathSub$: BehaviorSubject<string> = new BehaviorSubject<string>('dashboard')
+  profilePicSubject: BehaviorSubject<any> = new BehaviorSubject(undefined)
 
   constructor(http: HttpClient, private router: Router) {
     super(http)
+  }
+
+  getProfilePic() {
+    return this.profilePicSubject.asObservable()
+  }
+
+  setProfilePic(photoUrl) {
+    this.profilePicSubject.next(photoUrl)
   }
 
   get homePath() {
@@ -54,6 +63,7 @@ export class jwtAuthService extends ApiHandler {
   public getAccessToken(): string {
     return localStorage.getItem('accessToken')
   }
+
   public isAuthenticated(): boolean {
     let accessToken = this.getAccessToken()
     return accessToken && accessToken.length > 0
@@ -61,8 +71,11 @@ export class jwtAuthService extends ApiHandler {
   public async getUserModel() {
     let token = this.getAccessToken()
     if (this.isAuthenticated()) {
-      return JSON.parse(atob(token.split('.')[1])) as UserSessionModel
+      let data = JSON.parse(atob(token.split('.')[1])) as UserSessionModel
+      this.setProfilePic(data.ProfilePicUrl)
+      return data
     }
     return new UserSessionModel()
   }
+
 }

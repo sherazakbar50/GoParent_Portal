@@ -83,7 +83,9 @@ export class ProfileComponent implements OnInit {
   async ngOnInit() {
     this.userData = await this.authService.getUserModel();
     if (this.userData.ProfilePicUrl)
-      this.ProfilePicUrl = this.userData.ProfilePicUrl;
+      this.ProfilePicUrl = this.userData.ProfilePicUrl
+    // this.authService.getProfilePic().subscribe(res => {
+    // })
 
     this.personalInfoForm = this.fb.group({
       firstName: [this.userData.FirstName, [Validators.required]],
@@ -116,8 +118,10 @@ export class ProfileComponent implements OnInit {
     this.loading = true;
     let updateInfo = await this.familyMemberService.UpdateUserInfo(this.firstName.value, this.lastName.value, this.relationship.value, this.ProfilePictureFile, this.isDeleteProfilePic, this.userData.Email);
     if (updateInfo) {
+      localStorage.setItem('accessToken', updateInfo.AccessToken)
+      localStorage.setItem('refreshToken', updateInfo.RefreshToken)
       this.notify.success('', 'Information updated successfully');
-      // this.authService.logoutUnAuthorizedUser();
+      this.authService.getUserModel()
     }
     this.loading = false;
     this.personalInfoSubmissionHolder = false;

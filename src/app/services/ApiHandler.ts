@@ -17,7 +17,7 @@ export interface IApiBaseActions {
 
 @Injectable()
 export class ApiHandler implements IApiBaseActions {
-  constructor(private myHttpClient: HttpClient) {}
+  constructor(private myHttpClient: HttpClient) { }
 
   Get(id: any, url: string) {
     url = `${url}?id=${id}`
@@ -37,7 +37,6 @@ export class ApiHandler implements IApiBaseActions {
   HandleResponse(response) {
     let notifier: NzNotificationService = AppInjector.get(NzNotificationService)
     if (!response) notifier.error('', 'Something went wrong. Please try again later')
-
     if (!response.IsSuccessful || response.Status === 500 || response.Status === 400)
       notifier.error('', response.Error || 'Something went wrong. Please try again later')
   }

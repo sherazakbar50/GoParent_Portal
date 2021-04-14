@@ -3,7 +3,7 @@ export interface CheckInOutDTO {
   IsCheckIn: boolean
   ChildId: number
   ChildName: string
-  DateTime: string
+  DateTime: string | any
   Notes: string
   Location: string
   FamilyId: number | null

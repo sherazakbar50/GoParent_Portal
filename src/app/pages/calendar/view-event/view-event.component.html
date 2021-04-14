@@ -43,15 +43,16 @@
             </span>
         </div>
     </div>
-    <nz-divider></nz-divider>
-    <div class="text-align-end">
-        <button nz-button nzType="primary" [hidden]="userRole !== 'Parent'" [nzSize]="'small'" (click)="editEvent()">
-            <strong> Edit</strong>
-        </button>
-        &nbsp;
-        <button nz-button nzType="primary" nzDanger [hidden]="userRole !== 'Parent'" [nzSize]="'small'"
-            (click)="deleteEvent()">
-            <strong> Delete</strong>
-        </button>
-    </div>
+    <ng-container *ngIf="userRole === 'Parent' || userId === event.CreatedBy">
+        <nz-divider></nz-divider>
+        <div class="text-align-end">
+            <button nz-button nzType="primary" [nzSize]="'small'" (click)="editEvent()">
+                <strong> Edit</strong>
+            </button>
+            &nbsp;
+            <button nz-button nzType="primary" nzDanger [nzSize]="'small'" (click)="deleteEvent()">
+                <strong> Delete</strong>
+            </button>
+        </div>
+    </ng-container>
 </div>

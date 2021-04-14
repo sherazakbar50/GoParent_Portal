@@ -17,13 +17,14 @@ export class TopbarUserMenuComponent implements OnInit {
   role: string = ''
   email: string = ''
   phone: string = ''
-  userData:UserSessionModel;
-  ProfilePic:string;
+  userData: UserSessionModel;
+  ProfilePic: string;
   constructor(private authService: jwtAuthService, private router: Router) {
   }
   async ngOnInit() {
-    this.userData = await this.authService.getUserModel();
-    this.ProfilePic = this.userData.ProfilePicUrl;
+    this.authService.getProfilePic().subscribe(res => {
+      this.ProfilePic = res;
+    })
   }
 
   badgeCountIncrease() {

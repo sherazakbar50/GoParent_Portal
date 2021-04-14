@@ -61,12 +61,13 @@
                 </div>
             </div>
         </div>
-        
-        <nz-divider></nz-divider>
-        <div class="text-center" *ngIf="userRole === 'Parent'">
-            <div class="mb-3">
-                <a nz-button nzType="default" (click)="backToList()">Go to List</a>
+        <ng-container *ngIf="userRole === 'Parent'">
+            <nz-divider></nz-divider>
+            <div class="text-center">
+                <div class="mb-3">
+                    <a nz-button nzType="default" (click)="backToList()">Go to List</a>
+                </div>
             </div>
-        </div>
+        </ng-container>
     </div>
 </ng-container>

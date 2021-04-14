@@ -1,7 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { Subject } from 'rxjs'
 import { CustodyDto } from 'src/app/models/CustodyDto'
-import { EventsDTO } from 'src/app/models/eventsDTO'
 import { DATA_FORMATS } from 'src/app/models/Global'
 import { jwtAuthService } from 'src/app/services/jwt'
 
@@ -11,7 +9,7 @@ import { jwtAuthService } from 'src/app/services/jwt'
   styleUrls: ['./view-custody.component.scss'],
 })
 export class ViewCustodyComponent implements OnInit {
-  @Input() custodySub: Subject<CustodyDto>
+  @Input() custodySub: CustodyDto
   custody: any
   userRole: string = ''
   @Output() edit = new EventEmitter<boolean>()
@@ -24,12 +22,18 @@ export class ViewCustodyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (this.custodySub) {
-      this.custodySub.subscribe(res => {
-        if (res) this.custody = res
-      })
+      // console.log('this.custodySub:', this.custodySub)
+      this.custody = this.custodySub
+      // this.custodySub.subscribe(res => {
+      //   console.log(res);
+
+      // if (res) this.custody = res
+      // })
     }
   }
+
 
   editCustody() {
     this.edit.next(true)

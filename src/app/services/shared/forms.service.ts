@@ -3,7 +3,7 @@ import { FormGroup } from '@angular/forms'
 
 @Injectable({ providedIn: 'root' })
 export class FormsService {
-  constructor() {}
+  constructor() { }
 
   markAllFieldsAsDirty(form: FormGroup) {
     for (const key in form.controls) {
@@ -21,5 +21,18 @@ export class FormsService {
     for (const key in form.controls) {
       form.controls[key].enable()
     }
+  }
+
+  localDate(date: string | any): Date {
+    const utcDate = new Date(date);
+    const myLocalDate = new Date(Date.UTC(
+      utcDate.getFullYear(),
+      utcDate.getMonth(),
+      utcDate.getDate(),
+      utcDate.getHours(),
+      utcDate.getMinutes()
+    ));
+
+    return myLocalDate;
   }
 }

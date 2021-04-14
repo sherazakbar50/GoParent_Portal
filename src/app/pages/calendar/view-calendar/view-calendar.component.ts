@@ -34,9 +34,9 @@ export class ViewCalendarComponent implements OnInit {
   selectedEvent: any
   editEventObserverSubject: BehaviorSubject<any> = new BehaviorSubject(null)
   editCustodyObserverSubject: BehaviorSubject<any> = new BehaviorSubject(null)
-  viewEventObserverSubject: Subject<EventsDTO> = new Subject()
+  viewEventObserverSubject: EventsDTO
   closeModalObserverSubject: Subject<boolean> = new Subject()
-  viewCustodyObserverSubject: Subject<CustodyDto> = new Subject()
+  viewCustodyObserverSubject: CustodyDto
   dateWiseEvents: Date[] = []
   dateWiseCustodies: any[] = []
   custodyModalTitle = 'Schedule Custody'
@@ -164,21 +164,21 @@ export class ViewCalendarComponent implements OnInit {
       if (type == 0) {
         if (!this.dateWiseEvents.some(x => x.getDate() == storeDate.getDate()))
           this.dateWiseEvents.push(storeDate)
-      } else 
-      // Custody
-      if (type == 1) {
-        if (!this.dateWiseCustodies.some(x => x.date.getDate() == storeDate.getDate()))
-          this.dateWiseCustodies.push({ date: storeDate, color: color })
-      } else 
-      // Change Request
-      if (type == 2) {
-        if (!this.dateWiseRequests.some(x => x.getDate() == storeDate.getDate()))
-        this.dateWiseRequests.push(storeDate)
-      } else {
-        // Check In/Check Out
-        if (!this.dateWiseCheckIns.some(x => x.getDate() == storeDate.getDate()))
-        this.dateWiseCheckIns.push(storeDate)
-      }
+      } else
+        // Custody
+        if (type == 1) {
+          if (!this.dateWiseCustodies.some(x => x.date.getDate() == storeDate.getDate()))
+            this.dateWiseCustodies.push({ date: storeDate, color: color })
+        } else
+          // Change Request
+          if (type == 2) {
+            if (!this.dateWiseRequests.some(x => x.getDate() == storeDate.getDate()))
+              this.dateWiseRequests.push(storeDate)
+          } else {
+            // Check In/Check Out
+            if (!this.dateWiseCheckIns.some(x => x.getDate() == storeDate.getDate()))
+              this.dateWiseCheckIns.push(storeDate)
+          }
 
       currentDate.setDate(currentDate.getDate() + 1)
     }
@@ -236,7 +236,7 @@ export class ViewCalendarComponent implements OnInit {
     data.selectedDate = selectedDate
     data.ChildrenNames = data.Children.map(x => x.ChildFirstName + ' ' + x.ChildLastName).toString()
     this.viewEvent = true
-    this.viewEventObserverSubject.next(data)
+    this.viewEventObserverSubject = data
     this.selectedEvent = data
   }
 
@@ -246,7 +246,8 @@ export class ViewCalendarComponent implements OnInit {
     selectedItem.ChildrenNames = selectedItem.ParentObject.ChildrenInfo.map(
       x => x.ChildFirstName + ' ' + x.ChildLastName,
     ).toString()
-    this.viewCustodyObserverSubject.next(selectedItem)
+    this.viewCustodyObserverSubject = selectedItem
+    // console.log('selectedItem:', selectedItem)
     this.selectedCustody = selectedItem
   }
 
@@ -351,17 +352,17 @@ export class ViewCalendarComponent implements OnInit {
   }
 
   backToRequestList(e) {
-    if(e)
-    {
+    if (e) {
       this.requestVisible = true
       this.singleRequestVisible = false
-    } 
+    }
 
   }
 
   viewSingleChangeRequest(data) {
     this.singleRequestVisible = true
     this.requestData = data
+
   }
 
   closeCheckView() {
@@ -374,8 +375,8 @@ export class ViewCalendarComponent implements OnInit {
     this.checkData = data
   }
 
-  backToCheckList(e){
-    if(e) {
+  backToCheckList(e) {
+    if (e) {
       this.singleCheckVisible = false
       this.checkVisible = true
     }

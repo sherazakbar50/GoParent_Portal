@@ -118,10 +118,43 @@
             <div>
               <ul class="events">
                 <ng-container *ngFor="let item of filterCalendarDataMonthWise(month)">
-                  <li [style.background]="item.Color" nz-popover nzPopoverContent="{{item.Note}}"
+                  <!-- <li [style.background]="item.Color" nz-popover nzPopoverContent="{{item.Note}}"
                     (click)="item.IsCustody ? showCustodyDetails(item, date) : showEventDetails(item.ParentObject, date)">
                     <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
-                  </li>
+                  </li> -->
+
+                  <!-- Events -->
+                  <ng-container *ngIf="item.DataType == 0">
+                    <li nz-popover [style.background]="item.Color" nzPopoverContent="{{item.Note}}"
+                      (click)="showEventDetails(item.ParentObject, date)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
+
+
+                  <!-- Custody -->
+                  <ng-container *ngIf="item.DataType == 1">
+                    <li nz-popover [style.background]="item.Color" nzPopoverContent="{{item.Note}}"
+                      (click)="showCustodyDetails(item, date)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
+
+                  <!-- Change Request -->
+                  <ng-container *ngIf="item.DataType == 2">
+                    <li nz-popover [style.background]="item.Color" style="text-align: center;"
+                      nzPopoverContent="{{item.Note}}" (click)="viewSingleChangeRequest(item.ParentObject)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
+
+                  <!-- Check In/Out -->
+                  <ng-container *ngIf="item.DataType == 3">
+                    <li nz-popover [style.background]="item.Color" style="text-align: center;"
+                      nzPopoverContent="{{item.Note}}" (click)="viewSingleCheck(item.ParentObject)">
+                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                    </li>
+                  </ng-container>
                 </ng-container>
               </ul>
             </div>
