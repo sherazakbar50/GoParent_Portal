@@ -16,4 +16,5 @@ export class EventsDTO {
     type: string
     EventDateRange: Date[]
     CreatedBy: string
+    CreatedName: string
 }

@@ -44,7 +44,7 @@
                                 class="text-danger"></i>
                             <ng-container *ngIf="!data.PortalAccessCreated">
                                 <nz-divider nzType="vertical"></nz-divider>
-                                <i class="fe fe-shield" nz-tooltip nzTooltipTitle="Create Portal Access"
+                                <i class="fe fe-user-plus" nz-tooltip nzTooltipTitle="Create Portal Access"
                                     (click)="$event.stopPropagation(sendAccess(data.Id, data.Email))"></i>
                             </ng-container>
                         </td>

@@ -43,7 +43,16 @@
             </span>
         </div>
     </div>
-    <ng-container *ngIf="userRole === 'Parent' || userId === event.CreatedBy">
+    <div *ngIf="event.CreatedName" class="appointment-description mb-3">
+        <div class="f-12">
+            <span class="appointment-description-span mr-2">
+                <i class="fe fe-user-plus"></i>
+                by &emsp;
+                <strong>{{event.CreatedName}}</strong>
+            </span>
+        </div>
+    </div>
+    <ng-container *ngIf="userId === event.CreatedBy">
         <nz-divider></nz-divider>
         <div class="text-align-end">
             <button nz-button nzType="primary" [nzSize]="'small'" (click)="editEvent()">
