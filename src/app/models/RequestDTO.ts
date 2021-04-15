@@ -11,6 +11,12 @@ export interface RequestDTO {
     FamilyName: string;
     Status: CustodyRequestStatusEnum;
     Notes: string;
+    Children: Child[];
+}
+
+interface Child {
+    Id: number;
+    Name: string;
 }
 
 export enum CustodyRequestStatusEnum {

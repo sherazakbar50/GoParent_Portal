@@ -20,9 +20,10 @@ export class ViewChangeRequestComponent implements OnInit {
     this._auth.getUserModel().then(r => {
       this.userRole = r?.UserRole
     })
-   }
+  }
 
   ngOnInit(): void {
+
   }
 
   backToList() {

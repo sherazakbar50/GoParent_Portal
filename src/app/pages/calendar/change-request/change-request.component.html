@@ -20,7 +20,7 @@
 
         <nz-form-item>
             <nz-form-control nzHasFeedback nzErrorTip="Please select a Child">
-                <nz-select formControlName="ChildId" nzPlaceHolder="Select Child">
+                <nz-select formControlName="ChildrenIds" nzPlaceHolder="Select Child" nzMode="multiple">
                     <nz-option *ngFor="let item of childList" [nzValue]="item.Id" [nzLabel]="item.Name"></nz-option>
                 </nz-select>
             </nz-form-control>
@@ -58,7 +58,7 @@
                 <tr>
                     <th style="width: 50px;">#</th>
                     <th>Parent</th>
-                    <th>Child</th>
+                    <th>Children</th>
                     <th>From</th>
                     <th>Till</th>
                     <th>Status</th>
@@ -70,7 +70,9 @@
                 <tr *ngFor="let data of basicTable.data; let i=index">
                     <td>{{ i+1 }}</td>
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.ParentName">{{ data.ParentName }}</td>
-                    <td>{{ data.ChildName }}</td>
+                    <td nzEllipsis nz-tooltip [nzTooltipTitle]="getChildList(data.Children)">
+                        {{ getChildList(data.Children) }}
+                    </td>
                     <td>{{ data.DateFrom | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
                     <td>{{ data.DateTo | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
                     <td>

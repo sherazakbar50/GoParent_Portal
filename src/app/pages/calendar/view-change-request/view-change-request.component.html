@@ -19,11 +19,13 @@
                 <div class="col-md-4">
                     <span class="appointment-description-span mr-2 col-3">
                         <i class="fe fe-users mr-2"></i>
-                        <b class="mr-5">Child: </b>
+                        <b class="mr-5">Children: </b>
                     </span>
                 </div>
                 <div class="col-md-8">
-                    {{Data?.ChildName}}
+                    <ng-container *ngFor="let item of Data?.Children; let i = index">
+                        {{ item.Name }}<span *ngIf="Data.Children.length - 1 !== i"> • </span>
+                    </ng-container>
                 </div>
             </div>
         </div>

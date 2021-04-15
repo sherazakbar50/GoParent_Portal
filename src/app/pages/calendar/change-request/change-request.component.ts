@@ -55,7 +55,7 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     this.form = new FormGroup({
       Id: new FormControl(0),
       ParentId: new FormControl(null, [Validators.required]),
-      ChildId: new FormControl(null, [Validators.required]),
+      ChildrenIds: new FormControl(null, [Validators.required]),
       DateFrom: new FormControl(null, [Validators.required]),
       DateTo: new FormControl(null, [Validators.required]),
       Notes: new FormControl(null),
@@ -112,7 +112,7 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     this.form.patchValue({
       Id: this.Data.Id,
       ParentId: this.Data.ParentId,
-      ChildId: this.Data.ChildId,
+      ChildrenIds: this.Data.Children.map(x => x.Id),
       DateFrom: this.Data.DateFrom,
       DateTo: this.Data.DateTo,
       Notes: this.Data.Notes,
@@ -164,5 +164,9 @@ export class ChangeRequestComponent implements OnInit, OnChanges {
     if (df.getDate() == dt.getDate()) return false
     else if (df.getDate() > dt.getDate()) return true
     else return false
+  }
+
+  getChildList(data) {
+    return data.map(x => x.Name).toString()
   }
 }

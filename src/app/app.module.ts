@@ -14,7 +14,7 @@ import { NgProgressModule } from '@ngx-progressbar/core'
 import { NgProgressHttpModule } from '@ngx-progressbar/http'
 import { NgProgressRouterModule } from '@ngx-progressbar/router'
 import { TranslateModule } from '@ngx-translate/core'
-import { en_US as localeZorro, NZ_I18N } from 'ng-zorro-antd/i18n'
+import { en_US as localeZorro, NZ_DATE_CONFIG, NZ_I18N } from 'ng-zorro-antd/i18n'
 import { QuillModule } from 'ngx-quill'
 import { setAppInjector } from 'src/app/services/app-injector'
 import { AppRoutingModule } from './app-routing.module'
@@ -27,6 +27,12 @@ import { metaReducers, reducers } from './store/reducers'
 const LOCALE_PROVIDERS = [
   { provide: LOCALE_ID, useValue: 'en' },
   { provide: NZ_I18N, useValue: localeZorro },
+  {
+    provide: NZ_DATE_CONFIG,
+    useValue: {
+      firstDayOfWeek: 1, // week starts on Monday (Sunday is 0)
+    },
+  },
 ]
 registerLocaleData(localeEn, 'en')
 
