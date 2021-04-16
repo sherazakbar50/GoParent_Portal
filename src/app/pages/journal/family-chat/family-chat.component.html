@@ -64,7 +64,7 @@
               <h4 class="text-center" style="padding-top: 30%;">Create a chat group to start your conversation :)</h4>
             </div>
             <perfect-scrollbar>
-              <div class="d-flex flex-column justify-content-end pr-2 height-100p">
+              <div class="d-flex flex-column justify-content-end pr-2 height-100p mb-3">
                 <div *ngFor="let message of ChatMessages;"
                   [ngClass]="['message', message.user._id != sessionUserData.FamilyMemberId ? 'answer' : '']">
                   <div class="messageContent">
@@ -100,7 +100,13 @@
             </perfect-scrollbar>
 
           </div>
-          <div class="input-group mb-3" [hidden]="userRole !== 'Parent' && userRole !== 'Child'">
+          <div class="pt-2 pb-2">
+            <!-- Salman is typing... -->
+            <emoji-mart *ngIf='isEmojiPickerVisible' (emojiSelect)="addEmoji($event)" title="Pick your emoji…"
+              autoFocus='true' enableSearch='false' showPreview='false' showSkinTones='false' emoji="point_up">
+            </emoji-mart>
+          </div>
+          <div class="input-group mb-3 mt-3" [hidden]="userRole !== 'Parent' && userRole !== 'Child'">
             <ng-container *ngIf='activeChatGroupId>0'>
               <div class="input-group-prepend">
                 <span class="input-group-text bg-white" (click)="OpenEmojiPicker()">😀</span>
