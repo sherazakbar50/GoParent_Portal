@@ -19,8 +19,8 @@ export class ChatService {
     this.userConnectedObserver$ = this._WebsocketService.userConnectedSubject.asObservable()
   }
 
-  SendMessage(data: ChatMessageDto, groupId) {
-    this._WebsocketService.SendMessage(data, groupId)
+  SendMessage(data: ChatMessageDto, groupId, userId) {
+    this._WebsocketService.SendMessage(data, groupId, userId)
   }
 
   JoinChatRoom(groupId) {

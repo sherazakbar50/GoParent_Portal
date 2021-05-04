@@ -30,8 +30,8 @@ export class WebsocketService {
       console.log('User disconnected')
     })
   }
-  SendMessage(data, groupId) {
-    this.socket.emit('message', groupId, data)
+  SendMessage(data, groupId, userId) {
+    this.socket.emit('message', groupId, data, userId)
   }
 
   JoinGroup(groupId) {

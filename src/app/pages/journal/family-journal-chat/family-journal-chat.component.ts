@@ -15,7 +15,7 @@ export class FamilyJournalChatComponent implements OnInit {
     private _JournalService: JournalService,
     private _auth: jwtAuthService,
     private _ChatService: ChatService,
-  ) { }
+  ) {}
   @ViewChild('inputMsg') input: ElementRef
   activeChatGroupId: number = 0
   activeChatGroupName: string = ''
@@ -86,7 +86,7 @@ export class FamilyJournalChatComponent implements OnInit {
       chatUser.name = this.sessionUserData.FirstName + ' ' + this.sessionUserData.LastName
       chatUser.avatar = this.sessionUserData.ProfilePicUrl
       _message.user = chatUser
-      this._ChatService.SendMessage(_message, this.activeChatGroupId)
+      this._ChatService.SendMessage(_message, this.activeChatGroupId, this.sessionUserData.UserId)
       this.messageText = ''
       this.attachmentType = ''
       this.attachmentName = ''

@@ -24,8 +24,7 @@ export class FamilyChatComponent implements OnInit {
     private _ChatService: ChatService,
     private _router: Router,
     private _auth: jwtAuthService,
-  ) {
-  }
+  ) {}
   activeChatGroupId: number = 0
   activeChatGroupName: string = ''
   ChatRooms: []
@@ -111,7 +110,7 @@ export class FamilyChatComponent implements OnInit {
       chatUser.name = this.sessionUserData.FirstName + ' ' + this.sessionUserData.LastName
       chatUser.avatar = this.sessionUserData.ProfilePicUrl
       _message.user = chatUser
-      this._ChatService.SendMessage(_message, this.activeChatGroupId)
+      this._ChatService.SendMessage(_message, this.activeChatGroupId, this.sessionUserData.UserId)
       this.messageText = ''
       this.attachmentType = ''
       this.attachmentName = ''
