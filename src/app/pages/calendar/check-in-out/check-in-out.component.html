@@ -1,43 +1,44 @@
 <div class="row">
     <div class="col-12 text-right mb-2">
         <a nz-button nzType="default" (click)="isAddUpdate = !isAddUpdate; form.reset({ IsCheckIn: true })">
-            <span [hidden]="isAddUpdate">Add New</span>
-            <span [hidden]="!isAddUpdate">Go to List</span>
+            <span [hidden]="isAddUpdate">{{'addNew' | translate}}</span>
+            <span [hidden]="!isAddUpdate">{{'gotoList' | translate}}</span>
         </a>
     </div>
 </div>
 <ng-container *ngIf="isAddUpdate; else viewTpl">
     <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
         <nz-form-item>
-            <nz-form-control nzHasFeedback nzErrorTip="Please select a Child">
-                <nz-select formControlName="ChildId" nzPlaceHolder="Select Child">
+            <nz-form-control nzHasFeedback nzErrorTip="{{'selectChildError' | translate}}">
+                <nz-select formControlName="ChildId" nzPlaceHolder="{{'selectChild' | translate}}">
                     <nz-option *ngFor="let item of childList" [nzValue]="item.Id" [nzLabel]="item.Name"></nz-option>
                 </nz-select>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-control nzHasFeedback nzErrorTip="Please enter Date & Time">
-                <nz-date-picker formControlName="DateTime" nzPlaceHolder="Date Time" class="w-100"
-                    nzFormat="yyyy-MM-dd HH:mm" [nzShowTime]="{ nzFormat: 'HH:mm a',nzUse12Hours:true, nzMinuteStep:'5' }"></nz-date-picker>
+            <nz-form-control nzHasFeedback nzErrorTip="{{'enterDateTimeError' | translate}}">
+                <nz-date-picker formControlName="DateTime" nzPlaceHolder="{{'dateTime' | translate}}" class="w-100"
+                    nzFormat="yyyy-MM-dd HH:mm"
+                    [nzShowTime]="{ nzFormat: 'HH:mm a',nzUse12Hours:true, nzMinuteStep:'5' }"></nz-date-picker>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
             <nz-form-control nzHasFeedback nzErrorTip="Please enter Location">
-                <input formControlName="Location" nz-input placeholder="Location" />
+                <input formControlName="Location" nz-input placeholder="{{'location' | translate}}" />
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
             <nz-form-control nzHasFeedback nzErrorTip="Please write something here">
-                <textarea formControlName="Notes" nz-input rows="2" placeholder="Notes"></textarea>
+                <textarea formControlName="Notes" nz-input rows="2" placeholder="{{'notes' | translate}}"></textarea>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
             <nz-form-control [nzOffset]="10" [nzSpan]="12">
-                <button nz-button nzType="primary">Submit</button>
+                <button nz-button nzType="primary">{{'submit' | translate}}</button>
             </nz-form-control>
         </nz-form-item>
     </form>
@@ -50,13 +51,12 @@
             <thead>
                 <tr>
                     <th style="width: 50px;">#</th>
-                    <th>Child</th>
-                    <th>Check in by</th>
-                    <th style="width: 180px;">Date Time</th>
-                    <!-- <th style="width: 120px;">Check In</th> -->
-                    <th>Location</th>
-                    <th>Notes</th>
-                    <th style="width: 100px;">Actions</th>
+                    <th>{{'child' | translate}}</th>
+                    <th>{{'checkInBy' | translate}}</th>
+                    <th style="width: 180px;">{{'dateTime' | translate}}</th>
+                    <th>{{'location' | translate}}</th>
+                    <th>{{'notes' | translate}}</th>
+                    <th style="width: 100px;">{{'action' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -65,24 +65,18 @@
                     <td>{{ data.ChildName }}</td>
                     <td>{{ data.CreatedByName }}</td>
                     <td>{{ data.DateTime | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A' }}</td>
-                    <!-- <td>
-                        <span class="status in" *ngIf="data.IsCheckIn">
-                            Check In
-                        </span>
-                        <span class="status out" *ngIf="!data.IsCheckIn">
-                            Check Out
-                        </span>
-                    </td> -->
+
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Location">{{ data.Location }}</td>
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
 
                     <td style="width: 100px;">
                         <ng-container *ngIf="data && data.CreatedBy == currentUserId; else noData">
-                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit"
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="{{'edit' | translate}}"
                                 (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
                             <nz-divider nzType="vertical"></nz-divider>
-                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete"
-                                (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill" class="text-danger"></i>
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="{{'delete' | translate}}"
+                                (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill"
+                                class="text-danger"></i>
                         </ng-container>
                     </td>
                 </tr>
@@ -92,7 +86,7 @@
 </ng-template>
 
 <ng-template #noData>
-    <span nz-tooltip nzTooltipTitle="You can only Update/Delete your added records!">
+    <span nz-tooltip nzTooltipTitle="{{'youCanOnly' | translate}}">
         ...
     </span>
 </ng-template>

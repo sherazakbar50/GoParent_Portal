@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col-12 text-right mb-2" [hidden]="currentUserData?.UserRole !== 'Parent'">
         <a nz-button nzType="default" (click)="isViewMode = !isViewMode; form.reset()">
-            <span [hidden]="!isViewMode">Add New</span>
-            <span [hidden]="isViewMode">Go to List</span>
+            <span [hidden]="!isViewMode">{{'addNew' | translate}}</span>
+            <span [hidden]="isViewMode">{{'gotoList' | translate}}</span>
         </a>
     </div>
 </div>
@@ -10,8 +10,8 @@
 <ng-container *ngIf="!isViewMode; else viewTpl">
     <form nz-form [formGroup]="form" (ngSubmit)="submitForm()">
         <nz-form-item>
-            <nz-form-control nzHasFeedback nzErrorTip="Please select a Parent">
-                <nz-select formControlName="ParentId" nzPlaceHolder="Select Parent">
+            <nz-form-control nzHasFeedback nzErrorTip="{{'selectParentError' | translate}}">
+                <nz-select formControlName="ParentId" nzPlaceHolder="{{'selectParent' | translate}}">
                     <nz-option *ngFor="let item of parentList" [nzValue]="item.Id" [nzLabel]="item.DisplayName">
                     </nz-option>
                 </nz-select>
@@ -19,33 +19,36 @@
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-control nzHasFeedback nzErrorTip="Please select a Child">
-                <nz-select formControlName="ChildrenIds" nzPlaceHolder="Select Child" nzMode="multiple">
+            <nz-form-control nzHasFeedback nzErrorTip="{{'selectChildError' | translate}}">
+                <nz-select formControlName="ChildrenIds" nzPlaceHolder="{{'selectChild' | translate}}"
+                    nzMode="multiple">
                     <nz-option *ngFor="let item of childList" [nzValue]="item.Id" [nzLabel]="item.Name"></nz-option>
                 </nz-select>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-control nzHasFeedback nzErrorTip="Please enter From Date">
-                <nz-date-picker formControlName="DateFrom" nzPlaceHolder="From" class="w-100"></nz-date-picker>
+            <nz-form-control nzHasFeedback nzErrorTip="{{'fromDateError' | translate}}">
+                <nz-date-picker formControlName="DateFrom" nzPlaceHolder="{{'from' | translate}}" class="w-100">
+                </nz-date-picker>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
-            <nz-form-control nzHasFeedback nzErrorTip="Please enter To Date">
-                <nz-date-picker formControlName="DateTo" nzPlaceHolder="To" class="w-100"></nz-date-picker>
+            <nz-form-control nzHasFeedback nzErrorTip="{{'toDateError' | translate}}">
+                <nz-date-picker formControlName="DateTo" nzPlaceHolder="{{'to' | translate}}" class="w-100">
+                </nz-date-picker>
             </nz-form-control>
         </nz-form-item>
 
         <nz-form-item>
             <nz-form-control nzHasFeedback nzErrorTip="Please write something here">
-                <textarea formControlName="Notes" nz-input rows="2" placeholder="Enter Notes"></textarea>
+                <textarea formControlName="Notes" nz-input rows="2" placeholder="{{'notes' | translate}}"></textarea>
             </nz-form-control>
         </nz-form-item>
         <nz-form-item>
             <div class="text-center w-100">
-                <button nz-button nzType="primary">Submit</button>
+                <button nz-button nzType="primary">{{'submit' | translate}}</button>
             </div>
         </nz-form-item>
     </form>
@@ -57,13 +60,13 @@
             <thead>
                 <tr>
                     <th style="width: 50px;">#</th>
-                    <th>Parent</th>
-                    <th>Children</th>
-                    <th>From</th>
-                    <th>Till</th>
-                    <th>Status</th>
-                    <th width="200px">Notes</th>
-                    <th width="80px">Actions</th>
+                    <th>{{'parent' | translate}}</th>
+                    <th>{{'child' | translate}}</th>
+                    <th>{{'from' | translate}}</th>
+                    <th>{{'till' | translate}}</th>
+                    <th>{{'status' | translate}}</th>
+                    <th width="200px">{{'notes' | translate}}</th>
+                    <th width="80px">{{'action' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,13 +80,13 @@
                     <td>{{ data.DateTo | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY' }}</td>
                     <td>
                         <span class="status pending" *ngIf="data.Status == 0">
-                            {{ statusEnum[data.Status] }}
+                            {{ statusEnum[data.Status] | translate }}
                         </span>
                         <span class="status rejected" *ngIf="data.Status == 1">
-                            {{ statusEnum[data.Status] }}
+                            {{ statusEnum[data.Status] | translate }}
                         </span>
                         <span class="status approved" *ngIf="data.Status == 2">
-                            {{ statusEnum[data.Status] }}
+                            {{ statusEnum[data.Status] | translate }}
                         </span>
                     </td>
                     <td nzEllipsis nz-tooltip [nzTooltipTitle]="data.Notes">{{ data.Notes }}</td>
@@ -92,11 +95,12 @@
                         <ng-container *ngIf="currentUserData?.UserRole === 'Parent'">
                             <ng-container *ngIf="data && data.UserId != currentUserId; else sameUserTpl">
                                 <ng-container *ngIf="data.Status === 0; else noAction">
-                                    <i nz-icon nzType="check-circle" nz-tooltip nzTooltipTitle="Approve"
+                                    <i nz-icon nzType="check-circle" nz-tooltip
+                                        nzTooltipTitle="{{'approve' | translate}}"
                                         (click)="$event.stopPropagation(updateStatus(2, data))" nzTheme="outline"
                                         class="text-success"></i>
                                     <nz-divider nzType="vertical"></nz-divider>
-                                    <i nz-icon nzType="stop" nz-tooltip nzTooltipTitle="Reject"
+                                    <i nz-icon nzType="stop" nz-tooltip nzTooltipTitle="{{'reject' | translate}}"
                                         (click)="$event.stopPropagation(updateStatus(1, data))" nzTheme="outline"
                                         class="text-danger"></i>
                                 </ng-container>

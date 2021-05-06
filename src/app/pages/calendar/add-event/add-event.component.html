@@ -1,91 +1,58 @@
 <div class="row">
-    <div class="col-xl-12">
-        <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="SaveEvent()" role="form" *ngIf="form">
-            <nz-form-item>
-                <nz-form-control nzErrorTip="Event subject is required">
-                  <input type="text" nz-input formControlName="EventSubject" placeholder="Title" />
-                  <!-- <div class="text-danger">
-                    <ng-container *ngIf="IsSubmitted && fc.EventSubject.hasError('required')">Event subject is required</ng-container>
-                  </div> -->
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control nzErrorTip="Event date(s) are required">
-                 <nz-range-picker [nzFormat]="'yyyy/MM/dd HH:mm'" [nzShowTime]="{ nzFormat: 'HH:mm a',nzUse12Hours:true }" formControlName="EventDateRange" [nzPlaceHolder]="['From', 'To']" class="w-100">
-                 </nz-range-picker>
-                 <!-- <div class="text-danger">
-                  <ng-container *ngIf="IsSubmitted && fc.EventDateRange.hasError('required')">Event date(s) are required</ng-container>
-                </div> -->
-              </nz-form-control>
-          </nz-form-item> 
-            <!-- <nz-form-item>
-                <nz-form-control>
-                  <nz-date-picker class="{{isAllDay ?  'w-100':'w-70'}}" formControlName="EventStartDate" [nzPlaceHolder]="'From'"></nz-date-picker>
-                  <nz-time-picker *ngIf="!isAllDay" class="w-30" [nzUse12Hours]="true" formControlName="EventStartTime" nzFormat="h:mm a"></nz-time-picker>
-                  <div class="text-danger">
-                    <ng-container *ngIf="IsSubmitted && fc.EventStartDate.hasError('required')">Event start date is required</ng-container>
-                    <ng-container *ngIf="IsSubmitted && !isAllDay && !fc.EventStartDate.hasError('required') && fc.EventStartTime.hasError('required')">Event start time is required</ng-container>
-                  </div>
-                </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-              <nz-form-control>
-                <nz-date-picker  class="{{isAllDay ?  'w-100':'w-70'}}" formControlName="EventEndDate" [nzPlaceHolder]="'To (optional)'"></nz-date-picker>
-                <nz-time-picker *ngIf="!isAllDay" class="w-30" [nzUse12Hours]="true" formControlName="EventEndTime" nzFormat="h:mm a"></nz-time-picker>
-              </nz-form-control>
-          </nz-form-item> -->
-
-          <nz-form-item>
-            <nz-form-control>
-              <label nz-checkbox formControlName="IsAllDay">All Day</label>
-            </nz-form-control>
-        </nz-form-item>
-          <nz-form-item>
-            <nz-form-control>
-              <input type="text" nz-input formControlName="EventPlace" placeholder="Place / Location / Address (Optional)" />
-            </nz-form-control>
-        </nz-form-item>
-        
-        <nz-form-item>
-          <nz-form-control>
-            <nz-select *ngIf="FamilyChilds" formControlName="EventChilds" nzMode="multiple" nzPlaceHolder="Select Child(ren) (Optional) ">
-              <nz-option *ngFor="let option of FamilyChilds" nzLabel="{{option.ChildFirstName + ' ' + option.ChildLastName}}" [nzValue]="option.ChildId"></nz-option>
-            </nz-select>
-          </nz-form-control>
+  <div class="col-xl-12">
+    <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="SaveEvent()" role="form" *ngIf="form">
+      <nz-form-item>
+        <nz-form-control nzErrorTip="{{'eventRequired' | translate}}">
+          <input type="text" nz-input formControlName="EventSubject" placeholder="{{'title' | translate}}" />
+        </nz-form-control>
       </nz-form-item>
-            <!-- <nz-form-item>
-              <nz-form-control>
-                 <nz-range-picker [nzFormat]="'yyyy/MM/dd HH:mm a'" [nzShowTime]="{ nzFormat: 'HH:mm',nzUse12Hours:true }" formControlName="EventDateRange" [nzPlaceHolder]="['Event Start Date', 'Event End Date']" class="w-100" [(ngModel)]="EventDates">
-                 </nz-range-picker>
-                 <div class="text-danger">
-                  <ng-container *ngIf="IsSubmitted && EventDateRange.hasError('required')">Please select a date range</ng-container>
-                </div>
-              </nz-form-control>
-          </nz-form-item> -->
-            <nz-form-item>
-              <nz-form-control>
-                <app-color-picker [color]="backgroundColor" [label]="'Pick a color'" 
-                        (event)="setColor($event)"></app-color-picker>
-              </nz-form-control>
-          </nz-form-item>
-          <!-- <nz-form-item>
-            <nz-form-control>
-              <label nz-checkbox formControlName="IsPrivate">Is Private</label>
-            </nz-form-control>
-        </nz-form-item> -->
-            <nz-form-item>
-              <nz-form-control>
-                <textarea rows="3" nz-input formControlName="EventNotes" placeholder="Notes (Optional)"></textarea>
-              </nz-form-control>
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-control>
-                    <button nz-button nzType="primary" class="text-center w-100">
-                        <strong> Save</strong>
-                      </button>
-                </nz-form-control>
-              </nz-form-item>
-        </form>
-        <nz-skeleton [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!form"></nz-skeleton>
-    </div>
+      <nz-form-item>
+        <nz-form-control nzErrorTip="{{'eventDateRequired' | translate }}">
+          <nz-range-picker [nzFormat]="'yyyy/MM/dd HH:mm'" [nzShowTime]="{ nzFormat: 'HH:mm a',nzUse12Hours:true }"
+            formControlName="EventDateRange" [nzPlaceHolder]="['From', 'To']" class="w-100">
+          </nz-range-picker>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="IsAllDay">{{'allDay' | translate}}</label>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <input type="text" nz-input formControlName="EventPlace" placeholder="{{'place' | translate}}" />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <nz-select *ngIf="FamilyChilds" formControlName="EventChilds" nzMode="multiple"
+            nzPlaceHolder="{{'selectChildren' | translate}}">
+            <nz-option *ngFor="let option of FamilyChilds"
+              nzLabel="{{option.ChildFirstName + ' ' + option.ChildLastName}}" [nzValue]="option.ChildId"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <app-color-picker [color]="backgroundColor" label="{{'pickColor' | translate}}" (event)="setColor($event)">
+          </app-color-picker>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <textarea rows="3" nz-input formControlName="EventNotes" placeholder="{{'notes' | translate}}"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" class="text-center w-100">
+            <strong>{{'save' | translate}}</strong>
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <nz-skeleton [nzActive]="true" [nzAvatar]="true" [nzParagraph]="{ rows: 4 }" *ngIf="!form"></nz-skeleton>
+  </div>
 </div>

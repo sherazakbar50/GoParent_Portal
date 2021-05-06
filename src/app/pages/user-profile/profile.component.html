@@ -8,11 +8,11 @@
       <div class="card">
         <div class="card-header card-header-flex flex-column">
           <nz-tabset class="kit-tabs kit-tabs-bold" (nzSelectedIndexChange)="changeKey($event)">
-            <nz-tab nzTitle="Personal Info">
+            <nz-tab nzTitle="{{'Personal Info' | translate}}">
 
             </nz-tab>
 
-            <nz-tab nzTitle="Change Password">
+            <nz-tab nzTitle="{{'Change Password' | translate}}">
 
             </nz-tab>
           </nz-tabset>
@@ -27,7 +27,7 @@
                     [nzBeforeUpload]="beforeUpload">
                     <ng-container *ngIf="!ProfilePicUrl">
                       <i class="upload-icon" nz-icon [nzType]="ProfilePictureUploader ? 'loading' : 'plus'"></i>
-                      <div class="ant-upload-text">Upload</div>
+                      <div class="ant-upload-text">{{'Upload' | translate}}</div>
                     </ng-container>
                     <img *ngIf="ProfilePicUrl" [src]="ProfilePicUrl" style="width: 100%" />
                   </nz-upload>
@@ -40,7 +40,7 @@
                 <div class="row">
                   <div class="col-lg-6">
                     <nz-form-item>
-                      <nz-form-label nzFor="firstName">First Name</nz-form-label>
+                      <nz-form-label nzFor="firstName">{{'firstName' | translate}}</nz-form-label>
                       <nz-form-control>
                         <input type="text" nz-input nzSize="medium" formControlName="firstName"
                           placeholder="First Name" />
@@ -54,7 +54,7 @@
                   </div>
                   <div class="col-lg-6">
                     <nz-form-item>
-                      <nz-form-label nzFor="lastName">Last Name</nz-form-label>
+                      <nz-form-label nzFor="lastName">{{'lastName' | translate}}</nz-form-label>
                       <nz-form-control>
                         <input type="text" nz-input nzSize="medium" formControlName="lastName"
                           placeholder="Last Name" />
@@ -68,7 +68,7 @@
                   </div>
                   <div class="col-lg-6">
                     <nz-form-item>
-                      <nz-form-label nzFor="email">Email</nz-form-label>
+                      <nz-form-label nzFor="email">{{'email' | translate}}</nz-form-label>
                       <nz-form-control>
                         <input type="email" nz-input nzSize="medium" formControlName="email" placeholder="Email" />
                       </nz-form-control>
@@ -76,9 +76,9 @@
                   </div>
                   <div class="col-lg-6">
                     <nz-form-item>
-                      <nz-form-label nzFor="email">Family Role / Relationship</nz-form-label>
+                      <nz-form-label nzFor="email">{{'Family Role / Relationship' | translate}}</nz-form-label>
                       <nz-form-control>
-                        <nz-select nzPlaceHolder="Choose your role" formControlName="relationship">
+                        <nz-select nzPlaceHolder="{{'Choose your role' | translate}}" formControlName="relationship">
                           <nz-option nzValue="father" nzLabel="I'm father"></nz-option>
                           <nz-option nzValue="mother" nzLabel="I'm mother"></nz-option>
                           <nz-option nzValue="guardian" nzLabel="I'm guardian"></nz-option>
@@ -89,7 +89,7 @@
                 </div>
                 <div class="form-actions text-center w-100">
                   <button nz-button nzType="primary" [nzSize]="'medium'" [nzLoading]="loading">
-                    <strong> Update</strong>
+                    <strong> {{'Update' | translate}}</strong>
                   </button>
                 </div>
               </form>
@@ -97,7 +97,7 @@
 
             <ng-template #emailTemp>
               <div class="text-left">
-                <strong>Email:</strong>
+                <strong>{{'email' | translate}}:</strong>
                 {{userData?.Email}}
               </div>
             </ng-template>
@@ -113,7 +113,7 @@
     <div class="row">
       <div class="col-lg-12">
         <nz-form-item>
-          <nz-form-label>Current Password</nz-form-label>
+          <nz-form-label>{{'Current Password' | translate}}</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="Current Password is required">
             <input type="password" nz-input nzSize="medium" formControlName="OldPassword"
               placeholder="Current Password" />
@@ -122,7 +122,7 @@
       </div>
       <div class="col-lg-6">
         <nz-form-item>
-          <nz-form-label>New Password</nz-form-label>
+          <nz-form-label>{{'New Password' | translate}}</nz-form-label>
           <nz-form-control nzHasFeedback nzErrorTip="New Password is required">
             <input type="password" nz-input nzSize="medium" formControlName="NewPassword" placeholder="New Password" />
           </nz-form-control>
@@ -130,7 +130,7 @@
       </div>
       <div class="col-lg-6">
         <nz-form-item>
-          <nz-form-label>Confirm Password</nz-form-label>
+          <nz-form-label>{{'Confirm Password' | translate}}</nz-form-label>
           <nz-form-control nzHasFeedback [nzErrorTip]="errorTpl">
             <input type="password" nz-input nzSize="medium" formControlName="ConfirmPassword"
               placeholder="Confirm New Password" />
@@ -149,7 +149,7 @@
     </div>
     <div class="form-actions text-center w-100">
       <button nz-button nzType="primary" [nzSize]="'medium'" [nzLoading]="loading">
-        <strong>Update</strong>
+        <strong>{{'Update' | translate}}</strong>
       </button>
     </div>
   </form>

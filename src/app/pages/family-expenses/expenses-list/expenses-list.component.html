@@ -3,11 +3,11 @@
   <div class="card">
     <div class="card-body">
       <h5 class="mb-4">
-        <strong>Expenses</strong>
+        <strong>{{'expenses' | translate}}</strong>
       </h5>
 
       <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;" [hidden]="userRole !== 'Parent'">
-        <button nz-button nzType="primary" (click)="AddExpense()">Add Expense</button>
+        <button nz-button nzType="primary" (click)="AddExpense()">{{'addExpense' | translate}}</button>
 
       </div>
 
@@ -15,12 +15,12 @@
         <thead>
           <tr>
             <th>#</th>
-            <th>Title</th>
-            <th>Expense Type</th>
-            <th>Cost</th>
-            <th>Status</th>
-            <th>Added By</th>
-            <th [hidden]="userRole !== 'Parent'">Action</th>
+            <th>{{'title' | translate}}</th>
+            <th>{{'expenseType' | translate}}</th>
+            <th>{{'cost' | translate}}</th>
+            <th>{{'status' | translate}}</th>
+            <th>{{'addedBy' | translate}}</th>
+            <th [hidden]="userRole !== 'Parent'">{{'action' | translate}}</th>
           </tr>
         </thead>
         <tbody>
@@ -45,9 +45,10 @@
             </tr>
             <tr>
               <td colspan="7">
-                <b>{{ data.ExpenseOwnerName }}</b> added an expense: <b>{{data.Title}}</b> with cost of <b>${{ data.Cost
+                <b>{{ data.ExpenseOwnerName }}</b> {{'addedAnExpense' | translate}}: <b>{{data.Title}}</b>
+                {{'withCostOf' | translate}} <b>${{ data.Cost
                   }}</b>,
-                co-parent should pay $<b>{{(data.Cost) / 2 | number : '1.2-2'}}</b>
+                {{'coParentShouldPay' | translate}} $<b>{{(data.Cost) / 2 | number : '1.2-2'}}</b>
               </td>
             </tr>
           </ng-container>

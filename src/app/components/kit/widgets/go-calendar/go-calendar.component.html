@@ -6,9 +6,9 @@
         (nzSelectChange)="onValueChange($event)">
     </nz-calendar>
     <p class="mb-1">
-        From: <strong>{{obj.StartDate | date}}</strong>
+        {{ 'from' | translate }}: <strong>{{obj.StartDate | date}}</strong>
         <!-- •  -->
         <br>
-        To: <strong>{{obj.EndDate | date}}</strong>
+        {{ 'to' | translate }}: <strong>{{obj.EndDate | date}}</strong>
     </p>
 </div>

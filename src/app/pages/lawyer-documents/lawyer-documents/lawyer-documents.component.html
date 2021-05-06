@@ -1,15 +1,16 @@
-<nz-card nzTitle="Lawyer's Documents">
+<nz-card nzTitle="{{'lawyerDoc' | translate}}">
     <div>
         <div class="mb-3">
             <nz-upload nzType="drag" [(nzFileList)]="fileList" [nzMultiple]="true" [nzBeforeUpload]="beforeUpload">
                 <p class="ant-upload-drag-icon">
                     <i nz-icon nzType="upload" nzTheme="outline"></i>
                 </p>
-                <p class="ant-upload-text">Drag and Drop your file here, or <span class="text-primary">Browse</span></p>
+                <p class="ant-upload-text">{{'dragDrop' | translate}}</p>
             </nz-upload>
         </div>
         <div class="text-center">
-            <button nz-button nzType="primary" [nzLoading]="btnLoading" (click)="onUpload()">Upload</button>
+            <button nz-button nzType="primary" [nzLoading]="btnLoading" (click)="onUpload()">{{'Upload' |
+                translate}}</button>
         </div>
     </div>
     <div class="mt-4">
@@ -17,9 +18,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Document</th>
-                    <th>Shared with</th>
-                    <th style="width: 150px;">Action</th>
+                    <th>{{'Documents' | translate}}</th>
+                    <th>{{'Shared with' | translate}}</th>
+                    <th style="width: 150px;">{{'action' | translate}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -43,18 +44,18 @@
                         </ng-container>
                         <ng-template #noFamilyTpl>
                             <span class="text-gray-4">
-                                Not shared yet!
+                                {{'Not shared yet!' | translate}}
                             </span>
                         </ng-template>
                     </td>
                     <td>
                         <button nz-button nzType="default" nzSize="small" class="mr-2" (click)="showModal(data)">
                             <i class="fe fe-send font-size-10 pr-2"></i>
-                            Share
+                            {{'Share' | translate}}
                         </button>
                         <button nz-button nzType="default" nzSize="small" nzDanger (click)="deletDoc(data.DocumentId)">
                             <i class="fe fe-delete font-size-10 pr-2"></i>
-                            Delete
+                            {{'delete' | translate}}
                         </button>
                     </td>
                 </tr>
@@ -76,7 +77,8 @@
                 </nz-select>
             </div>
             <div class="mb-3">
-                <button class="w-100" nz-button nzType="primary" (click)="onShare()">Share</button>
+                <button class="w-100" nz-button nzType="primary" (click)="onShare()"> {{'Share' | translate}}
+                </button>
             </div>
         </ng-container>
     </nz-modal>

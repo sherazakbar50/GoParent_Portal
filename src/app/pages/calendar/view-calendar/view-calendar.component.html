@@ -4,18 +4,21 @@
       <div class="mb-2 mr-2">
 
         <a nz-button class="mr-2" *ngIf="userRole == 'Parent' || userRole == 'Other'" nzType="primary"
-          (click)="SaveEventModal()">Add
-          Event</a>
+          (click)="SaveEventModal()">
+          {{'addEvent' | translate}}
+        </a>
 
         <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary"
-          (click)="ScheduleCustodyModal()">Schedule Custody</a>
+          (click)="ScheduleCustodyModal()">{{'scheduleCustody' | translate}}</a>
 
 
-        <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary"
-          (click)="requestVisible = true">Change Request</a>
+        <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary" (click)="requestVisible = true">{{
+          'changeRequest' | translate
+          }}</a>
 
-        <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary" (click)="checkVisible = true">Check
-          In</a>
+        <a nz-button class="mr-2" [hidden]="userRole !== 'Parent'" nzType="primary" (click)="checkVisible = true">
+          {{ 'checkIn' | translate }}
+        </a>
       </div>
     </div>
 
@@ -23,7 +26,8 @@
       <div class="card bg-white d-flex flex-row">
         <div class="p-5 col-xl-4 ">
           <h5>
-            {{ selectedDate.toLocaleString('default', { month: 'long' }) }} {{selectedDate.getFullYear()}}
+            {{ selectedDate.toLocaleString('default', { month: 'long' }) | translate }} {{selectedDate.getFullYear() |
+            translate }}
           </h5>
           <div [ngStyle]="{ border: '1px solid #e3e3e3', borderRadius: '1px', marginTop: '33px'}">
             <nz-calendar #calendar id="smart-calendar" [nzFullscreen]="false"
@@ -35,25 +39,25 @@
           <div class="m-3">
             <div class="row">
               <h5>
-                *Colors Definitions:
+                {{'colorDef' | translate }}:
               </h5>
             </div>
 
             <div class="row">
               <h6 style="background-color: #ffbb33; border-radius: 4px; color: white;" class="py-2 px-2 mr-2 mt-1"></h6>
-              Change Request
+              {{'changeRequest' | translate}}
             </div>
             <div class="row">
               <h6 style="background-color: #4b7cf3; border-radius: 4px; color: white;" class="py-2 px-2 mr-2 mt-1"></h6>
-              Events
+              {{'events' | translate}}
             </div>
             <div class="row">
               <h6 style="background-color: #00C851; border-radius: 4px; color: white;" class="py-2 px-2 mr-2 mt-1"></h6>
-              Approved Change Request
+              {{'acceptedChange' | translate}}
             </div>
             <div class="row">
               <h6 style="background-color: #ff7979; border-radius: 4px; color: white;" class="py-2 px-2 mr-2 mt-1"></h6>
-              Check In
+              {{ 'checkIn' | translate }}
             </div>
           </div>
           <!-- <nz-date-picker nzBorderless nzOpen style="visibility: hidden;" [(ngModel)]="selectedDate"></nz-date-picker> -->
@@ -95,7 +99,7 @@
                     <li nz-popover [style.background]="item.Color" style="text-align: center;"
                       *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
                       (click)="viewSingleChangeRequest(item.ParentObject)">
-                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                      <nz-badge [nzStatus]="'warning'" nzText="{{'changeRequest' | translate}}"></nz-badge>
                     </li>
                   </ng-container>
 
@@ -104,7 +108,7 @@
                     <li nz-popover [style.background]="item.Color" style="text-align: center;"
                       *ngIf="IsRenderDataOnCell(date,item.StartDate,item.EndDate)" nzPopoverContent="{{item.Note}}"
                       (click)="viewSingleCheck(item.ParentObject)">
-                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                      <nz-badge [nzStatus]="'warning'" nzText="{{'checkIn' | translate}}"></nz-badge>
                     </li>
                   </ng-container>
                 </ng-container>
@@ -144,7 +148,7 @@
                   <ng-container *ngIf="item.DataType == 2">
                     <li nz-popover [style.background]="item.Color" style="text-align: center;"
                       nzPopoverContent="{{item.Note}}" (click)="viewSingleChangeRequest(item.ParentObject)">
-                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                      <nz-badge [nzStatus]="'warning'" nzText="{{'changeRequest' | translate}}"></nz-badge>
                     </li>
                   </ng-container>
 
@@ -152,7 +156,7 @@
                   <ng-container *ngIf="item.DataType == 3">
                     <li nz-popover [style.background]="item.Color" style="text-align: center;"
                       nzPopoverContent="{{item.Note}}" (click)="viewSingleCheck(item.ParentObject)">
-                      <nz-badge [nzStatus]="'warning'" [nzText]="item.Title"></nz-badge>
+                      <nz-badge [nzStatus]="'warning'" nzText="{{'checkIn' | translate}}"></nz-badge>
                     </li>
                   </ng-container>
                 </ng-container>
@@ -179,7 +183,7 @@
     </nz-modal>
   </div>
   <div>
-    <nz-modal [nzFooter]="null" [nzTitle]="'Custody Details'" [(nzVisible)]="viewCustody"
+    <nz-modal [nzFooter]="null" nzTitle="{{'custodyDetail' | translate}}" [(nzVisible)]="viewCustody"
       (nzOnCancel)="closeViewCustodyModal()" nzMaskClosable="false">
       <ng-container *nzModalContent>
         <app-view-custody [custodySub]="viewCustodyObserverSubject" (edit)="editCustody()" (delete)="deleteCustody()">
@@ -199,7 +203,7 @@
     </nz-modal>
   </div>
   <div>
-    <nz-modal [nzFooter]="null" [nzTitle]="'Event Details'" [(nzVisible)]="viewEvent"
+    <nz-modal [nzFooter]="null" nzTitle="{{'eventDetail' | translate}}" [(nzVisible)]="viewEvent"
       (nzOnCancel)="closeViewEventModal()" nzMaskClosable="false">
       <ng-container *nzModalContent>
         <app-view-event [eventSub]="viewEventObserverSubject" (edit)="editEvent()" (delete)="deleteEvent()">
@@ -212,7 +216,7 @@
 
 
 <!-- Request List -->
-<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="Change Request" [nzVisible]="requestVisible"
+<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="{{'changeRequest' | translate}}" [nzVisible]="requestVisible"
   (nzOnCancel)="closeRequestView()" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-change-request [Data]="requestData" (close)="closeRequestView()"></app-change-request>
@@ -220,8 +224,8 @@
 </nz-modal>
 
 <!-- Single Request -->
-<nz-modal [nzFooter]="null" nzWidth="600px" nzTitle="Change Request Detail" [nzVisible]="singleRequestVisible"
-  (nzOnCancel)="singleRequestVisible = false" nzMaskClosable="false">
+<nz-modal [nzFooter]="null" nzWidth="600px" nzTitle="{{'changeRequestDetails' | translate}}"
+  [nzVisible]="singleRequestVisible" (nzOnCancel)="singleRequestVisible = false" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-view-change-request [Data]="requestData" (onBack)="backToRequestList($event)"></app-view-change-request>
   </ng-container>
@@ -229,7 +233,7 @@
 
 
 <!-- Check In -->
-<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="Check In" [nzVisible]="checkVisible"
+<nz-modal [nzFooter]="null" nzWidth="1000px" nzTitle="{{'checkIn' | translate}}" [nzVisible]="checkVisible"
   (nzOnCancel)="closeCheckView()" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-check-in-out [data]="checkData" (close)="closeCheckView()"></app-check-in-out>
@@ -237,7 +241,7 @@
 </nz-modal>
 
 <!-- Single Check In -->
-<nz-modal [nzFooter]="null" nzWidth="600px" nzTitle="Check In Detail" [nzVisible]="singleCheckVisible"
+<nz-modal [nzFooter]="null" nzWidth="600px" nzTitle="{{'checkInDetails' | translate}}" [nzVisible]="singleCheckVisible"
   (nzOnCancel)="singleCheckVisible = false" nzMaskClosable="false">
   <ng-container *nzModalContent>
     <app-view-check-in-out [Data]="checkData" (onBack)="backToCheckList($event)"></app-view-check-in-out>

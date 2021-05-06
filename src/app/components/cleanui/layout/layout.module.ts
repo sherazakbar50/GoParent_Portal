@@ -6,7 +6,7 @@ import { WidgetsComponentsModule } from 'src/app/components/kit/widgets/widgets-
 
 import { TopbarComponent } from './Topbar/topbar.component'
 import { TopbarActionsComponent } from './Topbar/Actions/actions.component'
-// import { TopbarLanguageSwitcherComponent } from './Topbar/LanguageSwitcher/language-switcher.component'
+import { TopbarLanguageSwitcherComponent } from './Topbar/LanguageSwitcher/language-switcher.component'
 // import { TopbarIssuesHistoryComponent } from './Topbar/IssuesHistory/issues-history.component'
 import { TopbarSearchComponent } from './Topbar/Search/search.component'
 import { TopbarUserMenuComponent } from './Topbar/UserMenu/user-menu.component'
@@ -26,7 +26,7 @@ const COMPONENTS = [
   TopbarUserMenuComponent,
   // TopbarProjectManagementComponent,
   TopbarActionsComponent,
-  // TopbarLanguageSwitcherComponent,
+  TopbarLanguageSwitcherComponent,
   MenuLeftComponent,
   MenuTopComponent,
   FooterComponent,
@@ -47,4 +47,4 @@ const COMPONENTS = [
   declarations: [...COMPONENTS],
   exports: [...COMPONENTS],
 })
-export class LayoutModule {}
+export class LayoutModule { }

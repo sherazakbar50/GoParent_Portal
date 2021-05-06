@@ -1,58 +1,43 @@
-
 <div class="row">
     <div class="col-xl-12">
-    <form nz-form [nzLayout]="'vertical'" [formGroup]="addGroupForm" (ngSubmit)="submitHandler()" role="form">
-      
-    <nz-form-item>
-    <nz-form-control>
-    <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Group Name .." />
-     <div class="text-danger">
-    <ng-container *ngIf="IsSubmitted && FormControls.Name.hasError('required')">Chat group name is required!</ng-container>
-     
-    </div> 
-    </nz-form-control>
-    </nz-form-item>
-  
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="addGroupForm" (ngSubmit)="submitHandler()" role="form">
 
-    <nz-form-item>
-        <nz-form-control>
-            <p>Select Group Members:</p>
-            <div formArrayName='Members'>
-                <div *ngFor="let _member of FamilyMembersArray.controls; let i=index">
-                    <input type="checkbox" [formControlName]="i">  
-                    {{MembersList[i].Name}}
-                </div>
-             
-            </div> 
-            <p *ngIf='MembersList.length==0' class="text-danger">No family members found. Add family members to start chat with them.</p>
-        </nz-form-control>
-        </nz-form-item>
-      
-   
-        
-    <!-- <nz-form-item>
-        <nz-form-control>
-            <nz-select  formControlName='ExpenseTypeId'>
-                <nz-option nzValue="" nzLabel="Select Expense Type"></nz-option>
-                <ng-container *ngFor='let _type of ExpenseTypesList'>
-                    <nz-option nzValue="{{_type.Id}}" nzLabel="{{_type.Name}}"  ></nz-option>
-                </ng-container>
-                
-              </nz-select>
-        <div class="text-danger">
-            <ng-container *ngIf="IsSubmitted && FormControls.ExpenseTypeId.hasError('required')">Expense Type is required!</ng-container>
-             
-            </div>
-        </nz-form-control>
-        </nz-form-item> -->
- 
-    <nz-form-item>
-    <nz-form-control>
-    <button nz-button nzType="primary" [nzSize]="'large'"   class="text-center w-100">
-    <strong> Add</strong>
-    </button>
-    </nz-form-control>
-    </nz-form-item>
-    </form>
+            <nz-form-item>
+                <nz-form-control>
+                    <input type="text" nz-input nzSize="large" formControlName="Name"
+                        placeholder="{{'Group Name' | translate}} .." />
+                    <div class="text-danger">
+                        <ng-container *ngIf="IsSubmitted && FormControls.Name.hasError('required')">{{'Chat group name
+                            is required!' | translate}}</ng-container>
+
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-control>
+                    <p>{{'selectMembers' | translate}}:</p>
+                    <div formArrayName='Members'>
+                        <div *ngFor="let _member of FamilyMembersArray.controls; let i=index">
+                            <input type="checkbox" [formControlName]="i">
+                            {{MembersList[i].Name}}
+                        </div>
+
+                    </div>
+                    <p *ngIf='MembersList.length==0' class="text-danger">{{'No family members found. Add family members
+                        to start chat with them.' | translate}}</p>
+                </nz-form-control>
+            </nz-form-item>
+
+
+            <nz-form-item>
+                <nz-form-control>
+                    <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
+                        <strong> {{'Add' | translate}}</strong>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
     </div>
-    </div>
+</div>

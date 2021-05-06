@@ -1,32 +1,35 @@
-
 <div class="row">
     <div class="col-xl-12">
-    <form nz-form [nzLayout]="'vertical'" [formGroup]="addChildForm" (ngSubmit)="handleSubmit()" role="form">
-    <nz-form-item>
-    <nz-form-control>
-    <input type="text" nz-input nzSize="large" formControlName="ChildFirstName" placeholder="First Name" />
-     <div class="text-danger">
-    <ng-container *ngIf="IsSubmitted && FirstNameControl.hasError('required')">First name is required!</ng-container>
-     
-    </div> 
-    </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-    <nz-form-control>
-    <input type="text" nz-input nzSize="large" formControlName="ChildLastName" placeholder="Last Name" />
-    <div class="text-danger">
-        <ng-container *ngIf="IsSubmitted && LastNameControl.hasError('required')">Last name is required!</ng-container>
-         
-        </div>
-    </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-    <nz-form-control>
-    <button nz-button nzType="primary" [nzSize]="'large'"  class="text-center w-100">
-    <strong> Save</strong>
-    </button>
-    </nz-form-control>
-    </nz-form-item>
-    </form>
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="addChildForm" (ngSubmit)="handleSubmit()" role="form">
+            <nz-form-item>
+                <nz-form-control>
+                    <input type="text" nz-input nzSize="large" formControlName="ChildFirstName"
+                        placeholder="{{'firstName' | translate}}" />
+                    <div class="text-danger">
+                        <ng-container *ngIf="IsSubmitted && FirstNameControl.hasError('required')">{{'firstNameError' |
+                            translate}}</ng-container>
+
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input type="text" nz-input nzSize="large" formControlName="ChildLastName"
+                        placeholder="{{'lastName' | translate}}" />
+                    <div class="text-danger">
+                        <ng-container *ngIf="IsSubmitted && LastNameControl.hasError('required')">{{'lastNameError' |
+                            translate}}</ng-container>
+
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
+                        <strong> {{'save' | translate}}</strong>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
     </div>
-    </div>
+</div>

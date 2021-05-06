@@ -3,9 +3,9 @@
     <div class="col-12 col-md-3">
       <div class="mb-4">
         <button nz-button nzType="primary" *ngIf='sessionUserData && sessionUserData.UserRole=="Parent"'
-          class="btn-block" (click)="GoToJournal()">Journal</button>
+          class="btn-block" (click)="GoToJournal()">{{'Journal' | translate}}</button>
         <button nz-button [hidden]="userRole !== 'Parent' && userRole !== 'Child'" nzType="primary" class="btn-block"
-          (click)="AddChatGroup()">Add Group</button>
+          (click)="AddChatGroup()">{{'addGroup' | translate}}</button>
       </div>
       <div class="dialogs">
         <perfect-scrollbar style="height: 100%">
@@ -61,7 +61,7 @@
         <div class="card-body">
           <div class="height-500">
             <div *ngIf='activeChatGroupId==0'>
-              <h4 class="text-center" style="padding-top: 30%;">Create a chat group to start your conversation :)</h4>
+              <h4 class="text-center" style="padding-top: 30%;">{{'createAGroup' | translate}}</h4>
             </div>
             <perfect-scrollbar>
               <div class="d-flex flex-column justify-content-end pr-2 height-100p mb-3">
@@ -113,7 +113,7 @@
                 <span class="input-group-text bg-white" (click)="AddAttachment()"><i class="fa fa-paperclip"></i></span>
               </div>
               <input type="text" class="form-control" #inputMsg [(ngModel)]='messageText'
-                placeholder="Send message..." />
+                placeholder="{{'sendMessage' | translate}}..." />
               <div class="input-group-append">
 
                 <button class="btn btn-primary" (click)='SendMessage()' type="button">

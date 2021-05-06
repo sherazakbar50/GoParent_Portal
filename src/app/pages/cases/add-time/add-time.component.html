@@ -1,29 +1,38 @@
 <div class="row">
     <div class="col-xl-12">
-        <form novalidate nz-form [nzLayout]="'vertical'"  [formGroup]="form" role="form" (ngSubmit)="handleSubmit()" #formDirective="ngForm">
+        <form novalidate nz-form [nzLayout]="'vertical'" [formGroup]="form" role="form" (ngSubmit)="handleSubmit()"
+            #formDirective="ngForm">
             <div class="row">
                 <div class="col-md-6">
                     <nz-form-item>
-                        <nz-form-control  [nzErrorTip]="hoursTpl">
+                        <nz-form-control [nzErrorTip]="hoursTpl">
                             <nz-input-group>
-                            <input type="number"  nz-input placeholder="Enter Hours" formControlName='Hours'>
+                                <input type="number" nz-input placeholder="{{'Enter Hours' | translate}}"
+                                    formControlName='Hours'>
                             </nz-input-group>
                             <ng-template #hoursTpl>
-                                <ng-container *ngIf="IsSubmitted && Hours.hasError('required')">Hours is Required!</ng-container>
-                                <ng-container *ngIf="IsSubmitted && Hours.hasError('pattern')">Hours should be in numbers!</ng-container>
-                                <ng-container *ngIf="IsSubmitted && Hours.hasError('max')">Hours should not exceeded 23!</ng-container>
+                                <ng-container *ngIf="IsSubmitted && Hours.hasError('required')">Hours is Required!
+                                </ng-container>
+                                <ng-container *ngIf="IsSubmitted && Hours.hasError('pattern')">Hours should be in
+                                    numbers!</ng-container>
+                                <ng-container *ngIf="IsSubmitted && Hours.hasError('max')">Hours should not exceeded 23!
+                                </ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
                 </div>
                 <div class="col-md-6">
                     <nz-form-item>
-                        <nz-form-control  [nzErrorTip]="minuteTpl">
-                            <input  nz-input type="number" placeholder="Enter Minutes" formControlName='Minutes' maxlength="2" >
+                        <nz-form-control [nzErrorTip]="minuteTpl">
+                            <input nz-input type="number" placeholder="{{'Enter Minutes' | translate}}"
+                                formControlName='Minutes' maxlength="2">
                             <ng-template #minuteTpl>
-                                <ng-container *ngIf="IsSubmitted && Minutes.hasError('required')">Minutes is Required!</ng-container>
-                                <ng-container *ngIf="IsSubmitted && Minutes.hasError('pattern')">Minutes should be in numbers!</ng-container>
-                                <ng-container *ngIf="IsSubmitted && Minutes.hasError('max')">Minutes should not exceeded 59!</ng-container>
+                                <ng-container *ngIf="IsSubmitted && Minutes.hasError('required')">Minutes is Required!
+                                </ng-container>
+                                <ng-container *ngIf="IsSubmitted && Minutes.hasError('pattern')">Minutes should be in
+                                    numbers!</ng-container>
+                                <ng-container *ngIf="IsSubmitted && Minutes.hasError('max')">Minutes should not exceeded
+                                    59!</ng-container>
                             </ng-template>
                         </nz-form-control>
                     </nz-form-item>
@@ -31,25 +40,26 @@
             </div>
             <nz-form-item>
                 <nz-form-control [nzErrorTip]="TaskTpl">
-                    <input type="text" nz-input placeholder="Enter task" formControlName='Task'>
-                   <ng-template #TaskTpl>
+                    <input type="text" nz-input placeholder="{{'Enter Task' | translate}}" formControlName='Task'>
+                    <ng-template #TaskTpl>
                         <ng-container *ngIf="IsSubmitted && Task.hasError('required')">Task is Required!</ng-container>
                     </ng-template>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
-                <nz-form-control  [nzErrorTip]="DescTpl">
-                    <textarea nz-input formControlName='Description' placeholder="Write Dcesciption ..."
-                              formControlName="Description"></textarea>
-                              <ng-template #DescTpl>
-                                <ng-container *ngIf="IsSubmitted && Description.hasError('required')">Description is Required!</ng-container>
-                            </ng-template>
+                <nz-form-control [nzErrorTip]="DescTpl">
+                    <textarea nz-input formControlName='Description'
+                        placeholder="{{'Write Dcesciption' | translate}} ..." formControlName="Description"></textarea>
+                    <ng-template #DescTpl>
+                        <ng-container *ngIf="IsSubmitted && Description.hasError('required')">Description is Required!
+                        </ng-container>
+                    </ng-template>
                 </nz-form-control>
             </nz-form-item>
             <nz-form-item>
                 <nz-form-control>
                     <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
-                        <strong> Save</strong>
+                        <strong> {{'save' | translate}}</strong>
                     </button>
                 </nz-form-control>
             </nz-form-item>

@@ -13,7 +13,7 @@
 
         </div>
         <div *ngIf="event.IsAllDay">
-            <label nz-checkbox nzDisabled [ngModel]="true">Full Day</label>
+            <label nz-checkbox nzDisabled [ngModel]="true">{{'allDay' | translate}}</label>
         </div>
     </div>
 
@@ -47,7 +47,7 @@
         <div class="f-12">
             <span class="appointment-description-span mr-2">
                 <i class="fe fe-user-plus"></i>
-                by &emsp;
+                {{'by' | translate}} &emsp;
                 <strong>{{event.CreatedName}}</strong>
             </span>
         </div>
@@ -56,11 +56,11 @@
         <nz-divider></nz-divider>
         <div class="text-align-end">
             <button nz-button nzType="primary" [nzSize]="'small'" (click)="editEvent()">
-                <strong> Edit</strong>
+                <strong>{{'edit' | translate}}</strong>
             </button>
             &nbsp;
             <button nz-button nzType="primary" nzDanger [nzSize]="'small'" (click)="deleteEvent()">
-                <strong> Delete</strong>
+                <strong>{{'delete' | translate}}</strong>
             </button>
         </div>
     </ng-container>

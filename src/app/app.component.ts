@@ -10,6 +10,7 @@ import * as SettingsActions from 'src/app/store/settings/actions'
 import * as Reducers from 'src/app/store/reducers'
 
 import english from './locales/en-US'
+import spanish from './locales/es-ES'
 // import french from './locales/fr-FR'
 // import russian from './locales/ru-RU'
 // import chinese from './locales/zh-CN'
@@ -19,6 +20,7 @@ import { jwtAuthService } from './services/jwt'
 
 const locales = {
   'en-US': english,
+  'es_ES': spanish,
   // 'fr-FR': french,
   // 'ru-RU': russian,
   // 'zh-CN': chinese,

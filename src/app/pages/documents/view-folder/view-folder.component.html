@@ -4,11 +4,11 @@
       <div class="card">
         <div class="card-header card-header-flex flex-column">
           <nz-tabset class="kit-tabs kit-tabs-bold" (nzSelectedIndexChange)="changeKey($event)">
-            <nz-tab nzTitle="Documents">
+            <nz-tab nzTitle="{{'documents' | translate}}">
 
             </nz-tab>
 
-            <nz-tab nzTitle="Forms">
+            <nz-tab nzTitle="{{'forms' | translate}}">
 
             </nz-tab>
           </nz-tabset>
@@ -22,7 +22,7 @@
 
                   <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
                     <button [hidden]="userRole !=='Parent' && userRole !=='Child' && userRole !== 'Other'" nz-button
-                      nzType="primary" (click)="AddFolder()">Create a new folder</button>
+                      nzType="primary" (click)="AddFolder()">{{'createFolder' | translate}}</button>
                   </div>
                   <hr [hidden]="userRole !=='Parent' && userRole !=='Child' && userRole !== 'Other'">
                   <div class="col-md-12 col-md-content">
@@ -48,21 +48,19 @@
                             <p class="text-center">
                               <a class="btn btn-sm btn-default" [hidden]="userRole !== 'Parent' && userRole !== 'Child'"
                                 (click)="$event.stopPropagation(EditFolder(folder))" nz-tooltip
-                                nzTooltipTitle="Edit folder" data-original-title="" title=""><i class="fa fa-edit"></i>
+                                nzTooltipTitle="{{'edit' | translate}}" data-original-title="" title=""><i
+                                  class="fa fa-edit"></i>
                               </a>
                               <a class="btn btn-sm btn-primary ml-4"
                                 [hidden]="userRole !=='Parent' && userRole !=='Child'"
                                 (click)="$event.stopPropagation(DeleteFolder(folder.FolderId))" nz-tooltip
-                                nzTooltipTitle="Delete folder" data-original-title="" title=""><i
+                                nzTooltipTitle="{{'delete' | translate}}" data-original-title="" title=""><i
                                   class="fa fa-trash"></i> </a>
                             </p>
                           </div>
                         </div>
                       </div>
-
-
                     </div>
-
                     <ng-template #noData class="align-center">
                       <nz-empty></nz-empty>
                     </ng-template>
@@ -70,7 +68,7 @@
                 </div>
               </div>
             </div>
-            <nz-card [nzTitle]="sharedDocTitle" *ngIf="userRole !=='Lawyer'">
+            <nz-card nzTitle="{{'sharedDocuments' | translate}}" *ngIf="userRole !=='Lawyer'">
               <div class="row">
                 <ng-container *ngIf="sharedDocs && sharedDocs.length > 0; else noSharedDocs"></ng-container>
                 <ng-container *ngFor="let item of sharedDocs">
@@ -89,17 +87,12 @@
                 </ng-container>
               </div>
             </nz-card>
-
-
           </div>
         </div>
       </div>
     </div>
   </div>
 </div>
-
-
-
 <div>
   <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="FoldermodalTitle" (nzOnCancel)="ModalCancel()"
     nzMaskClosable="false">
@@ -112,11 +105,10 @@
 
 <ng-template #noSharedDocs>
   <div class="col-md-12">
-    <nz-result nzStatus="404" nzTitle="No Data Found!">
+    <nz-result nzStatus="404" nzTitle="{{'noDataFound' | translate}}">
     </nz-result>
   </div>
 </ng-template>
-
 
 <ng-template #formTpl>
   <div>

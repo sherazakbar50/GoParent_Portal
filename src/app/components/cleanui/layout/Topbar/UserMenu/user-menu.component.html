@@ -4,11 +4,11 @@
   </div>
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <ul nz-menu>
-   
+
       <li nz-menu-item>
         <a routerLink="profile">
           <i class="fe fe-user mr-2"></i>
-          {{ 'topBar.profileMenu.editProfile' | translate }}
+          {{ 'Edit Profile' | translate }}
         </a>
       </li>
       <li nz-menu-divider></li>
@@ -16,7 +16,7 @@
 
         <a href="javascript: void(0);" (click)="logout()">
           <i class="fe fe-log-out mr-2"></i>
-          {{ 'topBar.profileMenu.logout' | translate }}
+          {{ 'Logout' | translate }}
         </a>
       </li>
     </ul>

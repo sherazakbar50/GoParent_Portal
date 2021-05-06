@@ -15,7 +15,7 @@ export class AddChildVaccineComponent implements OnInit {
     private fb: FormBuilder,
     private _FamilyMemberService: FamilyMemberService,
     private notification: NzNotificationService,
-  ) {}
+  ) { }
   @Input() familyMemberId: number
   @Input() VaccineId: number
   vaccineForm: FormGroup

@@ -1,19 +1,19 @@
 <div>
   <div class="boxContainer" nz-col [nzSpan]="24">
     <div class="text-dark font-size-24 mb-4">
-      <strong>GoParent Registration</strong>
+      <strong>{{'registration' | translate}}</strong>
     </div>
     <div class="mb-4">
       <p>
-        Complete your registration and start spending more time on your CoParenting activities and less time managing
-        your
-        infrastructure.
+        {{'completeYourRegistration' | translate}}
       </p>
     </div>
 
     <nz-steps [nzCurrent]="current">
-      <nz-step nzTitle="Parent Account" nzDescription="Create your parent account"></nz-step>
-      <nz-step nzTitle="Co Parent & Child(ren)" nzDescription="Add your co-parent and children"></nz-step>
+      <nz-step nzTitle="{{'parentAccount' | translate}}" nzDescription="{{'createAccount' | translate}}">
+      </nz-step>
+      <nz-step nzTitle="{{'coParnetChild' | translate}}" nzDescription="{{'addYourCoParent' | translate}}">
+      </nz-step>
       <!-- <nz-step nzTitle="Done" nzDescription="Complete your subscription"></nz-step> -->
     </nz-steps>
 
@@ -22,9 +22,11 @@
         <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="parentForm()" role="form">
           <nz-form-item>
             <nz-form-control>
-              <input type="text" nz-input nzSize="large" formControlName="firstName" placeholder="First Name" />
+              <input type="text" nz-input nzSize="large" formControlName="firstName"
+                placeholder="{{'firstName' | translate}}" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && firstName.hasError('required')">Please enter your First Name!
+                <ng-container *ngIf="parentSubmission && firstName.hasError('required')">
+                  {{'firstNameError' | translate}}
                 </ng-container>
                 <!-- <ng-container *ngIf="parentSubmission && firstName.hasError('minlength') && !firstName.hasError('required')">Minimum 3 characters are required!</ng-container> -->
               </div>
@@ -32,9 +34,11 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <input type="text" nz-input nzSize="large" formControlName="lastName" placeholder="Last Name" />
+              <input type="text" nz-input nzSize="large" formControlName="lastName"
+                placeholder="{{'lastName' | translate}}" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && lastName.hasError('required')">Please enter your Last Name!
+                <ng-container *ngIf="parentSubmission && lastName.hasError('required')">
+                  {{'lastNameError' | translate}}
                 </ng-container>
                 <!-- <ng-container *ngIf="parentSubmission && lastName.hasError('minlength') && !lastName.hasError('required')">Minimum 3 characters are required!</ng-container> -->
               </div>
@@ -42,12 +46,15 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <input type="email" nz-input nzSize="large" formControlName="email" placeholder="Email Address" />
+              <input type="email" nz-input nzSize="large" formControlName="email"
+                placeholder="{{'email' | translate}}" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && email.hasError('required')">Please enter your Email!
+                <ng-container *ngIf="parentSubmission && email.hasError('required')">
+                  {{'emailError' | translate}} - xyz@mail.com
                 </ng-container>
                 <ng-container *ngIf="parentSubmission && email.hasError('pattern') && !email.hasError('required')">
-                  Please enter a valid email e.g abc@xyz.com</ng-container>
+                  {{'emailError' | translate}} - xyz@mail.com
+                </ng-container>
                 <ng-container
                   *ngIf="parentSubmission && email.hasError('maxlength') && !email.hasError('required') && !email.hasError('pattern')">
                   Maximum 255 characters are allowed!</ng-container>
@@ -56,9 +63,11 @@
           </nz-form-item>
           <nz-form-item>
             <nz-form-control>
-              <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password" />
+              <input type="password" nz-input nzSize="large" formControlName="password"
+                placeholder="{{'password' | translate}}" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && password.hasError('required')">Please enter your Password!
+                <ng-container *ngIf="parentSubmission && password.hasError('required')">
+                  {{'passwordError' | translate}}
                 </ng-container>
                 <ng-container
                   *ngIf="parentSubmission && password.hasError('minlength') && !password.hasError('required')">Minimum 4
@@ -69,22 +78,23 @@
           <nz-form-item>
             <nz-form-control>
               <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100">
-                <strong>Continue</strong>
+                <strong>{{'continue' | translate}}</strong>
               </button>
             </nz-form-control>
           </nz-form-item>
         </form>
       </div>
       <div *ngIf="currentRegStep == registrationStepsEnums.CoParentChildren">
-        <nz-divider nzText="Co Parent"></nz-divider>
+        <nz-divider nzText="{{'coParent' | translate}}"></nz-divider>
         <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="CoParentChildForm()" role="form">
           <nz-form-item>
             <nz-form-control>
               <input type="email" nz-input nzSize="large" formControlName="coParentEmail"
-                placeholder="Email Address (Optional)" />
+                placeholder="{{'Email' | translate }} ({{'optional' | translate }})" />
               <div class="text-danger">
-                <ng-container *ngIf="parentSubmission && coParentEmail.hasError('pattern')">Please enter a valid email
-                  e.g abc@xyz.com</ng-container>
+                <ng-container *ngIf="parentSubmission && coParentEmail.hasError('pattern')">
+                  {{'emailError' | translate}} - xyz@mail.com
+                </ng-container>
                 <ng-container *ngIf="parentSubmission && email.hasError('maxlength') && !lastName.hasError('pattern')">
                   Maximum 255 characters are allowed!</ng-container>
               </div>
@@ -93,7 +103,7 @@
 
           <div formArrayName="childsArray">
             <div *ngFor="let item of childs.controls; index as i">
-              <nz-divider nzText="{{i > 0 ? 'Child ' + (i+1) : 'Child'}}"></nz-divider>
+              <nz-divider nzText="{{'child' | translate}}"></nz-divider>
               <div class="text-align-right">
                 <i *ngIf="childs.length !== (i+1)" nz-icon nzType="delete" nzDanger (click)="removeChildFormGroup(i)"
                   nz-tooltip nzTooltipTitle="Delete Child" nzTheme="fill" class="text-danger pointer "></i>
@@ -102,27 +112,27 @@
                 <nz-form-item>
                   <nz-form-control>
                     <input type="text" nz-input nzSize="large" formControlName="childFirstName"
-                      placeholder="First Name (Optional)" />
+                      placeholder="{{'firstName' | translate}} ({{'optional' | translate }})" />
                   </nz-form-control>
                 </nz-form-item>
                 <nz-form-item>
                   <nz-form-control>
                     <input type="text" nz-input nzSize="large" formControlName="childLastName"
-                      placeholder="Last Name (Optional)" />
+                      placeholder="{{'lastName' | translate}} ({{'optional' | translate }})" />
                   </nz-form-control>
                 </nz-form-item>
               </ng-container>
             </div>
             <ng-container>
               <button type="button" class="text-center" [nzBlock]="true" nz-button [nzSize]="small" nzType="link"
-                (click)="addChild()"> + Add Child </button>
+                (click)="addChild()"> + {{'addChild' | translate}} </button>
             </ng-container>
           </div>
           <nz-form-item>
             <nz-form-control>
               <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading"
                 class="text-center w-100 mg-top-20">
-                <strong> Complete Registration</strong>
+                <strong>{{'completeRegistration' | translate}}</strong>
               </button>
             </nz-form-control>
           </nz-form-item>
@@ -131,34 +141,17 @@
     </div>
     <div class="steps-action">
       <button nz-button nzType="link" (click)="backToPreviousStep()" *ngIf="current > 0">
-        <span><i nz-icon nzType="left" nzTheme="outline"></i> Previous</span>
+        <span><i nz-icon nzType="left" nzTheme="outline"></i> {{'previous' | translate}}</span>
       </button>
-      <!-- <button nz-button nzType="default" (click)="next()" *ngIf="current < 2">
-        <span>Next</span>
-      </button> -->
-      <!-- <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" (click)="next()" *ngIf="current < 2" class="text-center w-100">
-        <strong>Continue</strong>
-      </button> 
-      <button nz-button nzType="primary" (click)="done()" *ngIf="current === 2">
-        <span>Done</span>
-      </button>-->
+
     </div>
 
-    <!-- <div>
-      By signing up, you agree to the
-      <a href="javascript: void(0);" class="kit__utils__link">
-        Terms of Service
-      </a>
-      and
-      <a href="javascript: void(0);" class="kit__utils__link">
-        Privacy Policy
-      </a>
-    </div> -->
+
   </div>
   <div class="text-center pt-2 mb-auto">
-    <span class="mr-2">Already have an account?</span>
+    <span class="mr-2"> {{'alreadyHave' | translate}}</span>
     <a routerLink="/auth/login" class="kit__utils__link font-size-16">
-      Sign in
+      {{'signIn' | translate}}
     </a>
   </div>
 </div>

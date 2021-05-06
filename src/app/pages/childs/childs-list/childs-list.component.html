@@ -3,18 +3,18 @@
   <div class="card">
     <div class="card-body">
       <h5 class="mb-4">
-        <strong>Family Children</strong>
+        <strong>{{'familyChildren' | translate}}</strong>
       </h5>
       <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
-        <button nz-button nzType="primary" (click)="AddChild()">Add Child</button>
+        <button nz-button nzType="primary" (click)="AddChild()">{{'addChild' | translate}}</button>
       </div>
       <nz-table #basicTable [nzData]="childsList" class="kit__utils__table mb-4">
         <thead>
           <tr>
             <th>#</th>
-            <th>Profile Pic</th>
-            <th>Name</th>
-            <th>Action</th>
+            <th>{{'profilePic' | translate}}</th>
+            <th>{{'name' | translate}}</th>
+            <th>{{'action' | translate}}</th>
           </tr>
         </thead>
         <tbody>
@@ -24,14 +24,16 @@
             <td>{{ data.Name }}</td>
             <td>
               <ng-container *ngIf='!data.PortalAccessCreated'>
-                <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="SendPortalAccess(data.Id)">Send Portal Access</a>
+                <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="SendPortalAccess(data.Id)">
+                  {{ 'sendPortalAccess' | translate}}
+                </a>
                 <nz-divider nzType="vertical"></nz-divider>
               </ng-container>
-            
-              <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Profile"
+
+              <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="{{'editProfile' | translate}}"
                 (click)="$event.stopPropagation(EditChildProfile(data.Id))" nzTheme="fill" class="text-success"></i>
               <nz-divider nzType="vertical"></nz-divider>
-              <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Child"
+              <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="{{'delete' | translate}}"
                 (click)="$event.stopPropagation(DeleteChild(data.Id))" nzTheme="fill" class="text-danger"></i>
 
               <!-- <a class="btn btn-info btn-sm" href="javascript:void(0)" (click)="EditChildProfile(data.Id)">Edit Profile</a>
@@ -60,10 +62,11 @@
 
 
 <div>
-  <nz-modal [nzFooter]="null" [(nzVisible)]="PortalAccessModalVisible" [nzTitle]="'Create Portal Access'" (nzOnCancel)="handlePortalAccessModalCancel()"
-    nzMaskClosable="false">
+  <nz-modal [nzFooter]="null" [(nzVisible)]="PortalAccessModalVisible" [nzTitle]="'Create Portal Access'"
+    (nzOnCancel)="handlePortalAccessModalCancel()" nzMaskClosable="false">
     <ng-container *nzModalContent>
-      <app-create-portal-access [FamilyMemberId]='ChildId' (PortalAccessSent)='PortalAccessSentCallback()'></app-create-portal-access>
+      <app-create-portal-access [FamilyMemberId]='ChildId' (PortalAccessSent)='PortalAccessSentCallback()'>
+      </app-create-portal-access>
     </ng-container>
   </nz-modal>
 </div>

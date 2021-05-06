@@ -7,7 +7,7 @@
           <div class="card-header card-header-flex align-items-center">
             <div class="d-flex flex-column justify-content-center mr-auto">
               <h5 class="mb-0 mr-2 font-size-18">
-                Journal
+                {{'Journal' | translate}}
               </h5>
             </div>
 
@@ -17,7 +17,9 @@
         <div class="card-body">
           <div class="height-500">
             <div *ngIf='activeChatGroupId==0'>
-              <h4 class="text-center" style="padding-top: 30%;">Create a chat group to start your conversation :)</h4>
+              <h4 class="text-center" style="padding-top: 30%;">
+                {{'createAGroup' | translate}}
+              </h4>
             </div>
             <perfect-scrollbar>
               <div class="d-flex flex-column justify-content-end pr-2 height-100p">
@@ -71,7 +73,7 @@
                 <span class="input-group-text bg-white" (click)="AddAttachment()"><i class="fa fa-paperclip"></i></span>
               </div>
               <input type="text" class="form-control" #inputMsg [(ngModel)]='messageText'
-                placeholder="Send message..." />
+                placeholder="{{'sendMessage' | translate}}..." />
               <div class="input-group-append">
 
                 <button class="btn btn-primary" (click)='SendMessage()' type="button">

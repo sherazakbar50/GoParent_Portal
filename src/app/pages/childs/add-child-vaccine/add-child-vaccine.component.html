@@ -1,37 +1,40 @@
-
 <div class="row">
     <div class="col-xl-12">
-    <form nz-form [nzLayout]="'vertical'" [formGroup]="vaccineForm" (ngSubmit)="submitHandler()" role="form">
-    <nz-form-item>
-    <nz-form-control>
-    <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Name" />
-     <div class="text-danger">
-    <ng-container *ngIf="IsSubmitted && VaccineName.hasError('required')">Name is required!</ng-container>
-     
-    </div> 
-    </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-    <nz-form-control>
-    <input type="date" nz-input nzSize="large" formControlName="Date"  />
-    <div class="text-danger">
-        <ng-container *ngIf="IsSubmitted && VaccineDate.hasError('required')">Date is required!</ng-container>
-         
-        </div>
-    </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-        <nz-form-control>
-            <textarea nz-input formControlName='Notes' placeholder="Notes ..."></textarea>
-        </nz-form-control>
-        </nz-form-item>
-    <nz-form-item>
-    <nz-form-control>
-    <button nz-button nzType="primary" [nzSize]="'large'"   class="text-center w-100">
-    <strong> Save</strong>
-    </button>
-    </nz-form-control>
-    </nz-form-item>
-    </form>
+        <form nz-form [nzLayout]="'vertical'" [formGroup]="vaccineForm" (ngSubmit)="submitHandler()" role="form">
+            <nz-form-item>
+                <nz-form-control>
+                    <input type="text" nz-input nzSize="large" formControlName="Name"
+                        placeholder="{{'name' | translate}}" />
+                    <div class="text-danger">
+                        <ng-container *ngIf="IsSubmitted && VaccineName.hasError('required')">
+                            {{'nameError' | translate}}
+                        </ng-container>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <input nz-input type="date" nzSize="large" formControlName="Date"
+                        placeholder="{{'date' | translate}}" />
+                    <div class="text-danger">
+                        <ng-container *ngIf="IsSubmitted && VaccineDate.hasError('required')">
+                            {{'dateError' | translate}}
+                        </ng-container>
+                    </div>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <textarea nz-input formControlName='Notes' placeholder="{{'notes' | translate}} ..."></textarea>
+                </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-control>
+                    <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
+                        <strong> {{'save' | translate}}</strong>
+                    </button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
     </div>
-    </div>
+</div>

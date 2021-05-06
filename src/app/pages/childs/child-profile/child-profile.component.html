@@ -1,193 +1,203 @@
 <div>
-   
-    <div class="card">
-      <div class="card-body">
-        <h5 class="mb-4">
-          <strong>Child Profile</strong>
-        </h5>
-       
-        <nz-tabset class="kit-tabs" [nzSelectedIndex]="0">
-            
-            <nz-tab nzTitle="Information">
-               
-                <form nz-form [formGroup]='informationForm' (ngSubmit)='SaveChildInformation()' [nzLayout]="'vertical'">
-                    <p><b>General Info</b></p>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <nz-form-item>
-                          <nz-form-label >Birth Date</nz-form-label>
-                          <nz-form-control>
-                            <input nz-input  formControlName='DOB' type="date" />
-                          </nz-form-control>
-                        </nz-form-item>
-                      </div>
-                      <div class="col-md-6">
-                        <nz-form-item>
-                          <nz-form-label nzFor="password3">ID Number</nz-form-label>
-                          <nz-form-control>
-                            <input nz-input formControlName='IDNumber' type="text" placeholder="ID Number"  />
-                          </nz-form-control>
-                        </nz-form-item>
-                      </div>
-                      <div class="col-md-6">
-                        <nz-form-item>
-                          <nz-form-label >Social Security</nz-form-label>
-                          <nz-form-control>
-                            <input nz-input  formControlName='SocialSecurity' type="text" placeholder="Social Security" />
-                          </nz-form-control>
-                        </nz-form-item>
-                      </div>
-                      <div class="col-md-6">
-                        <nz-form-item>
-                          <nz-form-label >Weight</nz-form-label>
-                          <nz-form-control>
-                            <input nz-input formControlName='Weight' placeholder="Weight" type="number" />
-                          </nz-form-control>
-                        </nz-form-item>
-                      </div>
-                      <div class="col-md-6">
-                        <nz-form-item>
-                            <nz-form-label >Height</nz-form-label>
-                            <nz-form-control>
-                              <input nz-input formControlName='Height' placeholder="Height" type="number" />
-                            </nz-form-control>
-                          </nz-form-item> 
-                      </div>
-                      
-                      
-                    </div>
-                    <p><b>Size</b></p>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <nz-form-item>
-                                <nz-form-label >T-Shirt</nz-form-label>
-                                <nz-form-control>
-                                  <input nz-input formControlName='TShirt' placeholder="T-Shirt" type="number" />
-                                </nz-form-control>
-                              </nz-form-item> 
-                          </div>
-                          <div class="col-md-6">
-                            <nz-form-item>
-                                <nz-form-label >Dress</nz-form-label>
-                                <nz-form-control>
-                                  <input nz-input formControlName='Dress' placeholder="Dress" type="number" />
-                                </nz-form-control>
-                              </nz-form-item> 
-                          </div>
-                          <div class="col-md-6">
-                            <nz-form-item>
-                                <nz-form-label >Trousers</nz-form-label>
-                                <nz-form-control>
-                                  <input nz-input formControlName='Trousers' placeholder="Trousers" type="number" />
-                                </nz-form-control>
-                              </nz-form-item> 
-                          </div>
-                          <div class="col-md-6">
-                            <nz-form-item>
-                                <nz-form-label >Shoe Size</nz-form-label>
-                                <nz-form-control>
-                                  <input nz-input formControlName='ShoeSize' placeholder="ShoeSize" type="number" />
-                                </nz-form-control>
-                              </nz-form-item> 
-                          </div>
-                        <div class="col-12">
-                           <div class="col-md-6" style="padding: 0px;">
-                              <button type="submit" [disabled]='!informationForm.valid'  class="btn btn-primary">
-                                  Save
-                                </button>
-                           </div>
-                        
-                        </div>
-                    </div>
-                  </form>
-            </nz-tab>
-            <nz-tab nzTitle="Medical Information">
-                <form nz-form [formGroup]='MedicalForm' (ngSubmit)='SaveMedicalInfo()' >
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Blood Type</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <input nz-input  formControlName='BloodType' placeholder="Blood Group e.g, A+,A- " type="text" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Allergies</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <textarea nz-input formControlName='Allergies'   placeholder="Allergies ..."  ></textarea>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Diseases</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <textarea nz-input formControlName='Diseases'   placeholder="Diseases ..."  ></textarea>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Chronic Problems</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <textarea nz-input formControlName='ChronicProblems'   placeholder="Chronic Problems ..."  ></textarea>
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <button type="submit" [disabled]='!MedicalForm.valid'  class="btn btn-primary">
-                                Save
-                              </button>
-                        </nz-form-control>
-                    </nz-form-item>
-                  
-                  </form>
-            </nz-tab>
-            <nz-tab nzTitle="Bank">
-                <form nz-form [formGroup]='BankForm' (ngSubmit)='SaveBankInfo()' >
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Account Name</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <input nz-input  formControlName='AccountName' placeholder="Account Name" type="text" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Account Number</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <input nz-input  formControlName='AccountNumber' placeholder="Account Number" type="text" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Bank</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <input nz-input  formControlName='Bank' placeholder="Bank" type="text" />
-                        </nz-form-control>
-                    </nz-form-item>
-                    <nz-form-item>
-                        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">Notes</nz-form-label>
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <textarea nz-input formControlName='BankNotes'   placeholder="Notes ..."  ></textarea>
-                        </nz-form-control>
-                    </nz-form-item>
-                     <nz-form-item>
-                        
-                        <nz-form-control [nzSm]="12" [nzXs]="24" >
-                            <button type="submit" [disabled]='!BankForm.valid'  class="btn btn-primary">
-                                Save
-                              </button>
-                        </nz-form-control>
-                    </nz-form-item>
-                  
-                  </form>
-            </nz-tab>
-            <nz-tab nzTitle="Vaccines">
-                <app-child-vaccines [familyMemberId]='memberId'></app-child-vaccines>
-            </nz-tab>
-              <!-- <nz-tab nzTitle="Nutritional">
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="mb-4">
+        <strong>{{'childProfile' | translate}}</strong>
+      </h5>
+
+      <nz-tabset class="kit-tabs" [nzSelectedIndex]="0">
+
+        <nz-tab nzTitle="{{'information' | translate}}">
+
+          <form nz-form [formGroup]='informationForm' (ngSubmit)='SaveChildInformation()' [nzLayout]="'vertical'">
+            <p><b>{{'generalInfo' | translate}}</b></p>
+            <div class="row">
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'birthDate' | translate}}e</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='DOB' type="date" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'idNo' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='IDNumber' type="text" placeholder="{{'idNo' | translate}}" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'socialSecurity' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='SocialSecurity' type="text"
+                      placeholder="{{'socialSecurity' | translate}}" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'weight' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='Weight' placeholder="{{'weight' | translate}}" type="number" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'height' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='Height' placeholder="{{'height' | translate}}" type="number" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+
+
+            </div>
+            <p><b>{{'size' | translate}}</b></p>
+            <div class="row">
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'tShirt' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='TShirt' placeholder="{{'tShirt' | translate}}" type="number" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'dress' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='Dress' placeholder="{{'dress' | translate}}" type="number" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'trouser' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='Trousers' placeholder="{{'trouser' | translate}}" type="number" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-md-6">
+                <nz-form-item>
+                  <nz-form-label>{{'shoeSize' | translate}}</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName='ShoeSize' placeholder="{{'shoeSize' | translate}}" type="number" />
+                  </nz-form-control>
+                </nz-form-item>
+              </div>
+              <div class="col-12">
+                <div class="col-md-6" style="padding: 0px;">
+                  <button type="submit" [disabled]='!informationForm.valid' class="btn btn-primary">
+                    {{'save' | translate}}
+                  </button>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </nz-tab>
+        <nz-tab nzTitle="{{'medical' | translate}}">
+          <form nz-form [formGroup]='MedicalForm' (ngSubmit)='SaveMedicalInfo()'>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'bloodType' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <input nz-input formControlName='BloodType' placeholder="{{'bloodGroup' | translate}}" type="text" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'allergies' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <textarea nz-input formControlName='Allergies' placeholder="{{'allergies' | translate}} ..."></textarea>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'diseases' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <textarea nz-input formControlName='Diseases' placeholder="{{'diseases' | translate}} ..."></textarea>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'chronic' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <textarea nz-input formControlName='ChronicProblems'
+                  placeholder="{{'chronic' | translate}} ..."></textarea>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <button type="submit" [disabled]='!MedicalForm.valid' class="btn btn-primary">
+                  {{'save' | translate}}
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+
+          </form>
+        </nz-tab>
+        <nz-tab nzTitle="{{'bank' | translate}}">
+          <form nz-form [formGroup]='BankForm' (ngSubmit)='SaveBankInfo()'>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'accountName' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <input nz-input formControlName='AccountName' placeholder="{{'accountName' | translate}}" type="text" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'accountNumber' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <input nz-input formControlName='AccountNumber' placeholder="{{'accountNumber' | translate}}"
+                  type="text" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'bank' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <input nz-input formControlName='Bank' placeholder="Bank" type="text" />
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+              <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="full-name" class="text-left">{{'notes' | translate}}
+              </nz-form-label>
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <textarea nz-input formControlName='BankNotes' placeholder="{{'notes' | translate}} ..."></textarea>
+              </nz-form-control>
+            </nz-form-item>
+            <nz-form-item>
+
+              <nz-form-control [nzSm]="12" [nzXs]="24">
+                <button type="submit" [disabled]='!BankForm.valid' class="btn btn-primary">
+                  {{'save' | translate}}
+                </button>
+              </nz-form-control>
+            </nz-form-item>
+
+          </form>
+        </nz-tab>
+        <nz-tab nzTitle="{{'vaccines' | translate}}">
+          <app-child-vaccines [familyMemberId]='memberId'></app-child-vaccines>
+        </nz-tab>
+        <!-- <nz-tab nzTitle="Nutritional">
                 Content of Tab Pane 3
               </nz-tab>
               <nz-tab nzTitle="Educational">
                 Content of Tab Pane 3
               </nz-tab> -->
-          </nz-tabset>
+      </nz-tabset>
 
 
-      </div>
     </div>
   </div>
-
+</div>

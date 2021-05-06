@@ -2,58 +2,49 @@
   <div class="col-lg-12">
     <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="SaveCustody()" role="form" *ngIf="form">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Custody title is required">
-          <input type="text" nz-input formControlName="Title" placeholder="Title" />
-          <!-- <div class="text-danger">
-                    <ng-container *ngIf="fc.Title.hasError('required')">Custody title is required</ng-container>
-                  </div> -->
+        <nz-form-control nzErrorTip="{{'custodyTitleRequired' | translate}}">
+          <input type="text" nz-input formControlName="Title" placeholder="{{'title' | translate}}" />
+
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Begins on date is required">
+        <nz-form-control nzErrorTip="{{'beginDateRequired' | translate}}">
           <nz-date-picker (ngModelChange)="OnCustodyDateChange($event)" class="w-100" formControlName="StartDate"
-            [nzPlaceHolder]="'Begins on'"></nz-date-picker>
-          <!-- <div class="text-danger">
-                  <ng-container *ngIf="fc.StartDate.hasError('required')">Begins on date is required</ng-container>
-                </div> -->
+            nzPlaceHolder="{{'beginsOn' | translate}}"></nz-date-picker>
+
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Begins on date is required">
+        <nz-form-control nzErrorTip="{{'repeatDateRequired' | translate}}">
           <nz-date-picker (ngModelChange)="OnCustodyDateChange($event)" class="w-100" formControlName="EndDate"
-            [nzPlaceHolder]="'Repeats until'"></nz-date-picker>
-          <!-- <div class="text-danger">
-                <ng-container *ngIf="fc.EndDate.hasError('required')">Repeats until date is required</ng-container>
-              </div> -->
+            nzPlaceHolder="{{'repeatUntil' | translate}}"></nz-date-picker>
+
         </nz-form-control>
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please select at least one child">
+        <nz-form-control nzErrorTip="{{'selectOneChildError' | translate}}">
           <nz-select *ngIf="FamilyChilds" formControlName="Children" nzMode="multiple"
-            nzPlaceHolder="Select Child(ren)">
+            nzPlaceHolder="{{'selectChilds' | translate}}">
             <nz-option *ngFor="let option of FamilyChilds"
               nzLabel="{{option.ChildFirstName + ' ' + option.ChildLastName}}" [nzValue]="option.ChildId"></nz-option>
           </nz-select>
-          <!-- <div class="text-danger">
-              <ng-container *ngIf="fc.Children.hasError('required')">Please select at least one child</ng-container>
-            </div> -->
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <app-color-picker [color]="firstCoParentColor" [label]="'Your custody color'"
+          <app-color-picker [color]="firstCoParentColor" label="{{'yourCustodyColor' | translate}}"
             (event)="setParentCustodyColor(1,$event)"></app-color-picker>
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <app-color-picker [color]="secondCoParentColor" [label]="'Co-Parent\'s custody color'"
+          <app-color-picker [color]="secondCoParentColor" label="{{'coParentCustodyColor' | translate}}"
             (event)="setParentCustodyColor(2,$event)"></app-color-picker>
         </nz-form-control>
       </nz-form-item>
       <div *ngIf="custodyStartDate.value && custodyEndDate.value">
-        <nz-divider nzText="Define Custody Plan"></nz-divider>
+        <nz-divider nzText="{{'defineCustody' | translate}}"></nz-divider>
 
         <div formArrayName="CustodySequences">
           <nz-form-item class="custody-sequence-div"
@@ -64,7 +55,7 @@
                   [nzFormat]="'yyyy/MM/dd'" [nzPlaceHolder]="['From', 'To']">
                 </nz-range-picker>
                 <nz-select style="width: 45%;" class="custody-sequence-coparent-ddl" *ngIf="CoParentsInfo"
-                  formControlName="CustodyBy" nzPlaceHolder="Select Co-Parent">
+                  formControlName="CustodyBy" nzPlaceHolder="{{'selectCoParent' | translate}}">
                   <nz-option *ngFor="let option of CoParentsInfo" nzLabel="{{option.DisplayName}}"
                     [nzValue]="option.Id"></nz-option>
                 </nz-select>
@@ -79,20 +70,12 @@
             <nz-form-control>
               <button nz-button nzType="dashed" class="add-button w-100" (click)="addCustodyRow($event)">
                 <i nz-icon nzType="plus"></i>
-                Add Custody Plan
+                {{'addCustody' | translate}}
               </button>
             </nz-form-control>
           </nz-form-item>
         </div>
       </div>
-
-
-
-
-
-      <!-- Sequence start -->
-
-      <!-- Sequence End -->
 
       <nz-form-item>
         <nz-form-control>
@@ -102,7 +85,7 @@
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="primary" class="text-center w-100">
-            <strong> Save</strong>
+            <strong>{{'save' | translate}}</strong>
           </button>
         </nz-form-control>
       </nz-form-item>
@@ -114,7 +97,7 @@
 
 <!-- Templates -->
 <div [hidden]="templateChosenOrCustom">
-  <h4>Select or Create Custody Template</h4>
+  <h4>{{'selectCreateCustody' | translate}}</h4>
   <!-- List of Templates -->
   <div class="row flex-nowrap">
     <ng-container *ngFor="let item of list">
@@ -137,7 +120,7 @@
                 <i class="fe fe-plus-circle"></i>
               </div>
               <p class="text-uppercase text-muted mb-3">
-                Create Custom Plan
+                {{'createCustomPlan' | translate}}
               </p>
             </div>
           </div>

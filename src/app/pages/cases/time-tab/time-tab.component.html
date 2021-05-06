@@ -1,12 +1,12 @@
 <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
-  <button nz-button nzType="primary" (click)="AddTime()">Add time record</button>
+  <button nz-button nzType="primary" (click)="AddTime()">{{'Add time record' | translate}}</button>
 </div>
 <hr>
 <div class="row ml-3 mt-4">
   <p class="font-weight-bold font-size-24 mb-0">
-    Total time: {{casesTotalTimeInMinutes}}
+    {{'totalTime' | translate}}: {{casesTotalTimeInMinutes}}
   </p>
-  <p class=" text-gray-5 mt-2 ml-3">in minutes</p>
+  <p class=" text-gray-5 mt-2 ml-3">{{'inMins' | translate}}</p>
 
 </div>
 

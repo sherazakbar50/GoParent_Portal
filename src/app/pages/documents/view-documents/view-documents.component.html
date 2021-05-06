@@ -63,13 +63,13 @@
                 <p class="text-center ml-3">
                   <a class="btn btn-sm btn-default" tooltip="{ title: 'Edit' }" data-original-title="" title=""
                     (click)="$event.stopPropagation(DownloadDocument(docs.BlobUrl))" nz-tooltip
-                    nzTooltipTitle="Download document"><i class="fa fa-download"></i>
+                    nzTooltipTitle="{{'downloadDoc' | translate}}"><i class="fa fa-download"></i>
                   </a>
                   <a class="btn btn-sm btn-primary ml-4"
                     [hidden]="userRole !== 'Parent' && userRole !== 'Child' && userRole !== 'Other'"
                     (click)="$event.stopPropagation(DeleteDocument(docs.DocumentId))" nz-tooltip
-                    nzTooltipTitle="Delete document" tooltip="{ title: 'Destroy' }" rel="nofollow" data-method="delete"
-                    data-original-title="" title=""><i class="fa fa-trash"></i>
+                    nzTooltipTitle="{{'deleteDoc' | translate}}" tooltip="{ title: 'Destroy' }" rel="nofollow"
+                    data-method="delete" data-original-title="" title=""><i class="fa fa-trash"></i>
                   </a>
                 </p>
               </div>

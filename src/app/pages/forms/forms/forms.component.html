@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <h5 class="mb-4">
             <span class="float-right" *ngIf="userRole === 'Lawyer'">
-                <button nz-button nzType="primary" (click)="showModal()">New Form</button>
+                <button nz-button nzType="primary" (click)="showModal()">{{'forlderName' | translate}}</button>
             </span>
         </h5>
     </div>
@@ -14,9 +14,9 @@
         <thead>
             <tr>
                 <th>#</th>
-                <th>Title</th>
-                <th *ngIf="userRole === 'Lawyer'">Shared with</th>
-                <th style="width: 300px;">Action</th>
+                <th>{{'title' | translate}}</th>
+                <th *ngIf="userRole === 'Lawyer'">{{'Shared with' | translate}}</th>
+                <th style="width: 300px;">{{'action' | translate}}</th>
             </tr>
         </thead>
         <tbody>
@@ -36,7 +36,7 @@
                     </ng-container>
                     <ng-template #noFamilyTpl>
                         <span class="text-gray-4">
-                            Not shared yet!
+                            {{'Not shared yet!' | translate}}
                         </span>
                     </ng-template>
                 </td>
@@ -44,21 +44,21 @@
                     <button *ngIf="userRole === 'Lawyer'" nz-button nzType="default" nzSize="small" class="mr-2"
                         (click)="showShareModal(data)">
                         <i class="fe fe-send font-size-10 pr-2"></i>
-                        Share
+                        {{'Share' | translate}}
                     </button>
                     <button nz-button nzType="default" nzSize="small" class="mr-2" (click)="openPreview(data)">
                         <i class="fe fe-eye font-size-10 pr-2"></i>
-                        Preview
+                        {{'Preview' | translate}}
                     </button>
                     <button *ngIf="userRole === 'Lawyer'" nz-button nzType="default" nzSize="small" class="mr-2"
                         (click)="showModal(data)">
                         <i class="fe fe-edit-3 font-size-10 pr-2"></i>
-                        Edit
+                        {{'edit' | translate}}
                     </button>
                     <button *ngIf="userRole === 'Lawyer'" nz-button nzType="default" nzSize="small" nzDanger
                         (click)="deleteForm(data.Id)">
                         <i class="fe fe-delete font-size-10 pr-2"></i>
-                        Delete
+                        {{'delete' | translate}}
                     </button>
                 </td>
             </tr>

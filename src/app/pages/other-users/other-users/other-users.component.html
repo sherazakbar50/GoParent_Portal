@@ -5,7 +5,8 @@
 <div>
     <div class="row mb-2">
         <div class="col-xl-12">
-            <button nz-button class="float-right" nzType="primary" (click)="openModal()">Add User</button>
+            <button nz-button class="float-right" nzType="primary" (click)="openModal()">{{'Add User' |
+                translate}}</button>
         </div>
     </div>
     <div class="row">
@@ -14,13 +15,13 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Status</th>
-                        <th>Email</th>
-                        <th>Phone No</th>
-                        <th>Address</th>
-                        <th>Actions</th>
+                        <th>{{'firstName' | translate}}</th>
+                        <th>{{'lastName' | translate}}</th>
+                        <th>{{'status' | translate}}</th>
+                        <th>{{'email' | translate}}</th>
+                        <th>{{'phoneNo' | translate}}</th>
+                        <th>{{'address' | translate}}</th>
+                        <th>{{'action' | translate}}</th>
                     </tr>
                 </thead>
 
@@ -36,15 +37,16 @@
                         <td>{{ data.PhoneNo }}</td>
                         <td>{{ data.Address }}</td>
                         <td>
-                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit User"
+                            <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="{{'edit' | translate}}"
                                 (click)="$event.stopPropagation(edit(data))" nzTheme="fill" class="text-success"></i>
                             <nz-divider nzType="vertical"></nz-divider>
-                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete User"
+                            <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="{{'delete' | translate}}"
                                 (click)="$event.stopPropagation(delete(data.Id))" nzTheme="fill"
                                 class="text-danger"></i>
                             <ng-container *ngIf="!data.PortalAccessCreated">
                                 <nz-divider nzType="vertical"></nz-divider>
-                                <i class="fe fe-user-plus" nz-tooltip nzTooltipTitle="Create Portal Access"
+                                <i class="fe fe-user-plus" nz-tooltip
+                                    nzTooltipTitle="{{'sendPortalAccess' | translate}}"
                                     (click)="$event.stopPropagation(sendAccess(data.Id, data.Email))"></i>
                             </ng-container>
                         </td>
@@ -56,38 +58,42 @@
 </div>
 <!-- Add Modal -->
 <div>
-    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="User Details" (nzOnCancel)="handleCancel()"
-        nzMaskClosable="false">
+    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" nzTitle="{{'User Details' | translate}}"
+        (nzOnCancel)="handleCancel()" nzMaskClosable="false">
         <ng-container *nzModalContent>
             <div class="row">
                 <div class="col-xl-12">
                     <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="handleSubmit()">
                         <nz-form-item class="mt-2">
-                            <nz-form-control nzErrorTip="First Name is requied">
-                                <input type="text" nz-input formControlName="FirstName" placeholder="First Name" />
+                            <nz-form-control nzErrorTip="{{'firstNameError' | translate}}">
+                                <input type="text" nz-input formControlName="FirstName"
+                                    placeholder="{{'firstName' | translate}}" />
                             </nz-form-control>
                         </nz-form-item>
 
                         <nz-form-item>
                             <nz-form-control>
-                                <input type="text" nz-input formControlName="LastName" placeholder="Last Name" />
+                                <input type="text" nz-input formControlName="LastName"
+                                    placeholder="{{'lastName' | translate}}" />
                             </nz-form-control>
                         </nz-form-item>
 
                         <nz-form-item>
                             <nz-form-control>
                                 <input type="text" nz-input formControlName="Status"
-                                    placeholder="Status e.g. Baby Sitter, Grand Parent..." />
+                                    placeholder="{{'status' | translate}} e.g. Baby Sitter, Grand Parent..." />
                             </nz-form-control>
                         </nz-form-item>
 
                         <nz-form-item>
                             <nz-form-control [nzErrorTip]="EmailTpl">
-                                <input type="email" nz-input formControlName="Email" placeholder="Email Address" />
+                                <input type="email" nz-input formControlName="Email"
+                                    placeholder="{{'email' | translate}}" />
                                 <ng-template #EmailTpl>
-                                    <ng-container *ngIf="Email.hasError('required')">Email is required!</ng-container>
+                                    <ng-container *ngIf="Email.hasError('required')">{{'emailError' | translate}}
+                                    </ng-container>
                                     <ng-container *ngIf="Email.hasError('pattern') && !Email.hasError('required')">
-                                        Please enter valid email
+                                        {{'emailError' | translate}}
                                         address e.g abc@xyz.com</ng-container>
                                 </ng-template>
                             </nz-form-control>
@@ -95,14 +101,15 @@
 
                         <nz-form-item>
                             <nz-form-control>
-                                <input type="email" nz-input formControlName="PhoneNo" placeholder="Phone Number" />
+                                <input type="email" nz-input formControlName="PhoneNo"
+                                    placeholder="{{'phoneNo' | translate}}" />
                             </nz-form-control>
                         </nz-form-item>
 
                         <nz-form-item>
                             <nz-form-control>
                                 <textarea type="text" nz-input formControlName="Address"
-                                    placeholder="Address"></textarea>
+                                    placeholder="{{'address' | translate}}"></textarea>
                             </nz-form-control>
                         </nz-form-item>
 
@@ -110,7 +117,7 @@
                         <nz-form-item>
                             <nz-form-control>
                                 <button nz-button nzType="primary" class="text-center w-100">
-                                    <strong>Save</strong>
+                                    <strong>{{'save' | translate}}</strong>
                                 </button>
                             </nz-form-control>
                         </nz-form-item>

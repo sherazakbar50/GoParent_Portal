@@ -1,5 +1,5 @@
 <div class="col-xl-12 " style="margin: 10px 0px;padding: 0px ;">
-    <button nz-button nzType="primary" (click)="AddNote()">Add note</button>
+    <button nz-button nzType="primary" (click)="AddNote()">{{'Add note' | translate}}</button>
 </div>
 <hr>
 <ng-container *ngIf="listData && listData.length > 0; else noData">
@@ -17,7 +17,8 @@
                             <!-- <p class="text-uppercase text-dark font-size-18 font-weight-bold  ">
                                 CaseName </p> -->
                             <div class="text-uppercase font-weight-bold font-size-18 mb-3">
-                                {{caseNote.ModifiedDate | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A'}}</div>
+                                {{caseNote.ModifiedDate | amFromUtc | amLocal | amDateFormat:'MMMM Do YYYY, h:mm A'}}
+                            </div>
                         </div>
                         <p class="text-gray-5 ml-4">
                             {{caseNote.Note}}

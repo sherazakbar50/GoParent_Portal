@@ -2,57 +2,57 @@
     <strong>Contacts</strong>
     <span class="text-muted"> | {{this.listData.length}} contacts in total</span>
   </div> -->
-  <div>
-    <div class="row mb-2">
-      <div class="col-xl-12">
-        <button nz-button class="float-right" nzType="primary" (click)="AddContact()">Add Contact</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xl-12 ">
-        <nz-table class="card" #filterTable [nzData]="listData"  nzTableLayout="fixed"
-          nzShowSizeChanger [nzPageSize]="pageSize">
-          <thead>
-            <tr>
-              <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
-                [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
-                [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
-                {{ column.name }}
-              </th>
-            </tr>
-          </thead>
-  
-          <tbody>
-            <tr *ngFor="let data of filterTable.data; let i = index;">
-              <td>{{ data.index }}</td>
-              <td>
-                {{ data.Name }}
-              </td>
-              <td>{{ data.Surname }}</td>
-              <td>{{ data.Status }}</td>
-              <td>{{ data.Email }}</td>
-              <td>{{ data.PhoneNo }}</td>
-              <td>{{ data.Address }}</td>
-              <td>
-                <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="Edit Contact"
-                  (click)="$event.stopPropagation(EditContacts(data))" nzTheme="fill" class="text-success"></i>
-                <nz-divider nzType="vertical"></nz-divider>
-                <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="Delete Contact"
-                  (click)="$event.stopPropagation(DeleteContacts(data.Id))" nzTheme="fill" class="text-danger"></i>
-              </td>
-            </tr>
-          </tbody>
-        </nz-table>
-      </div>
+<div>
+  <div class="row mb-2">
+    <div class="col-xl-12">
+      <button nz-button class="float-right" nzType="primary" (click)="AddContact()">{{'addContact' |
+        translate}}</button>
     </div>
   </div>
-  <!-- Add Modal -->
-  <div>
-    <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
-      nzMaskClosable="false">
-      <ng-container *nzModalContent>
-        <app-add-contacts [contactDataSub]="contactObserverSubject"></app-add-contacts> 
-      </ng-container>
-    </nz-modal>
+  <div class="row">
+    <div class="col-xl-12 ">
+      <nz-table class="card" #filterTable [nzData]="listData" nzTableLayout="fixed" nzShowSizeChanger
+        [nzPageSize]="pageSize">
+        <thead>
+          <tr>
+            <th *ngFor="let column of listOfColumns" [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+              [nzSortDirections]="column.sortDirections" [nzFilterMultiple]="column.filterMultiple"
+              [nzFilters]="column.listOfFilter" [nzFilterFn]="column.filterFn">
+              {{ column.name }}
+            </th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let data of filterTable.data; let i = index;">
+            <td>{{ data.index }}</td>
+            <td>
+              {{ data.Name }}
+            </td>
+            <td>{{ data.Surname }}</td>
+            <td>{{ data.Status }}</td>
+            <td>{{ data.Email }}</td>
+            <td>{{ data.PhoneNo }}</td>
+            <td>{{ data.Address }}</td>
+            <td>
+              <i nz-icon nzType="edit" nz-tooltip nzTooltipTitle="{{'editContact' | translate}}"
+                (click)="$event.stopPropagation(EditContacts(data))" nzTheme="fill" class="text-success"></i>
+              <nz-divider nzType="vertical"></nz-divider>
+              <i nz-icon nzType="delete" nz-tooltip nzTooltipTitle="{{'deleteContact' | translate}}"
+                (click)="$event.stopPropagation(DeleteContacts(data.Id))" nzTheme="fill" class="text-danger"></i>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
   </div>
-  
+</div>
+<!-- Add Modal -->
+<div>
+  <nz-modal [nzFooter]="null" [(nzVisible)]="isVisible" [nzTitle]="modalTitle" (nzOnCancel)="handleCancel()"
+    nzMaskClosable="false">
+    <ng-container *nzModalContent>
+      <app-add-contacts [contactDataSub]="contactObserverSubject"></app-add-contacts>
+    </ng-container>
+  </nz-modal>
+</div>

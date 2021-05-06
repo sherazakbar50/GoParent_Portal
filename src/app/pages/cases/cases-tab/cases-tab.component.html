@@ -1,50 +1,50 @@
 <div class="card">
   <div class="card-body">
     <nz-tabset [nzSelectedIndex]="0" [nzSize]="'large'">
-      <nz-tab nzTitle="Notes" *ngIf="user.UserRole === 'Lawyer'">
+      <nz-tab nzTitle="{{'Notes' | translate}}" *ngIf="user.UserRole === 'Lawyer'">
         <ng-template nz-tab>
           <app-note-tab [caseId]="caseId"></app-note-tab>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Time" *ngIf="user.UserRole === 'Lawyer'">
+      <nz-tab nzTitle="{{'Time' | translate}}" *ngIf="user.UserRole === 'Lawyer'">
         <ng-template nz-tab>
           <app-time-tab [caseId]="caseId"></app-time-tab>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Documents">
+      <nz-tab nzTitle="{{'Documents' | translate}}">
         <ng-template nz-tab>
           <app-view-folder [caseId]="caseId"></app-view-folder>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Messages">
+      <nz-tab nzTitle="{{'Messages' | translate}}">
         <ng-template nz-tab>
           <app-family-chat [caseId]="caseId"></app-family-chat>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Journal">
+      <nz-tab nzTitle="{{'Journal' | translate}}">
         <ng-template nz-tab>
           <app-family-journal-chat [caseId]="caseId"></app-family-journal-chat>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Calendar">
+      <nz-tab nzTitle="{{'Calendar' | translate}}">
         <ng-template nz-tab>
           <app-view-calendar [caseId]="caseId"></app-view-calendar>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Requests">
+      <nz-tab nzTitle="{{'Requests' | translate}}">
         <ng-template nz-tab>
           <h5 class="mb-4">
-            <strong>Change Requests</strong>
+            <strong>{{'changeRequest' | translate}}</strong>
           </h5>
           <app-change-request [caseId]="caseId"></app-change-request>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Expenses">
+      <nz-tab nzTitle="{{'Expenses' | translate}}">
         <ng-template nz-tab>
           <app-expenses-list [caseId]="caseId"></app-expenses-list>
         </ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Agreements">
+      <nz-tab nzTitle="{{'Agreements' | translate}}">
         <ng-template nz-tab>
           <div class="col-md-12">
             <app-agreements [caseId]="caseId"></app-agreements>

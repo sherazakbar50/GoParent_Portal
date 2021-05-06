@@ -4,6 +4,7 @@ import { Subject, Subscription, BehaviorSubject } from 'rxjs'
 import { ContactDTO } from 'src/app/models/ContactsDTO'
 import { ContactsService } from 'src/app/services/APIServices/contacts.service'
 import { NzNotificationPlacement, NzNotificationService } from 'ng-zorro-antd/notification'
+import { TranslateService } from '@ngx-translate/core'
 declare var require
 const Swal = require('sweetalert2')
 @Component({
@@ -21,8 +22,30 @@ export class ViewContactsComponent implements OnInit {
   contactObserverSubject: BehaviorSubject<ContactDTO> = new BehaviorSubject(null)
   listOfColumns: any[] = []
   @ViewChild('filterTable') filterTable: NzTableData
+  name: any
+  surname: any
+  status: any
+  email: any
+  phoneNo: any
+  address: any
+  action: any
 
-  constructor(private _contactService: ContactsService, private _notifiy: NzNotificationService) {}
+  constructor(
+    private _contactService: ContactsService,
+    private _notifiy: NzNotificationService,
+    private translate: TranslateService,
+  ) {
+    this.translate.get(['name', 'surname', 'status', 'email', 'phoneNo', 'address', 'action'])
+      .subscribe(translations => {
+        this.name = translations['name'];
+        this.surname = translations['surname'];
+        this.status = translations['status'];
+        this.email = translations['email'];
+        this.phoneNo = translations['phoneNo'];
+        this.address = translations['address'];
+        this.action = translations['action']
+      });
+  }
 
   ngOnInit(): void {
     this.listOfColumns = this.createTableColumnHeaders()
@@ -49,43 +72,43 @@ export class ViewContactsComponent implements OnInit {
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Name',
+        name: this.name,
         sortOrder: null,
         sortFn: (a: ContactDTO, b: ContactDTO) => a.Name.localeCompare(b.Name),
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Surname',
+        name: this.surname,
         sortOrder: null,
         sortFn: (a: ContactDTO, b: ContactDTO) => a.Surname.localeCompare(b.Surname),
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Status',
+        name: this.status,
         sortOrder: null,
         sortFn: (a: ContactDTO, b: ContactDTO) => a.Status.localeCompare(b.Status),
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Email',
+        name: this.email,
         sortOrder: null,
         sortFn: (a: ContactDTO, b: ContactDTO) => a.Email.localeCompare(b.Email),
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Phone No',
+        name: this.phoneNo,
         sortOrder: null,
         sortFn: (a: ContactDTO, b: ContactDTO) => a.PhoneNo.localeCompare(b.PhoneNo),
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Address',
+        name: this.address,
         sortOrder: null,
         sortFn: (a: ContactDTO, b: ContactDTO) => a.Address.localeCompare(b.Address),
         sortDirections: ['ascend', 'descend', null],
       },
       {
-        name: 'Actions',
+        name: this.action,
       },
     ]
   }

@@ -29,12 +29,11 @@
         <nz-divider></nz-divider>
         <div class="text-align-end">
             <button nz-button nzType="primary" [nzSize]="'small'" (click)="editCustody()">
-                <strong> Edit</strong>
+                <strong>{{'edit' | translate}}</strong>
             </button>
             &nbsp;
-
             <button nz-button nzType="primary" nzDanger [nzSize]="'small'" (click)="deleteCustody()">
-                <strong> Delete</strong>
+                <strong>{{'delete' | translate}}</strong>
             </button>
         </div>
     </ng-container>

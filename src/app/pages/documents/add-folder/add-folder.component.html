@@ -1,22 +1,20 @@
-
 <div class="col-xl-12">
-    <form nz-form [nzLayout]="'vertical'"
-     role="form" [formGroup]="form" (ngSubmit)="handleSubmit()" #formDirective="ngForm" novalidate>
-        <nz-form-item>
-          <nz-form-control  [nzErrorTip]="NameTpl">
-            <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="Folder Name" />
-           <ng-template #NameTpl>
-              <ng-container *ngIf="IsSubmitted && Name.hasError('required')">Folder Name is Required!</ng-container>
-            </ng-template>
-          </nz-form-control> 
-        </nz-form-item>
-        <nz-form-item>
-            <nz-form-control>
-                <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
-                    <strong> Save</strong>
-                </button>
-            </nz-form-control>
-        </nz-form-item>
-    </form>
-  </div>
-  
+  <form nz-form [nzLayout]="'vertical'" role="form" [formGroup]="form" (ngSubmit)="handleSubmit()"
+    #formDirective="ngForm" novalidate>
+    <nz-form-item>
+      <nz-form-control [nzErrorTip]="NameTpl">
+        <input type="text" nz-input nzSize="large" formControlName="Name" placeholder="{{'forlderName' | translate}}" />
+        <ng-template #NameTpl>
+          <ng-container *ngIf="IsSubmitted && Name.hasError('required')">Folder Name is Required!</ng-container>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" [nzSize]="'large'" class="text-center w-100">
+          <strong> {{'save' | translate}}</strong>
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</div>

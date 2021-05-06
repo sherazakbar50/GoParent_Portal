@@ -2,19 +2,14 @@
   <div class="text-center mb-5">
     <img src="assets/images/logo.svg" alt="GoParent" width="150">
     <h1 class="px-3">
-      <strong>Welcome to {{logo}}</strong>
+      <strong>{{'welcome' | translate}}</strong>
     </h1>
-    <p class="">
-      An excellent <b>Child Custody</b> and <b>Co-Parenting </b>App help parents to manage child custody schedules and co-parenting information.
-      Save money. Stay out of court. Make better decisions for your kids
-      <!-- <br /> -->
-      <!-- Credentials for testing purposes - <strong>demo@sellpixels.com</strong> /
-      <strong>demo123</strong> -->
+    <p class="" [innerHTML]="'anExcellent' | translate">
     </p>
   </div>
   <div class="card boxContainer">
     <div class="text-dark font-size-24 mb-3">
-      <strong>Sign in to your account</strong>
+      <strong>{{'signInTo' | translate}}</strong>
     </div>
     <div class="mb-4">
       <!-- <nz-radio-group [ngModel]="authProvider" (ngModelChange)="setProvider($event)">
@@ -28,31 +23,32 @@
     </div>
     <form nz-form [nzLayout]="'vertical'" [formGroup]="form" (ngSubmit)="submitForm()" role="form">
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter a valid email address!">
-          <input type="text" nz-input formControlName="email" nzSize="large" placeholder="Email Address" />
+        <nz-form-control nzErrorTip="{{ 'emailError' | translate }}">
+          <input type="text" nz-input formControlName="email" nzSize="large" placeholder="{{'email' | translate}}" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
-        <nz-form-control nzErrorTip="Please enter your Password!">
-          <input type="password" nz-input nzSize="large" formControlName="password" placeholder="Password" />
+        <nz-form-control nzErrorTip="{{ 'emailError' | translate }}">
+          <input type="password" nz-input nzSize="large" formControlName="password"
+            placeholder="{{'password' | translate}}" />
         </nz-form-control>
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="primary" [nzSize]="'large'" [nzLoading]="loading" class="text-center w-100">
-            <strong> Log In</strong>
+            <strong> {{'login' | translate}}</strong>
           </button>
         </nz-form-control>
       </nz-form-item>
     </form>
     <a routerLink="/auth/forgot-password" class="kit__utils__link font-size-16">
-      Forgot password?
+      {{'forgotPassword' | translate}}
     </a>
   </div>
   <div class="text-center pt-2 mb-auto">
-    <span class="mr-2">Don't have an account?</span>
+    <span class="mr-2">{{'dontHaveAccount' | translate}}</span>
     <a routerLink="/auth/register" class="kit__utils__link font-size-16">
-      Sign up
+      {{'signUp' | translate}}
     </a>
   </div>
 </div>
